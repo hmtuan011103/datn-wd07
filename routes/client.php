@@ -15,7 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('admin.pages.home.index', [
-        'title' => 'Quản trị chiến thắng'
-    ]);
+    return "This is admin";
 });
