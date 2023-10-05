@@ -51,15 +51,12 @@ class BaseLocationController extends Controller
     {
         try {
             $result = $this->locationService->index();
-
             if ($result) {
                 return $this->successResponse($result, 'Lấy dữ liệu địa điểm thành công');
             }
 
             return $this->emptyResponse('Dữ liệu đang bị trống');
-
         } catch (\Exception $exception) {
-
             $this->logError($exception, 'Có lỗi xảy ra trong phương thức index');
             return $this->errorResponse('Xảy ra lỗi khi lấy dữ liệu');
         }
