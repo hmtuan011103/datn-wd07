@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
+            $table->text('description')->nullable();
+            $table->string('image')->nullable();
+            $table->string('name');
+            $table->integer('parent_id')->nullable();
+            // Timestamps for created_at and updated_at columns
             $table->timestamps();
         });
     }
