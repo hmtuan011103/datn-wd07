@@ -3,6 +3,7 @@
 use App\Http\Controllers\Locations\Admin\LocationController;
 use App\Http\Controllers\Locations\Admin\Role_permission;
 use App\Http\Controllers\Locations\Admin\RoleController;
+use App\Http\Controllers\PermissionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,13 @@ Route::get('/', function () {
     return view('admin.pages.home.index', [
         'title' => 'Quản trị chiến thắng'
     ]);
+});
+Route::prefix('permission')->group(function () {
+    Route::get('/', [PermissionController::class, 'list'])->name('listPermission');
+    Route::post('save_permissions',[PermissionController::class,'add'])->name('addPermission');
+    Route::get('edit/{id}',[PermissionController::class,'edit'])->name('editPermission');
+    Route::post('save_edit/{id}',[PermissionController::class,'save_edit'])->name('saveEditPermission');
+    Route::get('delete/{id}',[PermissionController::class,'delete'])->name('deletePermission');
 });
 
 Route::group(['prefix' => 'role'], function () {
