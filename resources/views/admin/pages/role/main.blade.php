@@ -96,7 +96,7 @@
                                                                 </div>
                                                                 <div class="remove">
                                                                    <a href="{{route('delete_role',['id'=>$role->id])}}" onclick="return confirm('Bạn có chắc chắn muốn xóa Vai trò này')"><button class="btn btn-sm btn-danger remove-item-btn"
-                                                                        >Remove</button></a> 
+                                                                        >Remove</button></a>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -138,7 +138,7 @@
                 </div>
                 <!-- end row -->
 
-                
+
                 <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -173,6 +173,6 @@
         </div>
         <!-- End Page-content -->
 
-    </div>    
+    </div>
 @endsection
 

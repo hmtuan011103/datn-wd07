@@ -1,3 +1,5 @@
+@extends('admin.pages.permission.index')
+@section('content')
 <div class="main-content">
 
     <div class="page-content">
@@ -33,7 +35,7 @@
                                 <div class="row g-4 mb-3">
                                     <div class="col-sm-auto">
                                         <div>
-                                            <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Add</button>
+                                            <a class="btn btn-success add-btn" href="{{route('add')}}">Add <i class="ri-add-line align-bottom me-1"></i></a>
                                             <button class="btn btn-soft-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
                                         </div>
                                     </div>
@@ -72,11 +74,11 @@
                                                     </div>
                                                 </th>
                                                 <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a></td>
-                                                <td class="customer_name">{{$per->id}}</td>
-                                                <td class="customer_name">{{$per->name}}</td>
+                                                <td class="phone">{{$per->id}}</td>
+                                                <td class="date">{{$per->name}}</td>
                                                 <td class="email">{{$per->description}}</td>
                                                 <td>
-                                                   <?php foreach($permissions as $pers) : ?>
+                                                   <?php foreach($permission as $pers) : ?>
                                                         <?php if($per['parent_id'] == $pers['id']) : ?>
                                                             <?= $pers['name'] ?>
                                                         <?php endif ?>
@@ -147,13 +149,13 @@
 
                                 <div class="mb-3">
                                     <label for="customername-field" class="form-label">Name</label>
-                                    <input type="text" name="name" id="customername-field" class="form-control" placeholder="Enter Name Permission" required />
-                                    <div class="invalid-feedback">Please enter a customer name.</div>
+                                    <input type="text" name="name" id="customername-field" class="form-control" placeholder="Enter Name Permission"  />
+
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="email-field" class="form-label">Description</label>
-                                    <input type="text" name="description" id="email-field" class="form-control" placeholder="Enter Description" required />
+                                    <input type="text" name="description" id="email-field" class="form-control" placeholder="Enter Description"/>
                                     <div class="invalid-feedback">Please enter an email.</div>
                                 </div>
                                 <div class="mb-3">
@@ -173,30 +175,6 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal -->
-            <div class="modal fade zoomIn" id="deleteRecordModal"  aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="mt-2 text-center">
-                                <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
-                                <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
-                                    <h4>Are you Sure ?</h4>
-                                    <p class="text-muted mx-4 mb-0">Are you Sure You want to Remove this Record ?</p>
-                                </div>
-                            </div>
-                            <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
-                                <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn w-sm btn-danger " id="delete-record">Yes, Delete It!</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -222,3 +200,4 @@
         </div>
     </footer>
 </div>
+@endsection
