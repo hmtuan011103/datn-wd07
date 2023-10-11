@@ -5,7 +5,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title mb-0">Danh sách loại người dùng</h4>
+                            <h4 class="card-title mb-0">Danh sách người dùng</h4>
                         </div><!-- end card header -->
 
                         <div class="card-body">
@@ -13,7 +13,7 @@
                                 <div class="row g-4 mb-3">
                                     <div class="col-sm-auto">
                                         <div>
-                                            <a href="{{ route('type_users.create') }}" class="btn btn-success add-btn">
+                                            <a href="{{ route('users.create') }}" class="btn btn-success add-btn">
                                                 <i class="ri-add-line align-bottom me-1"></i>
                                                 Thêm mới
                                             </a>
@@ -36,7 +36,8 @@
                                             <thead class="table-light">
                                                 <tr>
                                                     <th></th>
-                                                    <th>Loại người dùng</th>
+                                                    <th>Tên</th>
+                                                    <th>Email</th>
                                                     <th>Ngày tạo</th>
                                                     <th>Chỉnh sửa lần cuối</th>
                                                     <th>Hành động</th>
@@ -47,13 +48,21 @@
                                                     <tr>
                                                         <td></td>
                                                         <td>{{ $item->name }}</td>
+                                                        <td>{{ $item->email }}</td>
                                                         <td>{{ helperFormatTime($item->created_at) ?? 'Trống' }}</td>
                                                         <td>{{ helperFormatTime($item->updated_at) ?? 'Trống' }}</td>
 
                                                         <td>
                                                             <div class="d-flex gap-2">
+                                                                <div class="view-detail">
+                                                                    <a href="{{ route('users.show', ['user' => $item->id]) }}"
+                                                                        class="btn btn-sm btn-secondary">
+                                                                        Chi tiết
+                                                                    </a>
+                                                                </div>
+
                                                                 <div class="edit">
-                                                                    <a href="{{ route('type_users.edit', ['type_user' => $item->id]) }}"
+                                                                    <a href="{{ route('users.edit', ['user' => $item->id]) }}"
                                                                         class="btn btn-sm btn-success edit-item-btn">
                                                                         Sửa
                                                                     </a>
@@ -61,7 +70,7 @@
 
                                                                 <div class="remove">
                                                                     <form
-                                                                        action="{{ route('type_users.destroy', ['type_user' => $item->id]) }}"
+                                                                        action="{{ route('users.destroy', ['user' => $item->id]) }}"
                                                                         method="POST"
                                                                         id="deleteForm{{ $item->id }}">
                                                                         @csrf

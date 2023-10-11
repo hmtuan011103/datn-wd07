@@ -4,7 +4,6 @@ namespace App\Http\Controllers\TypeUser\Admin;
 
 use App\Http\Controllers\TypeUser\BaseTypeUserController;
 use App\Http\Requests\TypeUser\StoreTypeUserRequest;
-use Illuminate\Http\Request;
 
 class TypeUserController extends BaseTypeUserController
 {
@@ -17,9 +16,9 @@ class TypeUserController extends BaseTypeUserController
 
         $query = $this->typeUserService->getAllPaginate();
 
-        $typeUserData = $query['data'];
+        $data = $query['data'];
 
-        return view('admin.pages.type_user.index', compact('title', 'typeUserData'));
+        return view('admin.pages.type_user.index', compact('title', 'data'));
     }
 
     /**
@@ -29,9 +28,9 @@ class TypeUserController extends BaseTypeUserController
     {
         $title = 'Thêm mới loại người dùng';
         $pageViewInfo = 'admin.pages.type_user.create';
-        $data = $this->typeUserService->getAll()->getData()->data;
+        $allTypeUserData = $this->typeUserService->getAll()->getData()->data;
 
-        return view('admin.pages.type_user.index', compact('title', 'pageViewInfo', 'data'));
+        return view('admin.pages.type_user.index', compact('title', 'pageViewInfo', 'allTypeUserData'));
     }
 
     /**
@@ -69,11 +68,11 @@ class TypeUserController extends BaseTypeUserController
             return back();
         }
 
-        $typeUserData = $query->getData()->data;
+        $data = $query->getData()->data;
 
-        $data = $this->typeUserService->getAll()->getData()->data;
+        $allTypeUserData = $this->typeUserService->getAll()->getData()->data;
 
-        return view('admin.pages.type_user.index', compact('title', 'pageViewInfo', 'typeUserData', 'data'));
+        return view('admin.pages.type_user.index', compact('title', 'pageViewInfo', 'data', 'allTypeUserData'));
     }
 
     /**
@@ -109,6 +108,6 @@ class TypeUserController extends BaseTypeUserController
             toastr()->error('Xóa thất bại!', 'Thất bại');
         }
 
-        return back();
+        return redirect()->route('type_users.index');
     }
 }

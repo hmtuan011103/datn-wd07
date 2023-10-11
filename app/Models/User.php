@@ -21,6 +21,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'user_type_id',
+        'phone_number',
+        'address',
+        'description'
     ];
 
     /**
@@ -42,4 +46,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // Define the inverse one-to-many relationship with the TypeUser model
+    public function typeUser()
+    {
+        return $this->belongsTo(TypeUser::class, 'user_type_id');
+    }
 }

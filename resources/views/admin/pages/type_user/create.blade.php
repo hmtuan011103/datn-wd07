@@ -34,7 +34,7 @@
 
                                 <div class="row g-3">
                                     <label class="form-label">Danh sách hiện tại:</label>
-                                    @foreach ($data as $item)
+                                    @foreach ($allTypeUserData as $item)
                                         <div class="col text-center btn btn-outline-warning m-2">{{ $item->name }}</div>
                                     @endforeach
                                 </div>

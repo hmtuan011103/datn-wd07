@@ -46,4 +46,5 @@ Route::group(['prefix' => 'role_permission'], function () {
     // // Route::get('/details/{id}', 'NotificationController@notification_details');
 });
 
+Route::resource('users', \App\Http\Controllers\User\Admin\UserController::class);
 Route::resource('type_users', \App\Http\Controllers\TypeUser\Admin\TypeUserController::class)->except('show');
