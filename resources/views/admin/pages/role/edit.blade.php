@@ -1,74 +1,121 @@
 @extends('admin.pages.role.index')
 @section('content')
-<div class="main-content">
+    <div class="main-content">
 
-    <div class="page-content">
-        <div class="container-fluid">
+        <div class="page-content">
+            <div class="container-fluid">
 
-            <!-- start page title -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">Sửa Role</h4>
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                            <h4 class="mb-sm-0">Sửa Vai trò</h4>
 
-                        <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                                <li class="breadcrumb-item active">Sửa Roles</li>
-                            </ol>
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
+                                    <li class="breadcrumb-item active">Sửa Vai trò</li>
+                                </ol>
+                            </div>
+
                         </div>
-
                     </div>
                 </div>
-            </div>
-            <!-- end page title -->
+                <!-- end page title -->
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title mb-0">Sửa Role</h4>
-                        </div><!-- end card header -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title mb-0">Sửa Vai trò</h4>
+                            </div><!-- end card header -->
 
-                        <div class="card-body">
-                            <form action="{{ route('edit_role',['id' => $role->id]) }}" method="POST">
-                                @csrf
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        <label for="customername-field" class="form-label">Name</label>
-                                        <input type="text" class="form-control" name="name" value=" {{$role->name}} "/>
+                            <div class="card-body">
+                                <form action="{{ route('update_role', ['id' => $role->id]) }}" method="POST">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="customername-field" class="form-label">Tên</label>
+                                            <input type="text" class="form-control" name="name"
+                                                value=" {{ $role->name }} " />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="email-field" class="form-label">Mô tả</label>
+                                            <input type="text" class="form-control" name="description"
+                                                value=" {{ $role->description }} " />
+                                        </div>
+                                        <div>
+                                            <label for="">Quyền</label>
+                                            <div id="treeview_container" class="hummingbird-treeview">
+                                                <ul id="treeview" class="hummingbird-base">
+                                                    @foreach ($permission as $per)
+                                                        <li data-id="0">
+
+                                                            @if (App\Models\Permission::where(['parent_id' => $per->id])->count() == 0)
+                                                                <i class="fa fa-minus"></i>
+                                                            @else
+                                                                <i class="fa fa-plus"></i>
+                                                            @endif
+                                                            <label>
+                                                                <input id="xnode-0" data-id="custom-0" type="checkbox"
+                                                                    name="permission[]" value=" {{ $per->id }} "
+                                                                    {{ $role->permission->contains($per->id) ? 'checked' : '' }} />
+                                                                {{ $per->name }}
+                                                            </label>
+
+                                                            <ul>
+                                                                @foreach (App\Models\Permission::where(['parent_id' => $per->id])->get() as $permission)
+                                                                    <li data-id="1">
+                                                                        <label>
+                                                                            <input id="xnode-0-1" data-id="custom-0-1"
+                                                                                type="checkbox" name="permission[]"
+                                                                                value="{{ $permission->id }}"
+                                                                                {{ $role->permission->contains($permission->id) ? 'checked' : '' }} />
+                                                                            {{ $permission->name }}
+                                                                        </label>
+                                                                        <ul>
+                                                                            <li>
+                                                                                <label>
+                                                                                    <input class="hummingbird-end-node"
+                                                                                        id="xnode-0-2-1"
+                                                                                        data-id="custom-0-2-1"
+                                                                                        type="checkbox" />
+                                                                                </label>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </li>
+                                                    @endforeach
+
+                                                </ul>
+                                            </div>
+                                        </div>
+
                                     </div>
-                            
-                                    <div class="mb-3">
-                                        <label for="email-field" class="form-label">Description</label>
-                                        <input type="text" class="form-control" name="description" value=" {{$role->description}} "/>
-                                    </div>
-                            
-                            
-                                </div>
-                                
+
                                     <div class="hstack gap-2 justify-content-end">
-                                        <button type="button" class="btn btn-light"
-                                            >Danh sách</button>
+                                        <a href="{{ route('list_role') }}"><button type="button" class="btn btn-light">Danh
+                                                sách</button></a>
                                         <button type="submit" class="btn btn-success">Cập nhật</button>
                                         <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
                                     </div>
-                                
-                            </form>
-                        </div><!-- end card -->
+
+                                </form>
+                            </div><!-- end card -->
+                        </div>
+                        <!-- end col -->
                     </div>
                     <!-- end col -->
                 </div>
-                <!-- end col -->
+                <!-- end row -->
+
             </div>
-            <!-- end row -->
-
+            <!-- container-fluid -->
         </div>
-        <!-- container-fluid -->
+        <!-- End Page-content -->
+
     </div>
-    <!-- End Page-content -->
-
-</div>
 @endsection
-
-

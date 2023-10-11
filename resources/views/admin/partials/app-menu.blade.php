@@ -354,6 +354,21 @@
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
+                        <i class="mdi mdi-account-circle-outline"></i> <span data-key="t-authentication">Phân quyền</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarAuth">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{route('list_role')}}" class="nav-link" data-key="t-analytics"> Vai trò </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('listPermission')}}" class="nav-link" data-key="t-crm"> Quyền </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </div>
         <!-- Sidebar -->

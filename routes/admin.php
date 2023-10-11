@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\Locations\Admin\LocationController;
 use App\Http\Controllers\Locations\Admin\Role_permission;
-use App\Http\Controllers\Locations\Admin\RoleController;
+use App\Http\Controllers\Role\Admin\RoleController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RolePermission\Admin\RolePermissionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,16 +32,15 @@ Route::prefix('permission')->group(function () {
 
 Route::group(['prefix' => 'role'], function () {
     Route::get('/list_role', [RoleController::class, 'list'])->name('list_role');
-    Route::match(['GET','POST'],'/add_role', [RoleController::class, 'add'])->name('add_role');
-    Route::match(['GET','POST'],'/edit_role/{id}', [RoleController::class, 'edit'])->name('edit_role');
+    Route::get('/add_role', [RoleController::class, 'add'])->name('add_role');
+    Route::post('/post_add_role', [RoleController::class, 'store'])->name('post_add_role');
+    Route::get('/edit_role/{id}', [RoleController::class, 'edit'])->name('edit_role');
+    Route::post('/post_edit_role/{id}', [RoleController::class, 'update'])->name('update_role');
     Route::get('/delete_role/{id}', [RoleController::class, 'delete'])->name('delete_role');
-    // Route::get('/details/{id}', 'NotificationController@notification_details');
 });
 
 Route::group(['prefix' => 'role_permission'], function () {
-    // Route::get('/list', [RoleController::class, 'list'])->name('list_role');
-    Route::match(['GET','POST'],'/add_role_permission', [Role_permission::class, 'add'])->name('add_role_permission');
-    // Route::match(['GET','POST'],'/edit/{id}', [RoleController::class, 'edit'])->name('edit_role');
-    // Route::get('/delete/{id}', [RoleController::class, 'delete'])->name('delete_role');
-    // // Route::get('/details/{id}', 'NotificationController@notification_details');
+    Route::get('/list_role_permission', [RoleController::class, 'index'])->name('list_role_permission');
+    Route::get('/api/details/{id}', [RoleController::class, 'details'])->name('role_permission_details');
+    Route::get('/api/get_permission/{id}', [RoleController::class, 'getPermission'])->name('get_permission_api');
 });
