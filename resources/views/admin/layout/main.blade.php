@@ -19,12 +19,6 @@
         .error-help-block {
             color: red;
         }
-        #toast-container{
-            z-index: 999999999999999999999999999999999999 !important;
-            position: relative !important;
-            top: 50% !important;
-            left: 50% !important;
-    }
     </style>
 </head>
 

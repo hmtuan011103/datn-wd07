@@ -35,7 +35,7 @@
                                 <div class="row g-4 mb-3">
                                     <div class="col-sm-auto">
                                         <div>
-                                            <a class="btn btn-success add-btn" href="{{route('add')}}">Add <i class="ri-add-line align-bottom me-1"></i></a>
+                                            <a class="btn btn-success add-btn" href="{{route('add_permission')}}">Add <i class="ri-add-line align-bottom me-1"></i></a>
                                             <button class="btn btn-soft-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
                                         </div>
                                     </div>
@@ -78,7 +78,7 @@
                                                 <td class="date">{{$per->name}}</td>
                                                 <td class="email">{{$per->description}}</td>
                                                 <td>
-                                                   <?php foreach($permission as $pers) : ?>
+                                                   <?php foreach($permissions as $pers) : ?>
                                                         <?php if($per['parent_id'] == $pers['id']) : ?>
                                                             <?= $pers['name'] ?>
                                                         <?php endif ?>
@@ -89,11 +89,11 @@
                                                     <div class="d-flex gap-2">
                                                         <div class="edit">
                                                             {{-- <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">Edit</button> --}}
-                                                            <a href="{{route('editPermission',['id'=>$per->id])}}" class="btn btn-success btn-sm edit-item-btn" >Edit</a>
+                                                            <a href="{{route('edit_permission',['id'=>$per->id])}}" class="btn btn-success btn-sm edit-item-btn" >Edit</a>
                                                         </div>
                                                         <div class="remove">
                                                             {{-- <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button> --}}
-                                                            <a href="{{route('deletePermission',['id'=>$per->id])}}"  OnClick='return confirm("Bạn có chắc muốn xóa không ?")' class="btn btn-sm btn-danger remove-item-btn" >Remove</a>
+                                                            <a href="{{route('delete_permission',['id'=>$per->id])}}"  OnClick='return confirm("Bạn có chắc muốn xóa không ?")' class="btn btn-sm btn-danger remove-item-btn" >Remove</a>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -132,53 +132,7 @@
             </div>
             <!-- end row -->
 
-            <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header bg-light p-3">
-                            <h5 class="modal-title" id="exampleModalLabel"></h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
-                        </div>
-                        <form class="tablelist-form" autocomplete="off" method="POST" action="{{route('addPermission')}}">
-                            @csrf
-                            <div class="modal-body">
-                                <div class="mb-3" id="modal-id" style="display: none;">
-                                    <label for="id-field" class="form-label">ID</label>
-                                    <input type="text" id="id-field" class="form-control" placeholder="ID" readonly />
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="customername-field" class="form-label">Name</label>
-                                    <input type="text" name="name" id="customername-field" class="form-control" placeholder="Enter Name Permission"  />
-
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="email-field" class="form-label">Description</label>
-                                    <input type="text" name="description" id="email-field" class="form-control" placeholder="Enter Description"/>
-                                    <div class="invalid-feedback">Please enter an email.</div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="email-field" class="form-label">Parent permission</label>
-                                        <select class="form-select form-select-md" name="parent_id">
-                                            <option selected ></option>
-                                              @foreach($permissions as $per)
-                                                <option value="<?= $per->id ?>"><?= $per->name ?></option>
-                                             @endforeach
-                                        </select>
-                                </div>
-                            <div class="modal-footer">
-                                <div class="hstack gap-2 justify-content-end">
-                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-success" id="add-btn">Add Permission</button>
-                                    <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!--end modal -->
+      
 
         </div>
         <!-- container-fluid -->

@@ -23,12 +23,12 @@ Route::get('/', function () {
     ]);
 });
 Route::prefix('permission')->group(function () {
-    Route::get('/', [PermissionController::class, 'list'])->name('listPermission');
-    Route::get('add',[PermissionController::class,'add'])->name('add');
-    Route::post('save_add',[PermissionController::class,'store'])->name('addPermission');
-    Route::get('edit/{id}',[PermissionController::class,'edit'])->name('editPermission');
-    Route::post('save_edit/{id}',[PermissionController::class,'save_edit'])->name('saveEditPermission');
-    Route::get('delete/{id}',[PermissionController::class,'delete'])->name('deletePermission');
+    Route::get('/', [PermissionController::class, 'index'])->name('list_permission');
+    Route::get('add',[PermissionController::class,'add'])->name('add_permission');
+    Route::post('save_add',[PermissionController::class,'store'])->name('store_permission');
+    Route::get('edit/{id}',[PermissionController::class,'edit'])->name('edit_permission');
+    Route::post('save_edit/{id}',[PermissionController::class,'update'])->name('update_permission');
+    Route::get('delete/{id}',[PermissionController::class,'delete'])->name('delete_permission');
 });
 Route::prefix('user_role')->group(function () {
     Route::get('/', [UserRoleController::class, 'index'])->name('list_user');

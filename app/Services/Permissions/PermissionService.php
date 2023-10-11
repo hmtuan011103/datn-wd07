@@ -16,7 +16,7 @@ class PermissionService
     {
         if ($request->isMethod('POST')) {
            $params = $request->all();
-           toastr()->success('Data has been saved successfully!', 'Congrats', ['timeOut' => 200000]);
+           toastr()->success('Thêm dữ liệu thành công!', 'Thành Công');
            return Permission::create($params);
         }
     }
@@ -25,6 +25,7 @@ class PermissionService
         if($request->isMethod('POST')){
             $params = $request->all();
             $detail->update($params);
+            toastr()->success('Sửa dữ liệu thành công!', 'Thành Công');
             return $detail;
         }
     }
@@ -33,6 +34,7 @@ class PermissionService
         $delete = Permission::where('id', $id)
         ->orWhere('parent_id', $id)
         ->delete();
+        toastr()->success('Xóa dữ liệu thành công!', 'Thành Công');
         return $delete;
    }
 }

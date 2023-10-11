@@ -28,7 +28,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="live-preview">
-                                <form method="POST" action="{{route('addPermission')}}">
+                                <form method="POST" action="{{route('store_permission')}}">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-12">

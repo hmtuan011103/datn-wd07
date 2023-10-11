@@ -11,7 +11,7 @@ use Yoeunes\Toastr\Facades\Toastr;
 
 class PermissionController extends BasePermissionController
 {
-    public function list()
+    public function index()
     {
         $title = 'Trang phân quyền';
         $permissions = $this->permissionService->index();
@@ -27,7 +27,7 @@ class PermissionController extends BasePermissionController
     {
         $this->permissionService->add($request);
 
-        return redirect()->route('listPermission');
+        return redirect()->route('list_permission');
     }
     public function edit($id)
     {
@@ -36,18 +36,18 @@ class PermissionController extends BasePermissionController
         $permissions = Permission::all();
         return view('admin.pages.permission.edit', compact('permission', 'title', 'permissions'));
     }
-    public function save_edit(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $detail = $this->permissionService->save_edit($request, $id);
         if ($detail) {
-            return redirect()->route('listPermission');
+            return redirect()->route('list_permission');
         }
     }
     public function delete($id)
     {
         $delete = $this->permissionService->delete($id);
         if ($delete) {
-            return redirect()->route('listPermission');
+            return redirect()->route('list_permission');
         }
     }
 }

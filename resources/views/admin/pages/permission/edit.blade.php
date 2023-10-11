@@ -28,7 +28,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="live-preview">
-                                <form action="{{ route('saveEditPermission', ['id' => $permission->id]) }}"
+                                <form action="{{ route('update_permission', ['id' => $permission->id]) }}"
                                     method="POST">
                                     @csrf
                                     <div class="row">
@@ -77,4 +77,7 @@
         </div>
     </div>
 </div>
+@endsection
+@section('validateRequest')
+    {!! JsValidator::formRequest('App\Http\Requests\Permission\UpdatePermissionRequest') !!}
 @endsection
