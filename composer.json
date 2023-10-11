@@ -10,7 +10,9 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
-        "opcodesio/log-viewer": "^3.1"
+        "opcodesio/log-viewer": "^3.1",
+        "proengsoft/laravel-jsvalidation": "^4.8",
+        "yoeunes/toastr": "^2.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.9",
@@ -27,7 +29,11 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "helpers/const.php",
+            "helpers/function.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
