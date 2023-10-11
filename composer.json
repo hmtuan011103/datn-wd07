@@ -15,6 +15,8 @@
         "laravel/tinker": "^2.8",
         "opcodesio/log-viewer": "^3.1",
         "proengsoft/laravel-jsvalidation": "^4.8",
+        "yoeunes/toastr": "^2.3""opcodesio/log-viewer": "^3.1",
+        "proengsoft/laravel-jsvalidation": "^4.8",
         "yoeunes/toastr": "^2.3"
     },
     "require-dev": {
@@ -32,10 +34,7 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        },
-        "files": [
-            "app/Helpers/DateHelper.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {

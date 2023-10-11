@@ -5,6 +5,8 @@ use App\Http\Controllers\Locations\Admin\Role_permission;
 use App\Http\Controllers\Role\Admin\RoleController;
 use App\Http\Controllers\Permissions\Admin\PermissionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TypeCar\Admin\TypeCarController;
+use App\Http\Controllers\Car\Admin\CarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +41,23 @@ Route::group(['prefix' => 'role'], function () {
     Route::get('/edit_role/{id}', [RoleController::class, 'edit'])->name('edit_role');
     Route::post('/post_edit_role/{id}', [RoleController::class, 'update'])->name('update_role');
     Route::get('/delete_role/{id}', [RoleController::class, 'delete'])->name('delete_role');
+});
+Route::prefix('typecar')->group(function () {
+    Route::get('/', [TypeCarController::class, 'index'])->name('index_typecar');
+    Route::get('/create', [TypeCarController::class, 'create'])->name('create_typecar');;
+    Route::post('/store', [TypeCarController::class, 'store'])->name('store_typecar');
+    Route::get('/edit/{id}',[TypeCarController::class,'edit'])->name('edit_typecar');
+    Route::put('/update/{id}', [TypeCarController::class, 'update'])->name('update_typecar');
+    Route::delete('/destroy/{id}', [TypeCarController::class, 'destroy'])->name('destroy_typecar');
+});
+
+Route::prefix('car')->group(function () {
+    Route::get('/', [CarController::class, 'index'])->name('index_car');
+    Route::get('/create', [CarController::class, 'create'])->name('create_car');
+    Route::post('/store', [CarController::class, 'store'])->name('store_car');
+    Route::get('/edit/{id}',[CarController::class,'edit'])->name('edit_car');
+    Route::put('/update/{id}', [CarController::class, 'update'])->name('update_car');
+    Route::delete('/destroy/{id}', [CarController::class, 'destroy'])->name('destroy_car');
 });
 
 Route::group(['prefix' => 'role_permission'], function () {
