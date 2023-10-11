@@ -1,27 +1,27 @@
 <?php
 
-namespace App\Services\TypeUser;
+namespace App\Services\User;
 
-use App\Models\TypeUser as TypeUserModel;
+use App\Models\User as UserModel;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
-class TypeUserService
+class UserService
 {
      protected $model;
 
-     public function __construct(TypeUserModel $typeUserModel)
+     public function __construct(UserModel $userModel)
      {
-          $this->model = $typeUserModel;
+          $this->model = $userModel;
      }
 
      public function getAll()
      {
-          $typeUsers = $this->model->all();
+          $users = $this->model->all();
 
-          $response['data'] = $typeUsers;
+          $response['data'] = $users;
           $response['status'] = ResponseAlias::HTTP_OK;
 
-          if ($typeUsers->isEmpty()) {
+          if ($users->isEmpty()) {
                $response['message'] = 'No data found';
                $response['status'] = ResponseAlias::HTTP_BAD_REQUEST;
           }
@@ -31,12 +31,12 @@ class TypeUserService
 
      public function getAllPaginate($pageSize = 10)
      {
-          $typeUsers = $this->model::orderBy('updated_at', 'desc')->paginate($pageSize);
+          $users = $this->model::orderBy('updated_at', 'desc')->paginate($pageSize);
 
-          $response['data'] = $typeUsers;
+          $response['data'] = $users;
           $response['status'] = ResponseAlias::HTTP_OK;
 
-          if ($typeUsers->isEmpty()) {
+          if ($users->isEmpty()) {
                $response['message'] = 'No data found';
                $response['status'] = ResponseAlias::HTTP_BAD_REQUEST;
           }
@@ -46,15 +46,15 @@ class TypeUserService
 
      public function show($id)
      {
-          $typeUser = $this->model->find($id);
-          $status = $typeUser ? ResponseAlias::HTTP_OK : ResponseAlias::HTTP_BAD_REQUEST;
+          $user = $this->model->find($id);
+          $status = $user ? ResponseAlias::HTTP_OK : ResponseAlias::HTTP_BAD_REQUEST;
 
           $response = [
-               'data' => $typeUser,
+               'data' => $user,
                'status' => $status,
           ];
 
-          if (!$typeUser) {
+          if (!$user) {
                $response['message'] = 'Không tìm thấy!';
           }
 
@@ -64,12 +64,12 @@ class TypeUserService
      public function create($data)
      {
           try {
-               // Create a new TypeUser record
-               $typeUser = $this->model->create($data);
+               // Create a new User record
+               $user = $this->model->create($data);
 
                $response = [
                     'message' => 'Tạo mới thành công.',
-                    'data' => $typeUser,
+                    'data' => $user,
                     'status' => ResponseAlias::HTTP_CREATED,
                ];
 
@@ -86,14 +86,14 @@ class TypeUserService
 
      public function update($data, $id)
      {
-          $typeUser = $this->model->find($id);
+          $user = $this->model->find($id);
 
           $response = [
                'message' => 'Lỗi không dõ!',
                'status' => ResponseAlias::HTTP_BAD_GATEWAY
           ];
 
-          if (!$typeUser) {
+          if (!$user) {
                $response = [
                     'message' => 'Không tìm thấy!',
                     'status' => ResponseAlias::HTTP_NOT_FOUND
@@ -101,13 +101,13 @@ class TypeUserService
                return response()->json($response, $response['status']);
           }
 
-          // Update the TypeUser record
-          $updateAction = $typeUser->update($data);
+          // Update the User record
+          $updateAction = $user->update($data);
 
           if ($updateAction) {
                $response = [
                     'message' => 'Cập nhật thành công.',
-                    'data' => $typeUser,
+                    'data' => $user,
                     'status' => ResponseAlias::HTTP_OK,
                ];
           }
@@ -117,10 +117,10 @@ class TypeUserService
 
      public function destroy($id)
      {
-          $typeUser = $this->model->find($id);
+          $user = $this->model->find($id);
 
-          if ($typeUser) {
-               return $typeUser->delete();
+          if ($user) {
+               return $user->delete();
           }
 
           return false;

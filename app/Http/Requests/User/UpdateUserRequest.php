@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\TypeUser;
+namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class StoreTypeUserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,15 +21,22 @@ class StoreTypeUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => [
-                'required',
-                'max:125',
-                'min:2',
-                Rule::unique('type_users'), // Add this line if 'name' should be unique in the 'type_users' table
-            ],
+        $rules = [
+            'name' => 'required|string|min:2|max:255',
+            'email' => 'required|email|unique:users,email,' . $this->route('user'), // ignore the current user's email
+            'phone_number' => 'required|min:10|max:16',
+            'user_type_id' => 'required|exists:type_users,id',
+            'address' => 'required|max:255',
+            'description' => 'max:600',
             // Add more validation rules for other fields if needed
         ];
+
+        // Check if password is present in the request, if yes, apply password validation rules
+        if ($this->has('password') && !empty($this->input('password'))) {
+            $rules['password'] = 'min:8|confirmed';
+        }
+
+        return $rules;
     }
 
     public function messages(): array
@@ -53,7 +59,6 @@ class StoreTypeUserRequest extends FormRequest
             'confirmed' => 'Trường :attribute xác nhận không khớp.',
             'min' => 'Trường :attribute phải chứa ít nhất :min ký tự.',
             'max' => 'Trường :attribute không được vượt quá :max ký tự.',
-            // Add more custom error messages for other rules if needed
         ];
     }
 }

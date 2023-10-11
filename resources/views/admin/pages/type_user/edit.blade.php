@@ -10,14 +10,14 @@
 
                         <div class="card-body">
                             <form class="row g-3 needs-validation was-validated" method="POST"
-                                action="{{ route('type_users.update', ['type_user' => $typeUserData->id]) }}">
+                                action="{{ route('type_users.update', ['type_user' => $data->id]) }}">
                                 @csrf
                                 @method('PATCH')
 
                                 <div class="col-md-4">
                                     <label for="validationCustom01" class="form-label">Tên loại người dùng</label>
                                     <input type="text" class="form-control" name="name" id="validationCustom01"
-                                        placeholder="Nhân viên..." value="{{ $typeUserData->name }}" required>
+                                        placeholder="Nhân viên..." value="{{ $data->name }}" required>
                                     @error('name')
                                         <div class="invalid-feedback d-inline-block">
                                             {{ $message }}
@@ -34,7 +34,7 @@
 
                                 <div class="row g-3">
                                     <label class="form-label">Danh sách hiện tại:</label>
-                                    @foreach ($data as $item)
+                                    @foreach ($allTypeUserData as $item)
                                         <div class="col text-center btn btn-outline-warning m-2">{{ $item->name }}
                                         </div>
                                     @endforeach

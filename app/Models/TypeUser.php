@@ -16,6 +16,6 @@ class TypeUser extends Model
     // Define the one-to-many relationship with the User model
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'user_type_id');
     }
 }
