@@ -1,4 +1,5 @@
-@extends('admin.layout.main')
+@extends('admin.pages.permission.index')
+@section('content')
 <div class="main-content">
 
     <div class="page-content">
@@ -27,7 +28,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="live-preview">
-                                <form action="{{ route('saveEditPermission', ['id' => $permission->id]) }}"
+                                <form action="{{ route('update_permission', ['id' => $permission->id]) }}"
                                     method="POST">
                                     @csrf
                                     <div class="row">
@@ -49,25 +50,15 @@
                                         <div class="col-md-12">
                                             <label for="email-field" class="form-label">Parent permission</label>
                                             <select class="form-select form-select-md" name="parent_id">
-                                                <option></option>
-                                                {{-- @foreach ($permissions as $per)
-                                                    @if ($per['parent_id'] == $permission['id'])
-
+                                                <option value="0"></option>
+                                                @foreach ($permissions as $per)
+                                                    @if ($permission['parent_id'] == $per['id'])
                                                         <option value="{{ $per['id'] }}" selected>{{ $per['name'] }}</option>
                                                     @else
                                                         <option value="{{ $per['id'] }}">{{ $per['name'] }}</option>
                                                     @endif
-                                                @endforeach --}}
-                                                <?php
-                                                foreach ($permissions as $per) {
-                                                    if ($per->parent_id == $permission->id) {
-                                                        $s = 'selected';
-                                                    } else {
-                                                        $s = '';
-                                                    }
-                                                    echo '<option value=" '. $per->id.' " '.$s.' > '.$per->name.' </option>';
-                                                }
-                                                ?>
+                                                @endforeach
+
                                             </select>
                                         </div>
                                     </div>
@@ -86,3 +77,7 @@
         </div>
     </div>
 </div>
+@endsection
+@section('validateRequest')
+    {!! JsValidator::formRequest('App\Http\Requests\Permission\UpdatePermissionRequest') !!}
+@endsection

@@ -16,7 +16,7 @@
     | library. For a full list of options, visit the documentation.
     |
     */
-    
+
     'options' => [
         'positionClass'     => 'toast-top-right',
         'progressClass'     => 'toast-progress',

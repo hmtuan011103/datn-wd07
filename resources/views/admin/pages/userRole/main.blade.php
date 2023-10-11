@@ -1,5 +1,3 @@
-@extends('admin.pages.permission.index')
-@section('content')
 <div class="main-content">
 
     <div class="page-content">
@@ -32,23 +30,6 @@
 
                         <div class="card-body">
                             <div class="listjs-table" id="customerList">
-                                <div class="row g-4 mb-3">
-                                    <div class="col-sm-auto">
-                                        <div>
-                                            <a class="btn btn-success add-btn" href="{{route('add_permission')}}">Add <i class="ri-add-line align-bottom me-1"></i></a>
-                                            <button class="btn btn-soft-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm">
-                                        <div class="d-flex justify-content-sm-end">
-                                            <div class="search-box ms-2">
-                                                <input type="text" class="form-control search" placeholder="Search...">
-                                                <i class="ri-search-line search-icon"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div class="table-responsive table-card mt-3 mb-1">
                                     <table class="table align-middle table-nowrap" id="customerTable">
                                         <thead class="table-light">
@@ -59,14 +40,12 @@
                                                     </div>
                                                 </th>
                                                 <th data-sort="customer_name">ID</th>
-                                                <th data-sort="email">Name</th>
-                                                <th data-sort="phone">Description</th>
-                                                <th data-sort="phone">Parent permission</th>
-                                                <th data-sort="action">Action</th>
+                                                <th data-sort="email">ID Người dùng</th>
+                                                <th data-sort="phone">ID Vai trò</th>
                                             </tr>
                                         </thead>
                                         <tbody class="list form-check-all">
-                                            @foreach($permissions as $per)
+                                            @foreach($userRoles as $list)
                                             <tr>
                                                 <th scope="row">
                                                     <div class="form-check">
@@ -74,29 +53,22 @@
                                                     </div>
                                                 </th>
                                                 <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a></td>
-                                                <td class="phone">{{$per->id}}</td>
-                                                <td class="date">{{$per->name}}</td>
-                                                <td class="email">{{$per->description}}</td>
-                                                <td>
-                                                   <?php foreach($permissions as $pers) : ?>
-                                                        <?php if($per['parent_id'] == $pers['id']) : ?>
-                                                            <?= $pers['name'] ?>
-                                                        <?php endif ?>
-                                                   <?php endforeach ?>
+                                                <td class="phone">{{$list->id}}</td>
+                                                <td class="date">
+                                                        <?php foreach($users as $user) : ?>
+                                                             <?php if($list->user_id == $user['id']) : ?>
+                                                                 <?= $user['name'] ?>
+                                                             <?php endif ?>
+                                                        <?php endforeach ?>
                                                 </td>
-
-                                                <td>
-                                                    <div class="d-flex gap-2">
-                                                        <div class="edit">
-                                                            {{-- <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">Edit</button> --}}
-                                                            <a href="{{route('edit_permission',['id'=>$per->id])}}" class="btn btn-success btn-sm edit-item-btn" >Edit</a>
-                                                        </div>
-                                                        <div class="remove">
-                                                            {{-- <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Remove</button> --}}
-                                                            <a href="{{route('delete_permission',['id'=>$per->id])}}"  OnClick='return confirm("Bạn có chắc muốn xóa không ?")' class="btn btn-sm btn-danger remove-item-btn" >Remove</a>
-                                                        </div>
-                                                    </div>
+                                                <td class="email">
+                                                    <?php foreach($roles as $role) : ?>
+                                                    <?php if($list->role_id == $role['id']) : ?>
+                                                        <?= $role['name'] ?>
+                                                    <?php endif ?>
+                                               <?php endforeach ?>
                                                 </td>
+                        
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -132,7 +104,8 @@
             </div>
             <!-- end row -->
 
-      
+
+            <!--end modal -->
 
         </div>
         <!-- container-fluid -->
@@ -154,4 +127,3 @@
         </div>
     </footer>
 </div>
-@endsection

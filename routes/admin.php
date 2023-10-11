@@ -3,8 +3,7 @@
 use App\Http\Controllers\Locations\Admin\LocationController;
 use App\Http\Controllers\Locations\Admin\Role_permission;
 use App\Http\Controllers\Role\Admin\RoleController;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\RolePermission\Admin\RolePermissionController;
+use App\Http\Controllers\Permissions\Admin\PermissionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,13 +22,16 @@ Route::get('/', function () {
     ]);
 });
 Route::prefix('permission')->group(function () {
-    Route::get('/', [PermissionController::class, 'list'])->name('listPermission');
-    Route::post('save_permissions',[PermissionController::class,'add'])->name('addPermission');
-    Route::get('edit/{id}',[PermissionController::class,'edit'])->name('editPermission');
-    Route::post('save_edit/{id}',[PermissionController::class,'save_edit'])->name('saveEditPermission');
-    Route::get('delete/{id}',[PermissionController::class,'delete'])->name('deletePermission');
+    Route::get('/', [PermissionController::class, 'index'])->name('list_permission');
+    Route::get('add',[PermissionController::class,'add'])->name('add_permission');
+    Route::post('save_add',[PermissionController::class,'store'])->name('store_permission');
+    Route::get('edit/{id}',[PermissionController::class,'edit'])->name('edit_permission');
+    Route::post('save_edit/{id}',[PermissionController::class,'update'])->name('update_permission');
+    Route::get('delete/{id}',[PermissionController::class,'delete'])->name('delete_permission');
 });
-
+Route::prefix('user_role')->group(function () {
+    Route::get('/', [UserRoleController::class, 'index'])->name('list_user');
+});
 Route::group(['prefix' => 'role'], function () {
     Route::get('/list_role', [RoleController::class, 'list'])->name('list_role');
     Route::get('/add_role', [RoleController::class, 'add'])->name('add_role');

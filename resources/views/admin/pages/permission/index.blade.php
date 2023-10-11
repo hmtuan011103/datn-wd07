@@ -4,9 +4,8 @@
     @include('admin.pages.permission.style')
 @endsection
 
-@section('content')
-    @include('admin.pages.permission.main')
-@endsection
+{{-- Nội dung chính là đây --}}
+
 
 @section('script')
     @include('admin.pages.permission.script')

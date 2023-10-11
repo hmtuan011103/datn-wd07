@@ -45,7 +45,7 @@
                     })
                 }
             } else {
-                
+
             }
 
         } else {
@@ -159,7 +159,7 @@
                             container.removeChild(container.firstChild);
                         }
                         container.appendChild(ul);
-                        // console.log(permission);  
+                        // console.log(permission);
                         // $("#modal_permission").text(permission);
                     });
                     $("#modal_title").text(response[0].name);
