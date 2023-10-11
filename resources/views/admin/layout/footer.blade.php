@@ -6,3 +6,4 @@
 <script src={{ asset("admin/assets/js/pages/plugins/lord-icon-2.1.0.js") }}></script>
 {{-- <script src={{ asset("admin/assets/js/plugins.js") }}></script> --}}
 {{-- <script src={{ asset("admin/assets/js/app.js") }}></script> --}}
+
