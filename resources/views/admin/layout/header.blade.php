@@ -1,3 +1,4 @@
+
 {{-- Chứa file chung ở trong thẻ head. File này là mặc định, không được thêm gì nữa vào đây --}}
 <link rel="shortcut icon" href="{{ asset("admin/assets/images/favicon.ico") }}">
 <!-- Layout config Js -->
