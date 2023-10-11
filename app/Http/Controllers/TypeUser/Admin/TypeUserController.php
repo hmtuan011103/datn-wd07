@@ -108,6 +108,6 @@ class TypeUserController extends BaseTypeUserController
             toastr()->error('Xóa thất bại!', 'Thất bại');
         }
 
-        return redirect()->route('users.index');
+        return redirect()->route('type_users.index');
     }
 }

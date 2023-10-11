@@ -25,6 +25,7 @@ class StoreTypeUserRequest extends FormRequest
         return [
             'name' => [
                 'required',
+                'string',
                 'max:125',
                 'min:2',
                 Rule::unique('type_users'), // Add this line if 'name' should be unique in the 'type_users' table
