@@ -17,6 +17,7 @@ class BaseLocationController extends Controller
     public function __construct(LocationService $locationService)
     {
         $this->locationService = $locationService;
+      
     }
 
     private function successResponse($data, $message)
@@ -47,20 +48,20 @@ class BaseLocationController extends Controller
         Log::error($errorMessage . ': ' . $exception->getMessage());
     }
 
-    public function index()
-    {
-        try {
-            $result = $this->locationService->index();
-            if ($result) {
-                return $this->successResponse($result, 'Lấy dữ liệu địa điểm thành công');
-            }
+    // public function index($data)
+    // {
+    //     try {
+    //         $result = $this->locationService->index();
+    //         if ($result) {
+    //             return $this->successResponse($result, 'Lấy dữ liệu địa điểm thành công');
+    //         }
 
-            return $this->emptyResponse('Dữ liệu đang bị trống');
-        } catch (\Exception $exception) {
-            $this->logError($exception, 'Có lỗi xảy ra trong phương thức index');
-            return $this->errorResponse('Xảy ra lỗi khi lấy dữ liệu');
-        }
-    }
+    //         return $this->emptyResponse('Dữ liệu đang bị trống');
+    //     } catch (\Exception $exception) {
+    //         $this->logError($exception, 'Có lỗi xảy ra trong phương thức index');
+    //         return $this->errorResponse('Xảy ra lỗi khi lấy dữ liệu');
+    //     }
+    // }
 
 
 }

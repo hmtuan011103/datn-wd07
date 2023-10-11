@@ -22,7 +22,23 @@ class StoreLocationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name'=>'required',
+            'image'=>'required',
+            'parent_id'=>'required',
+            'description'=>'required',
+
         ];
+       
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required'=>'Tên địa điểm không được để trống',
+            'image.required'=>'Ảnh không được để trống',
+            'parent_id.required'=>'Địa điểm không được để trống',
+            'description.required'=>'Mô tả không được để trống',
+        ];
+
     }
 }

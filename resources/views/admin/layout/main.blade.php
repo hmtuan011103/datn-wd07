@@ -41,7 +41,7 @@
 
         @include('admin.partials.preloader')
 
-        <!-- @include('admin.partials.customizer-setting') -->
+        {{-- @include('admin.partials.customizer-setting') --}}
 
         {{-- @include('admin.partials.theme-settings') --}}
 
