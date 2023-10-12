@@ -33,7 +33,10 @@ class PermissionController extends BasePermissionController
     {
         $title = 'Trang phân quyền';
         $permission = Permission::find($id);
-        $permissions = Permission::where(['parent_id' => 0])->get();
+        $permissions = Permission::where('parent_id', 0)
+            ->where('id', '!=', $id)
+            ->get();
+            
         return view('admin.pages.permission.edit', compact('permission', 'title', 'permissions'));
     }
     public function update(Request $request, $id)
