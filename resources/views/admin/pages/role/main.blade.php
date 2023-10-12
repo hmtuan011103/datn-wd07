@@ -85,8 +85,9 @@
                                                         <td class="customer_name">{{ $role->id }}</td>
                                                         <td class="email">{{ $role->name }} </td>
                                                         <td class="phone">{{ $role->description }}</td>
-                                                        <td class="date">{{ $role->created_at }}</td>
-                                                        <td class="status">{{ $role->updated_at }}</td>
+                                                        <td class="date">{{ helperFormatTime($role->created_at) }}</td>
+                                                        <td class="status">{{ helperFormatTime($role->updated_at) }}</td>
+                                                
                                                         <td>
                                                             <div class="d-flex gap-2">
                                                                 <div class="edit">
@@ -101,7 +102,7 @@
                                                                         data-role-id="{{ $role->id }}">Xóa</button>
                                                                 </div>
                                                                 <div class="details">
-                                                                    <button class="btn btn-sm btn-primary btn-details"
+                                                                    <button class="btn btn-sm btn-primary btn-details" onclick="showDetails({{$role->id}})"
                                                                     data-bs-toggle="modal" data-bs-target="#modalRole"
                                                                         data-role-id="{{ $role->id }}">Chi tiết
                                                                         quyền</button>

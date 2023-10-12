@@ -48,7 +48,7 @@
 
                                     <div class="mb-3">
                                         <label for="email-field" class="form-label">Mô tả</label>
-                                        <input type="text" class="form-control" name="description" />
+                                        <textarea class="form-control" name="description" id="" cols="10" rows="10"></textarea>
 
                                     </div>
                                     <div>
@@ -58,9 +58,11 @@
                                                 @foreach ($permission as $per)
                                                     <li data-id="0">
                                                         @if (App\Models\Permission::where(['parent_id' => $per->id])->count() == 0)
-                                                            <i class="fa fa-minus"></i>
+                                                            {{-- <i class="fa fa-minus"></i> --}}
+                                                            <th>&nbsp;</th>
                                                         @else
-                                                            <i class="fa fa-plus"></i>
+                                                            {{-- <i class="fa fa-plus"></i> --}}
+                                                            <i style="vertical-align: text-top;" class="fa fa-angle-right" aria-hidden="true"></i>
                                                         @endif
 
                                                         <label>
