@@ -486,18 +486,17 @@
                     <div class="collapse menu-dropdown" id="sidebarRole">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{route('list_role')}}" class="nav-link" data-bs-toggle="collapse" role="button"
-                                    aria-expanded="false" aria-controls="sidebarRole" data-key="t-signin">
+                                <a href="{{ route('list_role') }}" class="nav-link" aria-controls="sidebarRole">
                                     Vai trò
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('list_permission')}}" class="nav-link" data-bs-toggle="collapse" role="button"
-                                    aria-expanded="false" aria-controls="sidebarRole" data-key="t-signup">
+                                <a href=" {{ route('list_permission') }} " class="nav-link"
+                                    aria-controls="sidebarRole">
                                     Phân quyền
                                 </a>
                             </li>
-    
+
                         </ul>
                     </div>
                 </li>

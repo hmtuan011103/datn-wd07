@@ -23,14 +23,18 @@ class AddPermissionRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'description' => 'required'
+            'name' => 'unique:permissions',
+            'description' => 'required',
+            'description' => 'min:10'
         ];
     }
     public function messages()
     {
         return [
             'name.required' => 'Không được bỏ trống tên',
+            'name.unique' => 'Tên phân quyền bị trùng lặp',
             'description.required' => 'Không được bỏ trống mô tả',
+            'description.min' => 'Mô tả đang quá ngắn',
         ];
     }
 }
