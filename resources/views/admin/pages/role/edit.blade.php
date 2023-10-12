@@ -42,8 +42,7 @@
 
                                         <div class="mb-3">
                                             <label for="email-field" class="form-label">Mô tả</label>
-                                            <input type="text" class="form-control" name="description"
-                                                value=" {{ $role->description }} " />
+                                            <textarea class="form-control" name="description" id="" cols="10" rows="10">{{ $role->description }}</textarea>
                                         </div>
                                         <div>
                                             <label for="">Quyền</label>
@@ -53,10 +52,14 @@
                                                         <li data-id="0">
 
                                                             @if (App\Models\Permission::where(['parent_id' => $per->id])->count() == 0)
-                                                                <i class="fa fa-minus"></i>
+                                                                {{-- <i class="fa fa-minus"></i> --}}
+                                                                <th>&nbsp;</th>
                                                             @else
-                                                                <i class="fa fa-plus"></i>
+                                                                {{-- <i class="fa fa-plus"></i> --}}
+                                                                <th><i style="vertical-align: text-top;" class="fa fa-angle-right pb-1" aria-hidden="true"></i>
+                                                                </th>
                                                             @endif
+
                                                             <label>
                                                                 <input id="xnode-0" data-id="custom-0" type="checkbox"
                                                                     name="permission[]" value=" {{ $per->id }} "

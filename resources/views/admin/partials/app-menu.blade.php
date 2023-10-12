@@ -493,7 +493,7 @@
                             <li class="nav-item">
                                 <a href=" {{ route('list_permission') }} " class="nav-link"
                                     aria-controls="sidebarRole">
-                                    Phân quyền
+                                    Quyền
                                 </a>
                             </li>
 
