@@ -25,7 +25,6 @@ class StoreTypeUserRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                'string',
                 'max:125',
                 'min:2',
                 Rule::unique('type_users'), // Add this line if 'name' should be unique in the 'type_users' table
@@ -34,27 +33,27 @@ class StoreTypeUserRequest extends FormRequest
         ];
     }
 
-    public function messages(): array
-    {
-        return [
-            'min' => [
-                'string' => 'Trường :attribute phải chứa ít nhất :min ký tự.',
-                'numeric' => 'Trường :attribute phải có giá trị ít nhất là :min.',
-            ],
+    // public function messages(): array
+    // {
+    //     return [
+    //         'min' => [
+    //             'string' => 'Trường :attribute phải chứa ít nhất :min ký tự.',
+    //             'numeric' => 'Trường :attribute phải có giá trị ít nhất là :min.',
+    //         ],
 
-            'max' => [
-                'string' => 'Trường :attribute không được vượt quá :max ký tự.',
-                'numeric' => 'Trường :attribute không được lớn hơn :max.',
-            ],
+    //         'max' => [
+    //             'string' => 'Trường :attribute không được vượt quá :max ký tự.',
+    //             'numeric' => 'Trường :attribute không được lớn hơn :max.',
+    //         ],
 
-            'required' => 'Trường :attribute là bắt buộc.',
-            'unique' => 'Trường :attribute đã được sử dụng.',
-            'email' => 'Trường :attribute phải là một địa chỉ email hợp lệ.',
-            'exists' => 'Trường :attribute không hợp lệ.',
-            'confirmed' => 'Trường :attribute xác nhận không khớp.',
-            'min' => 'Trường :attribute phải chứa ít nhất :min ký tự.',
-            'max' => 'Trường :attribute không được vượt quá :max ký tự.',
-            // Add more custom error messages for other rules if needed
-        ];
-    }
+    //         'required' => 'Trường :attribute là bắt buộc.',
+    //         'unique' => 'Trường :attribute đã được sử dụng.',
+    //         'email' => 'Trường :attribute phải là một địa chỉ email hợp lệ.',
+    //         'exists' => 'Trường :attribute không hợp lệ.',
+    //         'confirmed' => 'Trường :attribute xác nhận không khớp.',
+    //         'min' => 'Trường :attribute phải chứa ít nhất :min ký tự.',
+    //         'max' => 'Trường :attribute không được vượt quá :max ký tự.',
+    //         // Add more custom error messages for other rules if needed
+    //     ];
+    // }
 }

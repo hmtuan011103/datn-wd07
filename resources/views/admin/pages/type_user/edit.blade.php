@@ -9,8 +9,9 @@
                         </div>
 
                         <div class="card-body">
-                            <form class="row g-3 needs-validation was-validated" method="POST"
-                                action="{{ route('type_users.update', ['type_user' => $data->id]) }}">
+                            <form class="row g-3 was-validated" method="POST"
+                                action="{{ route('type_users.update', ['type_user' => $data->id]) }}"
+                                id="form-edit-typeuser">
                                 @csrf
                                 @method('PATCH')
 
