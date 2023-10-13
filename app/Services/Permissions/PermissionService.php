@@ -38,6 +38,16 @@ class PermissionService
         $delete = Permission::where('id', $id)
         ->orWhere('parent_id', $id)
         ->delete();
+        if ($delete) {
+            RolePermission::where('permission_id', $id)
+                ->delete();
+            $pers = Permission::where('parent_id', $id)->get();
+            foreach ($pers as $per) {
+                $id_per = $per->id;
+                RolePermission::where('permission_id', $id_per)
+                    ->delete();
+            }
+        }
         // toastr()->success('Xóa dữ liệu thành công!', 'Thành Công');
         return $delete;
     }
