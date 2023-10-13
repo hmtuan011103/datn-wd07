@@ -92,20 +92,19 @@
                                                             <div class="d-flex gap-2">
                                                                 <div class="edit">
                                                                     <a href="{{ route('edit_role', ['id' => $role->id]) }}"><button
-                                                                            class="btn btn-sm btn-success edit-item-btn">Sửa</button></a>
+                                                                            class="btn btn-sm btn-success edit-item-btn"><i class="bx bx-edit"></i></button></a>
                                                                 </div>
                                                                 <div class="remove">
                                                                     {{-- <a href="{{ route('delete_role', ['id' => $role->id]) }}"
                                                                         onclick="return confirm('Bạn có chắc chắn muốn xóa Vai trò này')"> </a> --}}
                                                                     <button class="btn btn-sm btn-danger btn-remove"
                                                                         data-bs-toggle="modal" data-bs-target="#modalDelete"
-                                                                        data-role-id="{{ $role->id }}">Xóa</button>
+                                                                        data-role-id="{{ $role->id }}"><i class="bx bx-trash"></i></button>
                                                                 </div>
                                                                 <div class="details">
                                                                     <button class="btn btn-sm btn-primary btn-details" onclick="showDetails({{$role->id}})"
                                                                     data-bs-toggle="modal" data-bs-target="#modalRole"
-                                                                        data-role-id="{{ $role->id }}">Chi tiết
-                                                                        quyền</button>
+                                                                        data-role-id="{{ $role->id }}"><i class="bx bx bx-show"></i></button>
                                                                 </div>
                                                             </div>
                                                         </td>

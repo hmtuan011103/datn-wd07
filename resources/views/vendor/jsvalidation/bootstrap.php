@@ -3,7 +3,7 @@
 
         $("<?= $validator['selector']; ?>").each(function() {
             $(this).validate({
-                errorElement: 'span',
+                errorElement: 'p',
                 errorClass: 'help-block error-help-block',
 
                 errorPlacement: function (error, element) {
