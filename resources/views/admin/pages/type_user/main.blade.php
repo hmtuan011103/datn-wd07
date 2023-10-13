@@ -59,9 +59,10 @@
                                                                 name="chk_child" value="option{{ $item->id }}">
                                                         </div>
                                                     </th>
+                                                    {{-- delete multiple will catch this id --}}
                                                     <td class="id" style="display:none;">
                                                         <a href="javascript:void(0);" class="fw-medium link-primary">
-                                                            #VZ2101
+                                                            {{ $item->id }}
                                                         </a>
                                                     </td>
                                                     <td class="name">{{ $item->name }}</td>

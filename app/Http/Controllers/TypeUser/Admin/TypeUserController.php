@@ -4,6 +4,7 @@ namespace App\Http\Controllers\TypeUser\Admin;
 
 use App\Http\Controllers\TypeUser\BaseTypeUserController;
 use App\Http\Requests\TypeUser\StoreTypeUserRequest;
+use Illuminate\Http\Request;
 
 class TypeUserController extends BaseTypeUserController
 {
@@ -105,6 +106,24 @@ class TypeUserController extends BaseTypeUserController
     {
         try {
             $this->typeUserService->destroy($id);
+            toastr()->success('Đã xóa!', 'Thành công');
+        } catch (\Throwable $th) {
+            // error
+            toastr()->error('Xóa thất bại!', 'Thất bại');
+        }
+
+        return redirect()->route('type_users.index');
+    }
+
+    /**
+     * Remove multiple the specified resource from storage.
+     */
+    public function destroyMultiple(Request $request)
+    {
+        dd($request->input('ids'));
+
+        try {
+            $this->typeUserService->destroyMultiple(1);
             toastr()->success('Đã xóa!', 'Thành công');
         } catch (\Throwable $th) {
             // error
