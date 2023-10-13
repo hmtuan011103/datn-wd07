@@ -25,7 +25,8 @@ Route::get('/', function () {
     return view('admin.pages.home.index', [
         'title' => 'Quản trị chiến thắng'
     ]);
-});
+})->name('admin.homepage');
+
 Route::prefix('location')->group(function () {
     Route::get('/', [LocationController::class, 'list_location'])->name('list_location');
     Route::get('add', [LocationController::class, 'form_create'])->name('form_create');
@@ -89,3 +90,9 @@ Route::group(['prefix' => 'role_permission'], function () {
 
 Route::resource('users', \App\Http\Controllers\User\Admin\UserController::class);
 Route::resource('type_users', \App\Http\Controllers\TypeUser\Admin\TypeUserController::class)->except('show');
+
+
+// đặt cuối route
+Route::fallback(function () {
+    abort(500);
+});

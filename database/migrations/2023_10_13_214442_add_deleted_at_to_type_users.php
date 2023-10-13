@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('permissions', function (Blueprint $table) {
-            $table->integer('parent_id')->default(0)->before('description');
+        Schema::table('type_users', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('permissions', function (Blueprint $table) {
-            $table->dropColumn('parent_id');
+        Schema::table('type_users', function (Blueprint $table) {
+            $table->dropColumn('deleted_at');
         });
     }
 };

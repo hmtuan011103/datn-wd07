@@ -132,4 +132,22 @@ class TypeUserService
 
           return false;
      }
+
+     public function destroyMultiple($idArray)
+     {
+          dd($idArray);
+          // Get an array of IDs to be deleted from the request
+          // $ids = $request->input('ids');
+
+          // Soft delete records with the specified IDs
+          // YourModel::whereIn('id', $ids)->delete();
+
+          $typeUser = $this->model->find($idArray);
+
+          if ($typeUser) {
+               return $typeUser->delete();
+          }
+
+          return false;
+     }
 }
