@@ -16,7 +16,7 @@ class TypeUserService
 
      public function getAll()
      {
-          $typeUsers = $this->model->all();
+          $typeUsers = $this->model::orderBy('updated_at', 'desc')->get();
 
           $response['data'] = $typeUsers;
           $response['status'] = ResponseAlias::HTTP_OK;
@@ -89,7 +89,7 @@ class TypeUserService
           $typeUser = $this->model->find($id);
 
           $response = [
-               'message' => 'Lỗi không dõ!',
+               'message' => 'Vui lòng thử lại sau.',
                'status' => ResponseAlias::HTTP_BAD_GATEWAY
           ];
 
@@ -98,6 +98,13 @@ class TypeUserService
                     'message' => 'Không tìm thấy!',
                     'status' => ResponseAlias::HTTP_NOT_FOUND
                ];
+               return response()->json($response, $response['status']);
+          }
+
+          // check if nothing change
+          $formatRecord = collect($typeUser)->except(['id', 'created_at', 'updated_at']);
+          if (count($formatRecord->diff($data)) == 0) {
+               $response['message'] = 'Không có gì thay đổi để cập nhật.';
                return response()->json($response, $response['status']);
           }
 

@@ -20,7 +20,7 @@ class PermissionController extends BasePermissionController
     public function add()
     {
         $title = 'Trang add ';
-        $permissions = $this->permissionService->index();
+        $permissions = Permission::where(['parent_id' => 0])->get();
         return view('admin.pages.permission.add', compact('title', 'permissions'));
     }
     public function store(AddPermissionRequest $request)
@@ -33,7 +33,7 @@ class PermissionController extends BasePermissionController
     {
         $title = 'Trang phân quyền';
         $permission = Permission::find($id);
-        $permissions = Permission::all();
+        $permissions = Permission::where(['parent_id' => 0])->get();
         return view('admin.pages.permission.edit', compact('permission', 'title', 'permissions'));
     }
     public function update(Request $request, $id)
@@ -45,9 +45,9 @@ class PermissionController extends BasePermissionController
     }
     public function delete($id)
     {
-        $delete = $this->permissionService->delete($id);
-        if ($delete) {
-            return redirect()->route('list_permission');
+        $result = $this->permissionService->delete($id);
+        if ($result) {
+            return response()->json(["Xóa thành công!"], 200);
         }
     }
 }

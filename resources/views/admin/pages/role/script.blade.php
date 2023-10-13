@@ -82,7 +82,8 @@
             modalInstance.hide();
             var row = document.getElementById('row' + roleId);
             if (row) {
-                row.style.display = 'none';
+                row.remove();
+                // row.style.display = 'none';
             }
             Swal.fire({
                 position: "center",
@@ -97,87 +98,176 @@
     });
 </script>
 <script>
-    $(document).ready(function() {
-        $(".btn-details").click(function() {
-            console.log('ok')
-            var roleId = $(this).data("role-id");
-            $.ajax({
-                url: "http://127.0.0.1:8000/manage/role_permission/api/details/" +
-                    roleId,
-                method: "GET",
-                success: function(response) {
+    function showDetails(roleId) {
+        // console.log('ok')
+        // var roleId = $(this).data("role-id");
+        // console.log(roleId);
 
-                    var permissionIds = [];
-                    for (var i = 0; i < response[1].length; i++) {
-                        permissionIds.push(response[1][i].permission_id);
+        $.ajax({
+            url: "http://127.0.0.1:8000/manage/role_permission/api/details/" +
+                roleId,
+            method: "GET",
+            success: function(response) {
+
+                var permissionIds = [];
+                for (var i = 0; i < response[1].length; i++) {
+                    permissionIds.push(response[1][i].permission_id);
+                }
+                // Lưu trữ các yêu cầu AJAX trong một mảng
+                var ajaxRequests = [];
+                var responseData = [];
+                for (var i = 0; i < permissionIds.length; i++) {
+                    var permissionId = permissionIds[i];
+
+                    var ajaxRequest = $.ajax({
+                        url: "http://127.0.0.1:8000/manage/role_permission/api/get_permission/" +
+                            permissionId,
+                        method: "GET"
+                    });
+                    ajaxRequests.push(ajaxRequest);
+
+                }
+                // Đợi tất cả các yêu cầu AJAX hoàn thành
+                $.when.apply($, ajaxRequests).done(function() {
+                    // Lấy kết quả từ các yêu cầu AJAX
+                    for (var i = 0; i < arguments.length; i++) {
+                        var response = arguments[i][0];
+                        responseData.push(response);
                     }
-                    // Lưu trữ các yêu cầu AJAX trong một mảng
-                    var ajaxRequests = [];
-                    var responseData = [];
-                    for (var i = 0; i < permissionIds.length; i++) {
-                        var permissionId = permissionIds[i];
 
-                        var ajaxRequest = $.ajax({
-                            url: "http://127.0.0.1:8000/manage/role_permission/api/get_permission/" +
-                                permissionId,
-                            method: "GET"
-                        });
-                        ajaxRequests.push(ajaxRequest);
-
-                    }
-                    // Đợi tất cả các yêu cầu AJAX hoàn thành
-                    $.when.apply($, ajaxRequests).done(function() {
-                        // Lấy kết quả từ các yêu cầu AJAX
-                        for (var i = 0; i < arguments.length; i++) {
-                            var response = arguments[i][0];
-                            responseData.push(response);
-                        }
-
-                        // Sử dụng dữ liệu phản hồi ở đây
-                        // console.log(permissionIds.length);
-                        var permission = [];
-                        if (permissionIds.length <= 1) {
-                            var per = responseData[0].name;
+                    // Sử dụng dữ liệu phản hồi ở đây
+                    var permission = [];
+                    if (permissionIds.length <= 1) {
+                        var per = responseData[0];
+                        permission.push(per)
+                    } else {
+                        for (var i = 0; i < responseData.length; i++) {
+                            var per = responseData[i][0];
                             permission.push(per)
-                        } else {
-                            for (var i = 0; i < responseData.length; i++) {
-                                var per = responseData[i][0].name;
-                                permission.push(per)
-                            }
                         }
-                        var ul = document.createElement('ul');
-
-                        permission.forEach(function(permission) {
+                    }
+            
+                    var ul = document.createElement('ul');
+                    permission.forEach(function(permission) {
+                        if (permission.parent_id == 0) {
                             var li = document.createElement(
                                 'li');
-                            li.textContent = permission;
+                            li.textContent = permission.name;
                             ul.appendChild(li);
-                        });
-
-                        var container = document.getElementById('modal_permission');
-                        while (container.firstChild) {
-                            container.removeChild(container.firstChild);
+                        } else {
+                            var li = document.createElement('li');
+                            li.style.display = 'block';
+                            ul.appendChild(li);
+                            var nestedUl = document.createElement('ul');
+                            // var nestedLi = document.createElement('li');
+                            nestedUl.textContent = permission.name;
+                            // nestedUl.appendChild(nestedLi);
+                            ul.appendChild(nestedUl);
                         }
-                        container.appendChild(ul);
-                        // console.log(permission);
-                        // $("#modal_permission").text(permission);
+
                     });
-                    $("#modal_title").text(response[0].name);
-                    $("#modal_role").text(response[0].name);
+
+                    var container = document.getElementById('modal_permission');
+                    while (container.firstChild) {
+                        container.removeChild(container.firstChild);
+                    }
+                    container.appendChild(ul);
+                    // console.log(permission);
+                    // $("#modal_permission").text(permission);
+                });
+                $("#modal_title").text(response[0].name);
+                $("#modal_role").text(response[0].name);
 
 
-                    $("#roleModal").css("display", "block");
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                }
-            });
-
+                $("#roleModal").css("display", "block");
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
         });
+    }
+    $(document).ready(function() {
 
-        $(".close").click(function() {
-            $("#roleModal").css("display", "none");
-        });
+        // $(".btn-details").click(function() {
+        //     console.log('ok')
+        //     var roleId = $(this).data("role-id");
+        //     $.ajax({
+        //         url: "http://127.0.0.1:8000/manage/role_permission/api/details/" +
+        //             roleId,
+        //         method: "GET",
+        //         success: function(response) {
+
+        //             var permissionIds = [];
+        //             for (var i = 0; i < response[1].length; i++) {
+        //                 permissionIds.push(response[1][i].permission_id);
+        //             }
+        //             // Lưu trữ các yêu cầu AJAX trong một mảng
+        //             var ajaxRequests = [];
+        //             var responseData = [];
+        //             for (var i = 0; i < permissionIds.length; i++) {
+        //                 var permissionId = permissionIds[i];
+
+        //                 var ajaxRequest = $.ajax({
+        //                     url: "http://127.0.0.1:8000/manage/role_permission/api/get_permission/" +
+        //                         permissionId,
+        //                     method: "GET"
+        //                 });
+        //                 ajaxRequests.push(ajaxRequest);
+
+        //             }
+        //             // Đợi tất cả các yêu cầu AJAX hoàn thành
+        //             $.when.apply($, ajaxRequests).done(function() {
+        //                 // Lấy kết quả từ các yêu cầu AJAX
+        //                 for (var i = 0; i < arguments.length; i++) {
+        //                     var response = arguments[i][0];
+        //                     responseData.push(response);
+        //                 }
+
+        //                 // Sử dụng dữ liệu phản hồi ở đây
+        //                 // console.log(permissionIds.length);
+        //                 var permission = [];
+        //                 if (permissionIds.length <= 1) {
+        //                     var per = responseData[0].name;
+        //                     permission.push(per)
+        //                 } else {
+        //                     for (var i = 0; i < responseData.length; i++) {
+        //                         var per = responseData[i][0].name;
+        //                         permission.push(per)
+        //                     }
+        //                 }
+        //                 var ul = document.createElement('ul');
+
+        //                 permission.forEach(function(permission) {
+        //                     var li = document.createElement(
+        //                         'li');
+        //                     li.textContent = permission;
+        //                     ul.appendChild(li);
+        //                 });
+
+        //                 var container = document.getElementById('modal_permission');
+        //                 while (container.firstChild) {
+        //                     container.removeChild(container.firstChild);
+        //                 }
+        //                 container.appendChild(ul);
+        //                 // console.log(permission);
+        //                 // $("#modal_permission").text(permission);
+        //             });
+        //             $("#modal_title").text(response[0].name);
+        //             $("#modal_role").text(response[0].name);
+
+
+        //             $("#roleModal").css("display", "block");
+        //         },
+        //         error: function(xhr, status, error) {
+        //             console.error(error);
+        //         }
+        //     });
+
+        // });
+
+        // $(".close").click(function() {
+        //     $("#roleModal").css("display", "none");
+        // });
     });
 </script>
 <script src="{{ asset('admin/assets/js/pages/hummingbird-treeview.js') }}"></script>
@@ -244,7 +334,7 @@
         s.parentNode.insertBefore(ga, s);
     })();
 </script>
-<!-- Javascript Requirements -->
+{{-- <!-- Javascript Requirements -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
@@ -252,4 +342,4 @@
 <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
 
 {!! JsValidator::formRequest('App\Http\Requests\Role\StoreRoleRequest') !!}
-{!! JsValidator::formRequest('App\Http\Requests\Role\UpdateRoleRequest') !!}
+{!! JsValidator::formRequest('App\Http\Requests\Role\UpdateRoleRequest') !!} --}}

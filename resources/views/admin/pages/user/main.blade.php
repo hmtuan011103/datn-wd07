@@ -68,7 +68,7 @@
                                                                     </a>
                                                                 </div>
 
-                                                                <div class="remove">
+                                                                {{-- <div class="remove">
                                                                     <form
                                                                         action="{{ route('users.destroy', ['user' => $item->id]) }}"
                                                                         method="POST"
@@ -81,7 +81,7 @@
                                                                             Xóa
                                                                         </button>
                                                                     </form>
-                                                                </div>
+                                                                </div> --}}
 
                                                             </div>
                                                         </td>

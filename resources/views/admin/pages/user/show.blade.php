@@ -64,14 +64,14 @@
 
                                 <div class="col-12">
                                     <a href="{{ route('users.index') }}" class="btn btn-soft-primary">
-                                        Trở lại danh sách
+                                        Danh sách
                                     </a>
 
                                     <a href="{{ route('users.edit', ['user' => $data->id]) }}" class="btn btn-success">
                                         Sửa
                                     </a>
 
-                                    <form action="{{ route('users.destroy', ['user' => $data->id]) }}" method="POST"
+                                    {{-- <form action="{{ route('users.destroy', ['user' => $data->id]) }}" method="POST"
                                         id="deleteForm{{ $data->id }}" class="d-inline">
                                         @csrf
                                         @method('DELETE')
@@ -79,7 +79,7 @@
                                             onclick="confirmDelete({{ $data->id }})">
                                             Xóa
                                         </button>
-                                    </form>
+                                    </form> --}}
                                 </div>
                             </div>
                         </div><!-- end card -->

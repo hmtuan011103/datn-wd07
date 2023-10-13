@@ -35,28 +35,33 @@
                                     @csrf
                                     <div class="modal-body">
                                         <div class="mb-3">
-                                            <label for="customername-field" class="form-label">Tên</label>
+                                            <label for="customername-field" class="form-label">Tên*</label>
                                             <input type="text" class="form-control" name="name"
                                                 value=" {{ $role->name }} " />
+                                            @error('name')
+                                                <div class="ps-4 pb-3 fw-bold text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="email-field" class="form-label">Mô tả</label>
-                                            <input type="text" class="form-control" name="description"
-                                                value=" {{ $role->description }} " />
+                                            <textarea class="form-control" name="description" id="" cols="10" rows="10">{{ $role->description }}</textarea>
                                         </div>
                                         <div>
-                                            <label for="">Quyền</label>
-                                            <div id="treeview_container" class="hummingbird-treeview">
-                                                <ul id="treeview" class="hummingbird-base">
+                                            <label for="">Quyền*</label>
+                                            <div id="treeview_container" class="hummingbird-treeview border border-dark rounded pt-3 mb-4">
+                                                <ul id="treeview" class="hummingbird-base mb-0 ">
                                                     @foreach ($permission as $per)
                                                         <li data-id="0">
 
                                                             @if (App\Models\Permission::where(['parent_id' => $per->id])->count() == 0)
-                                                                <i class="fa fa-minus"></i>
+                                                                {{-- <i class="fa fa-minus"></i> --}}
+                                                                <th>&nbsp;&nbsp;</th>
                                                             @else
-                                                                <i class="fa fa-plus"></i>
+                                                                {{-- <i class="fa fa-plus"></i> --}}
+                                                                <i class="fa fa-angle-right fs-3" aria-hidden="true"></i>
                                                             @endif
+
                                                             <label>
                                                                 <input id="xnode-0" data-id="custom-0" type="checkbox"
                                                                     name="permission[]" value=" {{ $per->id }} "
@@ -91,13 +96,17 @@
                                                     @endforeach
 
                                                 </ul>
+                                                @error('permission')
+                                                    <div class="ps-4 pb-3 fw-bold text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
 
                                     </div>
 
                                     <div class="hstack gap-2 justify-content-end">
-                                        <a href="{{ route('list_role') }}"><button type="button" class="btn btn-light">Danh
+                                        <a href="{{ route('list_role') }}"><button type="button"
+                                                class="btn btn-light">Danh
                                                 sách</button></a>
                                         <button type="submit" class="btn btn-success">Cập nhật</button>
                                         <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->

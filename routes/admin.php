@@ -8,6 +8,7 @@ use App\Http\Controllers\Permissions\Admin\PermissionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TypeCar\Admin\TypeCarController;
 use App\Http\Controllers\Car\Admin\CarController;
+use App\Http\Controllers\UserRoles\Admin\UserRoleController;
 
 /*
 |--------------------------------------------------------------------------
