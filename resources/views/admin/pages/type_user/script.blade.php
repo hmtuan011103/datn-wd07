@@ -1,5 +1,7 @@
 <!--sweetalert-->
 <script src={{ asset('admin/assets/libs/sweetalert2/sweetalert2.min.js') }}></script>
+<!-- Laravel Javascript Validation -->
+<script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
 
 <!-- listjs init -->
 <script src="{{ asset('admin/assets/libs/list.js/list.min.js') }}"></script>

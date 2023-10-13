@@ -23,8 +23,7 @@ class StoreLocationRequest extends FormRequest
     {
         return [
             'name'=>'required',
-            'image'=>'required',
-            'parent_id'=>'required',
+            'image'=>'required|mimes:jpeg,jpg,png,gif|max:1000',
             'description'=>'required',
 
         ];
@@ -36,7 +35,8 @@ class StoreLocationRequest extends FormRequest
         return [
             'name.required'=>'Tên địa điểm không được để trống',
             'image.required'=>'Ảnh không được để trống',
-            'parent_id.required'=>'Địa điểm không được để trống',
+            'image.mimes'=>'Không phải file ảnh',
+            'image.max'=>'Ảnh không được quá 1MB',
             'description.required'=>'Mô tả không được để trống',
         ];
 

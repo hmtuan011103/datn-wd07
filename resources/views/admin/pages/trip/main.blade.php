@@ -89,9 +89,9 @@
                                                             class="fw-medium link-primary">#VZ2101</a></td>
                                                     {{-- <td class="customer_name">{{ $trip->id }}</td> --}}
                                                     <td class="email">{{ $trip->car_name }}</td>
-                                                    {{-- <td class="phone">{{date('d-m-Y', strtotime($trip->start_date))}}</td> --}}
+                                                    
                                                     <td class="email">{{ $trip->user_name }}</td>
-                                                    <td class="phone">{{ $trip->start_date }}</td>
+                                                    <td class="phone">{{date('d-m-Y', strtotime($trip->start_date))}}</td>
                                                     <td class="phone">{{ $trip->start_time }}</td>
                                                     <td class="phone">{{ $trip->trip_price }}.000 VND</td>
                                                     <td class="phone">{{ $trip->start_location }}</td>
@@ -99,13 +99,15 @@
 
                                                     <td>
                                                         <div class="d-flex gap-2">
+                                                            {{-- <div class="detail">
+                                                                <button data-url = "{{route('show',['id'=>$trip->id])}}" class="btn btn-success btn-sm edit-item-btn btn-show" data-target="#show" data-toggle="modal" 
+                                                                    >Xem chi tiết</button>
+                                                            </div> --}}
                                                             <div class="edit">
-                                                                <a href="{{route('edit_trip',['id'=>$trip->id])}}"><button class="btn btn-sm btn-success edit-trip-btn"
-                                                                    >Sửa</button></a>
+                                                                <a href="{{route('edit_trip',['id'=>$trip->id])}}"><button class="btn btn-success btn-sm edit-item-btn"><i class="bx bx-edit"></i></button></a>
                                                             </div>
                                                             <div class="remove">
-                                                               <a href="{{route('delete_trip',['id'=>$trip->id])}}" onclick="return confirm('Bạn có chắc chắn muốn xóa chuyến đi này')"><button class="btn btn-sm btn-danger remove-trip-btn"
-                                                                    >Xóa</button></a> 
+                                                               <a href="{{route('delete_trip',['id'=>$trip->id])}}" onclick="return confirm('Bạn có chắc chắn muốn xóa chuyến đi này')"><button class="btn btn-sm btn-danger btn-remove"><i class="bx bx-trash"></i></button></a> 
                                                             </div>
                                                         </div>
                                                     </td>
@@ -179,6 +181,7 @@
         <!-- container-fluid -->
     </div>
     <!-- End Page-content -->
+@include('admin.pages.trip.detail')
 
 </div>    
 @endsection

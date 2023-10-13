@@ -24,7 +24,7 @@ class StoreRoleRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'description' => 'required',
+            // 'description' => 'required',
             'permission' => 'required'
         ];
     }
@@ -33,7 +33,7 @@ class StoreRoleRequest extends FormRequest
     {
         return [
             'name.required' => 'Tên không được bỏ trống',
-            'description.required' => 'Mô tả không được bỏ trống',
+            // 'description.required' => 'Mô tả không được bỏ trống',
             'permission.required' => 'Quyền không được bỏ trống'
         ];
     }
