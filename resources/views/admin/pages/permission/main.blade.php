@@ -35,8 +35,8 @@
                                     <div class="row g-4 mb-3">
                                         <div class="col-sm-auto">
                                             <div>
-                                                <a class="btn btn-success add-btn" href="{{ route('add_permission') }}">Thêm
-                                                    mới <i class="ri-add-line align-bottom me-1"></i></a>
+                                                <a class="btn btn-success add-btn" href="{{ route('add_permission') }}"><i class="ri-add-line align-bottom me-1"></i> Thêm
+                                                    mới </a>
                                                     <button class="btn btn-soft-danger" onClick="deleteMultiples()"><i
                                                         class="ri-delete-bin-2-line"></i></button>
                                             </div>
@@ -97,8 +97,7 @@
                                                                 <div class="edit">
                                                                     {{-- <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">Edit</button> --}}
                                                                     <a href="{{ route('edit_permission', ['id' => $per->id]) }}"
-                                                                        class="btn btn-success btn-sm edit-item-btn">Chỉnh
-                                                                        sửa</a>
+                                                                        class="btn btn-warning btn-sm edit-item-btn"><i class="bx bx-edit"></i></a>
                                                                 </div>
                                                                 {{-- <div class="remove">
                                                                     <a href="{{ route('delete_permission', ['id' => $per->id]) }}"
@@ -108,7 +107,7 @@
                                                                 <div class="remove">
                                                                     <button class="btn btn-sm btn-danger btn-remove"
                                                                         data-bs-toggle="modal" data-bs-target="#modalDelete"
-                                                                        data-role-id="{{ $per->id }}">Xóa</button>
+                                                                        data-role-id="{{ $per->id }}"><i class="bx bx-trash"></i></button>
                                                                 </div>
                                                             </div>
                                                         </td>
