@@ -39,7 +39,7 @@
 									<div class="col-md-6">
 										<div class="form-group has-feedback">
 										  <label class="control-label">Danh sách xe</label>
-										  <select class="form-control" name="car_id">
+										  <select class="form-select"   name="car_id">
 											  <option value="">Chọn xe</option>
 											  @foreach ($cars as $car)
 											  <option value="{{$car->id}}">{{$car->name}}</option>
@@ -50,9 +50,21 @@
 
 									  <div class="col-md-6">
 										<div class="form-group has-feedback">
-										  <label class="control-label">Danh tài xế</label>
-										  <select class="form-control" name="user_id">
+										  <label class="control-label">Danh sách tài xế</label>
+										  <select class="form-select"   name="drive_id">
 											  <option value="">Chọn tài xé</option>
+											  @foreach ($users as $user)
+											  <option value="{{$user->id}}">{{$user->name}}</option>
+											  @endforeach
+										  </select>
+										  <span  aria-hidden="true"></span> </div>
+									  </div>
+
+									  <div class="col-md-6">
+										<div class="form-group has-feedback">
+										  <label class="control-label">Danh sách phụ xe</label>
+										  <select class="form-select"   name="assistantCar_id">
+											  <option value="">Chọn phụ xe</option>
 											  @foreach ($users as $user)
 											  <option value="{{$user->id}}">{{$user->name}}</option>
 											  @endforeach
@@ -63,7 +75,8 @@
 									<div class="col-md-6">
 									  <div class="form-group has-feedback">
 										<label class="control-label">Ngày đi</label>
-										<input class="form-control" name="start_date" placeholder="Mô tả" type="date">
+										<input class="form-control" id="" name="start_date" placeholder="" type="date"  >
+
 										<span  aria-hidden="true"></span> </div>
 									</div>
 
@@ -80,17 +93,32 @@
 										  <input class="form-control" onChange="format_curency(this);"  name="trip_price" placeholder="VND" type="number">
 										  <span  aria-hidden="true"></span> </div>
 									  </div>
+									  
+									
+
 									  <div class="col-md-6">
 										<div class="form-group has-feedback">
 										  <label class="control-label">Điểm bắt đầu</label>
-										  <input class="form-control" name="start_location" placeholder="Điểm bắt đầu" type="text">
+										  {{-- <input class="form-control" name="end_location" placeholder="Điểm kết thúc" type="text"> --}}
+										  <select class="form-select"   name="start_location">
+											<option value=""></option>
+											@foreach ($locations as $location)
+											<option value="{{$location->name}}">{{$location->name}}</option>
+											@endforeach
+										</select>
 										  <span  aria-hidden="true"></span> </div>
-									  </div> 
+									  </div>
 
 									  <div class="col-md-6">
 										<div class="form-group has-feedback">
 										  <label class="control-label">Điểm kết thúc</label>
-										  <input class="form-control" name="end_location" placeholder="Điểm kết thúc" type="text">
+										  {{-- <input class="form-control" name="end_location" placeholder="Điểm kết thúc" type="text"> --}}
+										  <select class="form-select"   name="end_location">
+											<option value=""></option>
+											@foreach ($locations as $location)
+											<option value="{{$location->name}}">{{$location->name}}</option>
+											@endforeach
+										</select>
 										  <span  aria-hidden="true"></span> </div>
 									  </div>
 

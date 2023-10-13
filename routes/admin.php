@@ -41,6 +41,8 @@ Route::prefix('trip')->group(function () {
     Route::get('edit/{id}', [TripController::class, 'edit_trip'])->name('edit_trip');
     Route::post('update/{id}', [TripController::class, 'save_edit_trip'])->name('save_edit_trip');
     Route::get('delete/{id}', [TripController::class, 'delete_trip'])->name('delete_trip');
+    Route::get('show/{id}', [TripController::class, 'show'])->name('show');
+
 });
 Route::prefix('permission')->group(function () {
     Route::get('/', [PermissionController::class, 'index'])->name('list_permission');

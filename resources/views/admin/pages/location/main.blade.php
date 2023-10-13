@@ -55,7 +55,6 @@
                                                             value="option">
                                                     </div>
                                                 </th>
-                                                <th class="sort" data-sort="customer_name">ID</th>
                                                 <th class="sort" data-sort="email">Tên địa điểm</th>
                                                 <th class="sort" data-sort="phone">Ảnh</th>
                                                 <th class="sort" data-sort="date">Mô tả</th>
@@ -74,7 +73,6 @@
                                                     <td class="id" style="display:none;"><a
                                                             href="javascript:void(0);"
                                                             class="fw-medium link-primary">#VZ2101</a></td>
-                                                    <td class="customer_name">{{ $item->id }}</td>
                                                     <td class="email">{{ $item->name }} </td>
                                                     <td class="date"><img src="{{Storage::url($item->image)}}" alt="" width="70px"></td>
                                                     <td class="phone">{{ $item->description }}</td>
@@ -82,11 +80,11 @@
                                                         <div class="d-flex gap-2">
                                                             <div class="edit">
                                                                 <a href="{{route('edit_location',['id'=>$item->id])}}"><button class="btn btn-sm btn-success edit-item-btn"
-                                                                    >Sửa</button></a>
+                                                                    ><i class="bx bx-edit"></i></button></a>
                                                             </div>
                                                             <div class="remove">
                                                                <a href="{{route('delete_location',['id'=>$item->id])}}" onclick="return confirm('Bạn có chắc chắn muốn xóa Vai trò này')"><button class="btn btn-sm btn-danger remove-item-btn"
-                                                                    >Xóa</button></a> 
+                                                                    ><i class="bx bx-trash"></i></button></a> 
                                                             </div>
                                                         </div>
                                                     </td>

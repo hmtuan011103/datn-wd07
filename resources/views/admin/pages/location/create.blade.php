@@ -32,13 +32,13 @@
                                 @csrf
                                 <div class="row">
 									<div class="col-md-6">
-									  <div class="form-group has-feedback">
+									  <div class="form-group has-feedback input group">
 										<label class="control-label">Tên địa điểm</label>
 										<input class="form-control" name="name" placeholder="Tên địa điểm " type="text">
 										<span aria-hidden="true"></span> </div>
 									</div>
 									<div class="col-md-6">
-									  <div class="form-group has-feedback">
+									  <div class="form-group has-feedback ">
 										<label class="control-label">Ảnh</label>
 										<input class="form-control" name="image" placeholder="Last Name" type="file">
 										<span  aria-hidden="true"></span> </div>
@@ -46,9 +46,9 @@
 									<div class="col-md-6">
 									  <div class="form-group has-feedback">
 										<label class="control-label">Địa điểm cha</label>
-										<select class="form-control" name="parent_id">
-											<option value="" style="color:rgb(168, 168, 168)">Chọn địa điểm</option>
-											<option value="0">Trống</option>
+										<select class="form-select"  name="parent_id">
+											{{-- <option value="" style="color:rgb(168, 168, 168)">Chọn địa điểm</option> --}}
+											<option value="" selected>Trống</option>
 											
 											@foreach ($location as $item)
 											<option value="{{$item->id}}">{{$item->name}}</option>
