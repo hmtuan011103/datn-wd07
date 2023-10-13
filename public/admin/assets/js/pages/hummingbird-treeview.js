@@ -166,7 +166,7 @@
 		    }
 		    //
 		    item = item + '<li data-id="' + numHyphen + '">' +"\n";
-		    item = item + '<i class="fa fa-plus"></i>' + "\n";
+		    item = item + '<i class="fa fa-angle-right"></i>' + "\n";
 		    item = item + '<label ' + data_str  + 'data-nonhovercolor="' + data_nonHoverColor + '" ' +  'data-hovercolor="' + data_HoverColor + '" ' + 'data-nonhovercolor_bg="' + data_nonHoverColor_bg + '" ' +  'data-hovercolor_bg="' + data_HoverColor_bg + '">' + "\n";
 		    if (boldParents){
 			item = item + '<input id="' + id_str  + '" data-id="' + data_id + '" type="checkbox" /> <b>' + treeText + '</b>';
@@ -272,8 +272,8 @@
 		
 
 		//change symbols
-		if (options.collapsedSymbol != "fa-plus") {
-		    $(this).find("i").removeClass("fa-plus").addClass(options.collapsedSymbol);
+		if (options.collapsedSymbol != "fa-angle-right") {
+		    $(this).find("i").removeClass("fa-angle-right").addClass(options.collapsedSymbol);
 		}
 
 		//set text color
@@ -853,8 +853,8 @@
     //options defaults
     $.fn.hummingbird.defaults = {
 	SymbolPrefix: "fa",
-	expandedSymbol: "fa-minus",
-	collapsedSymbol: "fa-plus",
+	expandedSymbol: "fa-angle-down",
+	collapsedSymbol: "fa-angle-right",
 	collapseAll: true,
 	checkboxes: "enabled",
 	checkboxesGroups: "enabled",

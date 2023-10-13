@@ -28,7 +28,7 @@ class RoleController extends BaseRoleController
     public function add()
     {
         $title = 'Thêm mới vai trò';
-        $permission = Permission::where(['parent_id' => null])->get();
+        $permission = Permission::where(['parent_id' => 0])->get();
         return view('admin.pages.role.add', compact('title','permission'));
     }
     public function store(StoreRoleRequest $request)
@@ -44,7 +44,7 @@ class RoleController extends BaseRoleController
         $title = 'Sửa vai trò';
         $role =  Role::find($id);
         $role_permission = RolePermission::where(['role_id' => $id])->get();
-        $permission = Permission::where(['parent_id' => null])->get();
+        $permission = Permission::where(['parent_id' => 0])->get();
         return view('admin.pages.role.edit', compact('title', 'role','role_permission','permission'));
     }
 
