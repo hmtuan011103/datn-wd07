@@ -14,10 +14,12 @@ class TypeUserController extends BaseTypeUserController
     {
         $title = 'Quản lý loại người dùng';
 
-        $query = $this->typeUserService->getAllPaginate();
+        // $query = $this->typeUserService->getAllPaginate();
+        $query = $this->typeUserService->getAll();
 
-        $data = $query['data'];
-
+        // $data = $query['data'];
+        $data = $query->getData()->data;
+        // dd();
         return view('admin.pages.type_user.index', compact('title', 'data'));
     }
 
@@ -39,17 +41,17 @@ class TypeUserController extends BaseTypeUserController
     public function store(StoreTypeUserRequest $request)
     {
         $query = $this->typeUserService->create($request->validated());
+        $message = $query->getData()->message;
 
         // error
         if ($query->getData()->status > 203) {
-            toastr()->error('Tạo mới thất bại!', 'Thất bại');
+            toastr()->error($message, 'Thất bại');
         } else {
-            $message = $query->getData()->message;
 
             toastr()->success($message, 'Thành công');
         }
 
-        return redirect()->route('type_users.index');
+        return back();
     }
 
     /**
@@ -81,10 +83,11 @@ class TypeUserController extends BaseTypeUserController
     public function update(StoreTypeUserRequest $request, int $id)
     {
         $query = $this->typeUserService->update($request->validated(), $id);
+        $message = $query->getData()->message;
 
         // error
         if ($query->getData()->status > 203) {
-            toastr()->error('Tạo mới thất bại!', 'Thất bại');
+            toastr()->error($message, 'Thất bại');
 
             return back();
         }

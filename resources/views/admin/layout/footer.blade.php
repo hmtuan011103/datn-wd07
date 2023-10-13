@@ -10,4 +10,4 @@
 <!--jquery cdn-->
 <script src={{ asset('admin/assets/libs/jquery/jquery-3.6.0.min.js') }}></script>
 <!--preload-->
-<script src={{ asset('admin/assets/js/form-submit-preload.js') }}></script>
+{{-- <script src={{ asset('admin/assets/js/form-submit-preload.js') }}></script> --}}

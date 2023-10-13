@@ -52,9 +52,10 @@ class UserController extends BaseUserController
     {
         $title = 'Thêm mới người dùng';
         $pageViewInfo = 'admin.pages.user.create';
+        $allUserRoleData = $this->userService->getAllRoles();
         $allTypeUserData = $this->typeUserService->getAll()->getData()->data;
 
-        return view('admin.pages.user.index', compact('title', 'pageViewInfo', 'allTypeUserData'));
+        return view('admin.pages.user.index', compact('title', 'pageViewInfo', 'allTypeUserData', 'allUserRoleData'));
     }
 
     /**
@@ -63,17 +64,18 @@ class UserController extends BaseUserController
     public function store(StoreUserRequest $request)
     {
         $query = $this->userService->create($request->validated());
+        $message = $query->getData()->message;
 
         // error
         if ($query->getData()->status > 203) {
-            toastr()->error('Tạo mới thất bại!', 'Thất bại');
+            toastr()->error($message, 'Thất bại');
         } else {
             $message = $query->getData()->message;
 
             toastr()->success($message, 'Thành công');
         }
 
-        return redirect()->route('users.index');
+        return back();
     }
 
     /**
@@ -105,10 +107,11 @@ class UserController extends BaseUserController
     public function update(UpdateUserRequest $request, int $id)
     {
         $query = $this->userService->update($request->validated(), $id);
+        $message = $query->getData()->message;
 
         // error
         if ($query->getData()->status > 203) {
-            toastr()->error('Tạo mới thất bại!', 'Thất bại');
+            toastr()->error($message, 'Thất bại');
 
             return back();
         }
@@ -119,19 +122,19 @@ class UserController extends BaseUserController
         return redirect()->route('users.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(int $id)
-    {
-        try {
-            $this->userService->destroy($id);
-            toastr()->success('Đã xóa!', 'Thành công');
-        } catch (\Throwable $th) {
-            // error
-            toastr()->error('Xóa thất bại!', 'Thất bại');
-        }
+    // /**
+    //  * Remove the specified resource from storage.
+    //  */
+    // public function destroy(int $id)
+    // {
+    //     try {
+    //         $this->userService->destroy($id);
+    //         toastr()->success('Đã xóa!', 'Thành công');
+    //     } catch (\Throwable $th) {
+    //         // error
+    //         toastr()->error('Xóa thất bại!', 'Thất bại');
+    //     }
 
-        return redirect()->route('users.index');
-    }
+    //     return redirect()->route('users.index');
+    // }
 }

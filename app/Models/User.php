@@ -24,7 +24,9 @@ class User extends Authenticatable
         'user_type_id',
         'phone_number',
         'address',
-        'description'
+        'description',
+        'created_at',
+        'updated_at'
     ];
 
     /**
@@ -51,5 +53,15 @@ class User extends Authenticatable
     public function typeUser()
     {
         return $this->belongsTo(TypeUser::class, 'user_type_id');
+    }
+
+    /**
+     * Define the many-to-many relationship with Role model through the user_role table.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id')->withTimestamps();
     }
 }

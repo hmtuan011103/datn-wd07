@@ -28,7 +28,7 @@
 
                                 <div class="col-12">
                                     <a href="{{ route('type_users.index') }}" class="btn btn-soft-primary">
-                                        Trở lại danh sách
+                                        Danh sách
                                     </a>
                                     <button class="btn btn-primary" type="submit">Tạo mới</button>
                                 </div>

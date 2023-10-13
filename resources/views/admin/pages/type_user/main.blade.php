@@ -6,7 +6,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title mb-0">Danh sách loại người dùng</h4>
-                        </div><!-- end card header -->
+                        </div>
 
                         <div class="card-body">
                             <div class="listjs-table" id="customerList">
@@ -35,7 +35,12 @@
                                         <table class="table align-middle table-nowrap" id="customerTable">
                                             <thead class="table-light">
                                                 <tr>
-                                                    <th></th>
+                                                    <th scope="col" style="width: 50px;">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                id="checkAll" value="option">
+                                                        </div>
+                                                    </th>
                                                     <th>Loại người dùng</th>
                                                     <th>Ngày tạo</th>
                                                     <th>Chỉnh sửa lần cuối</th>
@@ -44,8 +49,13 @@
                                             </thead>
                                             <tbody class="list form-check-all">
                                                 @foreach ($data as $item)
-                                                    <tr>
-                                                        <td></td>
+                                                    <tr id="row{{ $item->id }}">
+                                                        <th scope="row">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    name="rowCheckbox" value="{{ $item->id }}">
+                                                            </div>
+                                                        </th>
                                                         <td>{{ $item->name }}</td>
                                                         <td>{{ helperFormatTime($item->created_at) ?? 'Trống' }}</td>
                                                         <td>{{ helperFormatTime($item->updated_at) ?? 'Trống' }}</td>
@@ -98,7 +108,19 @@
                                     @endif
                                 </div>
 
-                                {{ $data->links() }}
+                                {{-- paginate --}}
+                                <div class="d-flex justify-content-end">
+                                    <div class="pagination-wrap hstack gap-2">
+                                        <a class="page-item pagination-prev disabled" href="javascript:void(0);">
+                                            Trước
+                                        </a>
+                                        <ul class="pagination listjs-pagination mb-0"></ul>
+                                        <a class="page-item pagination-next" href="javascript:void(0);">
+                                            Sau
+                                        </a>
+                                    </div>
+                                </div>
+                                {{-- {{ $data->links() }} --}}
 
                             </div>
                         </div><!-- end card -->
