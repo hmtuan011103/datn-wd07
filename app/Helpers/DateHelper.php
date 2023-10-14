@@ -11,4 +11,26 @@ if (!function_exists('helperFormatTime')) {
 
           return null;
      }
+
 }
+
+function formatDateTrip($parameter)
+     {
+          if ($parameter) {
+               return Carbon::parse($parameter)->format('d/m/Y');
+          }
+
+          return null;
+     }
+
+     function formatEditDateTrip($parameter)
+     {
+          if ($parameter) {
+               return Carbon::parse($parameter)->format('Y-m-d');
+          }
+
+          return null;
+     }
+
+
+

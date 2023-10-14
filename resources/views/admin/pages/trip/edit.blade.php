@@ -52,7 +52,7 @@
 
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
-                                                <label class="control-label">Danh tài xế</label>
+                                                <label class="control-label">Tài xế</label>
                                                 <select class="form-select"   name="drive_id">
                                                     @foreach ($users as $user)
                                                         {{-- <option value="{{$user->id}}" {{$user->id}} == {{$trip->user_id}} ? "selected" : "">{{$user->name}}</option> --}}
@@ -67,7 +67,7 @@
 
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
-                                                <label class="control-label">Danh sách phụ xe</label>
+                                                <label class="control-label">Phụ xe</label>
                                                 <select class="form-select"   name="assistantCar_id">
                                                     @foreach ($users as $user)
                                                         {{-- <option value="{{$user->id}}" {{$user->id}} == {{$trip->user_id}} ? "selected" : "">{{$user->name}}</option> --}}
@@ -85,7 +85,7 @@
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Ngày đi</label>
                                                 <input class="form-control" name="start_date"
-                                                    value="{{ $trip->start_date }}" placeholder="Mô tả" type="date">
+                                                    value="{{ formatEditDateTrip($trip->start_date) }}" id="date-input" placeholder="dd/mm/yyyy" type="text">
                                                 <span aria-hidden="true"></span>
                                             </div>
                                         </div>
@@ -94,7 +94,7 @@
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Giờ đi</label>
                                                 <input class="form-control" name="start_time"
-                                                    value="{{ $trip->start_time }}" placeholder="Mô tả" type="time">
+                                                    value="{{ $trip->start_time }}" id="time-input" placeholder="00:00" type="text">
                                                 <span aria-hidden="true"></span>
                                             </div>
                                         </div>
@@ -113,12 +113,13 @@
                                                 <label class="control-label">Điểm bắt đầu</label>
                                                 {{-- <input class="form-control" name="start_location" value="{{$trip->start_location}}" placeholder="Điểm bắt đầu" type="text"> --}}
                                                 <select class="form-select"   name="start_location">
-                                                    <option value="{{ $trip->start_location }}" selected>
-                                                        {{ $trip->start_location }}</option>
-                                                    @foreach ($locations as $location)
-                                                        <option value="{{ $location->name }}">{{ $location->name }}
-                                                        </option>
-                                                    @endforeach
+                                                   
+                                                    @foreach ($locations as $locat)
+                                                    {{-- <option value="{{$user->id}}" {{$user->id}} == {{$trip->user_id}} ? "selected" : "">{{$user->name}}</option> --}}
+                                                    <?php $selected = $locat->name == $trip->start_location ? 'selected' : ''; ?>
+                                                    <option {{ $selected }} value="{{ $locat->name }}">
+                                                        {{ $locat->name }}</option>
+                                                @endforeach
                                                 </select>
                                                 <span aria-hidden="true"></span>
                                             </div>
@@ -131,14 +132,13 @@
                                                     value="{{ $trip->end_location }}" placeholder="Điểm kết thúc"
                                                     type="text"> --}}
                                                 <select class="form-select"   name="end_location">
-                                                    <option value="{{ $trip->end_location }}" selected>{{ $trip->end_location }}
-                                                    </option>
-                                                    @foreach ($locations as $location)
-                                                      
-                                                        <option value="{{ $location->name }}">{{ $location->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                                   
+                                                @foreach ($locations as $locat)
+                                                {{-- <option value="{{$user->id}}" {{$user->id}} == {{$trip->user_id}} ? "selected" : "">{{$user->name}}</option> --}}
+                                                <?php $selected = $locat->name == $trip->end_location ? 'selected' : ''; ?>
+                                                <option {{ $selected }} value="{{ $locat->name }}">
+                                                    {{ $locat->name }}</option>
+                                            @endforeach
 
                                                 <span aria-hidden="true"></span>
                                             </div>

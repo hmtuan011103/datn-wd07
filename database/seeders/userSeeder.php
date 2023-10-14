@@ -21,6 +21,8 @@ class userSeeder extends Seeder
             'phone_number'=>'09899999',
             'address'=>'Thanh Hóa',
             'description'=>'hihi'
-        ]);
+        ]
+       
+    );
     }
 }

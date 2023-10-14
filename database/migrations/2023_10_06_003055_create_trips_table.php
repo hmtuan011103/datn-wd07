@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('car_id');
             $table->integer('drive_id')->comment('tài xế');
             $table->integer('assistantCar_id')->comment('phụ xế');
-            $table->date('start_date')->comment('ngày đi');
+            $table->dateTime('start_date')->comment('ngày đi');
             $table->time('start_time');
             $table->string('start_location');
             $table->text('status');

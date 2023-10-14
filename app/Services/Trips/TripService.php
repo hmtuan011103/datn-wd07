@@ -11,31 +11,28 @@ use Carbon\Carbon;
 
 class TripService
 {
-    public function list()
+    public function list() {
+        return Trip::all();       
+
+    }
+    public function list_desc()
     {
         // $trips = Trip::all();       
-        $trips = Trip::select('trips.id', 'trips.car_id', 'trips.drive_id','trips.start_date','trips.start_time','trips.start_location','trips.status','trips.trip_price','trips.end_location','cars.name as car_name','users.name as user_name')
+        $trips = Trip::select('trips.id', 'trips.car_id', 'trips.drive_id','trips.start_date','trips.start_time','trips.start_location','trips.status','trips.trip_price','trips.end_location','trips.created_at','trips.updated_at','cars.name as car_name','users.name as user_name')
         ->join('cars', 'cars.id', '=', 'trips.car_id')
         ->join('users', 'users.id', '=', 'trips.drive_id')
-        ->get();
+        ->orderBy('updated_at', 'DESC')->get();
         return $trips;
     }
 
     public function create (StoreTripRequest $request) {
         if($request->isMethod('POST')) {
           
-            $trip = new Trip();
-            //  date ('d-m-Y', strtotime ($request->start_date));
-            $trip->car_id = $request->car_id;
-            $trip->drive_id = $request->drive_id;
-            $trip->assistantCar_id = $request->assistantCar_id;
-            $trip->start_date = Carbon::parse($request->start_date)->format('Y/m/d');
-            $trip->start_time = $request->start_time;
-            $trip->trip_price = $request->trip_price;
-            $trip->start_location = $request->start_location;
-            $trip->end_location = $request->end_location;
-            $trip->status = $request->status;
-            $trip->save();
+            $params = $request->all();
+            unset($params['_token']);
+
+            return Trip::create($params);   
+
 
 
         }
