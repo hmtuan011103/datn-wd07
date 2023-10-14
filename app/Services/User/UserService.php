@@ -157,8 +157,8 @@ class UserService
                }
           }
 
-          // Check if any data other than 'id', 'roles', 'created_at', and 'updated_at' has changed
-          $formatRecord = $user_collect->except(['id', 'roles', 'created_at', 'updated_at']);
+          // Check if any data other than 'id', 'roles', 'created_at', 'deleted_at', and 'updated_at' has changed
+          $formatRecord = $user_collect->except(['id', 'roles', 'created_at', 'updated_at', 'deleted_at']);
           $formatData = collect($data)->except(['roles']);
 
           // If there are differences, an update is needed

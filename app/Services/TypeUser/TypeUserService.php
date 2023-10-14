@@ -104,7 +104,7 @@ class TypeUserService
           }
 
           // check if nothing change
-          $formatRecord = collect($typeUser)->except(['id', 'created_at', 'updated_at']);
+          $formatRecord = collect($typeUser)->except(['id', 'created_at', 'updated_at', 'deleted_at']);
           if (count($formatRecord->diff($data)) == 0) {
                $response['message'] = 'Không có gì thay đổi để cập nhật.';
                return response()->json($response, $response['status']);
