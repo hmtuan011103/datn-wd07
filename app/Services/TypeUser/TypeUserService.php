@@ -3,6 +3,8 @@
 namespace App\Services\TypeUser;
 
 use App\Models\TypeUser as TypeUserModel;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class TypeUserService
@@ -133,21 +135,37 @@ class TypeUserService
           return false;
      }
 
-     public function destroyMultiple($idArray)
+     public function destroyMultiple(array $idArray)
      {
-          dd($idArray);
-          // Get an array of IDs to be deleted from the request
-          // $ids = $request->input('ids');
+          // Validate IDs before performing the delete operation
+          $existingIds = $this->model::whereIn('id', $idArray)->pluck('id')->toArray();
 
-          // Soft delete records with the specified IDs
-          // YourModel::whereIn('id', $ids)->delete();
-
-          $typeUser = $this->model->find($idArray);
-
-          if ($typeUser) {
-               return $typeUser->delete();
+          // Check if all IDs in $idArray exist in the database
+          if (count($existingIds) !== count($idArray)) {
+               // Not all IDs in $idArray exist in the database
+               return response()->json(['message' => 'Invalid ID(s) provided.'], ResponseAlias::HTTP_BAD_REQUEST);
           }
 
-          return false;
+          // Start a transaction
+          DB::beginTransaction();
+
+          try {
+               // Soft delete records with the specified IDs
+               $this->model::whereIn('id', $idArray)->delete();
+
+               // Commit the transaction
+               DB::commit();
+
+               return response()->json(['message' => 'Type users deleted successfully.'], ResponseAlias::HTTP_OK);
+          } catch (\Exception $e) {
+               // Rollback the transaction in case of an error
+               DB::rollback();
+
+               // Log the error
+               Log::error('Error: ' . $e->getMessage());
+
+               // Return an error response
+               return response()->json(['message' => 'An error occurred while deleting type users.'], ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
+          }
      }
 }

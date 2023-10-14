@@ -17,15 +17,16 @@ var idTableContainer,
                          });
                }),
                10),
-     editlist = !1,
-     options = {
-          valueNames: ["id", "name", "created_at", "updated_at"],
-          page: perPage,
-          pagination: !0,
-          plugins: [ListPagination({ left: 2, right: 2 })],
-     };
+     editlist = !1;
 
-// no result handle
+var options = {
+     valueNames: ["id", "name", "email", "created_at", "updated_at"],
+     page: perPage,
+     pagination: !0,
+     plugins: [ListPagination({ left: 2, right: 2 })],
+};
+
+// no result handle when search
 document.getElementById("idTableContainer") &&
      (idTableContainer = new List("idTableContainer", options).on(
           "updated",
@@ -91,49 +92,20 @@ function deleteMultiple() {
           }),
                "undefined" != typeof ids_array && 0 < ids_array.length)
      ) {
-          // Convert the array to a JSON string
-          var idArrayJsonData = JSON.stringify(ids_array);
-          var urlAjaxRequest = window.location.hostname + "/api/type_users/destroy-multiple";
+          var dataParams = { ids: ids_array };
+          var urlAjaxRequest = "/api/users/destroy-multiple";
 
-          $.ajax({
-               url: urlAjaxRequest,
-               type: 'DELETE',
-               data: { ids: idArrayJsonData },
-               success: function (response) {
-                    console.log('Success:', response);
-               },
-               error: function (error) {
-                    console.error('Error:', error);
+          (async () => {
+               let statusRequest = await confirmDeleteApi(urlAjaxRequest, dataParams);
+
+               if (statusRequest) {
+                    // Reload the page after a 1.5-second delay
+                    setTimeout(() => {
+                         location.reload();
+                    }, 1000);
                }
-          });
+          })();
 
-          // var ajaxRequest = $.ajax({
-          //      url: window.location.hostname + "manage/type_users/{type_user_array}" +
-          //           selectedRows[a],
-          //      method: "GET"
-          // });
-          // var row = document.getElementById('row' + selectedRows[a]);
-          // if (row) {
-          //      row.remove();
-          //      // style.display = 'none';
-          // }
-          // Swal.fire({
-          //      position: "center",
-          //      icon: "success",
-          //      title: "Xóa phân quyền thành công!",
-          //      showConfirmButton: !1,
-          //      timer: 2e3,
-          //      showCloseButton: !0,
-          // })
-
-
-          // if (!confirm("Bạn có chắc muốn xóa không?")) return !1;
-          // Array.from(ids_array).forEach(function (e) {
-          //      idTableContainer.remove(
-          //           "id",
-          //           `<a href="javascript:void(0);" class="fw-medium link-primary">${e}</a>`
-          //      );
-          // }),
           (document.getElementById("checkAll").checked = !1);
      } else
           Swal.fire({
@@ -154,19 +126,19 @@ document.querySelectorAll(".listjs-table").forEach(function (e) {
                     .querySelector(".active")
                     .nextElementSibling.children[0].click();
      });
-}),
-     document.querySelectorAll(".listjs-table").forEach(function (e) {
-          e.querySelector(".pagination-prev").addEventListener(
-               "click",
-               function () {
-                    e.querySelector(".pagination.listjs-pagination") &&
-                         e
-                              .querySelector(".pagination.listjs-pagination")
-                              .querySelector(".active") &&
-                         e
-                              .querySelector(".pagination.listjs-pagination")
-                              .querySelector(".active")
-                              .previousSibling.children[0].click();
-               }
-          );
-     });
+});
+document.querySelectorAll(".listjs-table").forEach(function (e) {
+     e.querySelector(".pagination-prev").addEventListener(
+          "click",
+          function () {
+               e.querySelector(".pagination.listjs-pagination") &&
+                    e
+                         .querySelector(".pagination.listjs-pagination")
+                         .querySelector(".active") &&
+                    e
+                         .querySelector(".pagination.listjs-pagination")
+                         .querySelector(".active")
+                         .previousSibling.children[0].click();
+          }
+     );
+});

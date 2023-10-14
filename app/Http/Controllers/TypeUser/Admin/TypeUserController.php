@@ -15,12 +15,10 @@ class TypeUserController extends BaseTypeUserController
     {
         $title = 'Quản lý loại người dùng';
 
-        // $query = $this->typeUserService->getAllPaginate();
         $query = $this->typeUserService->getAll();
 
-        // $data = $query['data'];
         $data = $query->getData()->data;
-        // dd();
+
         return view('admin.pages.type_user.index', compact('title', 'data'));
     }
 
@@ -120,16 +118,8 @@ class TypeUserController extends BaseTypeUserController
      */
     public function destroyMultiple(Request $request)
     {
-        dd($request->input('ids'));
+        $data = $request->ids;
 
-        try {
-            $this->typeUserService->destroyMultiple(1);
-            toastr()->success('Đã xóa!', 'Thành công');
-        } catch (\Throwable $th) {
-            // error
-            toastr()->error('Xóa thất bại!', 'Thất bại');
-        }
-
-        return redirect()->route('type_users.index');
+        return $this->typeUserService->destroyMultiple($data);
     }
 }
