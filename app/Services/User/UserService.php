@@ -4,8 +4,9 @@ namespace App\Services\User;
 
 use App\Models\Role;
 use App\Models\User as UserModel;
-use Illuminate\Database\QueryException;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class UserService
@@ -97,14 +98,7 @@ class UserService
 
                // If the transaction is successful, return a success response
                return response()->json($response, $response['status']);
-          } catch (QueryException $e) {
-               // Handle database query exception
-               // Log the error, rollback the transaction, and return an error response
-               DB::rollBack();
-
-               return response()->json(['message' => 'Database error occurred.', 'status' => ResponseAlias::HTTP_INTERNAL_SERVER_ERROR]);
           } catch (\Exception $e) {
-               // Handle other exceptions
                // Log the error and return an error response
                return response()->json(['message' => $e->getMessage(), 'status' => ResponseAlias::HTTP_INTERNAL_SERVER_ERROR]);
           }
@@ -163,8 +157,8 @@ class UserService
                }
           }
 
-          // Check if any data other than 'id', 'roles', 'created_at', and 'updated_at' has changed
-          $formatRecord = $user_collect->except(['id', 'roles', 'created_at', 'updated_at']);
+          // Check if any data other than 'id', 'roles', 'created_at', 'deleted_at', and 'updated_at' has changed
+          $formatRecord = $user_collect->except(['id', 'roles', 'created_at', 'updated_at', 'deleted_at']);
           $formatData = collect($data)->except(['roles']);
 
           // If there are differences, an update is needed
@@ -186,6 +180,8 @@ class UserService
                     // Update user roles
                     if ($isUpdateRole) {
                          $user->roles()->sync($data['roles']);
+                         // Set updated_at to current timestamp
+                         $user->update(['updated_at' => Carbon::now()]);
                     }
 
                     // Update user data
@@ -201,12 +197,6 @@ class UserService
 
                // If the transaction is successful, return a success response
                return response()->json($response, $response['status']);
-          } catch (QueryException $e) {
-               // Handle database query exception
-               // Log the error, rollback the transaction, and return an error response
-               DB::rollBack();
-
-               return response()->json(['message' => 'Database error occurred.', 'status' => ResponseAlias::HTTP_INTERNAL_SERVER_ERROR]);
           } catch (\Exception $e) {
                // Handle other exceptions
                // Log the error and return an error response
@@ -214,16 +204,50 @@ class UserService
           }
      }
 
-     // public function destroy($id)
-     // {
-     //      $user = $this->model->find($id);
+     public function destroy($id)
+     {
+          $user = $this->model->find($id);
 
-     //      if ($user) {
-     //           return $user->delete();
-     //      }
+          if ($user) {
+               return $user->delete();
+          }
 
-     //      return false;
-     // }
+          return false;
+     }
+
+     public function destroyMultiple(array $idArray)
+     {
+          // Validate IDs before performing the delete operation
+          $existingIds = $this->model::whereIn('id', $idArray)->pluck('id')->toArray();
+
+          // Check if all IDs in $idArray exist in the database
+          if (count($existingIds) !== count($idArray)) {
+               // Not all IDs in $idArray exist in the database
+               return response()->json(['message' => 'Invalid ID(s) provided.'], ResponseAlias::HTTP_BAD_REQUEST);
+          }
+
+          // Start a transaction
+          DB::beginTransaction();
+
+          try {
+               // Soft delete records with the specified IDs
+               $this->model::whereIn('id', $idArray)->delete();
+
+               // Commit the transaction
+               DB::commit();
+
+               return response()->json(['message' => 'Type users deleted successfully.'], ResponseAlias::HTTP_OK);
+          } catch (\Exception $e) {
+               // Rollback the transaction in case of an error
+               DB::rollback();
+
+               // Log the error
+               Log::error('Error: ' . $e->getMessage());
+
+               // Return an error response
+               return response()->json(['message' => 'An error occurred while deleting type users.'], ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
+          }
+     }
 
      public function getAllRoles()
      {
