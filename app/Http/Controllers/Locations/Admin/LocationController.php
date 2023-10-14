@@ -56,7 +56,6 @@ class LocationController extends BaseLocationController
     public function delete_location($id)
     {
        $this->locationService->delete($id);
-        toastr()->success('Xóa thành công.','Thành công');
         return redirect()->route('list_location');
     }
 }

@@ -5,7 +5,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Thông tin chuyến đi</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <p type="button" class="close" data-dismiss="modal" aria-hidden="true">X</p>
                 </div>
                 <div class="modal-body">
                   

@@ -50,7 +50,7 @@
 
 									  <div class="col-md-6">
 										<div class="form-group has-feedback">
-										  <label class="control-label">Danh sách tài xế</label>
+										  <label class="control-label">Tài xế</label>
 										  <select class="form-select"   name="drive_id">
 											  <option value="">Chọn tài xé</option>
 											  @foreach ($users as $user)
@@ -62,7 +62,7 @@
 
 									  <div class="col-md-6">
 										<div class="form-group has-feedback">
-										  <label class="control-label">Danh sách phụ xe</label>
+										  <label class="control-label">Phụ xe</label>
 										  <select class="form-select"   name="assistantCar_id">
 											  <option value="">Chọn phụ xe</option>
 											  @foreach ($users as $user)
@@ -75,7 +75,7 @@
 									<div class="col-md-6">
 									  <div class="form-group has-feedback">
 										<label class="control-label">Ngày đi</label>
-										<input class="form-control" id="" name="start_date" placeholder="" type="date"  >
+										<input class="form-control"  name="start_date" id="date-input" placeholder="dd/mm/yyy" type="text"  >
 
 										<span  aria-hidden="true"></span> </div>
 									</div>
@@ -83,7 +83,7 @@
 									<div class="col-md-6">
 										<div class="form-group has-feedback">
 										  <label class="control-label">Giờ đi</label>
-										  <input class="form-control" name="start_time" placeholder="Mô tả" type="time">
+										  <input class="form-control" name="start_time" id="time-input" placeholder="00:00" type="text">
 										  <span  aria-hidden="true"></span> </div>
 									  </div>
 
@@ -154,5 +154,6 @@
     <!-- End Page-content -->
 
 </div>
+
 
 @endsection

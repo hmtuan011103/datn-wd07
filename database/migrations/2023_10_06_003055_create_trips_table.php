@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('trips', function (Blueprint $table) {
             $table->id();
             $table->integer('car_id');
-            $table->string('drive_id')->comment('tài xế');
-            $table->string('assistantCar_id')->comment('phụ xế');
-            $table->date('start_date')->comment('ngày đi');
+            $table->integer('drive_id')->comment('tài xế');
+            $table->integer('assistantCar_id')->comment('phụ xế');
+            $table->dateTime('start_date')->comment('ngày đi');
             $table->time('start_time');
             $table->string('start_location');
             $table->text('status');

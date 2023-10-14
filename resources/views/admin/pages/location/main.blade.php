@@ -30,7 +30,7 @@
                                             <a href="{{route('form_create')}}"><button type="button" class="btn btn-success add-btn"
                                                 data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal"><i
                                                     class="ri-add-line align-bottom me-1"></i> Thêm</button></a>
-                                            <button class="btn btn-soft-danger" onClick="deleteMultiple()"><i
+                                            <button class="btn btn-soft-danger" onClick="deleteMultiples()"><i
                                                     class="ri-delete-bin-2-line"></i></button>
                                         </div>
                                     </div>
@@ -63,11 +63,11 @@
                                         </thead>
                                         <tbody class="list form-check-all">
                                             @foreach ($location as $item)
-                                                <tr>
+                                                <tr  id="row{{ $item->id }}">
                                                     <th scope="row">
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox"
-                                                                name="chk_child" value="option1">
+                                                                name="rowCheckbox" value="{{$item->id}}">
                                                         </div>
                                                     </th>
                                                     <td class="id" style="display:none;"><a
@@ -83,8 +83,9 @@
                                                                     ><i class="bx bx-edit"></i></button></a>
                                                             </div>
                                                             <div class="remove">
-                                                               <a href="{{route('delete_location',['id'=>$item->id])}}" onclick="return confirm('Bạn có chắc chắn muốn xóa Vai trò này')"><button class="btn btn-sm btn-danger remove-item-btn"
-                                                                    ><i class="bx bx-trash"></i></button></a> 
+                                                                <button class="btn btn-sm btn-danger btn-remove"
+                                                                    data-bs-toggle="modal" data-bs-target="#modalDelete"
+                                                                    data-role-id="{{ $item->id }}"><i class="bx bx-trash"></i></button>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -127,33 +128,35 @@
             <!-- end row -->
 
             
-            <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                id="btn-close"></button>
+            <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            id="btn-close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mt-2 text-center">
+                            <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
+                                colors="primary:#f7b84b,secondary:#f06548"
+                                style="width:100px;height:100px"></lord-icon>
+                            <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                                <h4>Xác nhận xóa ?</h4>
+                                <span id="role-id" hidden></span>
+                                <p class="text-muted mx-4 mb-0">Bạn có chắc chắn muốn xóa địa điểm này ?</p>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <div class="mt-2 text-center">
-                                <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
-                                    colors="primary:#f7b84b,secondary:#f06548"
-                                    style="width:100px;height:100px"></lord-icon>
-                                <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
-                                    <h4>Are you Sure ?</h4>
-                                    <p class="text-muted mx-4 mb-0">Are you Sure You want to Remove this Record ?</p>
-                                </div>
-                            </div>
-                            <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
-                                <button type="button" class="btn w-sm btn-light"
-                                    data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn w-sm btn-danger " id="delete-record" >Yes, Delete
-                                    It!</button>
-                            </div>
+                        <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                            <button type="button" class="btn w-sm btn-light"
+                                data-bs-dismiss="modal">Đóng</button>
+                            <button type="button" class="btn w-sm btn-danger " id="delete-record">Xóa</button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+
             <!--end modal -->
 
         </div>

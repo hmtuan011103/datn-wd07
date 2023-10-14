@@ -18,3 +18,93 @@
 
 {{-- validate locationRequest --}}
 @yield('validateRequest');
+
+<script>
+    function deleteMultiples() {
+        var checkboxes = document.getElementsByName('rowCheckbox');
+        var selectedRows = [];
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                selectedRows.push(checkboxes[i].value);
+            }
+        }
+        console.log(selectedRows.length)
+        var result = '';
+        if (selectedRows.length > 0) {
+            var result = confirm('Bạn có chắc chắn muốn xóa những địa điểm này')
+            if (result) {
+                for (let a = 0; a < selectedRows.length; a++) {
+                    var ajaxRequest = $.ajax({
+                        url: "http://127.0.0.1:8000/manage/location/delete/" +
+                            selectedRows[a],
+                        method: "GET"
+                    });
+                    var row = document.getElementById('row' + selectedRows[a]);
+                    if (row) {
+                        row.remove();
+                        // style.display = 'none';
+                    }
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Xóa địa điểm thành công!",
+                        showConfirmButton: !1,
+                        timer: 2e3,
+                        showCloseButton: !0,
+                    })
+                }
+            } else {
+
+            }
+
+        } else {
+            Swal.fire({
+                title: "Vui lòng chọn ít nhất 1 vai trò",
+                confirmButtonClass: "btn btn-danger",
+                confirmButtonColor: '#d33',
+            });
+        }
+    }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var deleteButtons = document.getElementsByClassName('btn-remove');
+
+        Array.from(deleteButtons).forEach(function(button) {
+            button.addEventListener('click', function() {
+                var roleId = this.dataset
+                    .roleId;
+                var roleIdElement = document.getElementById('role-id');
+                roleIdElement.textContent = roleId;
+            });
+        });
+        document.getElementById('delete-record').addEventListener('click', function() {
+            var roleId = document.getElementById('role-id')
+                .textContent;
+            var ajaxRequest = $.ajax({
+                url: "http://127.0.0.1:8000/manage/location/delete/" +
+                    roleId,
+                method: "GET"
+            });
+            var modalElement = document.getElementById('modalDelete');
+            var modalInstance = bootstrap.Modal.getInstance(modalElement);
+            modalInstance.hide();
+            location.href = location.href;
+
+            var row = document.getElementById('row' + roleId);
+            if (row) {
+                row.style.display = 'none';
+            }
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Xóa địa điểm thành công!",
+                showConfirmButton: !1,
+                timer: 2e3,
+                showCloseButton: !0,
+            })
+        });
+
+    });
+</script>

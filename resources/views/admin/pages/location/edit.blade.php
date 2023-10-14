@@ -43,7 +43,7 @@
                                                 <label class="control-label">Ảnh</label> <br>
                                              <img id="image_preview"
                                                         src="{{ Storage::url($location->image) }}" alt="Customer image"
-                                                        style="max-width: 200px; max-height: 100px"></label>
+                                                        style="max-width: 200px; max-height: 100px"></label> <br> <br>
                                                 <input class="form-control" name="image" value="{{$location->image}}" placeholder="Last Name"
                                                     type="file">
                                                 <span aria-hidden="true"></span>         

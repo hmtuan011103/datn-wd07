@@ -3,6 +3,7 @@
 namespace App\Services\Locations;
 
 use App\Models\Location;
+use App\Models\Trip;
 use Illuminate\Support\Facades\Storage;
 
 class LocationService
@@ -58,4 +59,5 @@ class LocationService
         ->delete();     
         return $delete;
 }
+    
 }
