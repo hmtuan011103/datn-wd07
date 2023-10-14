@@ -6,8 +6,13 @@
 {!! JsValidator::formRequest('App\Http\Requests\User\StoreUserRequest', '#form-create-user') !!}
 {!! JsValidator::formRequest('App\Http\Requests\User\UpdateUserRequest', '#form-edit-user') !!}
 
-<script src={{ asset('admin/assets/js/pages/typeuser/main.js') }}></script>
+<!-- listjs init -->
+<script src="{{ asset('admin/assets/libs/list.js/list.min.js') }}"></script>
+<script src="{{ asset('admin/assets/libs/list.pagination.js/list.pagination.min.js') }}"></script>
+<script src="{{ asset('admin/assets/js/pages/src/user/listjs.js') }}"></script>
+
+<script src={{ asset('admin/assets/js/pages/src/main.js') }}></script>
 
 <!-- multi.js -->
 <script src={{ asset('admin/assets/libs/multi.js/multi.min.js') }}></script>
-<script src={{ asset('admin/assets/js/pages/typeuser/user.js') }}></script>
+<script src={{ asset('admin/assets/js/pages/src/user/multijs.js') }}></script>
