@@ -4,13 +4,16 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +24,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'user_type_id',
+        'phone_number',
+        'address',
+        'description',
+        'created_at',
+        'updated_at'
     ];
 
     /**
@@ -42,4 +51,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // Define the inverse one-to-many relationship with the TypeUser model
+    public function typeUser()
+    {
+        return $this->belongsTo(TypeUser::class, 'user_type_id');
+    }
+
+    /**
+     * Define the many-to-many relationship with Role model through the user_role table.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id')->withTimestamps();
+    }
 }
