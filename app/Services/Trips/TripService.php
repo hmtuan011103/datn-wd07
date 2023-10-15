@@ -42,11 +42,11 @@ class TripService
     public function edit_trip(StoreTripRequest $request , $id) {
         Trip::find($id);
         if($request->isMethod('POST')) {
-            $params = $request->except('proengsoft_jsvalidation','_token');  
-            // dd($params);    
+            $params = $request->except('proengsoft_jsvalidation','_token');
+            // dd($params);
             return Trip::where('id',$id)->update($params);
         }
-       
+
     }
 
     public function delete_trip($id) {

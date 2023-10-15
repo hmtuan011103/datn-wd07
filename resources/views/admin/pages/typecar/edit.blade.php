@@ -9,12 +9,12 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                            <h4 class="mb-sm-0">Sửa Loại Xe</h4>
+                            <h4 class="mb-sm-0">Loại Xe</h4>
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
-                                    <li class="breadcrumb-item active">Sửa Loại Xe</li>
+                                    <li class="breadcrumb-item active">Loại Xe</li>
                                 </ol>
                             </div>
 
@@ -27,7 +27,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title mb-0">Thay Đổi Thông Tin Xe</h4>
+                                <h4 class="card-title mb-0">Thêm Mới Loại Xe</h4>
                             </div><!-- end card header -->
 
                             <div class="card-body">
@@ -35,31 +35,29 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="modal-body">
-                                        <div class="mb-3">
-                                            <label for="name" class="form-label">Loại Xe</label>
-                                            <input type="text" name="name" value="{{$model->name}}" id="name" class="form-control" placeholder="Enter Name Permission"  />
-{{--                                            <div class="invalid-feedback">Please enter a customer name.</div>--}}
+                                        <div class="row">
+                                            <div class="col-md-6 pt-3 pb-3">
+                                                <label for="customername-field" class="form-label">Loại Xe *</label>
+                                                <input type="text" name="name" value="{{$model->name}}" id="customername-field" class="form-control" placeholder="Nhập Tên Loại Xe"/>
+                                            </div>
+                                            <div class="col-md-6 pt-3 pb-3">
+                                                <label for="total_seat" class="form-label">Số Lượng Ghế *</label>
+                                                <input type="text" name="total_seat" value="{{$model->total_seat}}"  id="total_seat" class="form-control" placeholder="Nhập Số Lượng Ghế"/>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="customername-field" class="form-label">Mô Tả </label>
+                                                <textarea style="height: 100px" name="description" id="email-field" class="form-control" value="{{$model->description}}" placeholder="Nhập Mô Tả"  ></textarea>
+                                            </div>
                                         </div>
 
-                                        <div class="mb-3">
-                                            <label for="description" class="form-label">Mô Tả</label>
-                                            <input type="text" name="description" value="{{$model->description}}" id="description" class="form-control" placeholder="Enter Description"  />
-                                            <div class="invalid-feedback">Please enter an email.</div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="total_seat" class="form-label">Số Lượng Ghế</label>
-                                            <input type="text" name="total_seat" value="{{$model->total_seat}}" id="total_seat" class="form-control" placeholder="Enter Total_seat"  />
-                                        </div>
                                         <div class="modal-footer">
                                             <div class="hstack gap-2 justify-content-end">
                                                 <button type="button" class="btn btn-light"><a href="{{route('index_typecar')}}">Danh Sách</a></button>
                                                 <button type="submit" class="btn btn-success" id="add-btn">Thêm Mới </button>
-                                                <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
                                             </div>
                                         </div>
                                     </div>
                                 </form>
-
                             </div><!-- end card -->
                         </div>
                         <!-- end col -->

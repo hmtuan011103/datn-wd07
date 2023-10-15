@@ -13,7 +13,6 @@ class TypeCarController extends BaseTypeCarController
 
     public function index()
     {
-
         $title = 'Trang phân quyền';
         $data = TypeCar::query()->get();
         return view('admin.pages.typecar.main',compact('title','data'));
@@ -21,13 +20,12 @@ class TypeCarController extends BaseTypeCarController
     public function create()
     {
         $title = 'Trang phân quyền';
-        return view('admin.pages.typecar.add',compact('title'));
+        return view('admin.pages.typecar.create',compact('title'));
     }
     public function store(StoreTypeCarRequest $request)
     {
-        $model = new TypeCar();
-        $model->fill($request->all());
-        $model->save();
+        toastr()->success('Thêm Thành Công!');
+        $this->TypeCarService->store($request);
         return redirect()->route('index_typecar');
     }
     public function edit(Request $request)
@@ -38,15 +36,13 @@ class TypeCarController extends BaseTypeCarController
     }
     public function update(UpdateTypeCarRequest $request, string $id)
     {
-        $model = TypeCar::query()->findOrFail($id);
-        $model->fill($request->all());
-        $model->save();
+        $this->TypeCarService->update($request,$id);
+        toastr()->success('Sửa Thành Công!');
         return redirect()->route('index_typecar');
     }
     public function destroy(string $id)
     {
-        $model = TypeCar::query()->findOrFail($id);
-        $model->delete();
+        $this->TypeCarService->destroy($id);
         return back();
     }
 }
