@@ -26,7 +26,7 @@ var options = {
      plugins: [ListPagination({ left: 2, right: 2 })],
 };
 
-// no result handle when search
+// no result handle when search-route2
 document.getElementById("idTableContainer") &&
      (idTableContainer = new List("idTableContainer", options).on(
           "updated",

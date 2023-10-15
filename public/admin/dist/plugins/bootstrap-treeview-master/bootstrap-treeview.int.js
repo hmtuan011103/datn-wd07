@@ -180,7 +180,7 @@ $(function() {
         });
 
         $('#treeview5').treeview({
-         
+
           expandIcon: 'ti-angle-right',
           onhoverColor: "rgba(0, 0, 0, 0.05)",
           selectedBackColor: "#03a9f3",
@@ -255,7 +255,7 @@ $(function() {
         });
 
         var search = function(e) {
-          var pattern = $('#input-search').val();
+          var pattern = $('#input-search-route2').val();
           var options = {
             ignoreCase: $('#chk-ignore-case').is(':checked'),
             exactMatch: $('#chk-exact-match').is(':checked'),
@@ -267,22 +267,22 @@ $(function() {
           $.each(results, function (index, result) {
             output += '<p>- ' + result.text + '</p>';
           });
-          $('#search-output').html(output);
+          $('#search-route2-output').html(output);
         }
 
-        $('#btn-search').on('click', search);
-        $('#input-search').on('keyup', search);
+        $('#btn-search-route2').on('click', search);
+        $('#input-search-route2').on('keyup', search);
 
-        $('#btn-clear-search').on('click', function (e) {
+        $('#btn-clear-search-route2').on('click', function (e) {
           $searchableTree.treeview('clearSearch');
-          $('#input-search').val('');
-          $('#search-output').html('');
+          $('#input-search-route2').val('');
+          $('#search-route2-output').html('');
         });
 
 
         var initSelectableTree = function() {
           return $('#treeview-selectable').treeview({
-            
+
             data: defaultData,
             multiSelect: $('#chk-select-multi').is(':checked'),
             onNodeSelected: function(event, node) {
@@ -303,7 +303,7 @@ $(function() {
         $('#chk-select-multi:checkbox').on('change', function () {
           console.log('multi-select change');
           $selectableTree = initSelectableTree();
-          selectableNodes = findSelectableNodes();          
+          selectableNodes = findSelectableNodes();
         });
 
         // Select/unselect/toggle nodes

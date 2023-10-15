@@ -15,5 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return "This is client";
+    return view('client.pages.home.index');
+});
+
+Route::get('/search', function () {
+    return view('client.pages.search-route.index');
+});
+
+Route::get('/select-seat', function () {
+    return view('client.pages.select-seat.index');
 });
