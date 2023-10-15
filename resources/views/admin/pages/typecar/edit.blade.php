@@ -27,7 +27,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title mb-0">Thêm Mới Loại Xe</h4>
+                                <h4 class="card-title mb-0">Cập nhật Loại Xe</h4>
                             </div><!-- end card header -->
 
                             <div class="card-body">
@@ -53,7 +53,7 @@
                                         <div class="modal-footer">
                                             <div class="hstack gap-2 justify-content-end">
                                                 <button type="button" class="btn btn-light"><a href="{{route('index_typecar')}}">Danh Sách</a></button>
-                                                <button type="submit" class="btn btn-success" id="add-btn">Thêm Mới </button>
+                                                <button type="submit" class="btn btn-success" id="add-btn">Cập nhật</button>
                                             </div>
                                         </div>
                                     </div>
