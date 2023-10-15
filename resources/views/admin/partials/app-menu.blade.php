@@ -33,7 +33,7 @@
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{ route('admin.homepage') }}">
-                        <i class="mdi mdi-home"></i> 
+                        <i class="mdi mdi-home"></i>
                         <span>Trang chủ</span>
                     </a>
                 </li>
@@ -111,17 +111,36 @@
                     <div class="collapse menu-dropdown" id="sidebarRole">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('list_role') }}" class="nav-link" data-bs-toggle="collapse"
-                                    role="button" aria-expanded="false" aria-controls="sidebarRole"
-                                    data-key="t-signin">
+                                <a href="{{ route('list_role') }}" class="nav-link" role="button">
                                     Vai trò
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('list_permission') }}" class="nav-link" data-bs-toggle="collapse"
-                                    role="button" aria-expanded="false" aria-controls="sidebarRole"
-                                    data-key="t-signup">
+                                <a href="{{ route('list_permission') }}" class="nav-link" role="button">
                                     Phân quyền
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarCarTypeCar" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarCarTypeCar">
+                        <i class="mdi mdi-car"></i>
+                        <span data-key="t-authentication">Xe và loại xe</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarCarTypeCar">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('index_typecar') }}" class="nav-link" role="button">
+                                    Loại xe
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('index_car') }}" class="nav-link" role="button">
+                                    Xe
                                 </a>
                             </li>
 
