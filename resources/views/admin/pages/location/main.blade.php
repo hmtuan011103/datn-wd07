@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
-                       
+
 
                         <div class="card-body">
                             <div class="listjs-table" id="customerList">
@@ -102,7 +102,7 @@
                                             <h5 class="mt-2">Xin lỗi! Không có kết quả nào</h5>
                                             {{-- <p class="text-muted mb-0">We've searched more than 150+ Orders We did not
                                                 find any
-                                                orders for you search.</p> --}}
+                                                orders for you search-route2.</p> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -127,7 +127,7 @@
             </div>
             <!-- end row -->
 
-            
+
             <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -164,5 +164,5 @@
     </div>
     <!-- End Page-content -->
 
-</div>    
+</div>
 @endsection
