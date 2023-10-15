@@ -61,7 +61,6 @@
                                                     <input class="form-check-input" type="checkbox" id="checkAll" value="option">
                                                 </div>
                                             </th>
-                                            <th data-sort="customer_name">ID</th>
                                             <th data-sort="customer_name">Ảnh</th>
                                             <th data-sort="customer_name">Tên Chuyến Xe</th>
                                             <th data-sort="customer_name">Màu Xe</th>
@@ -82,35 +81,30 @@
                                                     </div>
                                                 </th>
                                                 <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a></td>
-                                                <td class="customer_name">{{$item->id}}</td>
                                                 <td class="customer_name"><img src="{{ asset($item->image) }}" alt="" width="100px"></td>
                                                 <td class="customer_name">{{$item->name}}</td>
                                                 <td class="customer_name">{{$item->color}}</td>
                                                 <td class="customer_name">{{$item->license_plate}}</td>
                                                 <td class="customer_name">{{$item->description}}</td>
                                                 <td class="customer_name">{{$item->status}}</td>
-                                                <td class="customer_name">{{$item->typeCar->name}}</td>
+                                                <td class="customer_name">{{$item->typecar_name}}</td>
 
                                                 <td>
                                                     <div class="d-flex gap-2">
                                                         <div >
-                                                            <button type="button" class="btn btn-sm btn-success edit-item-btn"
+                                                            <button type="button" class="btn btn-sm btn-secondary"
                                                                     data-bs-toggle="modal" id="create-btn"
-                                                                    data-bs-target="#modal{{$item->id}}"> Add</button>
+                                                                    data-bs-target="#modal{{$item->id}}"> <i class="bx bx bx-show"></i></button>
                                                         </div>
                                                         <div class="edit">
-                                                            <a href="{{route('edit_car',['id'=>$item->id])}}" class="btn btn-success btn-sm edit-item-btn" >Edit</a>
+                                                            <a href="{{route('edit_car',['id'=>$item->id])}}" class="btn btn-success btn-sm edit-item-btn" ><i class="bx bx-edit"></i></a>
                                                         </div>
                                                         <div class="remove">
-                                                            <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal"
-                                                                    onclick="if(confirm('Are you sure?'))
-                                                                   {document.getElementById('item-{{$item->id}}').submit()}">
-                                                                Xóa
-                                                            </button>
-                                                            <form action="{{route('destroy_car',$item)}}" id="item-{{$item->id}}" method="post">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                            </form>
+
+                                                            <button
+                                                                class="btn btn-sm btn-danger remove-item-btn"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#deleteRecordModal"><i class="bx bx-trash"></i></button>
                                                         </div>
                                                     </div>
                                                 <td>
@@ -163,20 +157,84 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                                     id="close-modal"></button>
                         </div>
-                       <table class="table align-middle table-nowrap" id="customerTable">
-                                        <tbody class="list form-check-all">
-                                            <tr>
-                                                @foreach($item->seats as $pe)
-                                                    <td class="customer_name">{{$pe->code_seat}}</td>
+                        <div class="boldbold">
+                            Danh Sách Ghế Ngồi Của Xe
+                        </div>
+                        <div class="seating-chart">
+                            <div class="row mx-auto">
+                                @if($item->typecar_total_seat > 0)
+                                    <div class="col">
+                                        @if ($item->typecar_total_seat > 24)
+                                            <div class="custom-style">Tầng 1</div>
+                                        @endif
+
+                                        <div class="row row1">
+                                            @foreach ($item->seats as $index => $pe)
+                                            @if ($index < 24)
+                                                <div class="col-6 ">
+                                                    {{ $pe->code_seat }}
+                                                </div>
+                                            @endif
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
+                          @if($item->typecar_total_seat >24)
+                                        <div class="col">
+                                            <div class="custom-style">Tầng 2</div>
+                                            <div class="row">
+                                                @foreach ($item->seats as $index => $pe)
+                                                @if ($index > 23 )
+                                                    <div class="col-6">
+                                                        {{ $pe->code_seat }}
+                                                    </div>
+                                                @endif
                                                 @endforeach
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                            </div>
+                                        </div>
+                          @endif
+                            </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             @endforeach
+            <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mt-2 text-center">
+                                <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                                <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                                    <h4>Are you Sure ?</h4>
+                                    <p class="text-muted mx-4 mb-0">Are you Sure You want to Remove this Record ?</p>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                                <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
+{{--                                @foreach($data as $item)--}}
 
+{{--                                @endforeach--}}
+                                @foreach($data as $item)
+                                    <form action="{{route('destroy_car',$item)}}" id="item-{{$item->id}}" method="post">
+                                        @endforeach
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn w-sm btn-danger" type="submit">
+                                            Yes, Delete It!
+                                        </button>
+                                    </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- container-fluid -->
     </div>

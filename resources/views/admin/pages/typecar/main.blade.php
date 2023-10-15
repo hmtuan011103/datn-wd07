@@ -56,11 +56,10 @@
                                                     <input class="form-check-input" type="checkbox" id="checkAll" value="option">
                                                 </div>
                                             </th>
-                                            <th data-sort="customer_name">ID</th>
-                                            <th data-sort="email">Tên Loại Xe</th>
-                                            <th data-sort="phone">Mô Tả</th>
-                                            <th data-sort="phone">Số Lượng Ghế</th>
-                                            <th data-sort="action">Chức Năng</th>
+                                            <th class="sort" data-sort="customer_name">Tên Loại Xe</th>
+                                            <th class="sort" data-sort="customer_name">Số Lượng Ghế</th>
+                                            <th class="sort" data-sort="customer_name">Mô Tả</th>
+                                            <th class="sort" data-sort="action">Chức Năng</th>
                                         </tr>
                                         </thead>
                                         <tbody class="list form-check-all">
@@ -72,27 +71,22 @@
                                                     </div>
                                                 </th>
                                                 <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a></td>
-                                                <td class="customer_name">{{$item->id}}</td>
                                                 <td class="customer_name">{{$item->name}}</td>
-                                                <td class="email">{{$item->description}}</td>
                                                 <td class="email">{{$item->total_seat}}</td>
+                                                <td class="email">{{$item->description}}</td>
                                                 <td>
                                                     <div class="d-flex gap-2">
                                                         <div class="edit">
-{{--                                                             <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal">Edit</button>--}}
-                                                            <a href="{{route('edit_typecar',['id'=>$item->id])}}" class="btn btn-success btn-sm edit-item-btn" >Edit</a>
+                                                            <a href="{{route('edit_typecar',['id'=>$item->id])}}" class="btn btn-success btn-sm edit-item-btn" ><i class="bx bx-edit"></i></a>
                                                         </div>
                                                         <div class="remove">
-                                                            <button class="btn btn-sm btn-danger remove-item-btn" data-bs-toggle="modal" data-bs-target="#deleteRecordModal"
-                                                                    onclick="if(confirm('Are you sure?'))
-                                                                    {document.getElementById('item-{{$item->id}}').submit()}">
-                                                                Xóa
-                                                            </button>
-                                                            <form action="{{route('destroy_typecar',$item)}}" id="item-{{$item->id}}" method="post">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                            </form>
+
+                                                            <button
+                                                                class="btn btn-sm btn-danger remove-item-btn"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#deleteRecordModal"><i class="bx bx-trash"></i></button>
                                                         </div>
+
                                                     </div>
                                                 </td>
                                             </tr>
@@ -129,10 +123,42 @@
                 <!-- end col -->
             </div>
             <!-- end row -->
+            <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mt-2 text-center">
+                                <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                                <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                                    <h4>Are you Sure ?</h4>
+                                    <p class="text-muted mx-4 mb-0">Are you Sure You want to Remove this Record ?</p>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
 
+                                <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
 
-        </div>
-        <!-- container-fluid -->
+                                @foreach($data as $item)
+                                    <form action="{{route('destroy_typecar',$item)}}" id="item-{{$item->id}}" method="post">
+                                        @endforeach
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn w-sm btn-danger " type="submit">
+                                            Yes, Delete It!
+                                        </button>
+                                    </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+    <!-- container-fluid -->
     </div>
     <!-- End Page-content -->
 
@@ -152,3 +178,4 @@
     </footer>
 </div>
 @endsection
+

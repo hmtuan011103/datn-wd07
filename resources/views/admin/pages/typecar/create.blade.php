@@ -34,27 +34,25 @@
                                 <form class="tablelist-form" autocomplete="off" action="{{route('store_typecar')}}" method="POST">
                                     @csrf
                                     <div class="modal-body">
-                                        <div class="mb-3">
-                                            <label for="customername-field" class="form-label">Loại Xe</label>
-                                            <input type="text" name="name" id="customername-field" class="form-control" placeholder="Enter Name Permission"  />
-                                            {{--                            <div class="invalid-feedback">Please enter a customer name.</div>--}}
-                                        </div>
+                                       <div class="row">
+                                           <div class="col-md-6 pt-3 pb-3">
+                                               <label for="customername-field" class="form-label">Loại Xe *</label>
+                                               <input type="text" name="name" id="customername-field" class="form-control" placeholder="Nhập Tên Loại Xe"/>
+                                           </div>
+                                           <div class="col-md-6 pt-3 pb-3">
+                                               <label for="total_seat" class="form-label">Số Lượng Ghế *</label>
+                                               <input type="text" name="total_seat" id="total_seat" class="form-control" placeholder="Nhập Số Lượng Ghế"/>
+                                           </div>
+                                           <div class="mb-3">
+                                               <label for="customername-field" class="form-label">Mô Tả </label>
+                                               <textarea style="height: 100px" name="description" id="email-field" class="form-control" placeholder="Nhập Mô Tả"  ></textarea>
+                                           </div>
+                                       </div>
 
-                                        <div class="mb-3">
-                                            <label for="customername-field" class="form-label">Mô Tả</label>
-                                            <input type="text" name="description" id="email-field" class="form-control" placeholder="Enter Description"  />
-                                            {{--                            <div class="invalid-feedback">Please enter an email.</div>--}}
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="total_seat" class="form-label">Số Lượng Ghế</label>
-                                            <input type="text" name="total_seat" id="total_seat" class="form-control" placeholder="Enter Total_seat"  />
-                                            {{--                            <div class="invalid-feedback">Please enter a Total_seat name.</div>--}}
-                                        </div>
                                         <div class="modal-footer">
                                             <div class="hstack gap-2 justify-content-end">
                                                 <button type="button" class="btn btn-light"><a href="{{route('index_typecar')}}">Danh Sách</a></button>
                                                 <button type="submit" class="btn btn-success" id="add-btn">Thêm Mới </button>
-                                                <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
                                             </div>
                                         </div>
                                     </div>

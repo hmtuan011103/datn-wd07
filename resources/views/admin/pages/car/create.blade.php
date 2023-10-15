@@ -33,53 +33,49 @@
                             <div class="card-body">
                                 <form class="tablelist-form" autocomplete="off" action="{{route('store_car')}}" method="POST" enctype="multipart/form-data">
                                     @csrf
-                                    <div class="modal-body">
-                                        <div class="mb-3">
-                                            <label for="name" class="form-label">Tên Chuyến Xe</label>
-                                            <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name Permission"  />
-                                            <div class="invalid-feedback">Please enter a customer name.</div>
+                                    <div class="row">
+                                        <div class="col-md-6 pt-3 pb-3">
+                                            <label for="name" class="form-label">Tên Chuyến Xe *</label>
+                                            <input type="text" name="name" id="name" class="form-control" placeholder="Nhập Tên Chuyến Xe"  />
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="image" class="form-label">Ảnh</label>
-                                            <input type="file" name="image" id="image" class="form-control" placeholder="Enter Total_seat"  />
+                                        <div class="col-md-6 pt-3 pb-3">
+                                            <label for="image" class="form-label">Ảnh *</label>
+                                            <input type="file" name="image" id="image" class="form-control" placeholder="Nhập File Ảnh"  />
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="color" class="form-label">Màu Xe</label>
-                                            <input type="text" name="color" id="color" class="form-control" placeholder="Enter Name Permission"  />
-                                            <div class="invalid-feedback">Please enter a customer color.</div>
+                                        <div class="col-md-6 pt-3 pb-3">
+                                            <label for="color" class="form-label">Màu Xe *</label>
+                                            <input type="color" name="color" id="color" class="form-control" />
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="license_plate" class="form-label">Biển Số Xe</label>
-                                            <input type="text" name="license_plate" id="license_plate" class="form-control" placeholder="Enter Total_seat"  />
+                                        <div class="col-md-6 pt-3 pb-3">
+                                            <label for="license_plate" class="form-label">Biển Số Xe *</label>
+                                            <input type="text" name="license_plate" id="license_plate" class="form-control" placeholder="Nhập Biển Số Xe"  />
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="description" class="form-label">Mô Tả</label>
-                                            <input type="text" name="description" id="description" class="form-control" placeholder="Enter Description"  />
-                                            <div class="invalid-feedback">Please enter an email.</div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="id_type_car" class="form-label">Loại Xe</label>
+                                        <div class="col-md-6 pt-3 pb-3">
+                                            <label for="id_type_car" class="form-label">Loại Xe *</label>
                                             <select class="form-control" aria-label="Default select example" name="id_type_car">
                                                 @foreach($data as $item)
                                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="mb-3">
+                                        <div class="col-md-6 pt-3 pb-3">
                                             <label for="status" class="form-label">Trạng Thái</label>
                                             <select class="form-control" aria-label="Default select example" name="status" >
-
                                                 <option value="0">Tạo</option>
                                                 <option value="1">Đi</option>
                                             </select>
                                         </div>
-                                        <div class="modal-footer">
-                                            <div class="hstack gap-2 justify-content-end">
-                                                <button type="button" class="btn btn-light"><a href="{{route('index_car')}}">Danh Sách</a></button>
-                                                <button type="submit" class="btn btn-success" id="add-btn">Thêm Mới </button>
-                                                <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
-                                            </div>
+                                        <div class="md-3">
+                                            <label for="description" class="form-label">Mô Tả</label>
+                                            <textarea id="description" name="description" style="height: 150px;margin-bottom: 50px"   class="form-control" placeholder="Nhập Mô Tả"></textarea>
                                         </div>
+
+                                    </div>
+                                    <div class="hstack gap-2 justify-content-end">
+                                        <a href="{{route('index_car')}}"><button type="button" class="btn btn-light"
+                                            >Danh sách</button></a>
+                                        <button type="submit" class="btn btn-success" id="add-btn">Thêm Mới </button>
+                                        <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
                                     </div>
                                 </form>
                             </div><!-- end card -->
