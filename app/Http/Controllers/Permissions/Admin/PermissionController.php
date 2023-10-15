@@ -28,6 +28,7 @@ class PermissionController extends BasePermissionController
         $this->permissionService->add($request);
 
         return redirect()->route('list_permission');
+
     }
     public function edit($id)
     {

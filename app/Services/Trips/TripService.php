@@ -18,7 +18,7 @@ class TripService
     public function list_desc()
     {
         // $trips = Trip::all();       
-        $trips = Trip::select('trips.id', 'trips.car_id', 'trips.drive_id','trips.start_date','trips.start_time','trips.start_location','trips.status','trips.trip_price','trips.end_location','trips.created_at','trips.updated_at','cars.name as car_name','users.name as user_name')
+        $trips = Trip::select('trips.id', 'trips.car_id', 'trips.user_id','trips.start_date','trips.start_time','trips.start_location','trips.status','trips.trip_price','trips.end_location','cars.name as car_name','users.name as user_name')
         ->join('cars', 'cars.id', '=', 'trips.car_id')
         ->join('users', 'users.id', '=', 'trips.drive_id')
         ->orderBy('updated_at', 'DESC')->get();
@@ -30,11 +30,8 @@ class TripService
           
             $params = $request->all();
             unset($params['_token']);
-
-            return Trip::create($params);   
-
-
-
+           
+            return Trip::create($params);
         }
     }
 
@@ -42,11 +39,11 @@ class TripService
     public function edit_trip(StoreTripRequest $request , $id) {
         Trip::find($id);
         if($request->isMethod('POST')) {
-            $params = $request->except('proengsoft_jsvalidation','_token');  
-            // dd($params);    
+            $params = $request->except('proengsoft_jsvalidation','_token');
+            // dd($params);
             return Trip::where('id',$id)->update($params);
         }
-       
+
     }
 
     public function delete_trip($id) {
