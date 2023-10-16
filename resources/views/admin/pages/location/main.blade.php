@@ -74,8 +74,12 @@
                                                             href="javascript:void(0);"
                                                             class="fw-medium link-primary">#VZ2101</a></td>
                                                     <td class="email">{{ $item->name }} </td>
-                                                    <td class="date"><img src="{{Storage::url($item->image)}}" alt="" width="70px"></td>
-                                                    <td class="phone">{{ $item->description }}</td>
+                                                    <td class="date">
+                                                        {{-- <img src="{{Storage::url($item->image)}}" alt="" width="70px"> --}}
+                                                        <img src="{{ $item->image ? '' . Storage::url($item->image) : 'https://cdn4.iconfinder.com/data/icons/solid-part-6/128/image_icon-512.png' }}" alt="" width="100px">
+
+                                                    </td>
+                                                    <td class="phone">{{ $item->description ? '' . $item->description : 'Không có mô tả'  }}</td>
                                                     <td>
                                                         <div class="d-flex gap-2">
                                                             <div class="edit">

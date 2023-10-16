@@ -18,7 +18,7 @@ class TripService
     public function list_desc()
     {
         // $trips = Trip::all();       
-        $trips = Trip::select('trips.id', 'trips.car_id', 'trips.drive_id','trips.start_date','trips.start_time','trips.start_location','trips.status','trips.trip_price','trips.end_location','trips.created_at','trips.updated_at','cars.name as car_name','users.name as user_name')
+        $trips = Trip::select('trips.id', 'tríp.assistantCar_id','trips.car_id', 'trips.drive_id','trips.start_date','trips.start_time','trips.start_location','trips.status','trips.trip_price','trips.end_location','trips.created_at','trips.updated_at','cars.name as car_name','users.name as user_name')
         ->join('cars', 'cars.id', '=', 'trips.car_id')
         ->join('users', 'users.id', '=', 'trips.drive_id')
         ->orderBy('updated_at', 'DESC')->get();
