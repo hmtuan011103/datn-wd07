@@ -14,7 +14,7 @@ class LocationService
     }
 
     public function get_desc_edit() {
-        return Location::orderBy('updated_at', 'DESC')->get();
+        return Location::orderBy('updated_at', 'DESC')->where('parent_id',Null)->get();
     }
 
     public function get_parent_id() {
