@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User\Admin;
 use App\Http\Controllers\User\BaseUserController;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
+use Illuminate\Http\Request;
 
 class UserController extends BaseUserController
 {
@@ -15,9 +16,9 @@ class UserController extends BaseUserController
     {
         $title = 'Quản lý người dùng';
 
-        $query = $this->userService->getAllPaginate();
+        $query = $this->userService->getAll();
 
-        $data = $query['data'];
+        $data = $query->getData()->data;
 
         return view('admin.pages.user.index', compact('title', 'data'));
     }
@@ -122,19 +123,29 @@ class UserController extends BaseUserController
         return redirect()->route('users.index');
     }
 
-    // /**
-    //  * Remove the specified resource from storage.
-    //  */
-    // public function destroy(int $id)
-    // {
-    //     try {
-    //         $this->userService->destroy($id);
-    //         toastr()->success('Đã xóa!', 'Thành công');
-    //     } catch (\Throwable $th) {
-    //         // error
-    //         toastr()->error('Xóa thất bại!', 'Thất bại');
-    //     }
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(int $id)
+    {
+        try {
+            $this->userService->destroy($id);
+            toastr()->success('Đã xóa!', 'Thành công');
+        } catch (\Throwable $th) {
+            // error
+            toastr()->error('Xóa thất bại!', 'Thất bại');
+        }
 
-    //     return redirect()->route('users.index');
-    // }
+        return redirect()->route('users.index');
+    }
+
+    /**
+     * Remove multiple the specified resource from storage.
+     */
+    public function destroyMultiple(Request $request)
+    {
+        $data = $request->ids;
+
+        return $this->userService->destroyMultiple($data);
+    }
 }

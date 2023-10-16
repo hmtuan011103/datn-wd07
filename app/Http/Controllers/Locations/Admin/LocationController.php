@@ -5,15 +5,17 @@ namespace App\Http\Controllers\Locations\Admin;
 use App\Http\Controllers\Locations\BaseLocationController;
 use App\Http\Requests\Location\StoreLocationRequest;
 use App\Http\Requests\Location\UpdateLocationRequest;
+use App\Http\Requests\Role\StoreRoleRequest;
 use App\Models\Location;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class LocationController extends BaseLocationController
 {
 
     public function list_location()
     {
-        $location = $this->locationService->list();
+        $location = $this->locationService->get_desc_edit();
         return view('admin.pages.location.main', [
             'location' => $location,
             'title' => 'Danh sách địa điểm'
@@ -22,15 +24,15 @@ class LocationController extends BaseLocationController
 
     public function form_create()
     {
-        $location = $this->locationService->list();
+        $location = $this->locationService->get_parent_id();
         return view('admin.pages.location.create', [
             'location' => $location,
             'title' => 'Thêm địa điểm'
         ]);
     }
-    public function create_location(StoreLocationRequest $request)
+    public function create_location(Request $request)
     {
-        $this->locationService->create($request);
+        $location = $this->locationService->create($request);
         toastr()->success('Thêm thành công.','Thành công');
         return redirect()->route('form_create');
     }
@@ -38,7 +40,7 @@ class LocationController extends BaseLocationController
     public function edit_location($id)
     {
         $location = Location::find($id);
-        $locations =  $this->locationService->list();
+        $locations =  $this->locationService->get_parent_id();
         return view('admin.pages.location.edit', compact('location', 'locations'), [
             'title' => 'Sửa địa điểm'
         ]);
@@ -53,8 +55,7 @@ class LocationController extends BaseLocationController
 
     public function delete_location($id)
     {
-        Location::find($id)->delete();
-        toastr()->success('Xóa thành công.','Thành công');
+       $this->locationService->delete($id);
         return redirect()->route('list_location');
     }
 }

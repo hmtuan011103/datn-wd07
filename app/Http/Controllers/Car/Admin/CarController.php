@@ -14,21 +14,21 @@ class CarController extends BaseCarController
 {
     public function index()
     {
+        $data = $this->CarService->index();
         $title = 'Trang phân quyền';
-        $data = Car::query()->get();
-        $model = Seat::query()->get();
-        return view('admin.pages.car.main', compact('title', 'data', 'model'));
+        return view('admin.pages.car.main', compact('title', 'data'));
     }
 
     public function create()
     {
         $title = 'Trang phân quyền';
         $data = TypeCar::query()->get();
-        return view('admin.pages.car.add', compact('title', 'data'));
+        return view('admin.pages.car.create', compact('title', 'data'));
     }
 
     public function store(StoreCarRequest $request)
     {
+        toastr()->success('Thêm Thành Công!');
         $this->CarService->store($request);
         return redirect()->route('index_car');
     }
@@ -43,14 +43,13 @@ class CarController extends BaseCarController
     public function update(UpdateCarRequest $request ,string $id)
     {
         $this->CarService->update($request,$id);
+        toastr()->success('Sửa Thành Công!');
         return redirect()->route('index_car');
     }
     public function destroy(string $id)
     {
-        $model = Car::query()->findOrFail($id);
-        $olbImg = $model->image;
-        delete_file($olbImg);
-        $model->delete();
-        return back();
+        $this->CarService->destroy($id);
+        toastr()->success('Xóa Thành Công!');
+        return redirect()->route('index_car');
     }
 }

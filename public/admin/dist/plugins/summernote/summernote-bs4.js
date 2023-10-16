@@ -384,7 +384,7 @@
         return memo + fn(v);
       }, 0);
     };
-  
+
     /**
      * returns a copy of the collection with array type.
      * @param {Collection} collection - collection eg) node.childNodes, ...
@@ -403,7 +403,7 @@
     var isEmpty = function (array) {
       return !array || !array.length;
     };
-  
+
     /**
      * cluster elements by predicate function.
      *
@@ -424,7 +424,7 @@
         return memo;
       }, [[head(array)]]);
     };
-  
+
     /**
      * returns a copy of the array with all false values removed
      *
@@ -682,13 +682,13 @@
       if (isText(node)) {
         return node.nodeValue.length;
       }
-      
+
       if (node) {
         return node.childNodes.length;
       }
-      
+
       return 0;
-      
+
     };
 
     /**
@@ -845,7 +845,7 @@
       var descendants = [];
       pred = pred || func.ok;
 
-      // start DFS(depth first search) with node
+      // start DFS(depth first search-route2) with node
       (function fnWalk(current) {
         if (node !== current && pred(current)) {
           descendants.push(current);
@@ -2398,7 +2398,7 @@
      */
     var textRangeToPoint = function (textRange, isStart) {
       var container = textRange.parentElement(), offset;
-  
+
       var tester = document.body.createTextRange(), prevContainer;
       var childNodes = list.from(container.childNodes);
       for (offset = 0; offset < childNodes.length; offset++) {
@@ -2411,42 +2411,42 @@
         }
         prevContainer = childNodes[offset];
       }
-  
+
       if (offset !== 0 && dom.isText(childNodes[offset - 1])) {
         var textRangeStart = document.body.createTextRange(), curTextNode = null;
         textRangeStart.moveToElementText(prevContainer || container);
         textRangeStart.collapse(!prevContainer);
         curTextNode = prevContainer ? prevContainer.nextSibling : container.firstChild;
-  
+
         var pointTester = textRange.duplicate();
         pointTester.setEndPoint('StartToStart', textRangeStart);
         var textCount = pointTester.text.replace(/[\r\n]/g, '').length;
-  
+
         while (textCount > curTextNode.nodeValue.length && curTextNode.nextSibling) {
           textCount -= curTextNode.nodeValue.length;
           curTextNode = curTextNode.nextSibling;
         }
-  
+
         /* jshint ignore:start */
         var dummy = curTextNode.nodeValue; // enforce IE to re-reference curTextNode, hack
         /* jshint ignore:end */
-  
+
         if (isStart && curTextNode.nextSibling && dom.isText(curTextNode.nextSibling) &&
             textCount === curTextNode.nodeValue.length) {
           textCount -= curTextNode.nodeValue.length;
           curTextNode = curTextNode.nextSibling;
         }
-  
+
         container = curTextNode;
         offset = textCount;
       }
-  
+
       return {
         cont: container,
         offset: offset
       };
     };
-    
+
     /**
      * return TextRange from boundary point (inspired by google closure-library)
      * @param {BoundaryPoint} point
@@ -2455,7 +2455,7 @@
     var pointToTextRange = function (point) {
       var textRangeInfo = function (container, offset) {
         var node, isCollapseToStart;
-  
+
         if (dom.isText(container)) {
           var prevTextNodes = dom.listPrev(container, func.not(dom.isText));
           var prevContainer = list.last(prevTextNodes).previousSibling;
@@ -2467,27 +2467,27 @@
           if (dom.isText(node)) {
             return textRangeInfo(node, 0);
           }
-  
+
           offset = 0;
           isCollapseToStart = false;
         }
-  
+
         return {
           node: node,
           collapseToStart: isCollapseToStart,
           offset: offset
         };
       };
-  
+
       var textRange = document.body.createTextRange();
       var info = textRangeInfo(point.node, point.offset);
-  
+
       textRange.moveToElementText(info.node);
       textRange.collapse(info.collapseToStart);
       textRange.moveStart('character', info.offset);
       return textRange;
     };
-    
+
     /**
      * Wrapped Range
      *
@@ -2502,7 +2502,7 @@
       this.so = so;
       this.ec = ec;
       this.eo = eo;
-  
+
       // nativeRange: get nativeRange from sc, so, ec, eo
       var nativeRange = function () {
         if (agent.isW3CRangeSupport) {
@@ -2563,7 +2563,7 @@
         } else {
           nativeRng.select();
         }
-        
+
         return this;
       };
 
@@ -2608,7 +2608,7 @@
             if (dom.isVisiblePoint(point)) {
               return point;
             }
-            // reverse direction 
+            // reverse direction
             isLeftToRight = !isLeftToRight;
           }
 
@@ -2801,7 +2801,7 @@
           point.offset
         ).normalize();
       };
-      
+
       /**
        * makeIsOn: return isOn(pred) function
        */
@@ -2811,7 +2811,7 @@
           return !!ancestor && (ancestor === dom.ancestor(ec, pred));
         };
       };
-  
+
       // isOnEditable: judge whether range is on editable or not
       this.isOnEditable = makeIsOn(dom.isEditable);
       // isOnList: judge whether range is on list node or not
@@ -2921,7 +2921,7 @@
           return rng.insertNode(childNode);
         }).reverse();
       };
-  
+
       /**
        * returns text in range
        *
@@ -2962,7 +2962,7 @@
           endPoint.offset
         );
       };
-  
+
       /**
        * create offsetPath bookmark
        *
@@ -3092,8 +3092,8 @@
       },
 
       /**
-       * @method 
-       * 
+       * @method
+       *
        * create WrappedRange from node
        *
        * @param {Node} node
@@ -3142,8 +3142,8 @@
       },
 
       /**
-       * @method 
-       * 
+       * @method
+       *
        * create WrappedRange from bookmark
        *
        * @param {Node} editable
@@ -3159,7 +3159,7 @@
       },
 
       /**
-       * @method 
+       * @method
        *
        * create WrappedRange from paraBookmark
        *
@@ -3208,7 +3208,7 @@
         }).readAsDataURL(file);
       }).promise();
     };
-  
+
     /**
      * @method createImage
      *
@@ -3832,7 +3832,7 @@
 
     /**
      * Define virtual table position info object.
-     * 
+     *
      * @param {int} rowIndex Index position in line of virtual table.
      * @param {int} cellIndex Index position in column of virtual table.
      * @param {object} baseRow Row affected by this position.
@@ -3855,7 +3855,7 @@
 
     /**
      * Create action cell object.
-     * 
+     *
      * @param {object} virtualTableCellObj Object of specific position on virtual table.
      * @param {enum} resultAction Action to be applied in that item.
      */
@@ -3872,7 +3872,7 @@
 
     /**
      * Recover free index of row to append Cell.
-     * 
+     *
      * @param {int} rowIndex Index of row to find free space.
      * @param {int} cellIndex Index of cell to find free space in table.
      */
@@ -3895,7 +3895,7 @@
 
     /**
      * Recover info about row and cell and add information to virtual table.
-     * 
+     *
      * @param {object} row Row to recover information.
      * @param {object} cell Cell to recover information.
      */
@@ -3929,11 +3929,11 @@
 
     /**
      * Process validation and adjust of start point if needed
-     * 
-     * @param {int} rowIndex 
-     * @param {int} cellIndex 
-     * @param {object} cell 
-     * @param {bool} isSelectedCell 
+     *
+     * @param {int} rowIndex
+     * @param {int} cellIndex
+     * @param {object} cell
+     * @param {bool} isSelectedCell
      */
     function adjustStartPoint(rowIndex, cellIndex, cell, isSelectedCell) {
       if (rowIndex === _startPoint.rowPos && _startPoint.colPos >= cell.cellIndex && cell.cellIndex <= cellIndex && !isSelectedCell) {
@@ -3956,7 +3956,7 @@
 
     /**
      * Get action to be applied on the cell.
-     * 
+     *
      * @param {object} cell virtual table cell to apply action
      */
     function getDeleteResultActionToCell(cell) {
@@ -3980,7 +3980,7 @@
 
     /**
      * Get action to be applied on the cell.
-     * 
+     *
      * @param {object} cell virtual table cell to apply action
      */
     function getAddResultActionToCell(cell) {
@@ -4055,23 +4055,23 @@
     init();
   };
   /**
-  * 
+  *
   * Where action occours enum.
   */
   TableResultAction.where = { 'Row': 0, 'Column': 1 };
   /**
-  * 
+  *
   * Requested action to apply enum.
   */
   TableResultAction.requestAction = { 'Add': 0, 'Delete': 1 };
   /**
-  * 
+  *
   * Result action to be executed enum.
   */
   TableResultAction.resultAction = { 'Ignore': 0, 'SubtractSpanCount': 1, 'RemoveCell': 2, 'AddCell': 3, 'SumSpanCount': 4 };
 
   /**
-   * 
+   *
    * @class editing.Table
    *
    * Table
@@ -6514,7 +6514,7 @@
      */
     this.updateCurrentStyle = function ($container) {
       var $cont = $container || $toolbar;
-      
+
       var styleInfo = context.invoke('editor.currentStyle');
       this.updateBtnStates($cont, {
         '.note-btn-bold': function () {
@@ -6951,7 +6951,7 @@
                    '<input class="note-image-input form-control note-form-control note-input" '+
                    ' type="file" name="files" accept="image/*" multiple="multiple" />' +
                    imageLimitation +
-                 '</div>' + 
+                 '</div>' +
                  '<div class="form-group note-group-image-url" style="overflow:auto;">' +
                    '<label class="note-form-label">' + lang.image.url + '</label>' +
                    '<input class="note-image-url form-control note-form-control note-input ' +
@@ -7185,10 +7185,10 @@
 
       var body = '<div class="form-group note-form-group row-fluid">' +
           '<label class="note-form-label">' + lang.video.url + ' <small class="text-muted">' + lang.video.providers + '</small></label>' +
-          '<input class="note-video-url form-control  note-form-control note-input span12" ' + 
+          '<input class="note-video-url form-control  note-form-control note-input span12" ' +
           ' type="text" />' +
           '</div>';
-      var footer = '<button href="#" class="btn btn-primary note-btn note-btn-primary ' + 
+      var footer = '<button href="#" class="btn btn-primary note-btn note-btn-primary ' +
       ' note-video-btn disabled" disabled>' + lang.video.insert + '</button>';
 
       this.$dialog = ui.dialog({

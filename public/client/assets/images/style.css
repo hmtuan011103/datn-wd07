@@ -1,0 +1,272 @@
+*{
+    box-sizing: border-box !important;
+}
+.container{
+    max-width: 1128px;
+    margin: 0 auto;
+    padding: 0;
+}
+/* Banner for index */
+.header-page-image {
+    background-image: url(/styles/home_banner.png);
+    background-size: cover;
+    min-height: 220px;
+}
+.banner-index{
+    min-height: 250px;
+}
+
+/* Định nghĩa màu */
+.bg-white{
+    background-color: #ffffff;
+}
+.bg-search-latest{
+    background-color: #F9F9FA;
+}
+.bg-orange-button{
+    background-color: #EF5222;
+}
+.bg-route-popular{
+    background-color: #FFF7F5;
+}
+.bg-footer-final{
+    background-color: #00613D;
+}
+.bg-button-orange{
+    background-color: #FEF6F3;
+}
+.bg-button-choose-trip{
+    background-color: #FDE5DE;
+    border: 1px solid #FDE5DE;
+}
+.bg-button-choose-trip-2{
+    background-color: #f2754e;
+    color: #ffffff !important;
+    border: 1px solid #FDE5DE;
+}
+.bg-button-choose-trip-2:hover {
+    background-color: #f2754e;
+    color: #ffffff !important;
+    border: 1px solid #FDE5DE;
+}
+.bg-button-choose-trip:hover {
+    background-color: #f2754e;
+    border: 1px solid #f2754e;
+}
+.icon-user-bg {
+    color: #768092;
+}
+.cl-black {
+    color: #000000;
+}
+.cl-orange{
+    color: #F9821D;
+}
+.cl-orange-bold {
+    color: #00613D;
+}
+.cl-white {
+    color: #ffffff;
+}
+.cl-gray {
+    color: #637280;
+}
+.cl-blue-light{
+    color: #60A5FA;
+}
+.border-orange{
+    border: 1px solid rgba(239, 82, 34, .6) !important;
+    outline: 8px solid rgba(170, 46, 8, .1);
+}
+
+/* Định nghĩa màu cho input */
+input[type="radio"]{
+    outline: 1px solid #F9821D !important;
+}
+input[type="radio"]:checked{
+    background-color: #F9821D;
+    border-color: #F9821D;
+}
+input[type="text"], 
+input[type="number"],
+input[type="date"],
+select.py-3
+{
+    border-color: #F9821D;
+    outline: #F9821D !important;
+}
+input[type="text"]:focus, 
+input[type="number"]:focus,
+input[type="date"]:focus,
+select.py-3:focus
+{
+    outline: 2px solid rgba(170, 46, 8, .1) !important;
+    border-color: #F9821D;
+    box-shadow: none;
+}
+
+
+/* Định nghĩa hover cho menu */
+.active{
+    border-bottom: 3px solid #ffffff !important;
+    color: #ffffff !important;
+    text-shadow: 0px 1px 1px #ffffff !important;
+}
+
+.nav-link:not(.active):hover {
+    text-shadow: 0px 1px 1px #ffffff !important;
+    border-bottom: 3px solid #ffffff !important;
+    color: #ffffff !important;
+}
+
+/* Định nghĩa chiều rông và chiều cao */ 
+.w-btn-lg-rg {
+    width: 186px;
+    line-height: 20px;
+}
+.ta-center{
+    text-align: center;
+}
+.ta-left {
+    text-align: left;
+}
+.ta-right {
+    text-align: right;
+}
+
+
+/* Định nghĩa khoảng cách */
+.gap-1{
+    gap: 8px;
+}
+.gap-2{
+    gap: 16px;
+}
+.gap-6 {
+    gap: 6%;
+}
+
+
+/* Định nghĩa kích cỡ chữ */
+.fs-10{
+    font-size: 10px;
+}
+.fs-13 {
+    font-size: 13px;
+}
+.fs-14{
+    font-size: 14px;
+}
+.fs-15 {
+    font-size: 15px;
+}
+.fs-16 {
+    font-size: 16px;
+}
+.fs-18 {
+    font-size: 18px;
+}
+.fs-20 {
+    font-size: 20px;
+}
+.fs-22{
+    font-size: 22px;
+}
+.fs-30 {
+    font-size: 30px;
+}
+
+
+/* Định nghĩa những cái khác */
+
+.cursor {
+    cursor: pointer;
+}
+.pa-t-90{
+    top: -90px;
+}
+.pa-t-215 {
+    top: 215px;
+}
+
+.btn-seact-trip{
+    border: 1px solid #EF5222;
+    padding: 10px 0;
+    transform: translateY(20px);
+}
+.spacing-form-search{
+    margin-bottom: 230px;
+}
+
+.border-top{
+    border-top: none !important;
+}
+
+.route-popular-title {
+    left: 30px;
+    bottom: 20px;
+}
+.show-three-dot-text{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+    height: 2.4em;
+}
+.li-style-none{
+    list-style: none !important;
+}
+.border-dotted{
+    border-bottom: 1px solid #ccc;
+    flex: 1 1 0%;
+}
+.show-time-run{
+    transform: translateY(15px);
+}
+.circle-menu-style{
+    background-color: #ccc;
+    width: 6px;
+    height: 6px;
+}
+footer.pt-4{
+    border-top: 1px solid #ccc;
+}
+.w-25 {
+    width: 25%;
+}
+.w-70{
+    width: 70%;
+}
+.w-30 {
+    width: 30%;
+}
+.code-seat{
+    left: 9px;
+    top: 6px;
+}
+.w-32{
+    width: 32px;
+}
+.h-32{
+    height: 32px;
+}
+.seat-active{
+    color: #A7ABF4;
+}
+.seat-selecting{
+    color: #F05E22;
+}   
+.seat-disabled{
+    color: #A2ACBB;
+}
+.header-car{
+    padding-top: 15px;
+}
+.border-bottom-4{
+    border-bottom: 4px solid #E5E5E5;
+}
+.between-place-solid{
+    height: 124px;
+    border: 1px solid #E5E5E5;
+    width: 1px;
+}

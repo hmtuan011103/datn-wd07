@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Trip;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreTripRequest extends FormRequest
 {
@@ -21,11 +23,16 @@ class StoreTripRequest extends FormRequest
      */
     public function rules(): array
     {
+      
         return [
             'car_id'=>'required',
-            'user_id'=>'required',
-            'start_date'=>'required',
-            'start_time'=>'required',
+            'drive_id'=>'required',
+            'assistantCar_id'=>'required',
+            'start_date'=>'required|after:yesterday',
+            'start_time'=>[
+                'required',
+              
+            ],      
             'start_location'=>'required',
             'trip_price'=>'required',
             'end_location'=>'required',
@@ -38,9 +45,12 @@ class StoreTripRequest extends FormRequest
     {
         return [
             'car_id.required'=>'Vui lòng chọn xe',
-            'user_id.required'=>'Vui lòng chọn tài xế',
+            'drive_id.required'=>'Vui lòng chọn tài xế',
+            'assistantCar_id.required'=>'Vui lòng chọn phụ xe',
             'start_date.required'=>'Vui lòng nhập ngày đi',
+            'start_date.after'=>'Vui lòng không chọn ngày quá khứ',
             'start_time.required'=>'Vui lòng nhập giờ đi',
+            // 'start_time.time'=>'Vui lòng không chọn giờ đã qua trong ngày',
             'start_location.required'=>'Vui lòng chọn địa điểm bắt đầu',
             'trip_price.required'=>'Vui lòng nhập giá cho chuyến đi',
             'end_location.required'=>'Vui lòng chọn địa điểm kết thúc',

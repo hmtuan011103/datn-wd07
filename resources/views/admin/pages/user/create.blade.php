@@ -92,7 +92,7 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="validationUserRoleSelect" class="form-label">Vai trò</label>
+                                    <label for="validationUserRoleSelect" class="form-label">*Vai trò</label>
                                     <select class="form-select" id="validationUserRoleSelect" name="roles[]"
                                         multiple="multiple" required>
                                         @foreach ($allUserRoleData as $item)

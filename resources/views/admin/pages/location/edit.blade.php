@@ -43,7 +43,7 @@
                                                 <label class="control-label">Ảnh</label> <br>
                                              <img id="image_preview"
                                                         src="{{ Storage::url($location->image) }}" alt="Customer image"
-                                                        style="max-width: 200px; max-height: 100px"></label>
+                                                        style="max-width: 200px; max-height: 100px"></label> <br> <br>
                                                 <input class="form-control" name="image" value="{{$location->image}}" placeholder="Last Name"
                                                     type="file">
                                                 <span aria-hidden="true"></span>         
@@ -54,16 +54,21 @@
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Địa điểm cha</label>
                                                 <select class="form-control" name="parent_id">
-                                                    <?php
-                                                    foreach ($locations as $item) {
-                                                        if ($item->parent_id == $location->id) {
-                                                            $s = 'selected';
-                                                        } else {
-                                                            $s = '';
-                                                        }
-                                                        echo '<option value=" '. $item->id.' " '.$s.' > '.$item->name.' </option>';
-                                                    }
-                                                    ?>
+                                                    @if ($location['parent_id'] == '')
+                                                    <option value="" selected>Trống</option>
+                                                    @else
+                                                    @endif
+
+                                                    @foreach ($locations as $locat)
+                                                    @if ($location['parent_id'] == $locat['id'])
+                                                        <option value="{{ $locat['id'] }}" selected>{{ $locat['name'] }}</option>
+                                                    @else                                                                                                     
+                                                        <option value="{{ $locat['id'] }}">{{ $locat['name'] }}</option>
+                                                    @endif                                                 
+                                                @endforeach
+
+                                              
+
                                                 </select>
                                                 <span aria-hidden="true"></span>
                                             </div>

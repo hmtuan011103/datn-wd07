@@ -2,13 +2,12 @@
 
 use App\Http\Controllers\Locations\Admin\LocationController;
 use App\Http\Controllers\Trip\Amin\TripController;
-use App\Http\Controllers\Locations\Admin\Role_permission;
 use App\Http\Controllers\Role\Admin\RoleController;
 use App\Http\Controllers\Permissions\Admin\PermissionController;
+use App\Http\Controllers\UserRoles\Admin\UserRoleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TypeCar\Admin\TypeCarController;
 use App\Http\Controllers\Car\Admin\CarController;
-use App\Http\Controllers\UserRoles\Admin\UserRoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +24,8 @@ Route::get('/', function () {
     return view('admin.pages.home.index', [
         'title' => 'Quản trị chiến thắng'
     ]);
-});
+})->name('admin.homepage');
+
 Route::prefix('location')->group(function () {
     Route::get('/', [LocationController::class, 'list_location'])->name('list_location');
     Route::get('add', [LocationController::class, 'form_create'])->name('form_create');
@@ -42,8 +42,10 @@ Route::prefix('trip')->group(function () {
     Route::get('edit/{id}', [TripController::class, 'edit_trip'])->name('edit_trip');
     Route::post('update/{id}', [TripController::class, 'save_edit_trip'])->name('save_edit_trip');
     Route::get('delete/{id}', [TripController::class, 'delete_trip'])->name('delete_trip');
+    Route::get('show/{id}', [TripController::class, 'show'])->name('show');
+
 });
-Route::prefix('permission')->group(function () {
+    Route::prefix('permission')->group(function () {
     Route::get('/', [PermissionController::class, 'index'])->name('list_permission');
     Route::get('add', [PermissionController::class, 'add'])->name('add_permission');
     Route::post('save_add', [PermissionController::class, 'store'])->name('store_permission');
@@ -88,4 +90,11 @@ Route::group(['prefix' => 'role_permission'], function () {
 
 
 Route::resource('users', \App\Http\Controllers\User\Admin\UserController::class);
+Route::resource('type_cars', \App\Http\Controllers\TypeCar\Admin\TypeCarController::class);
 Route::resource('type_users', \App\Http\Controllers\TypeUser\Admin\TypeUserController::class)->except('show');
+
+
+// đặt cuối route
+Route::fallback(function () {
+    abort(500);
+});

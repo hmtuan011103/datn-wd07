@@ -22,9 +22,20 @@ class UpdateTypeCarRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'total_seat' => 'required|integer|min:1|max:40',
+            'name' => 'required',
+            'total_seat' => 'required|integer|max:50',
         ];
     }
-}
+
+    
+        public function messages()
+    {
+        return [
+            'name.required'=>'Tên Loại Xe Không Được Để Trống',
+            'total_seat.required'=>'Ảnh Không Được Để Trống',
+            'total_seat.integer'=>'Vui Lòng Nhập Số',
+            'total_seat.max'=>'Số Ghé Không Quá 50',
+        ];
+
+    }
+    }

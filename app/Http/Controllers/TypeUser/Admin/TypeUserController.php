@@ -4,6 +4,7 @@ namespace App\Http\Controllers\TypeUser\Admin;
 
 use App\Http\Controllers\TypeUser\BaseTypeUserController;
 use App\Http\Requests\TypeUser\StoreTypeUserRequest;
+use Illuminate\Http\Request;
 
 class TypeUserController extends BaseTypeUserController
 {
@@ -14,12 +15,10 @@ class TypeUserController extends BaseTypeUserController
     {
         $title = 'Quản lý loại người dùng';
 
-        // $query = $this->typeUserService->getAllPaginate();
         $query = $this->typeUserService->getAll();
 
-        // $data = $query['data'];
         $data = $query->getData()->data;
-        // dd();
+
         return view('admin.pages.type_user.index', compact('title', 'data'));
     }
 
@@ -112,5 +111,15 @@ class TypeUserController extends BaseTypeUserController
         }
 
         return redirect()->route('type_users.index');
+    }
+
+    /**
+     * Remove multiple the specified resource from storage.
+     */
+    public function destroyMultiple(Request $request)
+    {
+        $data = $request->ids;
+
+        return $this->typeUserService->destroyMultiple($data);
     }
 }

@@ -50,7 +50,33 @@
                                                 <th>Hành động</th>
                                             </tr>
                                         </thead>
+
                                         <tbody class="list form-check-all">
+                                            @if (count($data) < 1)
+                                                <tr>
+                                                    <td colspan="99">
+                                                        <div class="noresult">
+                                                            <div class="text-center">
+                                                                <lord-icon src="https://cdn.lordicon.com/msoeawqm.json"
+                                                                    trigger="loop"
+                                                                    colors="primary:#121331,secondary:#08a88a"
+                                                                    style="width:75px;height:75px">
+                                                                </lord-icon>
+                                                                <h5 class="mt-2">Rất tiếc! Không tìm thấy kết quả nào
+                                                                </h5>
+                                                                <p class="text-muted mb-0">
+                                                                    Chúng tôi đã tìm kiếm cẩn thận nhưng không thấy có
+                                                                    kết
+                                                                    quả
+                                                                    nào
+                                                                    cả,
+                                                                    vui lòng thử lại sau.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endif
                                             @foreach ($data as $item)
                                                 <tr>
                                                     <th scope="row">
@@ -59,9 +85,10 @@
                                                                 name="chk_child" value="option{{ $item->id }}">
                                                         </div>
                                                     </th>
+                                                    {{-- delete multiple will catch this id --}}
                                                     <td class="id" style="display:none;">
                                                         <a href="javascript:void(0);" class="fw-medium link-primary">
-                                                            #VZ2101
+                                                            {{ $item->id }}
                                                         </a>
                                                     </td>
                                                     <td class="name">{{ $item->name }}</td>
@@ -75,7 +102,7 @@
                                                             <div class="edit">
                                                                 <a href="{{ route('type_users.edit', ['type_user' => $item->id]) }}"
                                                                     class="btn btn-sm btn-success edit-item-btn">
-                                                                    Sửa
+                                                                    <i class="bx bx-edit"></i>
                                                                 </a>
                                                             </div>
 
@@ -88,7 +115,7 @@
                                                                     <button type="button"
                                                                         class="btn btn-sm btn-danger btn-destroy-item"
                                                                         onclick="confirmDelete({{ $item->id }})">
-                                                                        Xóa
+                                                                        <i class="bx bx-trash"></i>
                                                                     </button>
                                                                 </form>
                                                             </div>
@@ -131,6 +158,7 @@
 
                             </div>
                         </div><!-- end card -->
+
                     </div>
                     <!-- end col -->
                 </div>

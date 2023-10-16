@@ -9,10 +9,10 @@ use App\Services\Typecar\TypeCarService;
 
 class BaseTypeCarController extends Controller
 {
-    protected $typecarService;
+    protected $TypeCarService;
 
-    public function __construct(TypeCarService $typecarService)
+    public function __construct(TypeCarService $TypeCarService)
     {
-        $this->typecarService = $typecarService;
+        $this->TypeCarService = $TypeCarService;
     }
 }
