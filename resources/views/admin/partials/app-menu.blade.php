@@ -481,7 +481,7 @@
                     <a class="nav-link menu-link" href="#sidebarRole" data-bs-toggle="collapse" role="button"
                         aria-expanded="false" aria-controls="sidebarRole">
                         <i class="mdi mdi-account-circle-outline"></i>
-                        <span data-key="t-authentication">Phân quyền</span>
+                        <span data-key="t-authentication">Vai trò & Quyền</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarRole">
                         <ul class="nav nav-sm flex-column">

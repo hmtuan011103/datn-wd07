@@ -11,7 +11,7 @@ class PermissionService
 {
     public function index()
     {
-        return Permission::all();
+        return  Permission::orderBy('parent_id', 'asc')->get();
     }
     public function add(AddPermissionRequest $request)
     {

@@ -9,12 +9,12 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">Chỉnh sửa phân quyền</h4>
+                        <h4 class="mb-sm-0">Chỉnh sửa quyền</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Phân quyền</a></li>
-                                <li class="breadcrumb-item active">Chỉnh sửa</li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Quyền</a></li>
+                                <li class="breadcrumb-item active">Chỉnh sửa quyền</li>
                             </ol>
                         </div>
 
@@ -48,7 +48,7 @@
                                         </div>
                                         <!--end col-->
                                         <div class="col-md-12">
-                                            <label for="email-field" class="form-label">Phân quyền con</label>
+                                            <label for="email-field" class="form-label">Quyền cha</label>
                                             <select class="form-select form-select-md" name="parent_id">
                                                 <option value="0"></option>
                                                 @foreach ($permissions as $per)

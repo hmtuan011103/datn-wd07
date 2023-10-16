@@ -25,7 +25,6 @@ class AddPermissionRequest extends FormRequest
             'name' => 'required',
             'name' => 'unique:permissions',
             'description' => 'required',
-            'description' => 'min:10'
         ];
     }
     public function messages()
@@ -34,7 +33,6 @@ class AddPermissionRequest extends FormRequest
             'name.required' => 'Không được bỏ trống tên',
             'name.unique' => 'Tên phân quyền bị trùng lặp',
             'description.required' => 'Không được bỏ trống mô tả',
-            'description.min' => 'Mô tả đang quá ngắn',
         ];
     }
 }
