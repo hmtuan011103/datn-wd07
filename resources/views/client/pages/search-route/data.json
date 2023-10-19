@@ -1,0 +1,53 @@
+[
+    {
+      "hour": "03:00",
+      "vehicleType": "Car",
+      "seatType": "Middle",
+      "start" : "Thanh Hóa",
+      "finish" : "Hà Nội"
+    },
+    {
+      "hour": "05:30",
+      "vehicleType": "Car",
+      "seatType": "Basic",
+      "start" : "Đà Nẵng",
+      "finish" : "Hà Nội"
+    }
+    ,
+    {
+      "hour": "08:00",
+      "vehicleType": "Motorcyle",
+      "seatType": "VIP",
+      "start" : "Hải Phòng",
+      "finish" : "Hà Nội"
+    },
+    {
+      "hour": "10:00",
+      "vehicleType": "Motorcyle",
+      "seatType": "Basic",
+      "start" : "Quảng Ninh",
+      "finish" : "Hà Nội"
+    },
+    {
+      "hour": "12:00",
+      "vehicleType": "Motorcyle",
+      "seatType": "Middle",
+      "start" : "Thái Nguyên",
+      "finish" : "Hà Nội"
+    },
+    {
+      "hour": "17:00",
+      "vehicleType": "Bus",
+      "seatType": "Basic",
+      "start" : "Phú Thọ",
+      "finish" : "Hà Nội"
+    },
+    {
+      "hour": "21:00",
+      "vehicleType": "Bus",
+      "seatType": "Middle",
+      "start" : "Thanh Hóa",
+      "finish" : "Hà Tĩnh"
+    }
+
+  ]

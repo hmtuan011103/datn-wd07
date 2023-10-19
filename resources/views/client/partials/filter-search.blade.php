@@ -1,5 +1,6 @@
 <div class="container d-flex pt-5 pb-4">
-    <form action="" class="filter-container-left bg-route-popular p-3 rounded-3 w-30">
+    {{-- <form action="" class="filter-container-left bg-route-popular p-3 rounded-3 w-30"> --}}
+          <div action="" class="filter-container-left bg-route-popular p-3 rounded-3 w-30">
         <div class="d-flex justify-content-between">
             <p class="text-uppercase fw-medium fs-16">Bộ lọc tìm kiếm</p>
             <p class="fs-15 cl-orange fw-medium cursor">Bỏ lọc <span class="ps-1"><i class="fa-regular fa-trash-can fs-18"></i></span></p>
@@ -8,25 +9,25 @@
             <p class="mb-0 pb-2 fw-medium">Giờ đi</p>
             <div class="ps-2">
                 <div class="form-check mb-2 cursor">
-                    <input class="form-check-input cursor" type="checkbox" value="" id="">
+                    <input class="form-check-input cursor" type="checkbox" value="00-06" id="">
                     <label class="form-check-label cursor" for="">
                         Sáng sớm 00:00 - 06:00 <span>(0)</span>
                     </label>
                 </div>
                 <div class="form-check mb-2 cursor">
-                    <input class="form-check-input cursor" type="checkbox" value="" id="">
+                    <input class="form-check-input cursor" type="checkbox" value="06-12" id="">
                     <label class="form-check-label cursor" for="">
                         Buổi sáng 06:00 - 12:00 <span>(0)</span>
                     </label>
                 </div>
                 <div class="form-check mb-2 cursor">
-                    <input class="form-check-input cursor" type="checkbox" value="" id="">
+                    <input class="form-check-input cursor" type="checkbox" value="12-18" id="">
                     <label class="form-check-label cursor"  for="">
                         Buổi chiều 12:00 - 18:00 <span>(0)</span>
                     </label>
                 </div>
                 <div class="form-check mb-2 pb-2 cursor">
-                    <input class="form-check-input cursor" type="checkbox" value="" id="">
+                    <input class="form-check-input cursor" type="checkbox" value="18-24" id="">
                     <label class="form-check-label cursor" for="">
                         Buổi tối 18:00 - 24:00 <span>(0)</span>
                     </label>
@@ -62,4 +63,5 @@
                 <button type="button" class="btn btn-light bg-white border border-1 me-2 fs-14">Tầng dưới</button>
             </div>
         </div>
-    </form>
+          </div>
+    {{-- </form> --}}
