@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\Locations\Admin\LocationController;
+use App\Http\Controllers\Trip\Client\TripController;
+use App\Http\Controllers\TypeUser\Admin\TypeUserController;
+use App\Http\Controllers\User\Admin\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +22,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // soft delete multiple for type user
-Route::delete('type_users/destroy-multiple', [\App\Http\Controllers\TypeUser\Admin\TypeUserController::class, 'destroyMultiple'])->name('api.type_users.destroy.multiple');
+Route::delete('type_users/destroy-multiple', [TypeUserController::class, 'destroyMultiple'])
+    ->name('api.type_users.destroy.multiple');
 // soft delete multiple for user
-Route::delete('users/destroy-multiple', [\App\Http\Controllers\User\Admin\UserController::class, 'destroyMultiple'])->name('api.users.destroy.multiple');
+Route::delete('users/destroy-multiple', [UserController::class, 'destroyMultiple'])
+    ->name('api.users.destroy.multiple');
+
+
+// API For Page Client
+Route::get('information-detail-trip', [TripController::class, 'getInformationDetailTrip']);
