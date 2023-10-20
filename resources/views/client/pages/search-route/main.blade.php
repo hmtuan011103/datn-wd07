@@ -1,3 +1,4 @@
+@include('client.pages.search-route.style')
 
 @include('client.partials.banner')
 
@@ -11,3 +12,5 @@
 
 
 
+
+@include('client.pages.search-route.script')

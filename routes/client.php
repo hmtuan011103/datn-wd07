@@ -18,10 +18,10 @@ Route::get('/', function () {
     return view('client.pages.home.index');
 });
 
-Route::get('/search', function () {
+Route::get('/tim-kiem', function () {
     return view('client.pages.search-route.index');
 });
 
-Route::get('/select-seat', function () {
+Route::get('/chon-ghe', function () {
     return view('client.pages.select-seat.index');
 });
