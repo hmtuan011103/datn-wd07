@@ -10,25 +10,25 @@
                 <div class="form-check mb-2 cursor">
                     <input class="form-check-input cursor filter-time"  type="checkbox" value="00-06" id="" >
                     <label class="form-check-label cursor" for="">
-                        Sáng sớm 00:00 - 06:00 <span>(0)</span>
+                        Sáng sớm 00:00 - 06:00 <span id="count0006"></span>
                     </label>
                 </div>
                 <div class="form-check mb-2 cursor">
                     <input class="form-check-input cursor filter-time"  type="checkbox" value="06-12" id="" >
                     <label class="form-check-label cursor" for="">
-                        Buổi sáng 06:00 - 12:00 <span>(0)</span>
+                        Buổi sáng 06:00 - 12:00 <span id="count0612"></span>
                     </label>
                 </div>
                 <div class="form-check mb-2 cursor">
                     <input class="form-check-input cursor filter-time"  type="checkbox" value="12-16" id="" >
                     <label class="form-check-label cursor"  for="">
-                        Buổi chiều 12:00 - 18:00 <span>(0)</span>
+                        Buổi chiều 12:00 - 18:00 <span id="count1218"></span>
                     </label>
                 </div>
                 <div class="form-check mb-2 pb-2 cursor">
                     <input class="form-check-input cursor filter-time"  type="checkbox" value="18-24" id="" >
                     <label class="form-check-label cursor" for="">
-                        Buổi tối 18:00 - 24:00 <span>(0)</span>
+                        Buổi tối 18:00 - 24:00 <span id="count1824"></span>
                     </label>
                 </div>
             </div>

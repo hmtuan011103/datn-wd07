@@ -359,10 +359,11 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-
-        fetch(link + 'api/searchtrip?start_location=' + start_location + '&end_location=' + end_location +
-                '&start_date=' + start_date + '&end_date=' + end_date + '&ticket=' + ticket + '&type_ticket=' +
-                type_ticket)
+        var fetchapisearch = link + 'api/searchtrip?start_location=' + start_location + '&end_location=' +
+            end_location +
+            '&start_date=' + start_date + '&end_date=' + end_date + '&ticket=' + ticket + '&type_ticket=' +
+            type_ticket;
+        fetch(fetchapisearch)
             .then(function(response) {
                 return response.json();
             })
@@ -389,6 +390,8 @@
                     }
                     data = [datastart, dataend]
                 }
+                
+
                 showFilterSearch(datadefault, data)
                 const checkedOptions = [];
                 const checkedTypes = [];
@@ -419,10 +422,10 @@
                             const matchType = checkedTypes.includes(item.car.type_car.type_seats);
                             if (checkedOptions.length > 0 && checkedTypes.length > 0) {
                                 // Nếu cả hai điều kiện đều được chọn, so sánh cả hai điều kiện
-                                
+
                                 return matchOption && matchType;
                             } else {
-                                
+
                                 // Nếu chỉ có một điều kiện được chọn, lấy một điều kiện
                                 return matchOption || matchType;
                             }
@@ -443,7 +446,8 @@
                                 }
                             }
 
-                            const matchType = checkedTypes.includes(item.car.type_car.type_seats.toString());
+                            const matchType = checkedTypes.includes(item.car.type_car.type_seats
+                                .toString());
 
                             if (checkedOptions.length > 0 && checkedTypes.length > 0) {
                                 // Nếu cả hai điều kiện đều được chọn, so sánh cả hai điều kiện
@@ -472,7 +476,8 @@
                                 }
                             }
 
-                            const matchType = checkedTypes.includes(item.car.type_car.type_seats.toString());
+                            const matchType = checkedTypes.includes(item.car.type_car.type_seats
+                                .toString());
 
                             if (checkedOptions.length > 0 && checkedTypes.length > 0) {
                                 // Nếu cả hai điều kiện đều được chọn, so sánh cả hai điều kiện
@@ -533,6 +538,7 @@
 
                     // Hiển thị kết quả
                     showFilterSearch(datadefault, filteredData);
+                    
                 }
 
                 //Gắn sự kiện cho các checkbox khi tài liệu HTML đã được tải và sẵn sàng
@@ -546,13 +552,19 @@
                 typeButtons.forEach((button) => {
                     button.addEventListener("click", handleTypeButtonClick);
                 });
+                typeButtons.forEach((button) => {
+                    button.addEventListener("click", handleClick);
+                });
                 // console.log(data)
                 // Khởi tạo mặc định - Hiển thị tất cả dữ liệu
 
             })
-
+        
+        // function handleClick(event) {
+        //     var buttonData = event.target.dataset.type;
+        //     console.log(buttonData);
+        // }
         function showFilterSearch(data, datafilter) {
-            // console.log(datafilter.length)
             if (data.status == 0 || datafilter.length == 0) {
                 document.getElementById('searchresultfalse').style.display = 'block';
                 document.getElementById('searchresulttrue').style.display = 'none';
@@ -563,6 +575,22 @@
                 // } else {
                 //     var result = Object.values(data[0]);
                 // }
+
+                var count0006 = datafilter.filter(item => item.start_time > '00:00:00' && item.start_time <=
+                    '06:00:00').length;
+                var count0612 = datafilter.filter(item => item.start_time > '06:00:00' && item.start_time <=
+                    '12:00:00').length;
+                var count1218 = datafilter.filter(item => item.start_time > '12:00:00' && item.start_time <=
+                    '18:00:00').length;
+                var count1824 = datafilter.filter(item => item.start_time > '18:00:00' && item.start_time <=
+                    '24:00:00').length;
+
+                document.getElementById('count0006').innerHTML = `(${count0006})`
+                document.getElementById('count0612').innerHTML = `(${count0612})`
+                document.getElementById('count1218').innerHTML = `(${count1218})`
+                document.getElementById('count1824').innerHTML = `(${count1824})`
+
+
                 document.getElementById('searchresultfalse').style.display = 'none';
                 document.getElementById('searchresulttrue').style.display = 'block';
                 document.getElementById('searchresults').innerHTML = '';
@@ -631,7 +659,19 @@
                     tripend.style.borderBottom = '1px solid rgba(130, 122, 122, 0.823)';
                     tripend.style.color = 'black';
                     document.getElementById('searchresults').innerHTML = '';
+                    var count0006 = datafilter[0].filter(item => item.start_time > '00:00:00' && item
+                        .start_time <= '06:00:00').length;
+                    var count0612 = datafilter[0].filter(item => item.start_time > '06:00:00' && item
+                        .start_time <= '12:00:00').length;
+                    var count1218 = datafilter[0].filter(item => item.start_time > '12:00:00' && item
+                        .start_time <= '18:00:00').length;
+                    var count1824 = datafilter[0].filter(item => item.start_time > '18:00:00' && item
+                        .start_time <= '24:00:00').length;
 
+                    document.getElementById('count0006').innerHTML = `(${count0006})`
+                    document.getElementById('count0612').innerHTML = `(${count0612})`
+                    document.getElementById('count1218').innerHTML = `(${count1218})`
+                    document.getElementById('count1824').innerHTML = `(${count1824})`
                     // if (Array.isArray(data[0][0])) {
                     //     var result = data[0][0]
                     // } else {
@@ -700,7 +740,19 @@
                     tripend.style.color = 'red';
                     tripstart.style.borderBottom = '1px solid rgba(130, 122, 122, 0.823)';
                     tripstart.style.color = 'black';
+                    var count0006 = datafilter[1].filter(item => item.start_time > '00:00:00' && item
+                        .start_time <= '06:00:00').length;
+                    var count0612 = datafilter[1].filter(item => item.start_time > '06:00:00' && item
+                        .start_time <= '12:00:00').length;
+                    var count1218 = datafilter[1].filter(item => item.start_time > '12:00:00' && item
+                        .start_time <= '18:00:00').length;
+                    var count1824 = datafilter[1].filter(item => item.start_time > '18:00:00' && item
+                        .start_time <= '24:00:00').length;
 
+                    document.getElementById('count0006').innerHTML = `(${count0006})`
+                    document.getElementById('count0612').innerHTML = `(${count0612})`
+                    document.getElementById('count1218').innerHTML = `(${count1218})`
+                    document.getElementById('count1824').innerHTML = `(${count1824})`
                     document.getElementById('searchresults').innerHTML = '';
 
                     if (Array.isArray(data[0][1])) {
@@ -764,12 +816,12 @@
                         });
                     }
                 });
-                    if (currentpagetrip == 'end') {
-                        tripend.click()
-                    } else {
-                        tripstart.click()
-                    }
-                    
+                if (currentpagetrip == 'end') {
+                    tripend.click()
+                } else {
+                    tripstart.click()
+                }
+
             }
         }
 
