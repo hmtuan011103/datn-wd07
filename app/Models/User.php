@@ -67,4 +67,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id')->withTimestamps();
     }
+    public function news(){
+        return $this->hasMany(NewPost::class,'user_id');
+    }
 }

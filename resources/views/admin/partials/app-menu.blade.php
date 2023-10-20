@@ -147,6 +147,11 @@
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ route('index_new') }}">
+                        <i class="mdi mdi-sticker-text-outline"></i> <span data-key="t-maps">Bài viết</span>
+                    </a>
+                </li>
             </ul>
         </div>
         <!-- Sidebar -->

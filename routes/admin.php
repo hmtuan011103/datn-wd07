@@ -87,7 +87,15 @@ Route::group(['prefix' => 'role_permission'], function () {
     Route::get('/api/details/{id}', [RoleController::class, 'details'])->name('role_permission_details');
     Route::get('/api/get_permission/{id}', [RoleController::class, 'getPermission'])->name('get_permission_api');
 });
+Route::prefix('news')->group(function (){
+    Route::get('/',[\App\Http\Controllers\New\Admin\NewController::class,'index'])->name('index_new');
+    Route::get('/create',[\App\Http\Controllers\New\Admin\NewController::class,'create'])->name('create_new');
+    Route::post('/store',[\App\Http\Controllers\New\Admin\NewController::class,'store'])->name('store_new');
+    Route::get('/edit/{id}',[\App\Http\Controllers\New\Admin\NewController::class,'edit'])->name('edit_new');
+    Route::put('/update/{id}',[\App\Http\Controllers\New\Admin\NewController::class,'update'])->name('update_new');
+    Route::delete('/destroy/{id}',[\App\Http\Controllers\New\Admin\NewController::class,'destroy'])->name('destroy_new');
 
+});
 
 Route::resource('users', \App\Http\Controllers\User\Admin\UserController::class);
 Route::resource('type_cars', \App\Http\Controllers\TypeCar\Admin\TypeCarController::class);

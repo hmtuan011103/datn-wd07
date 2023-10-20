@@ -25,3 +25,5 @@ Route::get('/search', function () {
 Route::get('/select-seat', function () {
     return view('client.pages.select-seat.index');
 });
+
+Route::get('news',[App\Http\Controllers\New\Client\NewController::class,'index'])->name('client.news');
