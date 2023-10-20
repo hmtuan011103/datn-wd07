@@ -28,4 +28,9 @@ class TripController extends BaseTripController
             
         }
     }
+
+    public function get_type_car(){
+        $type_car = $this->tripService->get_all_type_car();
+        return response()->json($type_car,200);
+    }
 }

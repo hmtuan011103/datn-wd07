@@ -7,6 +7,7 @@ use App\Http\Requests\Trip\UpdateTripRequest;
 use App\Models\Bills;
 use App\Models\Car;
 use App\Models\Trip;
+use App\Models\TypeCar;
 use App\Models\User;
 use Carbon\Carbon;
 use DateInterval;
@@ -119,8 +120,8 @@ class TripService
             }
             $total_trip_end = count($tripend);
             for ($i = 0; $i < $total_trip_end; $i++) {
-                if ($currentDate == $request->start_date) {
-                    if ($tripend[$i]->start_time < $currtime) {
+                if ($currentDate == $request->end_date) {
+                    if ($tripend[$i]->end_time < $currtime) {
                         unset($tripend[$i]);
                         continue;
                     }
@@ -144,5 +145,10 @@ class TripService
                 return [$tripstart, $tripend];
             }
         }
+    }
+
+    public function get_all_type_car(){
+        $type_car = TypeCar::select('type_seats')->get();
+        return $type_car;
     }
 }

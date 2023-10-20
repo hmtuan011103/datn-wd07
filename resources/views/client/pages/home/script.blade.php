@@ -1,6 +1,6 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
-    var link = location.href;
+    var link = 'http://127.0.0.1:8000/';
     document.addEventListener('DOMContentLoaded', function() {
         fetch(link + 'api/location/list_client_location')
             .then(function(response) {
@@ -74,10 +74,10 @@
                 error_end_time.textContent = "Không thể chọn ngày trong quá khứ";
                 return;
                 // instance.clear(); // Xóa ngày đã chọn nếu không hợp lệ
-            }else {
+            } else {
                 error_end_time.textContent = "";
             }
-            
+
         }
     });
 
@@ -102,32 +102,32 @@
         if (start_location === '0') {
             error_start_location.textContent = "Vui lòng chọn điểm đi";
             return;
-        }else{
+        } else {
             error_start_location.textContent = "";
         }
         if (end_location === '0') {
             error_end_location.textContent = "Vui lòng chọn điểm đến";
             return;
-        }else{
+        } else {
             error_end_location.textContent = "";
         }
         if (start_location === end_location) {
             error_end_location.textContent = "Điểm đến phải khác điểm đi";
             return;
-        }else{
+        } else {
             error_end_location.textContent = "";
         }
         if (start_time === '') {
             error_start_time.textContent = "Vui lòng chọn ngày đi"
             return;
-        }else{
+        } else {
             error_start_time.textContent = ""
         }
         if (type_ticket === '2') {
             if (end_time === '') {
                 error_end_time.textContent = "Vui lòng chọn ngày về";
                 return;
-            }else{
+            } else {
                 error_end_time.textContent = "";
             }
 
@@ -142,14 +142,14 @@
         if (ticket > 5) {
             error_ticket.textContent = "Số vé tối đa là 5";
             return;
-        }else{
+        } else {
             error_ticket.textContent = "";
         }
 
         if (ticket < 1) {
             error_ticket.textContent = "Số vé tối thiểu là 1";
             return;
-        }else{
+        } else {
             error_ticket.textContent = "";
         }
 
@@ -161,7 +161,118 @@
         for (var pair of formData.entries()) {
             jsonData[pair[0]] = pair[1];
         }
+
+        function addDataToCookieArray(data) {
+            // Kiểm tra xem cookie có tồn tại hay không
+            if (document.cookie.length > 0) {
+                // Tách các cookie thành một mảng
+                var cookies = document.cookie.split(';');
+
+                // Tìm và cập nhật cookie chứa mảng dữ liệu
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+
+                    // Kiểm tra xem cookie có chứa mảng dữ liệu hay không
+                    if (cookie.indexOf('myData=') === 0) {
+                        // Lấy giá trị của cookie
+                        var cookieValue = cookie.substring('myData='.length);
+
+                        // Chuyển đổi giá trị cookie thành mảng
+                        var dataArray = JSON.parse(cookieValue);
+
+                        // Thêm dữ liệu mới vào mảng
+                        dataArray.push(data);
+
+                        // Giới hạn số lượng phần tử trong mảng là 2
+                        if (dataArray.length > 2) {
+                            dataArray.shift(); // Xóa phần tử đầu tiên
+                        }
+
+                        // Cập nhật giá trị cookie với mảng dữ liệu mới
+                        var expiresDate = new Date();
+                        expiresDate.setDate(expiresDate.getDate() + 10); // Thời gian sống 10 ngày
+                        document.cookie = 'myData=' + JSON.stringify(dataArray) + '; expires=' + expiresDate
+                            .toUTCString();
+
+                        return; // Kết thúc function sau khi cập nhật cookie
+                    }
+                }
+            }
+
+            // Nếu không tìm thấy cookie chứa mảng dữ liệu, tạo một cookie mới
+            var newArray = [data];
+            var expiresDate = new Date();
+            expiresDate.setDate(expiresDate.getDate() + 10); // Thời gian sống 10 ngày
+            document.cookie = 'myData=' + JSON.stringify(newArray) + '; expires=' + expiresDate.toUTCString();
+        }
+        addDataToCookieArray(jsonData)
         var queryString = Object.keys(jsonData).map(key => key + '=' + encodeURIComponent(jsonData[key])).join('&');
         window.location.href = link + 'tim-kiem?' + queryString;
+    }
+
+    function getDataFromCookieArray() {
+        var dataArray = [];
+
+        // Kiểm tra xem cookie có tồn tại hay không
+        if (document.cookie.length > 0) {
+            // Tách các cookie thành một mảng
+            var cookies = document.cookie.split(';');
+
+            // Tìm và lấy cookie chứa mảng dữ liệu
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+
+                // Kiểm tra xem cookie có chứa mảng dữ liệu hay không
+                if (cookie.indexOf('myData=') === 0) {
+                    // Lấy giá trị của cookie
+                    var cookieValue = cookie.substring('myData='.length);
+
+                    // Chuyển đổi giá trị cookie thành mảng
+                    dataArray = JSON.parse(cookieValue);
+                    break; // Thoát khỏi vòng lặp sau khi lấy dữ liệu
+                }
+            }
+        }
+
+        return dataArray;
+    }
+    var myDataArray = getDataFromCookieArray();
+        var formId = 0;
+        myDataArray.forEach(function(data) {
+            formId++;
+            if (myDataArray.length > 0) {
+                document.getElementById('searchrecently').innerHTML +=
+                    `<a href="#" onclick="submitFormCookie('${formId}')"
+                        class="col-2 bg-search-latest fs-15 border border-1 rounded-2 mx-2 text-decoration-none cl-black">
+                        <div class="d-flex py-2">
+                            <p class="m-0 p-0 fs-15">${data.start_location}</p>
+                            <p class="px-1 py-0 m-0 fs-15"> - </p>
+                            <p class="m-0 p-0 fs-15">${data.end_location}</p>
+                        </div>
+                        <p class="p-0  fs-13">${data.start_time}</p>
+                    </a>`
+                document.getElementById('formsearchcookie').innerHTML +=
+                    `<form action="${link + 'tim-kiem'}" id="myFormCookie${formId}" onsubmit="submitForm(event)" >
+                        <input class="form-check-input cursor" type="radio" name="type-ticket"
+                            id="one-way" value="${data['type-ticket']}" checked>
+                        <select class="form-select py-3" aria-label="Default select example" name="start_location">
+                            <option value="${data.start_location}" selected></option>
+                        </select>
+                        <select class="form-select py-3" aria-label="Default select example" name="end_location">
+                            <option value="${data.end_location}" selected></option>
+                        </select>
+                        <input type="text" class="form-control py-3" name="start_time" value="${data.start_time}">
+                        <input type="text" class="form-control py-3" name="end_time" value="${data.end_time}">
+                        <select class="form-select py-3" name="ticket" id="tickettotal" aria-label="Default select example">
+                            <option value="${data.ticket}" selected>1</option>
+                        </select>
+                    </form>`
+
+            }
+        }); 
+    function submitFormCookie(formId) {
+        var form = document.getElementById("myFormCookie" + formId);
+        form.submit();
+        console.log(form)
     }
 </script>
