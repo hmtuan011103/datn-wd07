@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Controllers\Locations\Admin\LocationController;
-use App\Http\Controllers\Locations\Client\LocationController as ClientLocationController;
-use App\Http\Controllers\Trip\Client\TripController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,5 +24,8 @@ Route::delete('type_users/destroy-multiple', [\App\Http\Controllers\TypeUser\Adm
 // soft delete multiple for user
 Route::delete('users/destroy-multiple', [\App\Http\Controllers\User\Admin\UserController::class, 'destroyMultiple'])->name('api.users.destroy.multiple');
 
+
+Route::get('/data', [TripController::class, 'getData'])->name('getData');
+Route::get('/search_trip', [TripController::class, 'search_start_trip'])->name('search_start_trip');
 Route::get('/location/list_client_location',[ClientLocationController::class, 'list_client_location'])->name('api.location.list');
 Route::get('searchtrip',[TripController::class, 'searchtrip'])->name('search_trip');

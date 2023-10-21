@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Trip\Amin;
+namespace App\Http\Controllers\Trip\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Trip\BaseTripController;
 use App\Http\Requests\Trip\StoreTripRequest;
-use App\Http\Requests\Trip\UpdateTripRequest;
 use App\Models\Car;
-use App\Models\Location;
 use App\Models\Trip;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -26,14 +24,15 @@ class TripController extends BaseTripController
     public function form_create_trip() {
         $cars = Car::all();
         $users = User::all();
-        $locations = Location::all();
+        $locations = $this->tripService->get_parent_id();
         return view('admin.pages.trip.create',compact('cars','users','locations'),[
             'title' => 'Thêm chuyến đi '
         ]);
     }
 
     public function create_trip (StoreTripRequest $request) {
-            $this->tripService->create($request);
+ 
+        $this->tripService->create($request);
         // dd($trip);
             toastr()->success('Thêm thành công.','Thành công');
             return redirect()->route('form_create_trip');
@@ -45,7 +44,7 @@ class TripController extends BaseTripController
         $trip = Trip::find($id);
         $cars = Car::all();
         $users = User::all();
-        $locations = Location::all();
+        $locations = $this->tripService->get_parent_id();
         return view('admin.pages.trip.edit', compact('trip','users','cars','locations'),[
             'title' => 'Sửa chuyến đi'
         ]);
@@ -77,5 +76,4 @@ class TripController extends BaseTripController
         
         return response()->json(['data'=>$trip],200); // 200 là mã lỗi
     }
-   
 }
