@@ -7,6 +7,11 @@
     }
     #showtripend{
         cursor: pointer;
-        border-bottom: 1px solid rgba(130, 122, 122, 0.823)
+        border-bottom: 1px solid rgba(246, 0, 0, 0.823)
     }
+    .type-seat.active {
+        background-color: rgb(219, 92, 34) !important;
+        color: #ffffff !important;
+        border: #110101 !important;
+      }
 </style>
