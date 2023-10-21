@@ -80,7 +80,7 @@
 }
 
 /* Định nghĩa màu cho input */
-input[type="radio"]{
+/* input[type="radio"]{
     outline: 1px solid #F9821D !important;
 }
 input[type="radio"]:checked{
@@ -94,7 +94,7 @@ select.py-3
 {
     border-color: #F9821D;
     outline: #F9821D !important;
-}
+} */
 input[type="text"]:focus,
 input[type="number"]:focus,
 input[type="date"]:focus,
@@ -270,3 +270,4 @@ footer.pt-4{
     border: 1px solid #E5E5E5;
     width: 1px;
 }
+

@@ -86,42 +86,64 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
 {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> --}}
 
 <script>
-    
     $(document).ready(function() {
-        $('.btn-show').click(function(){
-                        var url = $(this).attr('data-url');
-                        $.ajax({
-                            type: 'get',
-                            url: url,
-                            success: function(response) {
-                                // $('#show').modal('hide');
-                                // console.log(response)
-                                // var dateTime = new Date(response.data[0].start_date); // DateTime object
-                                // var date = dateTime.getDate();
+        $('.btn-show').click(function() {
+            var url = $(this).attr('data-url');
+            $.ajax({
+                type: 'get',
+                url: url,
+                success: function(response) {
+                    // $('#show').modal('hide');
+                    // console.log(response)
+                    // var dateTime = new Date(response.data[0].start_date); // DateTime object
+                    // var date = dateTime.getDate();
 
-                                var dateTime = new Date(response.data[0].start_date); // DateTime object
-                                var date = dateTime.getDate();
-                                var month = dateTime.getMonth()+1;// Lấy tháng từ 0-11, nên cộng thêm 1
-                                var year = dateTime.getFullYear();
-                                var fullDate = date + '/' + month + '/' + year;
-                                
-                                $('label#car_name').text(response.data[3][0].car_name)
-                                $('label#drive_name').text(response.data[1][0].drive_name)
-                                $('label#assistantCar_name').text(response.data[2][0].assistantCar_name  )
-                                $('label#start_date').text(fullDate)
-                                $('label#start_location').text(response.data[0].start_location)
-                                $('label#end_location').text(response.data[0].end_location)
-                                $('label#trip_price').text(response.data[0].trip_price)
-                                $('label#start_time').text(response.data[0].start_time)
-                            },
-                            error: function (jqXHR, textStatus, errorThrown) {
-                                //xử lý lỗi tại đây
-                            }
-                        })
-                    })
-                })
-    
-    </script>
+                    var dateTime = new Date(response.data[0].start_date); // DateTime object
+                    var date = dateTime.getDate();
+                    var month = dateTime.getMonth() +
+                        1; // Lấy tháng từ 0-11, nên cộng thêm 1
+                    var year = dateTime.getFullYear();
+                    var fullDate = date + '/' + month + '/' + year;
+
+                    function convertTime(timeString) {
+                        var parts = timeString.split(":");
+                        var hour = parseInt(parts[0]);
+                        var minute = parseInt(parts[1]);
+
+                        var hourText = hour.toString();
+                        var minuteText = minute.toString();
+
+                        if (hour < 10) {
+                            hourText = "0" + hourText;
+                        }
+
+                        if (minute < 10) {
+                            minuteText = "0" + minuteText;
+                        }
+
+                        var timeInVietnamese = hourText + " giờ " + minuteText + " phút";
+
+                        return timeInVietnamese;
+                    }
+
+                    $('label#car_name').text(response.data[3][0].car_name)
+                    $('label#drive_name').text(response.data[1][0].drive_name)
+                    $('label#assistantCar_name').text(response.data[2][0].assistantCar_name)
+                    $('label#start_date').text(fullDate)
+                    $('label#start_location').text(response.data[0].start_location)
+                    $('label#end_location').text(response.data[0].end_location)
+                    $('label#trip_price').text(response.data[0].trip_price)
+                    $('label#start_time').text(response.data[0].start_time)
+                    $('label#interval_trip').text(convertTime(response.data[0].interval_trip));
+
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    //xử lý lỗi tại đây
+                }
+            })
+        })
+    })
+</script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -146,7 +168,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
             var modalElement = document.getElementById('modalDelete');
             modalElement.style.display = 'none';
             location.href = location.href;
-          
+
             var row = document.getElementById('row' + roleId);
             if (row) {
                 row.style.display = 'none';
@@ -189,4 +211,40 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
             dateFormat: 'H:i',
         });
     });
+</script>
+
+<script>
+    function formatTime() {
+        var input = document.getElementById("timeInput");
+        var value = input.value;
+
+        if (value.length === 4) {
+            var hour = value.substr(0, 2);
+            var minute = value.substr(2);
+            var formattedTime = hour + "giờ " + minute + "phút";
+            input.value = formattedTime;
+        }
+    }
+
+    var previousValue = "";
+
+    function validateTime() {
+        var input = document.getElementById("timeInput");
+        var value = input.value;
+
+        if (value.length === 4) {
+            var hour = value.substr(0, 2);
+            var minute = value.substr(2);
+
+            // Kiểm tra nếu giờ hoặc phút không phải là số
+            if (isNaN(hour) || isNaN(minute)) {
+                // Khôi phục giá trị trước đó
+                input.value = previousValue;
+            } else {
+                previousValue = value;
+            }
+        } else {
+            previousValue = value;
+        }
+    }
 </script>
