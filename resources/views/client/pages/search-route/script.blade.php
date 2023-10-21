@@ -843,7 +843,7 @@
                         <p class="p-0  fs-13">${data.start_time}</p>
                     </a>`
                 document.getElementById('formsearchcookie').innerHTML +=
-                    `<form id="myFormCookie${formId}" onsubmit="submitForm(event)" >
+                    `<form id="myFormCookie${formId}" action="${link + 'tim-kiem'}" onsubmit="submitForm(event)" >
                         <input class="form-check-input cursor" type="radio" name="type-ticket"
                             id="one-way" value="${data['type-ticket']}" checked>
                         <select class="form-select py-3" aria-label="Default select example" name="start_location">
