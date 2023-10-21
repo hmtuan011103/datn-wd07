@@ -59,5 +59,10 @@ class LocationService
         ->delete();     
         return $delete;
 }
+
+    public function listClient(){
+        $locations = Location::where(['parent_id' => null])->get();
+        return $locations;
+    }
     
 }
