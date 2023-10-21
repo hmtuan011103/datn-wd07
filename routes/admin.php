@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Locations\Admin\LocationController;
-use App\Http\Controllers\Trip\Amin\TripController;
 use App\Http\Controllers\Role\Admin\RoleController;
 use App\Http\Controllers\Permissions\Admin\PermissionController;
 use App\Http\Controllers\UserRoles\Admin\UserRoleController;
@@ -9,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TypeCar\Admin\TypeCarController;
 use App\Http\Controllers\Car\Admin\CarController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Trip\Admin\TripController;
 
 /*
 |--------------------------------------------------------------------------

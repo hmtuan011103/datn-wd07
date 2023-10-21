@@ -1876,9 +1876,9 @@
               '.btn[data-bs-target="#theme-settings-offcanvas"]'
           )) && L.click()),
         i(),
-        (h = document.getElementById("search-close-options")),
-        (v = document.getElementById("search-dropdown")),
-        (I = document.getElementById("search-options")) &&
+        (h = document.getElementById("search-route2-close-options")),
+        (v = document.getElementById("search-route2-dropdown")),
+        (I = document.getElementById("search-route2-options")) &&
             (I.addEventListener("focus", function () {
                 0 < I.value.length
                     ? (v.classList.add("show"), h.classList.remove("d-none"))
@@ -1921,12 +1921,12 @@
                     h.classList.add("d-none");
             }),
             document.body.addEventListener("click", function (e) {
-                "search-options" !== e.target.getAttribute("id") &&
+                "search-route2-options" !== e.target.getAttribute("id") &&
                     (v.classList.remove("show"), h.classList.add("d-none"));
             })),
-        (S = document.getElementById("search-close-options")),
+        (S = document.getElementById("search-route2-close-options")),
         (w = document.getElementById("search-dropdown-reponsive")),
-        (A = document.getElementById("search-options-reponsive")),
+        (A = document.getElementById("search-route2-options-reponsive")),
         S &&
             w &&
             A &&
@@ -1946,7 +1946,7 @@
                     S.classList.add("d-none");
             }),
             document.body.addEventListener("click", function (e) {
-                "search-options" !== e.target.getAttribute("id") &&
+                "search-route2-options" !== e.target.getAttribute("id") &&
                     (w.classList.remove("show"), S.classList.add("d-none"));
             })),
         (L = document.querySelector('[data-toggle="fullscreen"]')) &&
@@ -2145,8 +2145,8 @@
             a["data-choices-groups"] &&
                 (t.placeholderValue =
                     "This is a placeholder set in the config"),
-                a["data-choices-search-false"] && (t.searchEnabled = !1),
-                a["data-choices-search-true"] && (t.searchEnabled = !0),
+                a["data-choices-search-route2-false"] && (t.searchEnabled = !1),
+                a["data-choices-search-route2-true"] && (t.searchEnabled = !0),
                 a["data-choices-removeItem"] && (t.removeItemButton = !0),
                 a["data-choices-sorting-false"] && (t.shouldSort = !1),
                 a["data-choices-sorting-true"] && (t.shouldSort = !0),

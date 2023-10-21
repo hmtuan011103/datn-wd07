@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
-                       
+
 
                         <div class="card-body">
                             <div class="listjs-table" id="customerList">
@@ -74,8 +74,12 @@
                                                             href="javascript:void(0);"
                                                             class="fw-medium link-primary">#VZ2101</a></td>
                                                     <td class="email">{{ $item->name }} </td>
-                                                    <td class="date"><img src="{{Storage::url($item->image)}}" alt="" width="70px"></td>
-                                                    <td class="phone">{{ $item->description }}</td>
+                                                    <td class="date">
+                                                        {{-- <img src="{{Storage::url($item->image)}}" alt="" width="70px"> --}}
+                                                        <img src="{{ $item->image ? '' . Storage::url($item->image) : 'https://cdn4.iconfinder.com/data/icons/solid-part-6/128/image_icon-512.png' }}" alt="" width="100px">
+
+                                                    </td>
+                                                    <td class="phone">{{ $item->description ? '' . $item->description : 'Không có mô tả'  }}</td>
                                                     <td>
                                                         <div class="d-flex gap-2">
                                                             <div class="edit">
@@ -102,7 +106,7 @@
                                             <h5 class="mt-2">Xin lỗi! Không có kết quả nào</h5>
                                             {{-- <p class="text-muted mb-0">We've searched more than 150+ Orders We did not
                                                 find any
-                                                orders for you search.</p> --}}
+                                                orders for you search-route2.</p> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -127,7 +131,7 @@
             </div>
             <!-- end row -->
 
-            
+
             <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -164,5 +168,5 @@
     </div>
     <!-- End Page-content -->
 
-</div>    
+</div>
 @endsection

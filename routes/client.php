@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Locations\Client\LocationController;
+use App\Http\Controllers\Trip\Client\TripController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,5 +16,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return "This is client";
+    return view('client.pages.home.index');
 });
+
+Route::get('/tim-kiem', function () {
+    return view('client.pages.search-route.index');
+})->name('search');
+
+Route::get('/chon-ghe', function () {
+    return view('client.pages.select-seat.index');
+});
+Route::get('/auth', function () {
+    return view('client.pages.auth.login');
+})->name('auth');
+Route::get('/lich-trinh', [TripController::class, 'lich_trinh'])->name('lich_trinh');

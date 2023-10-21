@@ -3,9 +3,29 @@
 namespace App\Http\Controllers\Trip\Client;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Trip\BaseTripController;
 use Illuminate\Http\Request;
 
-class TripController extends Controller
+class TripController extends BaseTripController
 {
     //
+    public function lich_trinh()
+    {
+        return view('client.pages.trip.index');
+    }
+
+    public function getData()
+    {
+        $data = $this->tripService->getData();
+        return response()->json($data);
+        // return view('client.pages.trip.main', compact('trips'));
+    }
+
+    public function search_start_trip(Request $request)
+    {   
+      
+        $trip = $this->tripService->search($request);      
+        return response()->json($trip);
+        
+    }
 }

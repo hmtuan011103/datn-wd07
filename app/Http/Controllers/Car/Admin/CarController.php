@@ -6,9 +6,9 @@ use App\Http\Controllers\Car\BaseCarController;
 use App\Http\Requests\Car\StoreCarRequest;
 use App\Http\Requests\Car\UpdateCarRequest;
 use App\Models\Car;
+use App\Models\Seat;
 use App\Models\TypeCar;
 use Illuminate\Http\Request;
-use App\Models\Seat;
 
 class CarController extends BaseCarController
 {
@@ -32,18 +32,71 @@ class CarController extends BaseCarController
         $this->CarService->store($request);
         return redirect()->route('index_car');
     }
-    public function edit(Request $request)
+
+    public function edit(String $id)
     {
+
+        $model = Car::findOrFail($id);
         $title = 'Trang phân quyền';
         $data = TypeCar::query()->get();
-        $model = Car::find($request->id);
         return view('admin.pages.car.edit',compact('title', 'data','model'));
     }
 
     public function update(UpdateCarRequest $request ,string $id)
     {
-        $this->CarService->update($request,$id);
-        toastr()->success('Sửa Thành Công!');
+
+
+        $model = Car::query()->findOrFail($id);
+        dd($model);
+
+        $olbImg = $model->image;
+        if ($request->hasFile('image')) {
+            $model->image = upload_file('car', $request->file('image'));
+            delete_file($olbImg);
+        }
+        $model->save();
+        $seats = Seat::query()->where('car_id', $model->id)->get();
+        if ($seats) {
+            foreach ($seats as $seat) {
+                $seat->delete();
+            }
+        }
+
+        $id_car = $model->id;
+        $request = $request->id_type_car;
+        $data = TypeCar::find($request);
+        $seat = $data->total_seat;
+        for ($i = 1; $i <= $seat; $i++) {
+            $seats = Seat::query();
+            if ($i <= 24) {
+                if ($i < 10){
+                    $seats->create([
+                        'car_id' => $id_car,
+                        'code_seat' => 'A0' . $i,
+                    ]);
+                }else{
+                    $seats->create([
+                        'car_id' => $id_car,
+                        'code_seat' => 'A' . $i,
+                    ]);
+                }
+
+            } else {
+                if ($i < 34){
+                    $seats->create([
+                        'car_id' => $id_car,
+                        'code_seat' => 'B0' . ($i-24),
+                    ]);
+                }else{
+                    $seats->create([
+                        'car_id' => $id_car,
+                        'code_seat' => 'B' . ($i-24),
+                    ]);
+                }
+            }
+        }
+//        $this->CarService->update($request,$id);
+//        toastr()->success('Sửa Thành Công!');
         return redirect()->route('index_car');
     }
     public function destroy(string $id)

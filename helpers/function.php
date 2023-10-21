@@ -7,7 +7,6 @@ if (!function_exists('upload_file')) {
         return 'storage/' . Storage::put($folder, $file);
     }
 }
-
 if (!function_exists('delete_file')) {
     function delete_file($pathFile) {
         $pathFile = str_replace('storage/', '', $pathFile);

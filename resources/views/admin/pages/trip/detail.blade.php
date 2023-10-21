@@ -14,13 +14,16 @@
                             <p>Tên xe : <label id="car_name"></label></p>
                             <p>Người lái : <label id="drive_name"></label></p>
                             <p>Phụ xe : <label id="assistantCar_name"></label></p>
+                            <p>Giá vé : <label id="trip_price"></label>.000 VND</p>
                             <p>Ngày đi : <label id="start_date"></label></p>
+
                         </div>
                         <div class="col-md-6">
                             <p>Điểm bắt đầu : <label id="start_location"></label></p>
                             <p>Điểm kết thúc : <label id="end_location"></label></p>
-                            <p>Giá vé : <label id="trip_price"></label>.000 VND</p>
                             <p>Giờ đi : <label id="start_time"></label></p>
+                            <p>Thời gian đi : <label id="interval_trip"></label></p>
+
 
                         </div>
                     </div>

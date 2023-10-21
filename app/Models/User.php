@@ -8,8 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements CanResetPasswordContract
+class User extends Authenticatable implements JWTSubject, CanResetPasswordContract
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
@@ -90,5 +91,14 @@ class User extends Authenticatable implements CanResetPasswordContract
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id')->withTimestamps();
+    }
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

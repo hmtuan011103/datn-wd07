@@ -23,7 +23,6 @@ class UpdateLocationRequest extends FormRequest
     {
         return [
             'name'=>'required',
-            'description'=>'required',
         ];
     }
 
@@ -31,7 +30,6 @@ class UpdateLocationRequest extends FormRequest
     {
         return [
             'name.required'=>'Tên địa điểm không được để trống',
-            'description.required'=>'Mô tả không được để trống',
         ];
 
     }
