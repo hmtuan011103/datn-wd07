@@ -390,9 +390,9 @@
                     }
                     data = [datastart, dataend]
                 }
-                
 
-                showFilterSearch(datadefault, data)
+                var countfilter = 0;
+                showFilterSearch(datadefault, data, countfilter)
                 const checkedOptions = [];
                 const checkedTypes = [];
                 // console.log(data)
@@ -511,7 +511,8 @@
                     // Lọc dữ liệu
                     const filteredData = filterData(data, checkedOptions, checkedTypes);
                     // Hiển thị kết quả
-                    showFilterSearch(datadefault, filteredData);
+                    var countfilter = 1;
+                    showFilterSearch(datadefault, filteredData, countfilter);
                 }
 
 
@@ -537,8 +538,9 @@
                     const filteredData = filterData(data, checkedOptions, checkedTypes);
 
                     // Hiển thị kết quả
-                    showFilterSearch(datadefault, filteredData);
-                    
+                    var countfilter = 0;
+                    showFilterSearch(datadefault, filteredData, countfilter);
+
                 }
 
                 //Gắn sự kiện cho các checkbox khi tài liệu HTML đã được tải và sẵn sàng
@@ -552,22 +554,26 @@
                 typeButtons.forEach((button) => {
                     button.addEventListener("click", handleTypeButtonClick);
                 });
-                typeButtons.forEach((button) => {
-                    button.addEventListener("click", handleClick);
-                });
+
                 // console.log(data)
                 // Khởi tạo mặc định - Hiển thị tất cả dữ liệu
 
             })
-        
+
         // function handleClick(event) {
         //     var buttonData = event.target.dataset.type;
         //     console.log(buttonData);
         // }
-        function showFilterSearch(data, datafilter) {
+        function showFilterSearch(data, datafilter, countfilter) {
             if (data.status == 0 || datafilter.length == 0) {
                 document.getElementById('searchresultfalse').style.display = 'block';
                 document.getElementById('searchresulttrue').style.display = 'none';
+                if (countfilter != 1) {
+                    document.getElementById('count0006').innerHTML = `(0)`
+                    document.getElementById('count0612').innerHTML = `(0)`
+                    document.getElementById('count1218').innerHTML = `(0)`
+                    document.getElementById('count1824').innerHTML = `(0)`
+                }
             } else if (data.status == 1) {
 
                 // if (Array.isArray(data[0])) {
@@ -575,6 +581,7 @@
                 // } else {
                 //     var result = Object.values(data[0]);
                 // }
+
 
                 var count0006 = datafilter.filter(item => item.start_time > '00:00:00' && item.start_time <=
                     '06:00:00').length;
@@ -585,10 +592,13 @@
                 var count1824 = datafilter.filter(item => item.start_time > '18:00:00' && item.start_time <=
                     '24:00:00').length;
 
-                document.getElementById('count0006').innerHTML = `(${count0006})`
-                document.getElementById('count0612').innerHTML = `(${count0612})`
-                document.getElementById('count1218').innerHTML = `(${count1218})`
-                document.getElementById('count1824').innerHTML = `(${count1824})`
+                if (countfilter != 1) {
+                    document.getElementById('count0006').innerHTML = `(${count0006})`
+                    document.getElementById('count0612').innerHTML = `(${count0612})`
+                    document.getElementById('count1218').innerHTML = `(${count1218})`
+                    document.getElementById('count1824').innerHTML = `(${count1824})`
+                }
+
 
 
                 document.getElementById('searchresultfalse').style.display = 'none';
@@ -667,11 +677,12 @@
                         .start_time <= '18:00:00').length;
                     var count1824 = datafilter[0].filter(item => item.start_time > '18:00:00' && item
                         .start_time <= '24:00:00').length;
-
-                    document.getElementById('count0006').innerHTML = `(${count0006})`
-                    document.getElementById('count0612').innerHTML = `(${count0612})`
-                    document.getElementById('count1218').innerHTML = `(${count1218})`
-                    document.getElementById('count1824').innerHTML = `(${count1824})`
+                    if (countfilter != 1) {
+                        document.getElementById('count0006').innerHTML = `(${count0006})`
+                        document.getElementById('count0612').innerHTML = `(${count0612})`
+                        document.getElementById('count1218').innerHTML = `(${count1218})`
+                        document.getElementById('count1824').innerHTML = `(${count1824})`
+                    }
                     // if (Array.isArray(data[0][0])) {
                     //     var result = data[0][0]
                     // } else {
@@ -749,10 +760,12 @@
                     var count1824 = datafilter[1].filter(item => item.start_time > '18:00:00' && item
                         .start_time <= '24:00:00').length;
 
-                    document.getElementById('count0006').innerHTML = `(${count0006})`
-                    document.getElementById('count0612').innerHTML = `(${count0612})`
-                    document.getElementById('count1218').innerHTML = `(${count1218})`
-                    document.getElementById('count1824').innerHTML = `(${count1824})`
+                    if (countfilter != 1) {
+                        document.getElementById('count0006').innerHTML = `(${count0006})`
+                        document.getElementById('count0612').innerHTML = `(${count0612})`
+                        document.getElementById('count1218').innerHTML = `(${count1218})`
+                        document.getElementById('count1824').innerHTML = `(${count1824})`
+                    }
                     document.getElementById('searchresults').innerHTML = '';
 
                     if (Array.isArray(data[0][1])) {
