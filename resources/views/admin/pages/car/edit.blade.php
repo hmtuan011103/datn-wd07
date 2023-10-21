@@ -31,7 +31,7 @@
                             </div><!-- end card header -->
 
                             <div class="card-body">
-                                <form class="tablelist-form" autocomplete="off" action="{{route('update_car',$model->id)}}" method="POST">
+                                <form class="tablelist-form" action="{{ route('update_car', $model) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="row">
@@ -40,14 +40,12 @@
                                             <input type="text" value="{{$model->name}}" name="name" id="name" class="form-control" placeholder="Nhập Tên Chuyến Xe"  />
                                         </div>
                                         <div class="col-md-6 pt-3 pb-3">
-
-                                            <label for="image" class="form-label">Ảnh *</label>
-                                             <img src="{{ asset($model->image) }}" alt="" width="100" height="100">
-                                                <input type="file" value="{{$model->image}}"  name="image" id="image" class="form-control" placeholder="Nhập File Ảnh"  />
+                                            <label for="image" class="form-label">Ảnh </label>
+                                            <input type="file" value="{{$model->image}}" name="image" id="name" class="form-control" placeholder="Nhập Tên Chuyến Xe"  />
                                         </div>
                                         <div class="col-md-6 pt-3 pb-3">
                                             <label for="color" class="form-label">Màu Xe *</label>
-                                            <input type="color" value="{{$model->color}}" name="color" id="color" class="form-control" />
+                                            <input type="color" name="color" id="color" class="form-control" value="{{$model->color}}"/>
                                         </div>
                                         <div class="col-md-6 pt-3 pb-3">
                                             <label for="license_plate" class="form-label">Biển Số Xe *</label>
@@ -66,14 +64,14 @@
                                         </div>
                                         <div class="col-md-6 pt-3 pb-3">
                                             <label for="status" class="form-label">Trạng Thái</label>
-                                            <select class="form-control" aria-label="Default select example" name="status" ">
-                                                <option value="0">Tạo</option>
-                                                <option value="1">Đi</option>
+                                            <select class="form-control" aria-label="Default select example" name="status">
+                                                <option value="0" @if ($model->status == 0) selected @endif>Xe Đã Ngừng Hoạt Động</option>
+                                                <option value="1" @if ($model->status == 1) selected @endif>Xe Đang Hoạt Động</option>
                                             </select>
                                         </div>
                                         <div class="md-3">
                                             <label for="description" class="form-label">Mô Tả</label>
-                                            <textarea id="description" value="{{$model->description}}"  name="description" style="height: 150px;margin-bottom: 50px"   class="form-control" placeholder="Nhập Mô Tả"></textarea>
+                                            <textarea id="description" name="description" style="height: 150px;margin-bottom: 50px"   class="form-control" placeholder="Nhập Mô Tả">{{$model->description}}</textarea>
                                         </div>
 
                                     </div>

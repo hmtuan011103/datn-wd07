@@ -16,6 +16,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('name');
             $table->integer('total_seat');
+            $table->integer('type_seats');
             // Timestamps for created_at and updated_at columns
             $table->timestamps();
         });

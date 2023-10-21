@@ -9,12 +9,12 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">Chuyến Xe</h4>
+                        <h4 class="mb-sm-0">Danh Sách Xe</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
-                                <li class="breadcrumb-item active">Chuyến Xe</li>
+                                <li class="breadcrumb-item active">Xe</li>
                             </ol>
                         </div>
 
@@ -27,7 +27,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title mb-0">Danh Sách Chuyến Xe</h4>
+                            <h4 class="card-title mb-0">Danh Sách Xe</h4>
                         </div><!-- end card header -->
 
                         <div class="card-body">
@@ -63,11 +63,11 @@
                                             </th>
                                             <th data-sort="customer_name">Ảnh</th>
                                             <th data-sort="customer_name">Tên Chuyến Xe</th>
+                                            <th data-sort="customer_name">Loại Xe</th>
+                                            <th data-sort="customer_name">Trạng Thái</th>
                                             <th data-sort="customer_name">Màu Xe</th>
                                             <th data-sort="customer_name">Biển Số Xe</th>
                                             <th data-sort="customer_name">Mô Tả</th>
-                                            <th data-sort="customer_name">Trạng Thái</th>
-                                            <th data-sort="customer_name">Loại Xe</th>
                                             <th data-sort="action">Chức Năng</th>
 
                                         </tr>
@@ -83,12 +83,20 @@
                                                 <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a></td>
                                                 <td class="customer_name"><img src="{{ asset($item->image) }}" alt="" width="100px"></td>
                                                 <td class="customer_name">{{$item->name}}</td>
-                                                <td class="customer_name">{{$item->color}}</td>
+                                                <td class="customer_name">{{$item->typecar_name}}</td>
+                                                <td class="customer_name">
+                                                    @if ($item->status == 0)
+                                                        Xe Đã Ngừng Hoạt Động
+                                                    @elseif ($item->status == 1)
+                                                        Xe Đang Hoạt Động
+                                                    @endif
+                                                </td>
+                                                <td class="customer_name" >
+                                                    <p style="border: 1px solid {{$item->color}};width: 40px;height: 20px; background-color: {{$item->color}};margin-top: 20px">
+                                                    </p>
+                                                </td>
                                                 <td class="customer_name">{{$item->license_plate}}</td>
                                                 <td class="customer_name">{{$item->description}}</td>
-                                                <td class="customer_name">{{$item->status}}</td>
-                                                <td class="customer_name">{{$item->typecar_name}}</td>
-
                                                 <td>
                                                     <div class="d-flex gap-2">
                                                         <div >

@@ -21,15 +21,12 @@ Route::get('/', function () {
 
 Route::get('/tim-kiem', function () {
     return view('client.pages.search-route.index');
-});
+})->name('search');
 
 Route::get('/chon-ghe', function () {
     return view('client.pages.select-seat.index');
 });
-
-// Route::prefix('lich_trinh')->group(function () {
-    Route::get('/lich-trinh', [TripController::class, 'lich_trinh'])->name('lich_trinh');
-   
-    // Route::get('/search_end_trip', [TripController::class, 'search_end_trip'])->name('search_end_trip');
-
-// });
+Route::get('/auth', function () {
+    return view('client.pages.auth.login');
+})->name('auth');
+Route::get('/lich-trinh', [TripController::class, 'lich_trinh'])->name('lich_trinh');

@@ -23,7 +23,7 @@ class StoreTypeCarRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'total_seat' => 'required|integer|max:50',
+            'total_seat' => 'required|integer|max:48',
         ];
     }
 
@@ -32,9 +32,9 @@ public function messages()
 {
     return [
         'name.required'=>'Tên Loại Xe Không Được Để Trống',
-        'total_seat.required'=>'Ảnh Không Được Để Trống',
+        'total_seat.required'=>'Vui Lòng Nhập Số Lượng Ghế',
         'total_seat.integer'=>'Vui Lòng Nhập Số',
-        'total_seat.max'=>'Số Ghé Không Quá 50',
+        'total_seat.max'=>'Số Ghé Không Quá 48',
     ];
 
 }

@@ -22,9 +22,9 @@ class StoreCarRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'color' => 'required|',
+            'image' => 'mimes:jpeg,png,jpg,gif,jfif',
+            'color' => 'required',
             'id_type_car' => 'required',
-            'image' => 'required|mimes:jpeg,png,jpg,gif|max:2048',
             'license_plate' => 'required',
             'name' => 'required',
             'status' => 'required',
@@ -34,13 +34,13 @@ class StoreCarRequest extends FormRequest
     public function messages()
     {
         return [
-            'color.required'=>'Vui lòng chọn xe',
-            'id_type_car.required'=>'Vui lòng nhập ngày đi',
-            'image.required'=>'Ảnh không được để trống',
-            'image.mimes'=>'Không phải file ảnh',
-            'image.max'=>'Ảnh không được quá 1MB',
-            'name.required'=>'Vui lòng nhập giá cho chuyến đi',
-            'status.required'=>'Vui lòng chọn địa điểm kết thúc',
+            'license_plate.required'=>'Biển Số Xe Không Được Để Trống.',
+            'color.required'=>'Vui Lòng Chọn Màu Của Xe.',
+            'id_type_car.required'=>'Vui Lòng Nhập Số Lượng Ghế.',
+//            'image.required'=>'Ảnh Không Được Để Trống.',
+            'image.mimes'=>'Không Phải File Ảnh.',
+            'name.required'=>'Vui Lòng Nhập Tên Xe.',
+            'status.required'=>'Vui Lòng Nhập Trạng Thái Của Xe.',
         ];
     }
 }
