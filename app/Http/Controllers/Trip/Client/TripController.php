@@ -9,23 +9,23 @@ use Illuminate\Http\Request;
 class TripController extends BaseTripController
 {
     //
-    public function searchTrip(Request $request)
+    public function lich_trinh()
     {
-        if ($request->type_ticket == 1) {
-            $trips = $this->tripService->searchTrip($request);
-            if ($trips == null) {
-                return response()->json(['status' => 0,$trips], 200);
-            } else {
-                return response()->json(['status' => 1,$trips], 200);
-            }
-        } else {
-            $trips = $this->tripService->searchTrip($request);
-            if ($trips == null) {
-                return response()->json(['status' => 0,$trips], 200);
-            } else {
-                return response()->json(['status' => 2,$trips], 200);
-            }
-            
-        }
+        return view('client.pages.trip.index');
+    }
+
+    public function getData()
+    {
+        $data = $this->tripService->getData();
+        return response()->json($data);
+        // return view('client.pages.trip.main', compact('trips'));
+    }
+
+    public function search_start_trip(Request $request)
+    {   
+      
+        $trip = $this->tripService->search($request);      
+        return response()->json($trip);
+        
     }
 }
