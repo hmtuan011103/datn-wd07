@@ -139,48 +139,48 @@ var options,
                 options
             )).render()),
         "");
-function loadCharts() {
-    var e = getChartColorsArray("sales-by-locations");
-    e &&
-        ((document.getElementById("sales-by-locations").innerHTML = ""),
-        (worldemapmarkers = ""),
-        (worldemapmarkers = new jsVectorMap({
-            map: "world_merc",
-            selector: "#sales-by-locations",
-            zoomOnScroll: !1,
-            zoomButtons: !1,
-            selectedMarkers: [0, 5],
-            regionStyle: {
-                initial: {
-                    stroke: "#9599ad",
-                    strokeWidth: 0.25,
-                    fill: e[0],
-                    fillOpacity: 1,
-                },
-            },
-            markersSelectable: !0,
-            markers: [
-                { name: "Palestine", coords: [31.9474, 35.2272] },
-                { name: "Russia", coords: [61.524, 105.3188] },
-                { name: "Canada", coords: [56.1304, -106.3468] },
-                { name: "Greenland", coords: [71.7069, -42.6043] },
-            ],
-            markerStyle: { initial: { fill: e[1] }, selected: { fill: e[2] } },
-            labels: {
-                markers: {
-                    render: function (e) {
-                        return e.name;
-                    },
-                },
-            },
-        })));
-}
-(window.onresize = function () {
-    setTimeout(() => {
-        loadCharts();
-    }, 0);
-}),
-    loadCharts();
+// function loadCharts() {
+//     var e = getChartColorsArray("sales-by-locations");
+//     e &&
+//         ((document.getElementById("sales-by-locations").innerHTML = ""),
+//         (worldemapmarkers = ""),
+//         (worldemapmarkers = new jsVectorMap({
+//             map: "world_merc",
+//             selector: "#sales-by-locations",
+//             zoomOnScroll: !1,
+//             zoomButtons: !1,
+//             selectedMarkers: [0, 5],
+//             regionStyle: {
+//                 initial: {
+//                     stroke: "#9599ad",
+//                     strokeWidth: 0.25,
+//                     fill: e[0],
+//                     fillOpacity: 1,
+//                 },
+//             },
+//             markersSelectable: !0,
+//             markers: [
+//                 { name: "Palestine", coords: [31.9474, 35.2272] },
+//                 { name: "Russia", coords: [61.524, 105.3188] },
+//                 { name: "Canada", coords: [56.1304, -106.3468] },
+//                 { name: "Greenland", coords: [71.7069, -42.6043] },
+//             ],
+//             markerStyle: { initial: { fill: e[1] }, selected: { fill: e[2] } },
+//             labels: {
+//                 markers: {
+//                     render: function (e) {
+//                         return e.name;
+//                     },
+//                 },
+//             },
+//         })));
+// }
+// (window.onresize = function () {
+//     setTimeout(() => {
+//         loadCharts();
+//     }, 0);
+// }),
+//     loadCharts();
 var overlay,
     swiper = new Swiper(".vertical-swiper", {
         slidesPerView: 2,
