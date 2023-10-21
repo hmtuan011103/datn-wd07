@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class User extends Authenticatable
+class User extends Authenticatable implements CanResetPasswordContract
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
@@ -51,6 +51,30 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Get the user's permissions.
+     */
+    public function getPermissionsAttribute()
+    {
+        // Check if the user permissions are already loaded
+        if (!$this->relationLoaded('permissions')) {
+            // Load and cache user permissions
+            $this->load('roles.permissions');
+            $permissions = collect();
+            foreach ($this->roles as $role) {
+                $filteredPermissions = $role->permissions->where('parent_id', '!=', 0)->pluck('name');
+                $permissions = $permissions->merge($filteredPermissions);
+            }
+            // Use unique() to remove duplicates and reindex the keys
+            $uniquePermissions = $permissions->unique()->values()->toArray();
+
+            $this->setRelation('permissions', $uniquePermissions);
+        }
+
+        // Return the user permissions
+        return $this->getRelation('permissions');
+    }
 
     // Define the inverse one-to-many relationship with the TypeUser model
     public function typeUser()

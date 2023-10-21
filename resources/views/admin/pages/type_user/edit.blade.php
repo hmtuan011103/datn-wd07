@@ -20,7 +20,7 @@
                                     <input type="text" class="form-control" name="name" id="validationCustom01"
                                         placeholder="Nhân viên..." value="{{ $data->name }}" required>
                                     @error('name')
-                                        <div class="invalid-feedback d-inline-block">
+                                        <div class="help-block error-help-block">
                                             {{ $message }}
                                         </div>
                                     @enderror
