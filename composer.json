@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.8",
         "opcodesio/log-viewer": "^3.1",
         "proengsoft/laravel-jsvalidation": "^4.8",
+        "tymon/jwt-auth": "^2.0",
         "yoeunes/toastr": "^2.3"
     },
     "require-dev": {

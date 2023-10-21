@@ -17,7 +17,7 @@
 <!-- Laravel Javascript Validation -->
 <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
 
-{!! JsValidator::formRequest('App\Http\Requests\Car\UpdateCarRequest') !!}
 {!! JsValidator::formRequest('App\Http\Requests\Car\StoreCarRequest') !!}
-{{--{!! JsValidator::formRequest('App\Http\Requests\Car\UpdateCarRequest') !!}--}}
+{!! JsValidator::formRequest('App\Http\Requests\Car\UpdateCarRequest' ) !!}
+
 

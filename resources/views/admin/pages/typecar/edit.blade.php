@@ -44,9 +44,16 @@
                                                 <label for="total_seat" class="form-label">Số Lượng Ghế *</label>
                                                 <input type="text" name="total_seat" value="{{$model->total_seat}}"  id="total_seat" class="form-control" placeholder="Nhập Số Lượng Ghế"/>
                                             </div>
-                                            <div class="mb-3">
+                                            <div class="col-md-6 pt-3 pb-3">
+                                                <label for="type_seats" class="form-label">Trạng Thái</label>
+                                                <select class="form-control" aria-label="Default select example" name="type_seats">
+                                                    <option value="1" @if ($model->type_seats == 0) selected @endif>Ghế Ngồi</option>
+                                                    <option value="2" @if ($model->type_seats == 1) selected @endif>Ghế Giường Nằm</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 pt-3 pb-3">
                                                 <label for="customername-field" class="form-label">Mô Tả </label>
-                                                <textarea style="height: 100px" name="description" id="email-field" class="form-control" value="{{$model->description}}" placeholder="Nhập Mô Tả"  ></textarea>
+                                                <textarea style="height: 100px" name="description" id="email-field" class="form-control"  placeholder="Nhập Mô Tả"  >{{$model->description}}</textarea>
                                             </div>
                                         </div>
 

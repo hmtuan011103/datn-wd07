@@ -3,6 +3,7 @@
 use App\Http\Controllers\Locations\Admin\LocationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\Client\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::delete('type_users/destroy-multiple', [\App\Http\Controllers\TypeUser\Admin\TypeUserController::class, 'destroyMultiple'])->name('api.type_users.destroy.multiple');
 // soft delete multiple for user
 Route::delete('users/destroy-multiple', [\App\Http\Controllers\User\Admin\UserController::class, 'destroyMultiple'])->name('api.users.destroy.multiple');
+
+//login-Client
+Route::post("register", [AuthController::class, 'register']);
+Route::post("login", [AuthController::class, 'login']);
+
+//Route::group([
+//    "middleware" =>["auth:api"]
+//],function (){
+//    Route::get("profile",[ApiController::class,'profile']);
+//    Route::get("refresh",[ApiController::class,'refreshToken']);
+//    Route::get("logout",[ApiController::class,'logout']);
+//
+//});

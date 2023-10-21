@@ -20,8 +20,11 @@ Route::get('/', function () {
 
 Route::get('/search', function () {
     return view('client.pages.search-route.index');
-});
+})->name('search');
 
 Route::get('/select-seat', function () {
     return view('client.pages.select-seat.index');
 });
+Route::get('/auth', function () {
+    return view('client.pages.auth.login');
+})->name('auth');

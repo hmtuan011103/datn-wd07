@@ -39,7 +39,7 @@
                                             <input type="text" name="name" id="name" class="form-control" placeholder="Nhập Tên Chuyến Xe"  />
                                         </div>
                                         <div class="col-md-6 pt-3 pb-3">
-                                            <label for="image" class="form-label">Ảnh *</label>
+                                            <label for="image" class="form-label">Ảnh </label>
                                             <input type="file" name="image" id="image" class="form-control" placeholder="Nhập File Ảnh"  />
                                         </div>
                                         <div class="col-md-6 pt-3 pb-3">
@@ -61,8 +61,8 @@
                                         <div class="col-md-6 pt-3 pb-3">
                                             <label for="status" class="form-label">Trạng Thái</label>
                                             <select class="form-control" aria-label="Default select example" name="status" >
-                                                <option value="0">Tạo</option>
-                                                <option value="1">Đi</option>
+                                                <option value="0">Xe Đã Ngừng Hoạt Động</option>
+                                                <option value="1">Xe Đang Hoạt Động</option>
                                             </select>
                                         </div>
                                         <div class="md-3">
