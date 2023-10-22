@@ -9,13 +9,13 @@
                         </div><!-- end card header -->
 
                         <div class="card-body">
-                            <form class="row g-3 was-validated" action="{{ route('users.store') }}" method="POST"
+                            <form class="row g-3" action="{{ route('users.store') }}" method="POST"
                                 id="form-create-user">
                                 @csrf
                                 @method('POST')
 
                                 <div class="col-md-2">
-                                    <label for="validationCustom01" class="form-label">Tên người dùng</label>
+                                    <label for="validationCustom01" class="form-label">*Tên người dùng</label>
                                     <input type="text" class="form-control" name="name" id="validationCustom01"
                                         placeholder="something" value="{{ old('name') }}" required>
                                     @error('name')
@@ -26,7 +26,7 @@
                                 </div>
 
                                 <div class="col-md-3">
-                                    <label for="validationCustomEmail" class="form-label">Email</label>
+                                    <label for="validationCustomEmail" class="form-label">*Email</label>
                                     <input type="email" class="form-control" name="email" id="validationCustomEmail"
                                         placeholder="something@something.something" value="{{ old('email') }}"
                                         required>
@@ -38,7 +38,7 @@
                                 </div>
 
                                 <div class="col-md-2">
-                                    <label for="validationCustomPhone" class="form-label">Số điện thoại</label>
+                                    <label for="validationCustomPhone" class="form-label">*Số điện thoại</label>
                                     <input type="text" class="form-control" name="phone_number"
                                         id="validationCustomPhone" placeholder="0342222222"
                                         value="{{ old('phone_number') }}" required>
@@ -50,7 +50,7 @@
                                 </div>
 
                                 <div class="col-md-2">
-                                    <label for="validationCustomPassword" class="form-label">Mật khẩu</label>
+                                    <label for="validationCustomPassword" class="form-label">*Mật khẩu</label>
                                     <input type="password" class="form-control" name="password"
                                         id="validationCustomPassword" placeholder="********" minlength="8"
                                         maxlength="16" required>
@@ -62,7 +62,7 @@
                                 </div>
 
                                 <div class="col-md-2">
-                                    <label for="validationCustomPasswordRe" class="form-label">Xác nhận mật khẩu</label>
+                                    <label for="validationCustomPasswordRe" class="form-label">*Xác nhận mật khẩu</label>
                                     <input type="password" class="form-control" name="password_confirmation"
                                         id="validationCustomPasswordRe" placeholder="********" minlength="8"
                                         maxlength="16" required>
@@ -74,7 +74,7 @@
                                 </div>
 
                                 <div class="col-md-2">
-                                    <label for="validationTypeUserSelect" class="form-label">Loại người dùng</label>
+                                    <label for="validationTypeUserSelect" class="form-label">*Loại người dùng</label>
                                     <select class="form-select" id="validationTypeUserSelect" name="user_type_id"
                                         required>
                                         <option selected disabled value="">...</option>
@@ -123,8 +123,7 @@
                                 <div class="col-md-4">
                                     <label for="validationCustomAddress" class="form-label">Địa chỉ</label>
                                     <input type="text" class="form-control" name="address"
-                                        id="validationCustomAddress" placeholder="..." value="{{ old('address') }}"
-                                        required>
+                                        id="validationCustomAddress" placeholder="..." value="{{ old('address') }}">
                                     @error('address')
                                         <div class="help-block error-help-block">
                                             {{ $message }}

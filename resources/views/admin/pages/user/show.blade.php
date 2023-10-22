@@ -29,95 +29,91 @@
                             <div class="tab-content text-muted">
                                 {{-- account info --}}
                                 <div class="tab-pane active" id="account-info" role="tabpanel">
-                                    <div class="card-header">
+                                    <div class="card-header p-0 py-3 d-flex flex-wrap align-items-center gap-3">
                                         <h4 class="card-title mb-0">Chi tiết người dùng</h4>
+                                        <a href="{{ route('users.edit', ['user' => $data->id]) }}"
+                                            class="btn btn-sm btn-success edit-item-btn">
+                                            <i class="bx bx-edit"></i>
+                                        </a>
                                     </div>
 
-                                    <div class="card-body">
-                                        <form class="row g-3">
-                                            <div class="col-md-2">
-                                                <label for="validationCustom01" class="form-label">Tên người
-                                                    dùng</label>
-                                                <input type="text" class="form-control" value="{{ $data->name }}"
-                                                    disabled>
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <label for="validationCustomEmail" class="form-label">Email</label>
-                                                <input type="email" class="form-control" value="{{ $data->email }}"
-                                                    disabled>
-                                            </div>
-
-                                            <div class="col-md-2">
-                                                <label for="validationCustomPhone" class="form-label">Số điện
-                                                    thoại</label>
-                                                <input type="text" class="form-control"
-                                                    value="{{ $data->phone_number }}" disabled>
-                                            </div>
-
-                                            <div class="col-md-2">
-                                                <label for="validationTypeUserSelect" class="form-label">Loại người
-                                                    dùng</label>
-                                                <select class="form-select" name="user_type_id" disabled>
-                                                    <option selected disabled value="">...</option>
-                                                    @foreach ($allTypeUserData as $item)
-                                                        <option value="{{ $item->id }}"
-                                                            @selected($item->id == $data->user_type_id)>
-                                                            {{ $item->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <label for="validationUserRoleSelect" class="form-label">*Vai
-                                                    trò</label>
-                                                <select class="form-select" id="validationUserRoleSelect"
-                                                    multiple="multiple" disabled>
-                                                    @foreach ($data->role_all as $item)
-                                                        @php
-                                                            $matching = in_array($item->id, $data->role_actived);
-                                                        @endphp
-                                                        <option class="text-center" value="{{ $item->id }}"
-                                                            @selected($matching)>{{ $item->name }}
-                                                            Mô tả: {{ $item->description }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-
-                                            <div class="col">
-                                                <div class="d-flex flex-column">
-                                                    <label for="validationCustomDescription" class="form-label">
-                                                        Mô tả</label>
-                                                    <textarea name="description" id="validationCustomDescription" cols="30" rows="12" disabled>{{ $data->description }}</textarea>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <label for="validationCustomAddress" class="form-label">Địa chỉ</label>
-                                                <input type="text" class="form-control" id="validationCustomAddress"
-                                                    placeholder="..." value="{{ $data->address }}" disabled>
-                                            </div>
-
-                                            <div class="col-12 mb-3 mt-5">
-                                                <a href="{{ route('users.edit', ['user' => $data->id]) }}"
-                                                    class="btn btn-success">
-                                                    <i class="bx bx-edit"></i>
-                                                </a>
-
-                                                <form action="{{ route('users.destroy', ['user' => $data->id]) }}"
-                                                    method="POST" id="deleteForm{{ $data->id }}" class="d-inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="button" class="btn btn-danger btn-destroy-item"
-                                                        onclick="confirmDelete({{ $data->id }})">
-                                                        <i class="bx bx-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </form>
-                                    </div><!-- end card -->
+                                    <div class="table-responsive">
+                                        <table class="table align-middle mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col">Tên</th>
+                                                    <th scope="col">Email</th>
+                                                    <th scope="col">Số điện thoại</th>
+                                                    <th scope="col">Loại tài khoản</th>
+                                                    <th scope="col">Vai trò</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <span class="fw-semibold text-black text-capitalize">
+                                                            {{ $data->name }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span>
+                                                            {{ $data->email }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span>
+                                                            {{ $data->phone_number }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="text-capitalize">
+                                                            {{ $data->user_type }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <div style="max-height: 200px;">
+                                                            <ol class="list-group">
+                                                                @foreach ($data->roles as $role)
+                                                                    <li class="text-capitalize">
+                                                                        <div class="d-flex flex-wrap">
+                                                                            <div class="ms-2">
+                                                                                <h6 class="fs-14 mb-0">
+                                                                                    {{ $role->name }}
+                                                                                </h6>
+                                                                                <small class="text-muted">
+                                                                                    {{ $role->description }}
+                                                                                </small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                @endforeach
+                                                            </ol>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot class="table-light">
+                                                <tr>
+                                                    <td colspan="99">
+                                                        <p>Địa chỉ:</p>
+                                                        <span class="text-muted">
+                                                            {{ $data->address ?? 'Trống' }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="99">
+                                                        <p>Mô tả:</p>
+                                                        <span class="text-muted">
+                                                            {{ $data->description ?? 'Trống' }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                        <!-- end table -->
+                                    </div>
+                                    <!-- end table responsive -->
                                 </div>
 
                                 {{-- bill list --}}

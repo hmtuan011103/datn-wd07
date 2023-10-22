@@ -61,16 +61,8 @@ class UserService
           }
 
           $allRole = $this->getAllRoles();
-
           $user->role_all = $allRole;
-
-          $roles = [];
-
-          foreach ($user->roles as $role) {
-               $roles[] = $role->id;
-          }
-
-          $user->role_actived = $roles;
+          $user->user_type = $user->typeUser->name;
 
           $response['data'] = $user;
 

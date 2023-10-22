@@ -1,6 +1,4 @@
 .multi-wrapper {
-    /* border: 1px solid #ccc; */
-    border-radius: 3px;
     width: 100%;
 }
 .multi-wrapper .non-selected-wrapper,
@@ -52,7 +50,8 @@
     opacity: 0.5;
     padding: 5px 0;
 }
-.multi-wrapper .search-input {
+.multi-wrapper .search-route2-input {
+    display: none;
     border: 0;
     border-left: 3px solid #ccc;
     border-radius: 0;
