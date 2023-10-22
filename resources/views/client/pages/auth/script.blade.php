@@ -61,8 +61,8 @@
     }
 
     // apiUrl_login
-    // http://127.0.0.1:8000/
-    const apiUrl_login = 'api/login';
+
+    const apiUrl_login = 'http://127.0.0.1:8000/api/login';
     loginForm.addEventListener("submit", async (event) => {
         event.preventDefault();
         // alert(123131);
@@ -86,9 +86,7 @@
                     window.location.href = responseData.redirect_url;
                 }
                 if (responseData.status === false) {
-                    const errorMessage = responseData.message; // Lấy thông báo lỗi từ dữ liệu trả về
-
-                    // Tìm phần tử <div> bằng ID và đặt nội dung của nó thành thông báo lỗi
+                    const errorMessage = responseData.message;
                     const errorElement = document.getElementById("error-message");
                     errorElement.textContent = errorMessage;
                 }
