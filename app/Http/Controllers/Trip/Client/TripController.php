@@ -30,11 +30,4 @@ class TripController extends BaseTripController
         
     }
 
-    // public function search_end_trip(Request $request)
-    // {
-       
-    //     $trip = $this->tripService->search_end($request);
-    //     return response()->json($trip);
-    // }
-
 }

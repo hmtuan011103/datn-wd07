@@ -97,32 +97,6 @@ class TripService
         return $trips;
     }
 
-    // public function search_start($request)
-    // {
-    //     $trip = DB::table('trips')
-    //         // ->select('*')
-    //         ->join('cars', 'trips.car_id', '=', 'cars.id')
-    //         ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
-    //         ->select('trips.*', 'type_cars.name as car_type_name')
-    //         ->where('start_location', 'Like', '%' . $request->search_start . '%')
-    //         ->orderBy('start_location', 'asc')
-    //         ->get();
-    //     return $trip;
-    // }
-    // public function search_end($request)
-    // {
-
-    //     $trip = DB::table('trips')
-    //         // ->select('*')
-    //         ->join('cars', 'trips.car_id', '=', 'cars.id')
-    //         ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
-    //         ->select('trips.*', 'type_cars.name as car_type_name')
-    //         ->where('end_location', 'Like', '%' . $request->search_end . '%')
-    //         ->orderBy('start_location', 'asc')
-    //         ->get();
-    //     return $trip;
-    // }
-
     public function search($request)
     {
         $searchStart = $request->input('search_start');

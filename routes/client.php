@@ -27,9 +27,6 @@ Route::get('/select-seat', function () {
     return view('client.pages.select-seat.index');
 });
 
-// Route::prefix('lich_trinh')->group(function () {
-    Route::get('/lich-trinh', [TripController::class, 'lich_trinh'])->name('lich_trinh');
+// Search lịch trình
+Route::get('/lich-trinh', [TripController::class, 'lich_trinh'])->name('lich_trinh');
    
-    // Route::get('/search_end_trip', [TripController::class, 'search_end_trip'])->name('search_end_trip');
-
-// });

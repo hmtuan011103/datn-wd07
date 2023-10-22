@@ -31,52 +31,10 @@
         <div class="ant-row row-search schedule-card">
             <div class="ant-col ant-col-6">Tuyến xe</div>
             <div class="ant-col ant-col-2">Loại xe</div>
-            <div class="ant-col ant-col-3">Quãng đường</div>
             <div class="ant-col ant-col-4">Thời gian hành trình </div>
             <div class="ant-col ant-col-2">Giá vé</div>
         </div>
-        {{-- @php
-            $tripNames = [];
-        @endphp
-        @foreach ($trips as $trip)
-            @if (!in_array($trip->start_location, $tripNames))
-                <div class="alldata">
-                    <div class="schedule-card flex w-full flex-col gap-[6px] text-left ">
-                        @foreach ($trips as $item)
-                            @if ($item->start_location === $trip->start_location)
-                                <div class="ant-row items-center">
-                                    <div class="ant-col ant-col-6">
-                                        <div class="flex w-full items-center gap-2">
-                                            <span class="font-medium text-orange">{{ $item->start_location }}</span>
-                                            <img src="https://futabus.vn/images/icons/ic_double_arrow.svg"
-                                                alt="arrow">
-                                            <span>{{ $item->end_location }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="ant-col ant-col-2">{{ $item->car_type_name }}</div>
-                                    <div class="ant-col ant-col-3">639km</div>
-                                    <div class="ant-col ant-col-4">11 giờ 30 phút </div>
-                                    <div class="ant-col ant-col-2">{{ $item->trip_price }}.000 VNĐ</div>
-                                    <!-- <div class="ant-col ant-col-2"></div> -->
-                                    <div class="ant-col flex justify-end" style="flex: 1 1 auto;">
-                                        <button type="button"
-                                            class="ant-btn ant-btn-round ant-btn-default button-default mr-2">
-                                            <span>Tìm tuyến xe</span>
-                                        </button>
-                                    </div>
 
-                                </div>
-                            @else
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-                @php
-                    $tripNames[] = $trip->start_location;
-                @endphp
-            @else
-            @endif
-        @endforeach --}}
         <div class="searchdata" style="display: none" id="content">
          
         </div>
