@@ -47,14 +47,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="ant-col ant-col-2">${item.car_type_name}</div>
-                                                <div class="ant-col ant-col-3">639km</div>
                                                 <div class="ant-col ant-col-4">${convertTime(item.interval_trip)}</div>
                                                 <div class="ant-col ant-col-2">${item.trip_price}.000 VNĐ</div>
                                                 <!-- <div class="ant-col ant-col-2"></div> -->
                                                 <div class="ant-col flex justify-end" style="flex: 1 1 auto;">
                                                     <button type="button"
                                                         class="ant-btn ant-btn-round ant-btn-default button-default mr-2">
-                                                        <span>Tìm tuyến xe</span>
+                                                        <span>Chọn chuyến</span>
                                                     </button>
                                                 </div>
 
@@ -74,238 +73,6 @@
     }
     getData();
 </script>
-{{-- <script type="text/javascript">
-    var debounceTimer;
-    var $inputStart = $('#search_start');
-    $inputStart.on('keyup', function() {
-
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(function() {
-            $value = $inputStart.val();
-            if ($value) {
-                $('.alldata').hide();
-                $('.searchdata').show();
-
-            } else {
-                $('.alldata').show();
-                $('.searchdata').hide();
-            }
-            $.ajax({
-                type: 'get',
-                url: '{{ URL::to('search') }}',
-                data: {
-                    'search': $value
-                },
-
-                success: function(data) {
-                    console.log(data);
-                    var $searchResults = $('#content');
-                    var tripNames = "";
-
-                    $searchResults.empty(); // Xóa các kết quả tìm kiếm trước đó
-                    if (Array.isArray(data)) {
-                        data.forEach(function(trip) {
-                            if (!tripNames.includes(trip.start_location)) {
-                                var output =
-                                    `<div class="schedule-card flex w-full flex-col gap-[6px] text-left " style="margin-bottom:15px">
-                                    ${data.map(function(item) {
-                                        if(item.start_location === trip.start_location) {
-                                            return ` <div class="ant-row items-center" >
-                                                <div class="ant-col ant-col-6" >
-                                                    <div class="flex w-full items-center gap-2">
-                                                        <span class="font-medium text-orange"> ${item.start_location}</span>
-                                                        <img src="https://futabus.vn/images/icons/ic_double_arrow.svg" alt="arrow">
-                                                        <span> ${item.end_location}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="ant-col ant-col-2">${item.car_type_name}</div>
-                                                <div class="ant-col ant-col-3">639km</div>
-                                                <div class="ant-col ant-col-4">11 giờ 30 phút </div>
-                                                <div class="ant-col ant-col-2">${item.trip_price}.000 VNĐ</div>
-                                                <!-- <div class="ant-col ant-col-2"></div> -->
-                                                <div class="ant-col flex justify-end" style="flex: 1 1 auto;">
-                                                    <button type="button"
-                                                        class="ant-btn ant-btn-round ant-btn-default button-default mr-2">
-                                                        <span>Tìm tuyến xe</span>
-                                                    </button>
-                                                </div>
-
-                                                </div>`
-                                        }
-                                    
-                                    }).join('')
-                                } 
-                                </div> `;
-                                $searchResults.append(output);
-                                tripNames = trip.start_location;
-
-                            }
-
-                        })
-                    }
-
-                }
-            })
-        }, 300);
-
-    });
-</script> --}}
-
-{{-- <script type="text/javascript">
-    var debounceTimer;
-    var $inputStart = $('#search_start');
-    $inputStart.on('keyup', function() {
-
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(function() {
-            $value = $inputStart.val();
-            if ($value) {
-                $('.alldata').hide();
-                $('.searchdata').show();
-
-            } else {
-                $('.alldata').show();
-                $('.searchdata').hide();
-            }
-            $.ajax({
-                type: 'get',
-                url: '{{ URL::to('search') }}',
-                data: {
-                    'search_start': $value
-                },
-
-                success: function(data) {
-                    console.log(data);
-                    var $searchResults = $('#content');
-                    var tripNames = "";
-
-                    $searchResults.empty(); // Xóa các kết quả tìm kiếm trước đó
-                    if (Array.isArray(data)) {
-                        data.forEach(function(trip) {
-                            if (!tripNames.includes(trip.start_location)) {
-                                var output =
-                                    `<div class="schedule-card flex w-full flex-col gap-[6px] text-left " style="margin-bottom:15px">
-                                    ${data.map(function(item) {
-                                        if(item.start_location === trip.start_location) {
-                                            return ` <div class="ant-row items-center" >
-                                                <div class="ant-col ant-col-6" >
-                                                    <div class="flex w-full items-center gap-2">
-                                                        <span class="font-medium text-orange"> ${item.start_location}</span>
-                                                        <img src="https://futabus.vn/images/icons/ic_double_arrow.svg" alt="arrow">
-                                                        <span> ${item.end_location}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="ant-col ant-col-2">${item.car_type_name}</div>
-                                                <div class="ant-col ant-col-3">639km</div>
-                                                <div class="ant-col ant-col-4">11 giờ 30 phút </div>
-                                                <div class="ant-col ant-col-2">${item.trip_price}.000 VNĐ</div>
-                                                <!-- <div class="ant-col ant-col-2"></div> -->
-                                                <div class="ant-col flex justify-end" style="flex: 1 1 auto;">
-                                                    <button type="button"
-                                                        class="ant-btn ant-btn-round ant-btn-default button-default mr-2">
-                                                        <span>Tìm tuyến xe</span>
-                                                    </button>
-                                                </div>
-
-                                                </div>`
-                                        }
-                                    
-                                    }).join('')
-                                } 
-                                </div> `;
-                                $searchResults.append(output);
-                                tripNames = trip.start_location;
-
-                            }
-
-                        })
-                    }
-
-                }
-            })
-        }, 300);
-
-    });
-</script> --}}
-
-{{-- Search end location --}}
-{{-- <script type="text/javascript">
-    var debounceTimers;
-    var $inputEnd = $('#search_end');
-    $inputEnd.on('keyup', function() {
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(function() {
-            $value = $inputEnd.val();
-            if ($value) {
-                $('.alldata').hide();
-                $('.searchdata').show();
-
-            } else {
-                $('.alldata').show();
-                $('.searchdata').hide();
-            }
-            $.ajax({
-                type: 'get',
-                url: '{{ URL::to('search') }}',
-                data: {
-                    'search_end': $value
-                },
-
-                success: function(data) {
-                    console.log(data);
-                    var $searchResults = $('#content');
-                    var tripNames = "";
-
-                    $searchResults.empty(); // Xóa các kết quả tìm kiếm trước đó
-                    if (Array.isArray(data)) {
-                        data.forEach(function(trip) {
-                            if (!tripNames.includes(trip.end_location)) {
-                                var output =
-                                    `<div class="schedule-card flex w-full flex-col gap-[6px] text-left " style="margin-bottom:15px">
-                                    ${data.map(function(item) {
-                                        if(item.end_location === trip.end_location) {
-                                            return ` <div class="ant-row items-center" >
-                                                <div class="ant-col ant-col-6" >
-                                                    <div class="flex w-full items-center gap-2">
-                                                        <span class="font-medium text-orange"> ${item.start_location}</span>
-                                                        <img src="https://futabus.vn/images/icons/ic_double_arrow.svg" alt="arrow">
-                                                        <span> ${item.end_location}</span>
-                                                    </div>
-                                                </div>
-                                                <div class="ant-col ant-col-2">${item.car_type_name}</div>
-                                                <div class="ant-col ant-col-3">639km</div>
-                                                <div class="ant-col ant-col-4">11 giờ 30 phút </div>
-                                                <div class="ant-col ant-col-2">${item.trip_price}.000 VNĐ</div>
-                                                <!-- <div class="ant-col ant-col-2"></div> -->
-                                                <div class="ant-col flex justify-end" style="flex: 1 1 auto;">
-                                                    <button type="button"
-                                                        class="ant-btn ant-btn-round ant-btn-default button-default mr-2">
-                                                        <span>Tìm tuyến xe</span>
-                                                    </button>
-                                                </div>
-
-                                                </div>`
-                                        }
-                                    
-                                    }).join('')
-                                } 
-                                </div> `;
-                                $searchResults.append(output);
-                                tripNames = trip.end_location;
-
-                            }
-
-                        })
-                    }
-
-                }
-            })
-        });
-
-    });
-</script> --}}
-
-
 
 <script type="text/javascript">
     var debounceTimer;
@@ -365,12 +132,11 @@
                                                 </div>
                                             </div>
                                             <div class="ant-col ant-col-2">${item.car_type_name}</div>
-                                            <div class="ant-col ant-col-3">639km</div>
                                             <div class="ant-col ant-col-4">11 giờ 30 phút</div>
                                             <div class="ant-col ant-col-2">${item.trip_price}.000 VNĐ</div>
                                             <div class="ant-col flex justify-end" style="flex: 1 1 auto;">
                                                 <button type="button" class="ant-btn ant-btn-round ant-btn-default button-default mr-2">
-                                                    <span>Tìm tuyến xe</span>
+                                                    <span>Chọn chuyến</span>
                                                 </button>
                                             </div>
                                         </div>`;

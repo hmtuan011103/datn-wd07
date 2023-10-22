@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\Client\AuthController;
+use App\Http\Controllers\Locations\Client\LocationController as ClientLocationController;
+use App\Http\Controllers\Trip\Client\TripController;
 
 /*
 |--------------------------------------------------------------------------
