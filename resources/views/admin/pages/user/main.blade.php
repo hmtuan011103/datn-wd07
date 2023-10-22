@@ -66,13 +66,8 @@
                                                                     nào
                                                                 </h5>
                                                                 <p class="text-muted mb-0">
-                                                                    Chúng tôi đã tìm kiếm cẩn thận nhưng không thấy
-                                                                    có
-                                                                    kết
-                                                                    quả
-                                                                    nào
-                                                                    cả,
-                                                                    vui lòng thử lại sau.
+                                                                    Chúng tôi đã tìm kiếm cẩn thận nhưng không thấy có
+                                                                    kết quả nào cả, vui lòng thử lại sau.
                                                                 </p>
                                                             </div>
                                                         </div>

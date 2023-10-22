@@ -42,9 +42,7 @@ class UserController extends BaseUserController
 
         $data = $query->getData()->data;
 
-        $allTypeUserData = $this->typeUserService->getAll()->getData()->data;
-
-        return view('admin.pages.user.index', compact('title', 'pageViewInfo', 'data', 'allTypeUserData'));
+        return view('admin.pages.user.index', compact('title', 'pageViewInfo', 'data'));
     }
 
     /**
@@ -99,6 +97,12 @@ class UserController extends BaseUserController
         $data = $query->getData()->data;
 
         $allTypeUserData = $this->typeUserService->getAll()->getData()->data;
+
+        $roles = [];
+        foreach ($data->roles as $key => $value) {
+            $roles[] = $value->id;
+        }
+        $data->roles = $roles;
 
         return view('admin.pages.user.index', compact('title', 'pageViewInfo', 'data', 'allTypeUserData'));
     }
