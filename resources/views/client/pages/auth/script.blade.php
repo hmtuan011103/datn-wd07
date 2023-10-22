@@ -50,8 +50,8 @@
                 telErrorContainer.textContent = "Vui lòng nhập số điện thoại.";
             }else if(!phone.match(phoneRegex)){
                 telErrorContainer.textContent = "Số điện thoại không hợp lệ.";
-            }
-            if (name.trim() === "") {
+                return;
+            }if (name.trim() === "") {
                 nameErrorContainer.textContent = "Vui lòng nhập tên của bạn.";
                 return
             }
@@ -121,7 +121,6 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // 'Accept': 'application/json'
                 },
                 body: JSON.stringify(data),
             });
