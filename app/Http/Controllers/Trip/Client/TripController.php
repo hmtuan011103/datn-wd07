@@ -11,14 +11,14 @@ class TripController extends BaseTripController
 {
     public function getInformationDetailTrip() {
         try {
-            $route = $this->tripService->getdetailRoute("1");
-            $locationRouteTrip = $this->tripService->getLocationRouteTrip("1");
-            $seats = $this->tripService->getSeats("1");
-            $seatSelected = $this->tripService->getSeatSelected("1");
-//            $route = $this->tripService->getdetailRoute([1,2]);
-//            $locationRouteTrip = $this->tripService->getLocationRouteTrip([1,2]);
-//            $seats = $this->tripService->getSeats([1,2]);
-//            $seatSelected = $this->tripService->getSeatSelected([1,2]);
+//            $route = $this->tripService->getdetailRoute("3");
+//            $locationRouteTrip = $this->tripService->getLocationRouteTrip("3");
+//            $seats = $this->tripService->getSeats("3");
+//            $seatSelected = $this->tripService->getSeatSelected("3");
+            $route = $this->tripService->getdetailRoute([3,4]);
+            $locationRouteTrip = $this->tripService->getLocationRouteTrip([3,4]);
+            $seats = $this->tripService->getSeats([3,4]);
+            $seatSelected = $this->tripService->getSeatSelected([3,4]);
             return response()->json([
                 'seatSelected' => $seatSelected,
                 'seats' => $seats,
