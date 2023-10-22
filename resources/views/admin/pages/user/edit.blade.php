@@ -19,7 +19,7 @@
                                     <input type="text" class="form-control" name="name" id="validationCustom01"
                                         placeholder="something" value="{{ $data->name }}" required>
                                     @error('name')
-                                        <div class="invalid-feedback d-inline-block">
+                                        <div class="help-block error-help-block">
                                             {{ $message }}
                                         </div>
                                     @enderror
@@ -31,7 +31,7 @@
                                         placeholder="something@something.something" value="{{ $data->email }}"
                                         required>
                                     @error('email')
-                                        <div class="invalid-feedback d-inline-block">
+                                        <div class="help-block error-help-block">
                                             {{ $message }}
                                         </div>
                                     @enderror
@@ -43,7 +43,7 @@
                                         id="validationCustomPhone" placeholder="0342222222"
                                         value="{{ $data->phone_number }}" required>
                                     @error('phone_number')
-                                        <div class="invalid-feedback d-inline-block">
+                                        <div class="help-block error-help-block">
                                             {{ $message }}
                                         </div>
                                     @enderror
@@ -61,7 +61,7 @@
                                         @endforeach
                                     </select>
                                     @error('user_type_id')
-                                        <div class="invalid-feedback d-inline-block">
+                                        <div class="help-block error-help-block">
                                             {{ $message }}
                                         </div>
                                     @enderror
@@ -82,7 +82,7 @@
                                         @endforeach
                                     </select>
                                     @error('roles')
-                                        <div class="invalid-feedback d-inline-block">
+                                        <div class="help-block error-help-block">
                                             {{ $message }}
                                         </div>
                                     @enderror
@@ -93,7 +93,7 @@
                                         <label for="validationCustomDescription" class="form-label">Mô tả</label>
                                         <textarea name="description" id="validationCustomDescription" cols="30" rows="12">{{ $data->description }}</textarea>
                                         @error('description')
-                                            <div class="invalid-feedback d-inline-block">
+                                            <div class="help-block error-help-block">
                                                 {{ $message }}
                                             </div>
                                         @enderror
@@ -106,7 +106,7 @@
                                         id="validationCustomAddress" placeholder="..." value="{{ $data->address }}"
                                         required>
                                     @error('address')
-                                        <div class="invalid-feedback d-inline-block">
+                                        <div class="help-block error-help-block">
                                             {{ $message }}
                                         </div>
                                     @enderror
@@ -121,7 +121,7 @@
                                         id="validationCustomPassword" placeholder="********" minlength="8"
                                         maxlength="16">
                                     @error('password')
-                                        <div class="invalid-feedback d-inline-block">
+                                        <div class="help-block error-help-block">
                                             {{ $message }}
                                         </div>
                                     @enderror
@@ -135,7 +135,7 @@
                                         id="validationCustomPasswordRe" placeholder="********" minlength="8"
                                         maxlength="16">
                                     @error('password_confirmation')
-                                        <div class="invalid-feedback d-inline-block">
+                                        <div class="help-block error-help-block">
                                             {{ $message }}
                                         </div>
                                     @enderror

@@ -27,7 +27,7 @@
             <select class="form-select py-3" aria-label="Default select example" name="start_location"
                 id="mySelectstart">
 
-                <option value="0" selected>Chọn điểm đi</option>
+                <option value="0" selected hidden>Chọn điểm đi</option>
             </select>
             <span class="text-danger" id="error_start_location"></span>
         </div>
@@ -35,7 +35,7 @@
         <div class="col-3">
             <label for="" class="form-label fs-15">Điểm đến</label>
             <select class="form-select py-3" aria-label="Default select example" name="end_location" id="mySelectend">
-                <option value="0" selected>Chọn điểm đến</option>
+                <option value="0" selected hidden>Chọn điểm đến</option>
             </select>
             <span class="text-danger" id="error_end_location"></span>
         </div>

@@ -20,7 +20,7 @@
                                         placeholder="Nhân viên..." value="{{ old('name') }}" required minlength="2"
                                         maxlength="125">
                                     @error('name')
-                                        <div class="invalid-feedback d-inline-block">
+                                        <div class="help-block error-help-block">
                                             {{ $message }}
                                         </div>
                                     @enderror
