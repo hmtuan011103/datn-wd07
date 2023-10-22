@@ -67,7 +67,7 @@ class AuthController extends Controller
 
         return response()->json([
             "status" => false,
-            "message" => "Tài khoản không tồn tại",
+            "message" => "Tài khoản của bạn không đúng",
         ]);
     }
 

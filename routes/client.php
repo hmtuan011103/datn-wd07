@@ -26,7 +26,7 @@ Route::get('/tim-kiem', function () {
 Route::get('/chon-ghe', function () {
     return view('client.pages.select-seat.index');
 });
-Route::get('/auth', function () {
+Route::get('/dang-nhap', function () {
     return view('client.pages.auth.login');
 })->name('auth');
 Route::get('/lich-trinh', [TripController::class, 'lich_trinh'])->name('lich_trinh');

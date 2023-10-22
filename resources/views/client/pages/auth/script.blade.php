@@ -61,7 +61,8 @@
     }
 
     // apiUrl_login
-    const apiUrl_login = 'http://127.0.0.1:8000/api/login';
+    // http://127.0.0.1:8000/
+    const apiUrl_login = 'api/login';
     loginForm.addEventListener("submit", async (event) => {
         event.preventDefault();
         // alert(123131);
@@ -97,7 +98,8 @@
         }
     });
     // apiUrl_register
-    const apiUrl_register = 'http://127.0.0.1:8000/api/register';
+    // http://127.0.0.1:8000/
+    const apiUrl_register = 'api/register';
     registerForm.addEventListener("submit", async (event) => {
         event.preventDefault();
         const phone = document.getElementById("register-phone").value;
@@ -168,7 +170,6 @@
             errorContainer.style.display = "none"; // Ẩn phần tử lỗi tổng quan
         }
     }
-    //     form 2
     function validate_Form() {
 
         var email = document.getElementById("register-email").value;
