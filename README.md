@@ -13,19 +13,33 @@
 ## Cách phân quyền route bên admin bởi permission
 
 Các route và quyền hiện đã được config ổn định, nếu bạn muốn tạo route hoặc quyền hay vai trò mới bạn có thể tham khảo bên dưới:
+
 Note: Nếu không tạo mới quyền và vai trò có thể skip B1, B2. 
 
 -   B1: Bạn cần tạo quyền tại "Vai trò & phân quyền > Phân quyền" (Nếu quyền đã tồn tại thì bạn không cần tạo lại nữa, danh sách ở bên dưới)
+
 Note: Tên quyền sẽ được dùng để "kiểm tra quyền" sau này, hãy đặt tên quyền theo cú pháp kebab-case cụ thể action-object
+
 Ví dụ: create-user, read-user, update-user, delete-user, create-user-type . . .
+
 -   B2: Giờ đã có quyền được tạo ở B1 rồi, bạn tạo vai trò tại "Vai trò & phân quyền > Vai trò" với các quyền bạn muốn
 -   B3: Khai báo route (bạn khai báo route như bình thường)
 -   B4: Phân quyền cho route, bạn chỉ cần thêm middleware "check_permission" cùng các quyền mong muốn là ok
+
 Cú pháp: 
-     Phân 1 quyền: middleware('check_permission:permission-01')
-     Phân nhiều quyền: middleware('check_permission:permission-01,permission-02,permission-03')
-Ví dụ: 
+
+Phân 1 quyền:
+     
+     middleware('check_permission:permission-01')
+ 
+Phân nhiều quyền:
+
+    middleware('check_permission:permission-01,permission-02,permission-03')
+
+Ví dụ:
+
      Route::get('create', [UserController::class, 'create'])->middleware('check_permission:create-user')->name('create');
+    
      Route::get('create', [UserController::class, 'create'])->middleware('check_permission:create-user,read-user')->name('create'); 
 
 
