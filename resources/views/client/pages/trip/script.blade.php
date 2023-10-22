@@ -13,7 +13,8 @@
                     tripNames.add(trip.start_location);
 
                     function convertTime(timeString) {
-                        var parts = timeString.split(":");
+                        if (timeString && typeof timeString === 'string') {
+                            var parts = timeString.split(":");
                         var hour = parseInt(parts[0]);
                         var minute = parseInt(parts[1]);
 
@@ -31,6 +32,10 @@
                         var timeInVietnamese = hourText + " giờ " + minuteText + " phút";
 
                         return timeInVietnamese;
+                        } else {
+                            // Xử lý trường hợp `timeString` không tồn tại hoặc không hợp lệ.
+                        }   
+                       
                     }
                     return `
                 <div class="alldata">
