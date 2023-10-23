@@ -80,7 +80,7 @@
 }
 
 /* Định nghĩa màu cho input */
-/* input[type="radio"]{
+input[type="radio"]{
     outline: 1px solid #F9821D !important;
 }
 input[type="radio"]:checked{
@@ -90,15 +90,17 @@ input[type="radio"]:checked{
 input[type="text"],
 input[type="number"],
 input[type="date"],
-select.py-3
+select.py-3,
+select.w-100.cursor
 {
     border-color: #F9821D;
     outline: #F9821D !important;
-} */
+}
 input[type="text"]:focus,
 input[type="number"]:focus,
 input[type="date"]:focus,
-select.py-3:focus
+select.py-3:focus,
+select.w-100.cursor:focus
 {
     outline: 2px solid rgba(170, 46, 8, .1) !important;
     border-color: #F9821D;
@@ -182,6 +184,9 @@ select.py-3:focus
 .cursor {
     cursor: pointer;
 }
+.cursor-not-allowed {
+    cursor: not-allowed;
+}
 .pa-t-90{
     top: -90px;
 }
@@ -231,8 +236,8 @@ select.py-3:focus
 footer.pt-4{
     border-top: 1px solid #ccc;
 }
-.w-25 {
-    width: 25%;
+.w-14 {
+    width: 14% !important;
 }
 .w-70{
     width: 70%;
@@ -262,12 +267,42 @@ footer.pt-4{
 .header-car{
     padding-top: 15px;
 }
+.spacing-floor-second {
+    transform: translateY(-7px);
+}
+.spacing-floor-second-title {
+    transform: translateY(7px);
+}
+
 .border-bottom-4{
     border-bottom: 4px solid #E5E5E5;
 }
 .between-place-solid{
-    height: 124px;
+    height: 80px;
     border: 1px solid #E5E5E5;
     width: 1px;
+}
+.place-turning-returning {
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+}
+.border-right-2 {
+    border-right: 2px solid #ccc;
+}
+.border-top-1 {
+    border-top: 1px solid #ccc;
+}
+.border-bottom-1-seats{
+    padding-top: 20px;
+    border-top: 1px solid #CCD;
+    margin-top: 30px
+}
+
+/*Chỉnh sửa toast js*/
+.toast-close {
+    padding: 0 5px 0 10px !important;
+    color: #000000 !important;
+    font-size: 13px !important;
 }
 

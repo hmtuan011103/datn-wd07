@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Trip;
 
 use App\Http\Controllers\Controller;
 use App\Services\Trips\TripService;
-use Illuminate\Http\Request;
 
 class BaseTripController extends Controller
 {

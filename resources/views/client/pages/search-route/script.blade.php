@@ -2,6 +2,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
     var link = 'http://127.0.0.1:8000/';
+    window.addEventListener('beforeunload', function() {
+        localStorage.clear();
+    });
     var currentpagetrip = '';
     fetch(link + 'api/searchtrip/get_type_car')
         .then(function(response) {
@@ -638,7 +641,7 @@
                             </div>
                             <div>
                                 <button
-                                    class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip px-4" data-trip="${item.id}">Chọn
+                                    class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip px-4" data-turn="${item.id}">Chọn
                                     chuyến</button>
                             </div>
                         </div>
@@ -733,19 +736,27 @@
                                 </div>
                                 <div>
                                     <button
-                                        class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip px-4" onclick="handleClick(this,event)" data-type='start' data-id="${item.id}">Chọn
+                                        class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip px-4 buttontrip" onclick="handleClick(this,event)" data-type='start' data-id="${item.id}">Chọn
                                         chuyến</button>
                                 </div>
                             </div>
                         </div>`;
                             document.getElementById('searchresults').innerHTML +=
                                 htmlresult;
+                            buttonselected = document.querySelector(
+                                `.buttontrip[data-id="${localStorage.getItem('buttontrip')}"]`
+                            )
+                            if (buttonselected !== null) {
+                                buttonselected.style.backgroundColor = '#F9821D';
+                                buttonselected.style.color = '#fff';
+                            }
                         });
                     }
 
                 });
 
                 tripend.addEventListener('click', function() {
+
                     currentpagetrip = 'end';
                     tripend.style.borderBottom = '3px solid red';
                     tripend.style.color = 'red';
@@ -819,13 +830,20 @@
                                     </div>
                                     <div>
                                         <button
-                                            class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip px-4" onclick="handleClick(this,event)" data-type='end' data-id="${item.id}">Chọn
+                                            class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip px-4 buttontrip" onclick="handleClick(this,event)" data-type='end' data-id="${item.id}">Chọn
                                             chuyến</button>
                                     </div>
                                 </div>
                             </div>`;
                             document.getElementById('searchresults').innerHTML +=
                                 htmlresult;
+                            buttonselected = document.querySelector(
+                                `.buttontrip[data-id="${localStorage.getItem('buttontrip')}"]`
+                            )
+                            if (buttonselected !== null) {
+                                buttonselected.style.backgroundColor = '#F9821D';
+                                buttonselected.style.color = '#fff';
+                            }
                         });
                     }
                 });
@@ -885,11 +903,13 @@
     }
 
     var selectedButtons = [];
-
+    console.log(selectedButtons)
     function handleClick(button, event) {
         event.preventDefault();
+        
         var dataId = button.getAttribute("data-id");
         var dataType = button.getAttribute("data-type");
+
         button.style.backgroundColor = '#F9821D';
         button.style.color = '#fff';
         if (selectedButtons.length === 2) {
@@ -901,27 +921,48 @@
         if (selectedButtons.length === 1) {
             var existingButton = selectedButtons[0];
             var existingButtonType = existingButton.getAttribute("data-type");
-
             if (dataType !== existingButtonType) {
                 // Khác data-type, không xóa nút cũ, chỉ thêm nút mới
                 selectedButtons.push(button);
-                var b1 = selectedButtons[0].getAttribute('data-id')
-                var b2 = selectedButtons[1].getAttribute('data-id')
-                datatrip = selectedButtons.map(function(button) {
-                    return button.getAttribute('data-id');
-                });
-                selectedButtons[1].setAttribute('data-trip', datatrip);
-            } else {
-                // Cùng data-type, xóa nút cũ và thêm nút mới
-                selectedButtons[0].style.backgroundColor = '#FDE5DE';
-                selectedButtons[0].style.color = '#F9821D';
-                var indexToRemove = selectedButtons.indexOf(existingButton);
-                selectedButtons.splice(indexToRemove, 1);
-                selectedButtons.push(button);
 
+                if (selectedButtons[0].getAttribute("data-type") == 'start') {
+                    var b1 = selectedButtons[0].getAttribute('data-id')
+                    var b2 = selectedButtons[1].getAttribute('data-id')
+                } else {
+                    var b2 = selectedButtons[0].getAttribute('data-id')
+                    var b1 = selectedButtons[1].getAttribute('data-id')
+                }
+                // datatrip = selectedButtons.map(function(button) {
+                //     return button.getAttribute('data-id');
+                // });
+                selectedButtons[1].setAttribute('data-turn', b1);
+                selectedButtons[1].setAttribute('data-return', b2);
+                localStorage.removeItem("buttontrip")
+            } else {
+                buttonselected = document.querySelector(
+                    `.buttontrip[data-id="${localStorage.getItem('buttontrip')}"]`
+                )
+                if (button.getAttribute('data-id') === selectedButtons[0].getAttribute('data-id')) {
+                    
+                }else{
+                    if (buttonselected !== null) {
+                    buttonselected.style.backgroundColor = '#FDE5DE';
+                    buttonselected.style.color = '#F9821D';
+                    localStorage.setItem("buttontrip", button.getAttribute("data-id"));
+                    }
+                    // Cùng data-type, xóa nút cũ và thêm nút mới
+                    selectedButtons[0].style.backgroundColor = '#FDE5DE';
+                    selectedButtons[0].style.color = '#F9821D';
+                    var indexToRemove = selectedButtons.indexOf(existingButton);
+                    selectedButtons.splice(indexToRemove, 1);
+                    selectedButtons.push(button);
+                    console.log(selectedButtons[0])
+                }
+                
             }
         } else {
             selectedButtons.push(button);
+            localStorage.setItem("buttontrip", button.getAttribute("data-id"));
         }
     }
 </script>

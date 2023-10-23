@@ -216,7 +216,7 @@
     };
 
     /**
-     * returns a copy of the object where the keys have become the values and the values the keys.
+     * returns a copy.js of the object where the keys have become the values and the values the keys.
      * @param {Object} obj
      * @return {Object}
      */
@@ -386,7 +386,7 @@
     };
 
     /**
-     * returns a copy of the collection with array type.
+     * returns a copy.js of the collection with array type.
      * @param {Collection} collection - collection eg) node.childNodes, ...
      */
     var from = function (collection) {
@@ -426,7 +426,7 @@
     };
 
     /**
-     * returns a copy of the array with all false values removed
+     * returns a copy.js of the array with all false values removed
      *
      * @param {Array} array - array
      * @param {Function} fn - predicate function for cluster rule
@@ -6777,7 +6777,7 @@
         ui.onDialogShown(self.$dialog, function () {
           context.triggerEvent('dialog.shown');
 
-          // if no url was given, copy text to url
+          // if no url was given, copy.js text to url
           if (!linkInfo.url) {
             linkInfo.url = linkInfo.text;
           }

@@ -4,7 +4,7 @@ var idTableContainer,
           (checkAll &&
                (checkAll.onclick = function () {
                     var e = document.querySelectorAll(
-                         '.form-check-all input[type="checkbox"]'
+                         '.form-check-all input[type="checkbox"][name="chk_child"]'
                     );
                     1 == checkAll.checked
                          ? Array.from(e).forEach(function (e) {
@@ -20,7 +20,7 @@ var idTableContainer,
      editlist = !1;
 
 var options = {
-     valueNames: ["id", "name", "email", "created_at", "updated_at"],
+     valueNames: ["id", "name", "user_type", "email", "created_at", "updated_at"],
      page: perPage,
      pagination: !0,
      plugins: [ListPagination({ left: 2, right: 2 })],
