@@ -14,7 +14,6 @@ class AuthController extends Controller
 {
     public function register(Request $request){
 
-        // data validation
         $request->validate([
             "name" => "required",
             "email" => "required|email|unique:users",
@@ -37,7 +36,6 @@ class AuthController extends Controller
             "redirect_url" => route('auth')
         ]);
     }
-
 
     public function login(Request $request)
     {

@@ -97,11 +97,7 @@
                                         <input type="password" class="form-control" id="register-confirm-password" placeholder="Nhập lại mật khẩu">
                                     </div>
                                     <p id="confirm_password_error" class="error-message"></p>
-                                    @error('email')
-                                    <div class="help-block error-help-block">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
+                                    <p id="register_add" class="error-message" style="display: none" >Email đã tồn tại</p>
                                     <button type="submit" class="ant-btn-primary" onclick="validate_Form()"><span>Hoàn Thành</span></button>
                                 </div>
                         </form>

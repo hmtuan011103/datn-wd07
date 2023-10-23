@@ -114,7 +114,7 @@
             password_confirmation: confirm_password
         };
 
-        // try {
+        try {
             const response = await fetch(apiUrl_register, {
                 method: 'POST',
                 headers: {
@@ -128,17 +128,11 @@
                 if (responseData.status === true) {
                     window.location.href = responseData.redirect_url;
                 }
-                else if(responseData.status === false) {
-                    alert(123321);
-                    // console.log(responseData.message);
-                    // const errorMessage = responseData.message;
-                    // const errorElement = document.getElementById("error-Message");
-                    // errorElement.textContent = errorMessage;
-                }
             }
-        // } catch (error) {
-        //     console.error('Lỗi kết nối đến máy chủ:', error);
-        // }
+        } catch (error) {
+            const register_add = document.getElementById("register_add");
+            register_add.style.display = "block";
+        }
     });
 
 
