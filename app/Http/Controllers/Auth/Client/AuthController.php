@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth\Client;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -13,7 +14,6 @@ class AuthController extends Controller
 {
     public function register(Request $request){
 
-        // data validation
         $request->validate([
             "name" => "required",
             "email" => "required|email|unique:users",
@@ -36,7 +36,6 @@ class AuthController extends Controller
             "redirect_url" => route('auth')
         ]);
     }
-
 
     public function login(Request $request)
     {
