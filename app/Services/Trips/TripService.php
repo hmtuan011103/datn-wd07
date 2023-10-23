@@ -30,6 +30,10 @@ class TripService
             ->orderBy('updated_at', 'DESC')->get();
         return $trips;
     }
+    public function get_parent_id()
+    {
+        return Location::select('locations.name', 'locations.id')->where('locations.parent_id', Null)->get();
+    }
 
     public function create (StoreTripRequest $request) {
         if($request->isMethod('POST')) {
