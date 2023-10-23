@@ -65,7 +65,7 @@
                                                             <label>
                                                                 <input id="xnode-0" data-id="custom-0" type="checkbox"
                                                                     name="permission[]" value=" {{ $per->id }} "
-                                                                    {{ $role->permission->contains($per->id) ? 'checked' : '' }} />
+                                                                    {{ $role->permissions->contains($per->id) ? 'checked' : '' }} />
                                                                 {{ $per->name }}
                                                             </label>
 
@@ -76,7 +76,7 @@
                                                                             <input id="xnode-0-1" data-id="custom-0-1"
                                                                                 type="checkbox" name="permission[]"
                                                                                 value="{{ $permission->id }}"
-                                                                                {{ $role->permission->contains($permission->id) ? 'checked' : '' }} />
+                                                                                {{ $role->permissions->contains($permission->id) ? 'checked' : '' }} />
                                                                             {{ $permission->name }}
                                                                         </label>
                                                                         <ul>
