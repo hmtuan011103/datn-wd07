@@ -6,6 +6,7 @@ use App\Http\Requests\Trip\StoreTripRequest;
 use App\Http\Requests\Trip\UpdateTripRequest;
 use App\Models\Bills;
 use App\Models\Car;
+use App\Models\Location;
 use App\Models\Trip;
 use App\Models\TypeCar;
 use App\Models\User;
@@ -30,6 +31,10 @@ class TripService
         ->join('users', 'users.id', '=', 'trips.drive_id')
         ->orderBy('updated_at', 'DESC')->get();
         return $trips;
+    }
+    public function get_parent_id()
+    {
+        return Location::select('locations.name', 'locations.id')->where('locations.parent_id', Null)->get();
     }
 
     public function create(StoreTripRequest $request)
