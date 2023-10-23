@@ -9,21 +9,26 @@ use Illuminate\Support\Facades\DB;
 
 class TripService
 {
-    public function list() {
+    public function list()
+    {
         return Trip::all();
     }
+
     public function list_desc()
     {
         // $trips = Trip::all();
-        $trips = Trip::select('trips.id', 'trips.car_id', 'trips.drive_id','trips.start_date','trips.start_time','trips.start_location','trips.status','trips.trip_price','trips.end_location','trips.created_at','trips.updated_at','cars.name as car_name','users.name as user_name')
-        ->join('cars', 'cars.id', '=', 'trips.car_id')
-        ->join('users', 'users.id', '=', 'trips.drive_id')
-        ->orderBy('updated_at', 'DESC')->get();
+        $trips = Trip::select('trips.id', 'trips.car_id', 'trips.drive_id', 'trips.start_date', 'trips.start_time',
+            'trips.start_location', 'trips.status', 'trips.trip_price', 'trips.end_location', 'trips.created_at',
+            'trips.updated_at', 'cars.name as car_name', 'users.name as user_name')
+            ->join('cars', 'cars.id', '=', 'trips.car_id')
+            ->join('users', 'users.id', '=', 'trips.drive_id')
+            ->orderBy('updated_at', 'DESC')->get();
         return $trips;
     }
 
-    public function create (StoreTripRequest $request) {
-        if($request->isMethod('POST')) {
+    public function create(StoreTripRequest $request)
+    {
+        if ($request->isMethod('POST')) {
 
             $params = $request->all();
             unset($params['_token']);
@@ -33,32 +38,36 @@ class TripService
     }
 
 
-    public function edit_trip(StoreTripRequest $request , $id) {
+    public function edit_trip(StoreTripRequest $request, $id)
+    {
         Trip::find($id);
-        if($request->isMethod('POST')) {
-            $params = $request->except('proengsoft_jsvalidation','_token');
+        if ($request->isMethod('POST')) {
+            $params = $request->except('proengsoft_jsvalidation', '_token');
             // dd($params);
-            return Trip::where('id',$id)->update($params);
+            return Trip::where('id', $id)->update($params);
         }
 
     }
 
-    public function delete_trip($id) {
+    public function delete_trip($id)
+    {
         Trip::find($id)->delete();
         return redirect()->route('list_trip');
     }
+
     // Start API For Page Client
 
-    public function getSeatSelected(string | array $id) {
+    public function getSeatSelected(string|array $id)
+    {
         $seatSelected = [];
         if (is_array($id)) {
-            if($id[0] > $id[1]) {
+            if ($id[0] > $id[1]) {
                 $data = Trip::query()->with('bills')
                     ->whereIn('id', $id)
-                    ->orderBy('id','desc')
+                    ->orderBy('id', 'desc')
                     ->get();
             }
-            if($id[0] < $id[1]) {
+            if ($id[0] < $id[1]) {
                 $data = Trip::query()->with('bills')
                     ->whereIn('id', $id)
                     ->get();
@@ -90,18 +99,19 @@ class TripService
         return $seatSelected;
     }
 
-    public function getSeats(string | array $id) {
+    public function getSeats(string|array $id)
+    {
         $seats = [];
         if (is_array($id)) {
-            if($id[0] > $id[1]) {
+            if ($id[0] > $id[1]) {
                 $data = Trip::query()->with('car.seats')
-                    ->whereIn('id',$id)
-                    ->orderBy('id','desc')
+                    ->whereIn('id', $id)
+                    ->orderBy('id', 'desc')
                     ->get();
             }
-            if($id[0] < $id[1]) {
+            if ($id[0] < $id[1]) {
                 $data = Trip::query()->with('car.seats')
-                    ->whereIn('id',$id)
+                    ->whereIn('id', $id)
                     ->get();
             }
             foreach ($data as $index => $item) {
@@ -127,16 +137,17 @@ class TripService
         return $seats;
     }
 
-    public function getLocationRouteTrip(string | array $id) {
+    public function getLocationRouteTrip(string|array $id)
+    {
         $data = "";
         if (is_array($id)) {
-            if($id[0] > $id[1]) {
-                $value = Trip::query()->whereIn('id',$id)
-                    ->orderBy('id','desc')->get();
+            if ($id[0] > $id[1]) {
+                $value = Trip::query()->whereIn('id', $id)
+                    ->orderBy('id', 'desc')->get();
                 $data = $value[0];
             }
-            if($id[0] < $id[1]) {
-                $value = Trip::query()->whereIn('id',$id)
+            if ($id[0] < $id[1]) {
+                $value = Trip::query()->whereIn('id', $id)
                     ->get();
                 $data = $value[0];
             }
@@ -152,7 +163,7 @@ class TripService
         $locationsStartChildren = Location::query()
             ->where('parent_id', $locationsStart[0]->id)
             ->get();
-        $locationsEndChildren  = Location::query()
+        $locationsEndChildren = Location::query()
             ->Where('parent_id', $locationsEnd[0]->id)
             ->get();
         $arrayLocationsStartChildren = [];
@@ -177,15 +188,16 @@ class TripService
         ];
     }
 
-    public function getDetailRoute(string | array $id) {
+    public function getDetailRoute(string|array $id)
+    {
         if (is_array($id)) {
-            if($id[0] > $id[1]) {
-                $route = Trip::query()->whereIn('id',$id)
-                    ->orderBy('id','desc')
+            if ($id[0] > $id[1]) {
+                $route = Trip::query()->whereIn('id', $id)
+                    ->orderBy('id', 'desc')
                     ->get();
             }
-            if($id[0] < $id[1]) {
-                $route = Trip::query()->whereIn('id',$id)->get();
+            if ($id[0] < $id[1]) {
+                $route = Trip::query()->whereIn('id', $id)->get();
             }
 
         } else {

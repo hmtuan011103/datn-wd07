@@ -9,7 +9,8 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class TripController extends BaseTripController
 {
-    public function getInformationDetailTrip() {
+    public function getInformationDetailTrip()
+    {
         try {
 //            $route = $this->tripService->getDetailRoute("3");
 //            $locationRouteTrip = $this->tripService->getLocationRouteTrip("3");
@@ -32,7 +33,7 @@ class TripController extends BaseTripController
             return response()->json([
                 'message' => 'Có lỗi xảy ra ' . $exception->getMessage(),
                 'status' => ResponseAlias::HTTP_INTERNAL_SERVER_ERROR,
-            ],ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
+            ], ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }
