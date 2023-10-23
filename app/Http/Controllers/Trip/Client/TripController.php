@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Trip\Client;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Trip\BaseTripController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
-class TripController extends Controller
+class TripController extends BaseTripController
 {
     public function getInformationDetailTrip()
     {
@@ -16,10 +16,10 @@ class TripController extends Controller
 //            $locationRouteTrip = $this->tripService->getLocationRouteTrip("3");
 //            $seats = $this->tripService->getSeats("3");
 //            $seatSelected = $this->tripService->getSeatSelected("3");
-            $route = $this->tripService->getDetailRoute([3, 4]);
-            $locationRouteTrip = $this->tripService->getLocationRouteTrip([3, 4]);
-            $seats = $this->tripService->getSeats([3, 4]);
-            $seatSelected = $this->tripService->getSeatSelected([3, 4]);
+            $route = $this->tripService->getDetailRoute([4,5]);
+            $locationRouteTrip = $this->tripService->getLocationRouteTrip([4,5]);
+            $seats = $this->tripService->getSeats([4,5]);
+            $seatSelected = $this->tripService->getSeatSelected([4,5]);
             return response()->json([
                 'seatSelected' => $seatSelected,
                 'seats' => $seats,
