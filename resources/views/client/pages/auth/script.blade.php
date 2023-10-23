@@ -50,8 +50,8 @@
                 telErrorContainer.textContent = "Vui lòng nhập số điện thoại.";
             }else if(!phone.match(phoneRegex)){
                 telErrorContainer.textContent = "Số điện thoại không hợp lệ.";
-            }
-            if (name.trim() === "") {
+                return;
+            }if (name.trim() === "") {
                 nameErrorContainer.textContent = "Vui lòng nhập tên của bạn.";
                 return
             }
@@ -61,8 +61,8 @@
     }
 
     // apiUrl_login
-    // http://127.0.0.1:8000/
-    const apiUrl_login = 'api/login';
+
+    const apiUrl_login = 'http://127.0.0.1:8000/api/login';
     loginForm.addEventListener("submit", async (event) => {
         event.preventDefault();
         // alert(123131);
@@ -86,9 +86,7 @@
                     window.location.href = responseData.redirect_url;
                 }
                 if (responseData.status === false) {
-                    const errorMessage = responseData.message; // Lấy thông báo lỗi từ dữ liệu trả về
-
-                    // Tìm phần tử <div> bằng ID và đặt nội dung của nó thành thông báo lỗi
+                    const errorMessage = responseData.message;
                     const errorElement = document.getElementById("error-message");
                     errorElement.textContent = errorMessage;
                 }
@@ -116,12 +114,11 @@
             password_confirmation: confirm_password
         };
 
-        // try {
+        try {
             const response = await fetch(apiUrl_register, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // 'Accept': 'application/json'
                 },
                 body: JSON.stringify(data),
             });
@@ -131,17 +128,11 @@
                 if (responseData.status === true) {
                     window.location.href = responseData.redirect_url;
                 }
-                else if(responseData.status === false) {
-                    alert(123321);
-                    // console.log(responseData.message);
-                    // const errorMessage = responseData.message;
-                    // const errorElement = document.getElementById("error-Message");
-                    // errorElement.textContent = errorMessage;
-                }
             }
-        // } catch (error) {
-        //     console.error('Lỗi kết nối đến máy chủ:', error);
-        // }
+        } catch (error) {
+            const register_add = document.getElementById("register_add");
+            register_add.style.display = "block";
+        }
     });
 
 
