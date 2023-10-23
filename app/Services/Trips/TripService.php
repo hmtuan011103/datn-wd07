@@ -3,13 +3,9 @@
 namespace App\Services\Trips;
 
 use App\Http\Requests\Trip\StoreTripRequest;
-use App\Http\Requests\Trip\UpdateTripRequest;
-use App\Models\Car;
 use App\Models\Location;
 use App\Models\Trip;
-use App\Models\TypeCar;
-use App\Models\User;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class TripService
 {
@@ -56,8 +52,18 @@ class TripService
     public function getSeatSelected(string | array $id) {
         $seatSelected = [];
         if (is_array($id)) {
-            $data = Trip::query()->with('bills')
-                ->whereIn('id', $id)->get();
+            if($id[0] > $id[1]) {
+                $data = Trip::query()->with('bills')
+                    ->whereIn('id', $id)
+                    ->orderBy('id','desc')
+                    ->get();
+            }
+            if($id[0] < $id[1]) {
+                $data = Trip::query()->with('bills')
+                    ->whereIn('id', $id)
+                    ->get();
+            }
+
             foreach ($data as $index => $item) {
                 foreach ($item->bills as $seats) {
                     $arraySeats = json_decode($seats->seat_id);
@@ -87,8 +93,17 @@ class TripService
     public function getSeats(string | array $id) {
         $seats = [];
         if (is_array($id)) {
-            $data = Trip::query()->with('car.seats')
-                ->whereIn('id',$id)->get();
+            if($id[0] > $id[1]) {
+                $data = Trip::query()->with('car.seats')
+                    ->whereIn('id',$id)
+                    ->orderBy('id','desc')
+                    ->get();
+            }
+            if($id[0] < $id[1]) {
+                $data = Trip::query()->with('car.seats')
+                    ->whereIn('id',$id)
+                    ->get();
+            }
             foreach ($data as $index => $item) {
                 foreach ($item->car->seats as $seat) {
                     $key = $index === 0 ? 'turn' : 'return';
@@ -113,52 +128,66 @@ class TripService
     }
 
     public function getLocationRouteTrip(string | array $id) {
-        $locationsChildrenId = [];
+        $data = "";
         if (is_array($id)) {
-            $data = Trip::query()->whereIn('id', $id)->get();
-            $checkTripWithArrayStart = [];
-            $checkTripWithArrayEnd = [];
-            foreach ($data as $item) {
-                $checkTripWithArrayStart[] = $item->start_location;
-                $checkTripWithArrayEnd[] = $item->end_location;
+            if($id[0] > $id[1]) {
+                $value = Trip::query()->whereIn('id',$id)
+                    ->orderBy('id','desc')->get();
+                $data = $value[0];
             }
-            $locations = Location::query()
-                ->whereIn('name', $checkTripWithArrayStart)
-                ->orwhereIn('name', $checkTripWithArrayEnd)
-                ->get();
+            if($id[0] < $id[1]) {
+                $value = Trip::query()->whereIn('id',$id)
+                    ->get();
+                $data = $value[0];
+            }
         } else {
             $data = Trip::query()->find($id);
-            $locations = Location::query()
-                ->where('name', $data->start_location)
-                ->orWhere('name', $data->end_location)
-                ->get();
         }
-        foreach ($locations as $location) {
-            $locationsChildrenId[] = $location->id;
-        }
-        $locationsChildrenName = Location::query()
-            ->whereIn('parent_id', $locationsChildrenId)
+        $locationsStart = Location::query()
+            ->where('name', $data->start_location)
             ->get();
-        $data = [];
-        foreach ($locationsChildrenId as $index => $locationChildrenId) {
-            foreach ($locationsChildrenName as $item) {
-                if($item->parent_id === $locationChildrenId) {
-                    $key = $index === 0 ? 'start_location' : 'end_location';
-                    $data[] =  [
-                        'key' => $key,
-                        'id' => $item->id,
-                        'name' => $item->name,
-                        'parent_id' => $item->parent_id,
-                    ];
-                }
-            }
+        $locationsEnd = Location::query()
+            ->Where('name', $data->end_location)
+            ->get();
+        $locationsStartChildren = Location::query()
+            ->where('parent_id', $locationsStart[0]->id)
+            ->get();
+        $locationsEndChildren  = Location::query()
+            ->Where('parent_id', $locationsEnd[0]->id)
+            ->get();
+        $arrayLocationsStartChildren = [];
+        $arrayLocationsEndChildren = [];
+        foreach ($locationsStartChildren as $item) {
+            $arrayLocationsStartChildren[] = [
+                'id' => $item->id,
+                'name' => $item->name,
+                'parent_id' => $item->parent_id
+            ];
         }
-        return $data;
+        foreach ($locationsEndChildren as $item) {
+            $arrayLocationsEndChildren[] = [
+                'id' => $item->id,
+                'name' => $item->name,
+                'parent_id' => $item->parent_id
+            ];
+        }
+        return [
+            'start_location' => $arrayLocationsStartChildren,
+            'end_location' => $arrayLocationsEndChildren,
+        ];
     }
 
-    public function getdetailRoute(string | array $id) {
+    public function getDetailRoute(string | array $id) {
         if (is_array($id)) {
-            $route = Trip::query()->whereIn('id',$id)->get();
+            if($id[0] > $id[1]) {
+                $route = Trip::query()->whereIn('id',$id)
+                    ->orderBy('id','desc')
+                    ->get();
+            }
+            if($id[0] < $id[1]) {
+                $route = Trip::query()->whereIn('id',$id)->get();
+            }
+
         } else {
             $route = Trip::query()->find($id);
         }

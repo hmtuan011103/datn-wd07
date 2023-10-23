@@ -4,7 +4,7 @@ Author: UXLiner
 */
 $(function() {
     "use strict";
-	
+
   $(function () {
 
     /* initialize the external events
@@ -106,7 +106,7 @@ $(function() {
         // retrieve the dropped element's stored Event Object
         var originalEventObject = $(this).data('eventObject')
 
-        // we need to copy it, so that multiple events don't have a reference to the same object
+        // we need to copy.js it, so that multiple events don't have a reference to the same object
         var copiedEventObject = $.extend({}, originalEventObject)
 
         // assign it the date that was reported
@@ -164,10 +164,10 @@ $(function() {
       $('#new-event').val('')
     })
   })
-  
+
 
   /*Basic View Calendar */
-  
+
   /* initialize the calendar
      -----------------------------------------------------------------*/
     //Date for the calendar events (dummy data)
@@ -241,7 +241,7 @@ $(function() {
         // retrieve the dropped element's stored Event Object
         var originalEventObject = $(this).data('eventObject')
 
-        // we need to copy it, so that multiple events don't have a reference to the same object
+        // we need to copy.js it, so that multiple events don't have a reference to the same object
         var copiedEventObject = $.extend({}, originalEventObject)
 
         // assign it the date that was reported
@@ -298,5 +298,5 @@ $(function() {
       //Remove event from text input
       $('#new-event').val('')
     })
-  
+
 })(jQuery);

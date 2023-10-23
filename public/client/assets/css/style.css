@@ -290,6 +290,14 @@ footer.pt-4{
 .border-right-2 {
     border-right: 2px solid #ccc;
 }
+.border-top-1 {
+    border-top: 1px solid #ccc;
+}
+.border-bottom-1-seats{
+    padding-top: 20px;
+    border-top: 1px solid #CCD;
+    margin-top: 30px
+}
 
 /*Chỉnh sửa toast js*/
 .toast-close {
@@ -297,3 +305,4 @@ footer.pt-4{
     color: #000000 !important;
     font-size: 13px !important;
 }
+

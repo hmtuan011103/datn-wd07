@@ -118,6 +118,36 @@ $(function() {
 
         function showSingleLayer(seats, indexParent) {
             if(route.length === 2) {
+                const seats_return = $("<input>");
+                seats_return.attr("name", "seats_return[]");
+                seats_return.attr("type", "hidden");
+                seats_return.attr("id", "seats_return");
+                seats_return.attr("hidden", true);
+
+                const seats_turn = $("<input>");
+                seats_turn.attr("name", "seats_turn[]");
+                seats_turn.attr("type", "hidden");
+                seats_turn.attr("id", "seats_turn");
+                seats_turn.attr("hidden", true);
+
+                const money_turn = $("<input>");
+                money_turn.attr("name", "money_turn");
+                money_turn.attr("type", "hidden");
+                money_turn.attr("id", "money_turn");
+                money_turn.attr("hidden", true);
+
+                const money_return = $("<input>");
+                money_return.attr("name", "money_return");
+                money_return.attr("type", "hidden");
+                money_return.attr("id", "money_return");
+                money_return.attr("hidden", true);
+
+                indexParent === "3" ?
+                    $("#form-forward-checkout").append(seats_turn) :
+                    $("#form-forward-checkout").append(seats_return);
+                indexParent === "3" ?
+                    $("#form-forward-checkout").append(money_turn) :
+                    $("#form-forward-checkout").append(money_return);
                 const borderRight = indexParent === "3" ? 'border-right-2' : ''
                 const nameRoute = indexParent === "3" ? "Chuyến đi, " : "Chuyến về, ";
                 const nameRouteOne = indexParent === "3" ? "chuyến đi" : "chuyến về";
@@ -129,7 +159,6 @@ $(function() {
                 let codeSeatNew = indexParent === "3" ? codeSeatTurn : codeSeatReturn;
                 let totalMoneyNew = indexParent === "3" ? totalTurn : totalReturn;
                 let flagNew = indexParent === "3" ? flagTurn : flagReturn;
-
                 const showSeatForTrip = $(`
                     <div class="col-6 ${borderRight}" id="title-header-content-${indexParent}">
                         <table class="d-flex justify-content-center">
@@ -139,7 +168,7 @@ $(function() {
                 `);
                 $('#show-seat-for-trip').append(showSeatForTrip);
                 $(`#title-header-content-${indexParent}`).prepend(`
-                    <div class="choose-seat-title d-flex align-items-center justify-content-between">
+                    <div class="choose-seat-title d-flex align-items-center justify-content-between border-top-1 pt-3 mt-4">
                         <p class="fs-18 fw-medium">Chọn ghế</p>
                         <p class="fs-15 cl-blue-light text-decoration-underline cursor fw-medium">Thông tin xe</p>
                     </div>
@@ -211,6 +240,12 @@ $(function() {
                                 totalReturn = totalMoneyNew;
                             }
                             totalMoney = totalTurn + totalReturn;
+                            indexParent === "3" ?
+                                $('#seats_turn').val(codeSeatNew) :
+                                $('#seats_return').val(codeSeatNew);
+                            indexParent === "3" ?
+                                $('#money_turn').val(totalMoneyNew) :
+                                $('#money_return').val(totalMoneyNew);
                             $(`#amount-seat-turn-${indexParent}`).text(`${amountSeatNew} Ghế`);
                             $(`#total-money-turn-${indexParent}`).text(`${totalMoneyNew.toLocaleString("vi-VN")}đ`);
                             $(`#price-money-ticket-turn-${indexParent}`).text(`${totalMoneyNew.toLocaleString("vi-VN")}đ`);
@@ -262,6 +297,20 @@ $(function() {
                         </tr>
                     `);
             } else {
+                const seats_turn = $("<input>");
+                seats_turn.attr("name", "seats_turn[]");
+                seats_turn.attr("type", "hidden");
+                seats_turn.attr("id", "seats_turn");
+                seats_turn.attr("hidden", true);
+
+                const money_turn = $("<input>");
+                money_turn.attr("name", "money_turn");
+                money_turn.attr("type", "hidden");
+                money_turn.attr("id", "money_turn");
+                money_turn.attr("hidden", true);
+
+                $("#form-forward-checkout").append(seats_turn);
+                $("#form-forward-checkout").append(money_turn);
                 $('#show-seat-for-trip').before(`
                     <div class="choose-seat-title d-flex align-items-center justify-content-between">
                         <p class="fs-18 fw-medium">Chọn ghế</p>
@@ -276,7 +325,6 @@ $(function() {
                     </div>
                 `)
                 $('#show-seat-for-trip').append(showSeatForTrip);
-
                 seats.forEach((seat, index) => {
                     const sttSeat = index + 1;
                     if (sttSeat % 4 === 1) {
@@ -333,6 +381,8 @@ $(function() {
                             imageSeat.attr('src', `${baseImageUrl}/seat_active.svg`);
                         }
                         if (codeSeatTurn.length < 6) {
+                            $('#seats_turn').val(codeSeatTurn);
+                            $('#money_turn').val(totalMoney);
                             $('#amount-seat-turn').text(`${amountSeatTurn} Ghế`);
                             $('#total-money-turn').text(`${totalTurn.toLocaleString("vi-VN")}đ`);
                             $('#price-money-ticket-turn').text(`${totalTurn.toLocaleString("vi-VN")}đ`);
@@ -367,7 +417,6 @@ $(function() {
                         }
                     });
                 });
-
                 $('#show-seat-0').append(`
                     <tr class="gap-1 d-flex align-items-center justify-content-center header-car">
                         <td colspan="2">
@@ -391,46 +440,92 @@ $(function() {
 
         function showDoubleLayer(seats, indexParent) {
             if(route.length === 2) {
+                const seats_return = $("<input>");
+                seats_return.attr("name", "seats_return[]");
+                seats_return.attr("type", "hidden");
+                seats_return.attr("id", "seats_return");
+                seats_return.attr("hidden", true);
 
-            } else {
-                $('#show-seat-for-trip').before(`
-                    <div class="choose-seat-title d-flex align-items-center justify-content-between">
+                const seats_turn = $("<input>");
+                seats_turn.attr("name", "seats_turn[]");
+                seats_turn.attr("type", "hidden");
+                seats_turn.attr("id", "seats_turn");
+                seats_turn.attr("hidden", true);
+
+                const money_turn = $("<input>");
+                money_turn.attr("name", "money_turn");
+                money_turn.attr("type", "hidden");
+                money_turn.attr("id", "money_turn");
+                money_turn.attr("hidden", true);
+
+                const money_return = $("<input>");
+                money_return.attr("name", "money_return");
+                money_return.attr("type", "hidden");
+                money_return.attr("id", "money_return");
+                money_return.attr("hidden", true);
+
+                indexParent === "3" ?
+                    $("#form-forward-checkout").append(seats_turn) :
+                    $("#form-forward-checkout").append(seats_return);
+
+                indexParent === "3" ?
+                    $("#form-forward-checkout").append(money_turn) :
+                    $("#form-forward-checkout").append(money_return);
+
+                const borderSpacing = indexParent === "3" ? "" : "border-bottom-1-seats"
+                const nameRoute = indexParent === "3" ? "Chuyến đi, " : "Chuyến về, ";
+                const nameRouteOne = indexParent === "3" ? "chuyến đi" : "chuyến về";
+                const startDate = indexParent === "3" ?
+                    handleDate(route[0].start_date) :
+                    handleDate(route[1].start_date);
+                const routeNew = indexParent === "3" ? route[0] : route[1];
+                let amountSeatNew = indexParent === "3" ? amountSeatTurn : amountSeatReturn;
+                let codeSeatNew = indexParent === "3" ? codeSeatTurn : codeSeatReturn;
+                let totalMoneyNew = indexParent === "3" ? totalTurn : totalReturn;
+                let flagNew = indexParent === "3" ? flagTurn : flagReturn;
+                const nameKeySelectedSeats = indexParent === "3" ? "turn" : "return";
+                const arraySeatSelected = seatSelected
+                    .filter(item => item[0] === nameKeySelectedSeats)
+                    .map(item => item[1]);
+
+                $('#show-seat-for-trip').append(`
+                    <div class="choose-seat-title d-flex align-items-center justify-content-between ${borderSpacing}">
                         <p class="fs-18 fw-medium">Chọn ghế</p>
                         <p class="fs-15 cl-blue-light text-decoration-underline cursor fw-medium">
                             Thông tin xe
                         </p>
                     </div>
+                    <p class="fs-14 fw-medium">${nameRoute} ${startDate}</p>
                 `)
-                const showSeatForTripLayer1 = $('<table class="col-6"><tbody id="show-seat-1"></tbody></table>');
+                const showSeatForTripLayer1 = $(`<table class="col-6"><tbody id="show-seat-1-${indexParent}"></tbody></table>`);
                 showSeatForTripLayer1.prepend('<p class="layer-name fs-13 fw-medium ta-center">Tầng 1</p>');
                 $('#show-seat-for-trip').append(showSeatForTripLayer1);
-
                 seats.slice(0, maxSeatsPerLayer).forEach((seat, index) => {
                     const sttSeat = index + 1;
                     if (sttSeat % 4 === 1) {
-                        $('#show-seat-1').append(`
-                <tr class="d-flex align-items-center justify-content-center">
+                        $(`#show-seat-1-${indexParent}`).append(`
+                            <tr class="d-flex align-items-center justify-content-center">
 
-                </tr>
-            `);
+                            </tr>
+                        `);
                     }
 
-                    const isSeatSelected = seatSelected.includes(seat.id);
+                    const isSeatSelected = arraySeatSelected.includes(seat[0]);
 
                     const seatHtml = `
-            <td class="position-relative ${isSeatSelected ? 'cursor-not-allowed' : 'cursor'}">
-                <img src="${baseImageUrl}/${isSeatSelected ? 'seat_disabled' : 'seat_active'}.svg" alt="" class="w-100">
-                <span
-                    data-code="${seat.code}"
-                    class="position-absolute fs-10 text-uppercase fw-bold code-seat ${isSeatSelected ? 'seat-disabled' : 'seat-active'}">
-                    ${seat.code}
-                </span>
-            </td>
-        `;
+                        <td class="position-relative ${isSeatSelected ? 'cursor-not-allowed' : 'cursor'}">
+                            <img src="${baseImageUrl}/${isSeatSelected ? 'seat_disabled' : 'seat_active'}.svg" alt="" class="w-100">
+                            <span
+                                data-code="${seat[1]}"
+                                class="position-absolute fs-10 text-uppercase fw-bold code-seat ${isSeatSelected ? 'seat-disabled' : 'seat-active'}">
+                                ${seat[1]}
+                            </span>
+                        </td>
+                    `;
 
                     const $seat = $(seatHtml);
 
-                    const lastRow = $('#show-seat-1').find("tr:last-child");
+                    const lastRow = $(`#show-seat-1-${indexParent}`).find("tr:last-child");
                     lastRow.append($seat);
                     if (sttSeat % 4 === 0) {
                         const secondTd = lastRow.find("td:eq(1)");
@@ -442,44 +537,55 @@ $(function() {
                         const codeSeat = $(this).find('span');
                         const imageSeat = $(this).find('img');
                         if (codeSeat.hasClass('seat-active')) {
-                            if (codeSeatTurn.length < 5) {
-                                amountSeatTurn++;
-                                totalTurn += route.trip_price;
-                                totalMoney += route.trip_price;
-                                codeSeatTurn.push(codeSeat.data('code'));
+                            if (codeSeatNew.length < 5) {
+                                amountSeatNew++;
+                                totalMoneyNew += routeNew.trip_price;
+                                // totalMoneyNew += routeNew.trip_price;
+                                codeSeatNew.push(codeSeat.data('code'));
                                 codeSeat.removeClass('seat-active').addClass('seat-selecting');
                                 imageSeat.attr('src', `${baseImageUrl}/seat_selecting.svg`);
                             }
-                            flag++;
+                            flagNew++;
                         } else if (codeSeat.hasClass('seat-selecting')) {
-                            flag < 6 ? flag-- : flag = 4;
-                            amountSeatTurn > 0 ? amountSeatTurn-- : 0;
-                            totalTurn > 0 ? totalTurn -= route.trip_price : 0;
-                            totalMoney -= route.trip_price;
-                            codeSeatTurn = codeSeatTurn.filter(value => value !== codeSeat.data('code'));
+                            flagNew < 6 ? flagNew-- : flagNew = 4;
+                            amountSeatNew > 0 ? amountSeatNew-- : 0;
+                            // totalMoneyNew > 0 ? totalMoneyNew -= routeNew.trip_price : 0;
+                            totalMoneyNew -= routeNew.trip_price;
+                            codeSeatNew = codeSeatNew.filter(value => value !== codeSeat.data('code'));
                             codeSeat.removeClass('seat-selecting').addClass('seat-active');
                             imageSeat.attr('src', `${baseImageUrl}/seat_active.svg`);
                         }
-                        if (codeSeatTurn.length < 6) {
-                            $('#amount-seat-turn').text(`${amountSeatTurn} Ghế`);
-                            $('#total-money-turn').text(`${totalTurn.toLocaleString("vi-VN")}đ`);
-                            $('#price-money-ticket-turn').text(`${totalTurn.toLocaleString("vi-VN")}đ`);
-                            $('#total-money-ticket-trip').text(`${totalMoney.toLocaleString("vi-VN")}đ`);
-                            $('#show-total-detail-price-trip-checkout').text(`${totalMoney.toLocaleString("vi-VN")}đ`);
-
-                            const showCodeSeatTurn = codeSeatTurn.map(item => {
+                        if (codeSeatNew.length < 6) {
+                            if (indexParent === "3") {
+                                totalTurn = totalMoneyNew;
+                            } else {
+                                totalReturn = totalMoneyNew;
+                            }
+                            indexParent === "3" ?
+                                $('#seats_turn').val(codeSeatNew) :
+                                $('#seats_return').val(codeSeatNew);
+                            indexParent === "3" ?
+                                $('#money_turn').val(totalMoneyNew) :
+                                $('#money_return').val(totalMoneyNew);
+                            totalMoney = totalTurn + totalReturn;
+                            $(`#amount-seat-turn-${indexParent}`).text(`${amountSeatNew} Ghế`);
+                            $(`#total-money-turn-${indexParent}`).text(`${totalMoneyNew.toLocaleString("vi-VN")}đ`);
+                            $(`#price-money-ticket-turn-${indexParent}`).text(`${totalMoneyNew.toLocaleString("vi-VN")}đ`);
+                            $(`#show-total-detail-price-trip-checkout`).text(`${totalMoney.toLocaleString("vi-VN")}đ`);
+                            $(`#total-money-ticket-trip`).text(`${totalMoney.toLocaleString("vi-VN")}đ`);
+                            const showCodeSeatTurnReturn = codeSeatNew.map(item => {
                                 return `
-                        ${item}
-                    `;
+                                    ${item}
+                                `;
                             });
-                            $('#code-seat-turn').html(showCodeSeatTurn.join(', '));
+                            $(`#code-seat-turn-${indexParent}`).html(showCodeSeatTurnReturn.join(', '));
                         }
                         if (
-                            codeSeatTurn.length === 5 && flag > 5 &&
+                            codeSeatNew.length === 5 && flagNew > 5 &&
                             codeSeat.hasClass('seat-active')
                         ) {
                             Toastify({
-                                text: "Bạn không được chọn quá 5 ghế",
+                                text: `Bạn không được chọn quá 5 ghế ở ${nameRouteOne}`,
                                 duration: 2000,
                                 newWindow: true,
                                 close: true,
@@ -495,23 +601,264 @@ $(function() {
                         }
                     });
                 });
-                $('#show-seat-1').append(`
-            <tr class="gap-1 d-flex align-items-center header-car justify-content-center">
-                <td colspan="2">
-                    <span class="fs-10 p-2 fw-medium border-start">
-                        Cửa lên
-                    </span>
-                </td>
-                <td class="w-32 h-32">
+                $(`#show-seat-1-${indexParent}`).append(`
+                    <tr class="gap-1 d-flex align-items-center header-car justify-content-center">
+                        <td colspan="2">
+                            <span class="fs-10 p-2 fw-medium border-start">
+                                Cửa lên
+                            </span>
+                        </td>
+                        <td class="w-32 h-32">
 
-                </td>
-                <td colspan="2">
-                    <span class="fs-10 p-2 fw-medium border border-1">
-                        Tài xế
-                    </span>
-                </td>
-            </tr>
-        `);
+                        </td>
+                        <td colspan="2">
+                            <span class="fs-10 p-2 fw-medium border border-1">
+                                Tài xế
+                            </span>
+                        </td>
+                    </tr>
+                `);
+
+                const showSeatForTripLayer2 = $(`<table class="col-6 spacing-floor-second"><tbody id="show-seat-2-${indexParent}"></tbody></table>`);
+                showSeatForTripLayer2.prepend('<p class="layer-name spacing-floor-second-title ta-center fs-13 fw-medium">Tầng 2</p>');
+                $('#show-seat-for-trip').append(showSeatForTripLayer2);
+                seats.slice(maxSeatsPerLayer, maxSeatsPerLayer * 2).forEach((seat, index) => {
+                    const sttSeat = index + 1;
+                    if (sttSeat % 4 === 1) {
+                        $(`#show-seat-2-${indexParent}`).append(`
+                            <tr class="d-flex align-items-center justify-content-center">
+
+                            </tr>
+                        `);
+                    }
+
+                    const isSeatSelected = arraySeatSelected.includes(seat[0]);
+
+                    const seatHtml = `
+                        <td class="position-relative ${isSeatSelected ? 'cursor-not-allowed' : 'cursor'}">
+                            <img src="${baseImageUrl}/${isSeatSelected ? 'seat_disabled' : 'seat_active'}.svg" alt="" class="w-100">
+                            <span
+                                data-code="${seat[1]}"
+                                class="position-absolute fs-10 text-uppercase fw-bold code-seat ${isSeatSelected ? 'seat-disabled' : 'seat-active'}">
+                                ${seat[1]}
+                            </span>
+                        </td>
+                    `;
+
+                    const $seat = $(seatHtml);
+
+                    const lastRow = $(`#show-seat-2-${indexParent}`).find("tr:last-child");
+                    lastRow.append($seat);
+                    if (sttSeat % 4 === 0) {
+                        const secondTd = lastRow.find("td:eq(1)");
+                        const spacingTd = $('<td class="gap-1 w-32 h-32"></td>');
+                        secondTd.after(spacingTd);
+                    }
+
+                    $seat.on('click', function () {
+                        const codeSeat = $(this).find('span');
+                        const imageSeat = $(this).find('img');
+                        if (codeSeat.hasClass('seat-active')) {
+                            if (codeSeatNew.length < 5) {
+                                amountSeatNew++;
+                                totalMoneyNew += routeNew.trip_price;
+                                // totalMoneyNew += routeNew.trip_price;
+                                codeSeatNew.push(codeSeat.data('code'));
+                                codeSeat.removeClass('seat-active').addClass('seat-selecting');
+                                imageSeat.attr('src', `${baseImageUrl}/seat_selecting.svg`);
+                            }
+                            flagNew++;
+                        } else if (codeSeat.hasClass('seat-selecting')) {
+                            flagNew < 6 ? flagNew-- : flagNew = 4;
+                            amountSeatNew > 0 ? amountSeatNew-- : 0;
+                            // totalMoneyNew > 0 ? totalMoneyNew -= routeNew.trip_price : 0;
+                            totalMoneyNew -= routeNew.trip_price;
+                            codeSeatNew = codeSeatNew.filter(value => value !== codeSeat.data('code'));
+                            codeSeat.removeClass('seat-selecting').addClass('seat-active');
+                            imageSeat.attr('src', `${baseImageUrl}/seat_active.svg`);
+                        }
+                        if (codeSeatNew.length < 6) {
+                            if (indexParent === "3") {
+                                totalTurn = totalMoneyNew;
+                            } else {
+                                totalReturn = totalMoneyNew;
+                            }
+                            indexParent === "3" ?
+                                $('#seats_turn').val(codeSeatNew) :
+                                $('#seats_return').val(codeSeatNew);
+                            indexParent === "3" ?
+                                $('#money_turn').val(totalMoneyNew) :
+                                $('#money_return').val(totalMoneyNew);
+                            totalMoney = totalTurn + totalReturn;
+                            $(`#amount-seat-turn-${indexParent}`).text(`${amountSeatNew} Ghế`);
+                            $(`#total-money-turn-${indexParent}`).text(`${totalMoneyNew.toLocaleString("vi-VN")}đ`);
+                            $(`#price-money-ticket-turn-${indexParent}`).text(`${totalMoneyNew.toLocaleString("vi-VN")}đ`);
+                            $(`#show-total-detail-price-trip-checkout`).text(`${totalMoney.toLocaleString("vi-VN")}đ`);
+                            $(`#total-money-ticket-trip`).text(`${totalMoney.toLocaleString("vi-VN")}đ`);
+                            const showCodeSeatTurnReturn = codeSeatNew.map(item => {
+                                return `
+                                    ${item}
+                                `;
+                            });
+                            $(`#code-seat-turn-${indexParent}`).html(showCodeSeatTurnReturn.join(', '));
+                        }
+                        if (
+                            codeSeatNew.length === 5 && flagNew > 5 &&
+                            codeSeat.hasClass('seat-active')
+                        ) {
+                            Toastify({
+                                text: `Bạn không được chọn quá 5 ghế ở ${nameRouteOne}`,
+                                duration: 2000,
+                                newWindow: true,
+                                close: true,
+                                gravity: "top",
+                                position: "right",
+                                stopOnFocus: true,
+                                style: {
+                                    background: "#EF5222",
+                                    padding: "20px 10px",
+                                    borderRadius: '5px'
+                                },
+                            }).showToast();
+                        }
+                    });
+                });
+            } else {
+                const seats_turn = $("<input>");
+                seats_turn.attr("name", "seats_turn[]");
+                seats_turn.attr("type", "hidden");
+                seats_turn.attr("id", "seats_turn");
+                seats_turn.attr("hidden", true);
+
+                const money_turn = $("<input>");
+                money_turn.attr("name", "money_turn");
+                money_turn.attr("type", "hidden");
+                money_turn.attr("id", "money_turn");
+                money_turn.attr("hidden", true);
+
+                $("#form-forward-checkout").append(seats_turn);
+                $("#form-forward-checkout").append(money_turn);
+
+                $('#show-seat-for-trip').before(`
+                    <div class="choose-seat-title d-flex align-items-center justify-content-between">
+                        <p class="fs-18 fw-medium">Chọn ghế</p>
+                        <p class="fs-15 cl-blue-light text-decoration-underline cursor fw-medium">
+                            Thông tin xe
+                        </p>
+                    </div>
+                `)
+                const showSeatForTripLayer1 = $('<table class="col-6"><tbody id="show-seat-1"></tbody></table>');
+                showSeatForTripLayer1.prepend('<p class="layer-name fs-13 fw-medium ta-center">Tầng 1</p>');
+                $('#show-seat-for-trip').append(showSeatForTripLayer1);
+                seats.slice(0, maxSeatsPerLayer).forEach((seat, index) => {
+                            const sttSeat = index + 1;
+                            if (sttSeat % 4 === 1) {
+                                $('#show-seat-1').append(`
+                        <tr class="d-flex align-items-center justify-content-center">
+
+                        </tr>
+                    `);
+                            }
+
+                            const isSeatSelected = seatSelected.includes(seat.id);
+
+                            const seatHtml = `
+                    <td class="position-relative ${isSeatSelected ? 'cursor-not-allowed' : 'cursor'}">
+                        <img src="${baseImageUrl}/${isSeatSelected ? 'seat_disabled' : 'seat_active'}.svg" alt="" class="w-100">
+                        <span
+                            data-code="${seat.code}"
+                            class="position-absolute fs-10 text-uppercase fw-bold code-seat ${isSeatSelected ? 'seat-disabled' : 'seat-active'}">
+                            ${seat.code}
+                        </span>
+                    </td>
+                `;
+
+                            const $seat = $(seatHtml);
+
+                            const lastRow = $('#show-seat-1').find("tr:last-child");
+                            lastRow.append($seat);
+                            if (sttSeat % 4 === 0) {
+                                const secondTd = lastRow.find("td:eq(1)");
+                                const spacingTd = $('<td class="gap-1 w-32 h-32"></td>');
+                                secondTd.after(spacingTd);
+                            }
+
+                            $seat.on('click', function () {
+                                const codeSeat = $(this).find('span');
+                                const imageSeat = $(this).find('img');
+                                if (codeSeat.hasClass('seat-active')) {
+                                    if (codeSeatTurn.length < 5) {
+                                        amountSeatTurn++;
+                                        totalTurn += route.trip_price;
+                                        totalMoney += route.trip_price;
+                                        codeSeatTurn.push(codeSeat.data('code'));
+                                        codeSeat.removeClass('seat-active').addClass('seat-selecting');
+                                        imageSeat.attr('src', `${baseImageUrl}/seat_selecting.svg`);
+                                    }
+                                    flag++;
+                                } else if (codeSeat.hasClass('seat-selecting')) {
+                                    flag < 6 ? flag-- : flag = 4;
+                                    amountSeatTurn > 0 ? amountSeatTurn-- : 0;
+                                    totalTurn > 0 ? totalTurn -= route.trip_price : 0;
+                                    totalMoney -= route.trip_price;
+                                    codeSeatTurn = codeSeatTurn.filter(value => value !== codeSeat.data('code'));
+                                    codeSeat.removeClass('seat-selecting').addClass('seat-active');
+                                    imageSeat.attr('src', `${baseImageUrl}/seat_active.svg`);
+                                }
+                                if (codeSeatTurn.length < 6) {
+                                    $('#seats_turn').val(codeSeatTurn);
+                                    $('#money_turn').val(totalMoney);
+                                    $('#amount-seat-turn').text(`${amountSeatTurn} Ghế`);
+                                    $('#total-money-turn').text(`${totalTurn.toLocaleString("vi-VN")}đ`);
+                                    $('#price-money-ticket-turn').text(`${totalTurn.toLocaleString("vi-VN")}đ`);
+                                    $('#total-money-ticket-trip').text(`${totalMoney.toLocaleString("vi-VN")}đ`);
+                                    $('#show-total-detail-price-trip-checkout').text(`${totalMoney.toLocaleString("vi-VN")}đ`);
+
+                                    const showCodeSeatTurn = codeSeatTurn.map(item => {
+                                        return `
+                                ${item}
+                            `;
+                                    });
+                                    $('#code-seat-turn').html(showCodeSeatTurn.join(', '));
+                                }
+                                if (
+                                    codeSeatTurn.length === 5 && flag > 5 &&
+                                    codeSeat.hasClass('seat-active')
+                                ) {
+                                    Toastify({
+                                        text: "Bạn không được chọn quá 5 ghế",
+                                        duration: 2000,
+                                        newWindow: true,
+                                        close: true,
+                                        gravity: "top",
+                                        position: "right",
+                                        stopOnFocus: true,
+                                        style: {
+                                            background: "#EF5222",
+                                            padding: "20px 10px",
+                                            borderRadius: '5px'
+                                        },
+                                    }).showToast();
+                                }
+                            });
+                        });
+                $('#show-seat-1').append(`
+                    <tr class="gap-1 d-flex align-items-center header-car justify-content-center">
+                        <td colspan="2">
+                            <span class="fs-10 p-2 fw-medium border-start">
+                                Cửa lên
+                            </span>
+                        </td>
+                        <td class="w-32 h-32">
+
+                        </td>
+                        <td colspan="2">
+                            <span class="fs-10 p-2 fw-medium border border-1">
+                                Tài xế
+                            </span>
+                        </td>
+                    </tr>
+                `);
 
                 const showSeatForTripLayer2 = $('<table class="col-6 spacing-floor-second"><tbody id="show-seat-2"></tbody></table>');
                 showSeatForTripLayer2.prepend('<p class="layer-name spacing-floor-second-title ta-center fs-13 fw-medium">Tầng 2</p>');
@@ -573,6 +920,8 @@ $(function() {
                             imageSeat.attr('src', `${baseImageUrl}/seat_active.svg`);
                         }
                         if (codeSeatTurn.length < 6) {
+                            $('#seats_turn').val(codeSeatTurn);
+                            $('#money_turn').val(totalMoney);
                             $('#amount-seat-turn').text(`${amountSeatTurn} Ghế`);
                             $('#total-money-turn').text(`${totalTurn.toLocaleString("vi-VN")}đ`);
                             $('#price-money-ticket-turn').text(`${totalTurn.toLocaleString("vi-VN")}đ`);
@@ -672,7 +1021,7 @@ $(function() {
                     },
                     policy: {
                         required: true
-                    }
+                    },
                 },
                 messages: {
                     name: {
@@ -710,6 +1059,41 @@ $(function() {
                     }
                 },
                 submitHandler: function(form) {
+                    const seatsTurn = $("#seats_turn").val();
+                    if (seatsTurn === "") {
+                        Toastify({
+                            text: "Bạn phải chọn ít nhất 1 chỗ ngồi lượt đi",
+                            duration: 2000,
+                            newWindow: true,
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            stopOnFocus: true,
+                            style: {
+                                background: "#EF5222",
+                                padding: "20px 10px",
+                                borderRadius: '5px'
+                            },
+                        }).showToast();
+                        return false;
+                    }
+                    if($("#seats_return") && $("#seats_return").val() === "") {
+                        Toastify({
+                            text: "Bạn phải chọn ít nhất 1 chỗ ngồi lượt về",
+                            duration: 2000,
+                            newWindow: true,
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            stopOnFocus: true,
+                            style: {
+                                background: "#EF5222",
+                                padding: "20px 10px",
+                                borderRadius: '5px'
+                            },
+                        }).showToast();
+                        return false;
+                    }
                     alert('hehe');
                 }
             });
@@ -841,7 +1225,7 @@ $(function() {
         if(route.length === 2 ) {
             route.forEach((routeNameCg, index) => {
                 const nameRoute = index === 0 ? "Chuyến đi, " : "Chuyến về, ";
-                const classNameRoute = index === 0 ? "place-turning-returning" : "";
+                const classNameRoute = index === 1 ? "place-turning-returning" : "";
                 const startDate = handleDate(routeNameCg.start_date);
                 $('#info-turn-return').append(`
                     <div class="col-12 ${classNameRoute}">
@@ -875,29 +1259,29 @@ $(function() {
                         </div>
                     </div>
                 `);
-                locationRouteTrip.forEach(item => {
-                    if(index === 0) {
-                        if(item.key === "start_location") {
-                            $(`#place-start-turn-${index}`).append(`
-                            <option value="${item.id}">${item.name}</option>
+                if(index === 0 ) {
+                    locationRouteTrip.start_location.forEach(item => {
+                        $(`#place-start-turn-${index}`).append(`
+                            <option value="${item.id}" data-parent-id="${item.parent_id}" >${item.name}</option>
                         `);
-                        } else if(item.key === "end_location") {
-                            $(`#place-end-turn-${index}`).append(`
-                            <option value="${item.id}">${item.name}</option>
+                    });
+                    locationRouteTrip.end_location.forEach(item => {
+                        $(`#place-end-turn-${index}`).append(`
+                            <option value="${item.id}" data-parent-id="${item.parent_id}" >${item.name}</option>
+                        `)
+                    });
+                } else {
+                    locationRouteTrip.start_location.forEach(item => {
+                        $(`#place-end-turn-${index}`).append(`
+                            <option value="${item.id}" data-parent-id="${item.parent_id}" >${item.name}</option>
                         `);
-                        }
-                    } else {
-                        if(item.key === "end_location") {
-                            $(`#place-start-turn-${index}`).append(`
-                            <option value="${item.id}">${item.name}</option>
-                        `);
-                        } else if(item.key === "start_location") {
-                            $(`#place-end-turn-${index}`).append(`
-                            <option value="${item.id}">${item.name}</option>
-                        `);
-                        }
-                    }
-                });
+                    });
+                    locationRouteTrip.end_location.forEach(item => {
+                        $(`#place-start-turn-${index}`).append(`
+                            <option value="${item.id}" data-parent-id="${item.parent_id}" >${item.name}</option>
+                        `)
+                    });
+                }
             });
 
         } else {
@@ -925,16 +1309,15 @@ $(function() {
                     </div>
                 </div>
             `);
-            locationRouteTrip.forEach(item => {
-                if(item.key === "start_location") {
-                    $('#place-start-turn').append(`
-                    <option value="${item.id}">${item.name}</option>
+            locationRouteTrip.start_location.forEach(item => {
+                $('#place-start-turn').append(`
+                    <option value="${item.id}" data-parent-id="${item.parent_id}" >${item.name}</option>
                 `);
-                } else if(item.key === "end_location") {
-                    $('#place-end-turn').append(`
-                    <option value="${item.id}">${item.name}</option>
+            });
+            locationRouteTrip.end_location.forEach(item => {
+                $('#place-end-turn').append(`
+                    <option value="${item.id}" data-parent-id="${item.parent_id}" >${item.name}</option>
                 `);
-                }
             });
         }
     });
