@@ -311,7 +311,7 @@ var Prism = (function (_self) {
 			txt: plainTextGrammar,
 
 			/**
-			 * Creates a deep copy of the language with the given id and appends the given tokens.
+			 * Creates a deep copy.js of the language with the given id and appends the given tokens.
 			 *
 			 * If a token in `redef` also appears in the copied language, then the existing token in the copied language
 			 * will be overwritten at its original position.
@@ -780,7 +780,7 @@ var Prism = (function (_self) {
 	 * @param {string} type See {@link Token#type type}
 	 * @param {string | TokenStream} content See {@link Token#content content}
 	 * @param {string|string[]} [alias] The alias(es) of the token.
-	 * @param {string} [matchedStr=""] A copy of the full string this token was created from.
+	 * @param {string} [matchedStr=""] A copy.js of the full string this token was created from.
 	 * @class
 	 * @global
 	 * @public

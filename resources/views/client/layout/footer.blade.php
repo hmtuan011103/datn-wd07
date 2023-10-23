@@ -57,5 +57,6 @@
         © 2023 | Bản quyền thuộc về Công ty Cổ Phần Xe khách Chiến Thắng - Chien Thang Bus Lines 2023
     </div>
 </footer>
+<script src={{ asset('admin/assets/libs/jquery/jquery-3.6.0.min.js') }}></script>
 @yield('script')
 
