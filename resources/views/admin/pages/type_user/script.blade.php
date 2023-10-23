@@ -11,4 +11,3 @@
 {!! JsValidator::formRequest('App\Http\Requests\TypeUser\StoreTypeUserRequest') !!}
 
 <script src={{ asset('admin/assets/js/pages/src/main.js') }}></script>
-
