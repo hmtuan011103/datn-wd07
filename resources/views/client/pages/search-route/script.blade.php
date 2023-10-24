@@ -616,14 +616,14 @@
                         `<div class="p-4 border border-1 rounded-3 mt-3 w-100">
                         <div class="d-flex justify-content-between align-items-center">
                             <p class="mb-0 pe-3 fw-medium">${item.start_time.slice(0, -3)}</p>
-                            {{-- <img src="styles/start_place.svg" alt=""> --}}
+                            <img src="{{ asset('client/assets/images/start_place.svg') }}" alt="">
                             <span class="border-dotted"></span>
                             <div class="ta-center show-time-run">
                                 <p class="fw-medium mb-0">${parseInt(item.interval_trip.substring(0, 2))} giờ</p>
                                 <p class="fs-13 fw-medium">(Asian/Ho Chi Minh)</p>
                             </div>
                             <span class="border-dotted"></span>
-                            {{-- <img src="styles/end_place.svg" alt=""> --}}
+                            <img src="{{ asset('client/assets/images/end_place.svg') }}" alt="">
                             <p class="mb-0 ps-3 fw-medium">${calculateEndTime(item.start_time,item.interval_trip)}</p>
                         </div>
                         <div class="d-flex justify-content-between">
@@ -711,14 +711,14 @@
                                 `<div class="p-4 border border-1 rounded-3 mt-3 w-100">
                             <div class="d-flex justify-content-between align-items-center">
                                 <p class="mb-0 pe-3 fw-medium">${item.start_time.slice(0, -3)}</p>
-                                {{-- <img src="styles/start_place.svg" alt=""> --}}
+                                <img src="{{ asset('client/assets/images/start_place.svg') }}" alt="">
                                 <span class="border-dotted"></span>
                                 <div class="ta-center show-time-run">
                                     <p class="fw-medium mb-0">${parseInt(item.interval_trip.substring(0, 2))} giờ</p>
                                     <p class="fs-13 fw-medium">(Asian/Ho Chi Minh)</p>
                                 </div>
                                 <span class="border-dotted"></span>
-                                {{-- <img src="styles/end_place.svg" alt=""> --}}
+                                <img src="{{ asset('client/assets/images/end_place.svg') }}" alt="">
                                 <p class="mb-0 ps-3 fw-medium">${calculateEndTime(item.start_time,item.interval_trip)}</p>
                             </div>
                             <div class="d-flex justify-content-between">
@@ -805,14 +805,14 @@
                                 `<div class="p-4 border border-1 rounded-3 mt-3 w-100">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <p class="mb-0 pe-3 fw-medium">${item.start_time.slice(0, -3)}</p>
-                                    {{-- <img src="styles/start_place.svg" alt=""> --}}
+                                    <img src="{{ asset('client/assets/images/start_place.svg') }}" alt="">
                                     <span class="border-dotted"></span>
                                     <div class="ta-center show-time-run">
                                         <p class="fw-medium mb-0">${parseInt(item.interval_trip.substring(0, 2))} giờ</p>
                                         <p class="fs-13 fw-medium">(Asian/Ho Chi Minh)</p>
                                     </div>
                                     <span class="border-dotted"></span>
-                                    {{-- <img src="styles/end_place.svg" alt=""> --}}
+                                    <img src="{{ asset('client/assets/images/end_place.svg') }}" alt="">
                                     <p class="mb-0 ps-3 fw-medium">${calculateEndTime(item.start_time,item.interval_trip)}</p>
                                 </div>
                                 <div class="d-flex justify-content-between">
