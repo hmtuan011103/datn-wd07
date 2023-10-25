@@ -381,3 +381,6 @@ body, div, html {
     transform: rotate(180deg);
     cursor: pointer;
   }
+  .alldata {
+    margin-bottom: 15px;
+  }
