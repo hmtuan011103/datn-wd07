@@ -7,8 +7,10 @@ use App\Http\Controllers\UserRoles\Admin\UserRoleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TypeCar\Admin\TypeCarController;
 use App\Http\Controllers\Car\Admin\CarController;
+use App\Http\Controllers\DiscountCode\Admin\DiscountCodeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Trip\Admin\TripController;
+use App\Models\DiscountCode;
 
 /*
 |--------------------------------------------------------------------------
@@ -114,6 +116,15 @@ Route::name('type_users.')->prefix('type_users')->group(function () {
     Route::delete('{type_user}', [\App\Http\Controllers\TypeUser\Admin\TypeUserController::class, 'destroy'])->name('destroy')->middleware('check_permission:delete-user-type');
 });
 
+Route::group(['prefix' => 'discount_code'], function () {
+    Route::get('/', [DiscountCodeController::class, 'index'])->name('list_discount_code')->middleware('check_permission:read-discount-code');
+    Route::get('/create', [DiscountCodeController::class, 'add'])->name('create_discount_code')->middleware('check_permission:create-discount-code');
+    Route::post('/post_create', [DiscountCodeController::class, 'store'])->name('post_create_discount_code')->middleware('check_permission:create-discount-code');
+    Route::get('/edit/{id}', [DiscountCodeController::class, 'edit'])->name('edit_discount_code')->middleware('check_permission:update-discount-code');
+    Route::post('/post_edit/{id}', [DiscountCodeController::class, 'update'])->name('post_edit_discount_code')->middleware('check_permission:update-discount-code');
+    Route::get('/delete/{id}', [DiscountCodeController::class, 'delete'])->name('delete_discount_code')->middleware('check_permission:delete-discount-code');
+
+});
 // authen
 Route::get('login', [\App\Http\Controllers\Auth\FormController::class, 'login'])->name('login.form')->middleware('guest');
 Route::prefix('auth')->group(function () {

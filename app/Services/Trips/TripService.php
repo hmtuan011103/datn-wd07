@@ -4,6 +4,7 @@ namespace App\Services\Trips;
 
 use App\Http\Requests\Trip\StoreTripRequest;
 use App\Http\Requests\Trip\UpdateTripRequest;
+use App\Models\Bill;
 use App\Models\Bills;
 use App\Models\Car;
 use App\Models\Location;
@@ -31,6 +32,11 @@ class TripService
         return $trips;
     }
 
+    public function get_parent_id()
+    {
+        return Location::select('locations.name', 'locations.id')->where('locations.parent_id', Null)->get();
+    }
+    
     public function create (StoreTripRequest $request) {
         if($request->isMethod('POST')) {
 
@@ -332,5 +338,17 @@ class TripService
     public function get_all_type_car(){
         $type_car = TypeCar::select('type_seats')->get();
         return $type_car;
+    }
+
+    public function get_total_seat_empty($request){
+        $bill_seat = Bill::select('total_seats')->where(['trip_id' => $request])->get();
+        $total_seat_bill = 0;
+        foreach($bill_seat as $key){
+            $total_seat_bill += $key->total_seats;
+        }
+        $trip = Trip::with('car.typeCar')->where(['id'=> $request])->get();
+        $total_seat_trip = $trip[0]->car->typeCar->total_seat;
+        $seats = intval($total_seat_trip) - intval($total_seat_bill);
+        return $seats;
     }
 }

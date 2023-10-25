@@ -32,3 +32,4 @@ Route::get('/location/list_client_location',[ClientLocationController::class, 'l
 Route::get('searchtrip',[TripController::class, 'searchtrip'])->name('search_trip');
 Route::get('searchtrip/get_type_car',[TripController::class, 'get_type_car'])->name('get_type_car');
 Route::get('information-detail-trip', [TripController::class, 'getInformationDetailTrip']);
+Route::get('get_seat_empty', [TripController::class, 'get_seat_empty'])->name('get_seat_empty');

@@ -78,4 +78,8 @@ class TripController extends BaseTripController
         $type_car = $this->tripService->get_all_type_car();
         return response()->json($type_car,200);
     }
+    public function get_seat_empty(Request $request){
+        $seat_empty = $this->tripService->get_total_seat_empty($request->trip_id);
+        return response()->json($seat_empty,200);
+    }
 }
