@@ -103,6 +103,8 @@ Route::name('users.')->prefix('users')->group(function () {
     Route::match(['put', 'patch'], '{user}', [\App\Http\Controllers\User\Admin\UserController::class, 'update'])->name('update')->middleware('check_permission:update-user');
     Route::delete('{user}', [\App\Http\Controllers\User\Admin\UserController::class, 'destroy'])->name('destroy')->middleware('check_permission:delete-user');
     Route::get('{user}', [\App\Http\Controllers\User\Admin\UserController::class, 'show'])->name('show')->middleware('check_permission:read-user');
+    Route::get('{user}/profile', [\App\Http\Controllers\User\Admin\UserController::class, 'profile'])->name('profile')->middleware('auth');
+    Route::patch('{user}/profile/change-password', [\App\Http\Controllers\User\Admin\UserController::class, 'profileChangePassword'])->name('profile.change.password')->middleware('auth');
 });
 
 Route::name('type_users.')->prefix('type_users')->group(function () {

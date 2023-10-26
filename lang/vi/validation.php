@@ -191,7 +191,8 @@ return [
         'password' => 'mật khẩu',
         'address' => 'địa chỉ',
         'description' => 'mô tả',
-        'roles' => 'vai trò'
+        'roles' => 'vai trò',
+        'password_current' => 'mật khẩu hiện tại',
     ],
 
 ];
