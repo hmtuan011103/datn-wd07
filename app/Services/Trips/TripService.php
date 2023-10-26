@@ -11,6 +11,8 @@ use App\Models\Trip;
 use App\Models\TypeCar;
 use App\Models\User;
 use Carbon\Carbon;
+use DateInterval;
+use DateTime;
 use Illuminate\Support\Facades\DB;
 
 class TripService

@@ -30,8 +30,8 @@
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
-                                <h6 class="dropdown-header text-capitalize">Xin chào {{ Auth::user()->name }}!</h6>
-                                <a class="dropdown-item" href="#">
+                                <h6 class="dropdown-header text-capitalize">Xin chào {{ Auth::user()->name }}</h6>
+                                <a class="dropdown-item" href="{{ route('users.profile', ['user' => Auth::user()->id]) }}">
                                     <i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
                                     <span class="align-middle">
                                         Tài khoản
