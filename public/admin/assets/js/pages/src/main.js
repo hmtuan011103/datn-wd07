@@ -92,3 +92,25 @@ async function deleteRecordApi(url, data, methodType = 'DELETE') {
           Swal.hideLoading();
      }
 };
+
+// how to use
+{/*
+
+example:
+<i class="mdi mdi-eye-off fs-4 cursor-pointer"
+     onclick="showPasswordToggle(this.classList, 'validationCustomPasswordcur')">
+</i>
+<input type="password" id="validationCustomPasswordcur">
+
+*/}
+function showPasswordToggle(elementTriggerClass, inputId) {
+     let passwordField = document.getElementById(inputId);
+
+     if (passwordField.type === "password") {
+          passwordField.type = "text";
+          elementTriggerClass.replace("mdi-eye-off", "mdi-eye");
+     } else {
+          passwordField.type = "password";
+          elementTriggerClass.replace("mdi-eye", "mdi-eye-off");
+     }
+}
