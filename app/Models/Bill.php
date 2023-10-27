@@ -18,6 +18,7 @@ class Bill extends Model
         'status_pay',
         'total_money',
         'total_money_after_discount',
-        'type_pay'
+        'type_pay',
+        'total_seats'
     ];
 }
