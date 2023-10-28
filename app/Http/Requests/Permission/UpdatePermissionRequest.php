@@ -23,6 +23,7 @@ class UpdatePermissionRequest extends FormRequest
     {
         return [
             'name' => 'required',
+            'name' => 'unique:permissions',
             'description' => 'required'
         ];
     }
@@ -30,6 +31,7 @@ class UpdatePermissionRequest extends FormRequest
     {
         return [
             'name.required' => 'Không được bỏ trống tên',
+            'name.unique' => 'Tên phân quyền bị trùng lặp',
             'description.required' => 'Không được bỏ trống mô tả',
         ];
     }

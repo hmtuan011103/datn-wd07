@@ -13,7 +13,7 @@ class PermissionController extends BasePermissionController
 {
     public function index()
     {
-        $title = 'Trang phân quyền';
+        $title = 'Trang quyền';
         $permissions = $this->permissionService->index();
         return view('admin.pages.permission.main', compact('title', 'permissions'));
     }

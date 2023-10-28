@@ -30,7 +30,11 @@ Route::get('/data', [TripController::class, 'getData'])->name('getData');
 Route::get('/search_trip', [TripController::class, 'search_start_trip'])->name('search_start_trip');
 Route::get('/location/list_client_location',[ClientLocationController::class, 'list_client_location'])->name('api.location.list');
 Route::get('searchtrip',[TripController::class, 'searchtrip'])->name('search_trip');
+<<<<<<< HEAD
 Route::get('searchtrip/get_type_car',[TripController::class, 'get_type_car'])->name('get_type_car');
 Route::get('information-detail-trip', [TripController::class, 'getInformationDetailTrip']);
 
 Route::get('trip/popular', [TripController::class, 'getPopularTripList']);
+=======
+
+>>>>>>> thamnh

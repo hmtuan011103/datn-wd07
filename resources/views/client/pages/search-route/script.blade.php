@@ -370,6 +370,7 @@
             .then(function(response) {
                 return response.json();
             })
+<<<<<<< HEAD
             .then(function(datadefault) {
 
                 if (datadefault.status == 0) {
@@ -377,6 +378,16 @@
                 } else if (datadefault.status == 1) {
                     if (Array.isArray(datadefault[0])) {
                         var data = datadefault[0]
+=======
+            .then(function(data) {
+                console.log(data)
+                if (data.status == 0) {
+                    document.getElementById('searchresultfalse').style.display = 'block';
+                } else if (data.status == 1) {
+
+                    if (Array.isArray(data[0])) {
+                        var result = data[0]
+>>>>>>> thamnh
                     } else {
                         var data = Object.values(datadefault[0]);
                     }
@@ -939,6 +950,7 @@
                 selectedButtons[1].setAttribute('data-return', b2);
                 localStorage.removeItem("buttontrip")
             } else {
+<<<<<<< HEAD
                 buttonselected = document.querySelector(
                     `.buttontrip[data-id="${localStorage.getItem('buttontrip')}"]`
                 )
@@ -959,6 +971,16 @@
                     console.log(selectedButtons[0])
                 }
                 
+=======
+                // Cùng data-type, xóa nút cũ và thêm nút mới
+                selectedButtons[0].style.backgroundColor = '#FDE5DE';
+                selectedButtons[0].style.color = '#F9821D';
+                var indexToRemove = selectedButtons.indexOf(existingButton);
+                selectedButtons.splice(indexToRemove, 1);
+                selectedButtons.push(button);
+
+                console.log(selectedButtons[0])
+>>>>>>> thamnh
             }
         } else {
             selectedButtons.push(button);
