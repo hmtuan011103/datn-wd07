@@ -90,6 +90,8 @@ input[type="radio"]:checked{
 input[type="text"],
 input[type="number"],
 input[type="date"],
+input[type="email"],
+textarea.form-control,
 select.py-3
 {
     border-color: #F9821D;

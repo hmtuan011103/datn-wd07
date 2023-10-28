@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Locations\Client\LocationController;
+use App\Http\Controllers\Contact\Client\ContactController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,3 +25,13 @@ Route::get('/tim-kiem', function () {
 Route::get('/chon-ghe', function () {
     return view('client.pages.select-seat.index');
 });
+Route::get('/lien-he', function () {
+    return view('client.pages.contact.index');
+})->name('lien_he');
+Route::get('ve-chung-toi', function () {
+    return view('client.pages.about.index');
+})->name('ve_chung_toi');
+Route::get('huong-dan-dat-ve', function () {
+    return view('client.pages.guide.index');
+})->name('huong_dan_mua_hang');
+Route::post('post_contact', [ContactController::class, 'store'])->name('create_contact');
