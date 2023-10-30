@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use DateInterval;
 use DateTime;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Date;
 
 class TripService
 {
@@ -36,8 +37,9 @@ class TripService
         return Location::select('locations.name', 'locations.id')->where('locations.parent_id', Null)->get();
     }
 
-    public function create (StoreTripRequest $request) {
-        if($request->isMethod('POST')) {
+    public function create(StoreTripRequest $request)
+    {
+        if ($request->isMethod('POST')) {
 
             $params = $request->all();
             unset($params['_token']);
@@ -299,19 +301,63 @@ class TripService
             }
         }
     }
+
     public function getData()
     {
-
-
+        $currentDateTime = Carbon::now()->addHours(4);
+    
         $trips = DB::table('trips')
-            // ->select('*')
             ->join('cars', 'trips.car_id', '=', 'cars.id')
             ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
             ->select('trips.*', 'type_cars.name as car_type_name')
             ->orderBy('start_location', 'asc')
             ->get();
-        return $trips;
-    }
+    
+        $availableTrips = [];
+    
+        foreach ($trips as $trip) {
+            $tripStartDate = Carbon::parse($trip->start_date);
+            $tripStartTime = Carbon::parse($trip->start_time);
+    
+            $tripDateTime = $tripStartDate->copy()->setTime($tripStartTime->hour, $tripStartTime->minute, $tripStartTime->second);
+    
+            if ($tripDateTime->isSameDay($currentDateTime) && $tripDateTime->greaterThanOrEqualTo($currentDateTime)) {
+                $totalBookedSeats = DB::table('bills')
+                    ->where('trip_id', $trip->id)
+                    ->sum('total_seats');
+    
+                $carTotalSeat = DB::table('cars')
+                    ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
+                    ->where('cars.id', $trip->car_id)
+                    ->value('type_cars.total_seat');
+    
+                $remainingSeats = $carTotalSeat - $totalBookedSeats;
+    
+                if ($remainingSeats > 0) {
+                    $trip->remaining_seats = $remainingSeats;
+                    $availableTrips[] = $trip;
+                }
+            }
+        }
+    
+        $availableTripDetails = [];
+    
+        foreach ($availableTrips as $availableTrip) {
+            $tripDetails = DB::table('trips')
+                ->join('cars', 'trips.car_id', '=', 'cars.id')
+                ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
+                ->where('trips.id', $availableTrip->id)
+                ->orderBy('start_location', 'asc')
+                ->select('trips.*', 'type_cars.name as car_type_name')
+                ->first();
+    
+            $availableTripDetails[] = (array) $tripDetails;
+        }
+    
+        return $availableTripDetails;
+    } 
+  
+
     public function search($request)
     {
         $searchStart = $request->input('search_start');

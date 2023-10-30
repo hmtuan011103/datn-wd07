@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\Client\AuthController;
 use App\Http\Controllers\Home\Admin\HomeController;
 use App\Http\Controllers\Locations\Client\LocationController as ClientLocationController;
+use App\Http\Controllers\Ticket\Client\TicketController;
 use App\Http\Controllers\Trip\Client\TripController;
 
 /*
@@ -29,6 +30,7 @@ Route::post("login", [AuthController::class, 'login']);
 
 Route::get('/data', [TripController::class, 'getData'])->name('getData');
 Route::get('/search_trip', [TripController::class, 'search_start_trip'])->name('search_start_trip');
+
 Route::get('/location/list_client_location',[ClientLocationController::class, 'list_client_location'])->name('api.location.list');
 Route::get('searchtrip',[TripController::class, 'searchtrip'])->name('search_trip');
 
@@ -37,3 +39,5 @@ Route::get('information-detail-trip', [TripController::class, 'getInformationDet
 Route::get('trip/popular', [TripController::class, 'getPopularTripList']);
 Route::get('get_seat_empty', [TripController::class, 'get_seat_empty'])->name('get_seat_empty');
 Route::get('get_data_year', [HomeController::class, 'get_data_year'])->name('get_data_year');
+
+Route::get('/search_ticket', [TicketController::class, 'search_ticket'])->name('search_ticket');

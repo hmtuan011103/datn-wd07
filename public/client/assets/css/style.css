@@ -14,6 +14,7 @@
 }
 .banner-index{
     min-height: 250px;
+    margin-top: 20px;
 }
 
 /* Định nghĩa màu */
@@ -303,5 +304,20 @@ footer.pt-4{
     padding: 0 5px 0 10px !important;
     color: #000000 !important;
     font-size: 13px !important;
+}
+
+/*  css logo */
+
+.image_logo {
+    width: 25%;
+    margin-top: -16px;
+}
+.image_logo img {
+    width: 100%;
+    cursor: pointer;
+
+}
+.justify-content-between {
+    margin-bottom:10px;
 }
 

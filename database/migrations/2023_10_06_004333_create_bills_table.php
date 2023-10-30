@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('seat_id');
             $table->integer('trip_id');
             $table->integer('user_id')->comment('khách đặt');
+            $table->string('code_bill');
             $table->integer('status_pay');
             $table->integer('total_money');
             $table->integer('total_money_after_discount');
