@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Checkout\CheckoutController;
 use App\Http\Controllers\Locations\Client\LocationController;
 use App\Http\Controllers\Trip\Client\TripController;
 use Illuminate\Support\Facades\Route;
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('client.pages.home.index');
-});
+})->name('trang_chu');
 
 Route::get('/tim-kiem', function () {
     return view('client.pages.search-route.index');
@@ -30,3 +31,7 @@ Route::get('/dang-nhap', function () {
     return view('client.pages.auth.login');
 })->name('auth');
 Route::get('/lich-trinh', [TripController::class, 'lich_trinh'])->name('lich_trinh');
+Route::post('/thanh-toan', [CheckoutController::class, 'checkout'])->name('thanh_toan');
+Route::get('/trang-thai-thanh-toan', [CheckoutController::class, 'checkoutSuccess'])->name('trang_thai_thanh_toan');
+
+

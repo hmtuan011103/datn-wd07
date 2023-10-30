@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Bill extends Model
 {
@@ -18,6 +19,12 @@ class Bill extends Model
         'status_pay',
         'total_money',
         'total_money_after_discount',
-        'type_pay'
+        'type_pay',
+        'total_seats',
+        'code_bill'
     ];
+
+    public function trip() : BelongsTo{
+        return $this->belongsTo(Trip::class);
+    }
 }

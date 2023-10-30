@@ -567,6 +567,7 @@
         //     var buttonData = event.target.dataset.type;
         //     console.log(buttonData);
         // }
+
         function showFilterSearch(data, datafilter, countfilter) {
             if (data.status == 0 || datafilter.length == 0) {
                 document.getElementById('searchresultfalse').style.display = 'block';
@@ -584,7 +585,6 @@
                 // } else {
                 //     var result = Object.values(data[0]);
                 // }
-
 
                 var count0006 = datafilter.filter(item => item.start_time > '00:00:00' && item.start_time <=
                     '06:00:00').length;
@@ -641,7 +641,7 @@
                             </div>
                             <div>
                                 <button
-                                    class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip px-4" data-turn="${item.id}">Chọn
+                                    class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip px-4" onclick="redirectToSelectSeat(this)" data-turn="${item.id}">Chọn
                                     chuyến</button>
                             </div>
                         </div>
@@ -856,8 +856,6 @@
             }
         }
 
-
-
         var myDataArray = getDataFromCookieArray();
         var formId = 0;
         myDataArray.forEach(function(data) {
@@ -904,11 +902,18 @@
 
     var selectedButtons = [];
     console.log(selectedButtons)
+
+    function redirectToSelectSeat(button) {
+        const tripTurn = button.getAttribute('data-turn');
+        window.location.href = `/chon-ghe?trip_turn=${tripTurn}`;
+    }
+
     function handleClick(button, event) {
         event.preventDefault();
-        
+
         var dataId = button.getAttribute("data-id");
         var dataType = button.getAttribute("data-type");
+        console.log(selectedButtons)
 
         button.style.backgroundColor = '#F9821D';
         button.style.color = '#fff';
@@ -938,12 +943,13 @@
                 selectedButtons[1].setAttribute('data-turn', b1);
                 selectedButtons[1].setAttribute('data-return', b2);
                 localStorage.removeItem("buttontrip")
+                window.location.href = `/chon-ghe?trip_turn=${b1}&trip_return=${b2}`;
             } else {
                 buttonselected = document.querySelector(
                     `.buttontrip[data-id="${localStorage.getItem('buttontrip')}"]`
                 )
                 if (button.getAttribute('data-id') === selectedButtons[0].getAttribute('data-id')) {
-                    
+
                 }else{
                     if (buttonselected !== null) {
                     buttonselected.style.backgroundColor = '#FDE5DE';
@@ -958,7 +964,7 @@
                     selectedButtons.push(button);
                     console.log(selectedButtons[0])
                 }
-                
+
             }
         } else {
             selectedButtons.push(button);
