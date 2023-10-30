@@ -198,7 +198,7 @@
         });
     }
 
-    fetchPopularTripData();
+    // fetchPopularTripData();
 </script>
 
 @yield('script')
