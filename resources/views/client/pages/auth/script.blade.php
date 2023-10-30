@@ -59,13 +59,62 @@
             document.querySelector('.form2').style.display = 'block';
         }
     }
+    function validateForm() {
+        var email = document.getElementById("login-username").value;
+        var password = document.getElementById("login-password").value;
+        var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+        var emailError = document.getElementById("email-error");
+        var passwordError = document.getElementById("password-error");
+        var errorContainer = document.getElementById("error-message");
+
+        emailError.textContent = ""; // Xóa bất kỳ thông báo lỗi cũ
+        passwordError.textContent = "";
+
+        if (!email.match(emailRegex)) {
+            emailError.textContent = "Vui lòng nhập một địa chỉ email hợp lệ.";
+            errorContainer.style.display = "none"; // Ẩn phần tử lỗi tổng quan
+        }
+
+        if (password.length < 1) {
+            passwordError.textContent = "Tên tài khoản hoặc mật khẩu không chính xác.";
+            errorContainer.style.display = "none"; // Ẩn phần tử lỗi tổng quan
+            // return;
+        }
+    }
+    function validate_Form() {
+
+        var email = document.getElementById("register-email").value;
+        var password = document.getElementById("register-password").value;
+        var confirmPassword = document.getElementById("register-confirm-password").value;
+
+        var email_Error = document.getElementById("email_error");
+        var password_Error = document.getElementById("password_error");
+        var confirm_Password_Error = document.getElementById("confirm_password_error");
+
+        email_Error.textContent = "";
+        password_Error.textContent = "";
+        confirm_Password_Error.textContent = "";
+
+        var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        if (!email.match(emailRegex)) {
+            email_Error.textContent = "Vui lòng nhập một địa chỉ email hợp lệ.";
+        }
+        if (!password.match(passwordRegex)) {
+            password_Error.textContent = "Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một số, một chữ thường và một chữ hoa.";
+        }
+        if (password !== confirmPassword) {
+            confirm_Password_Error.textContent = "Mật khẩu không khớp. Vui lòng nhập lại mật khẩu.";
+            return;
+        }
+    }
 
     // apiUrl_login
 
     const apiUrl_login = 'http://127.0.0.1:8000/api/login';
     loginForm.addEventListener("submit", async (event) => {
         event.preventDefault();
-        // alert(123131);
         const username = document.getElementById("login-username").value;
         const password = document.getElementById("login-password").value;
         const data = {
@@ -80,23 +129,24 @@
                 },
                 body: JSON.stringify(data),
             });
-            if (response.ok) {
+            // if (response.ok) {
                 const responseData = await response.json();
-                if (responseData.status === true) {
-                    window.location.href = responseData.redirect_url;
-                }
-                if (responseData.status === false) {
-                    const errorMessage = responseData.message;
-                    const errorElement = document.getElementById("error-message");
-                    errorElement.textContent = errorMessage;
-                }
+            if (responseData.status === true) {
+                localStorage.setItem('token', responseData.token);
+                localStorage.setItem('status', true);
+                window.location.href = responseData.redirect_url;
             }
+            if (responseData.status === false) {
+                const errorMessage = responseData.message;
+                const errorElement = document.getElementById("error-message");
+                errorElement.textContent = errorMessage;
+                return;
+            }
+            // }
         } catch (error) {
             console.error('Lỗi kết nối đến máy chủ:', error);
         }
     });
-    // apiUrl_register
-    // http://127.0.0.1:8000/
     const apiUrl_register = 'api/register';
     registerForm.addEventListener("submit", async (event) => {
         event.preventDefault();
@@ -135,58 +185,5 @@
         }
     });
 
-
-    function validateForm() {
-        var email = document.getElementById("login-username").value;
-        var password = document.getElementById("login-password").value;
-        var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-
-        var emailError = document.getElementById("email-error");
-        var passwordError = document.getElementById("password-error");
-        var errorContainer = document.getElementById("error-message");
-
-        emailError.textContent = ""; // Xóa bất kỳ thông báo lỗi cũ
-        passwordError.textContent = "";
-
-        if (!email.match(emailRegex)) {
-            emailError.textContent = "Vui lòng nhập một địa chỉ email hợp lệ.";
-            errorContainer.style.display = "none"; // Ẩn phần tử lỗi tổng quan
-        }
-
-        if (password.length < 1) {
-            passwordError.textContent = "Vui lòng nhập mật khẩu.";
-            errorContainer.style.display = "none"; // Ẩn phần tử lỗi tổng quan
-        } else if (password.length < 5) {
-            passwordError.textContent = "Mật khẩu quá ngắn.";
-            errorContainer.style.display = "none"; // Ẩn phần tử lỗi tổng quan
-        }
-    }
-    function validate_Form() {
-
-        var email = document.getElementById("register-email").value;
-        var password = document.getElementById("register-password").value;
-        var confirmPassword = document.getElementById("register-confirm-password").value;
-
-        var email_Error = document.getElementById("email_error");
-        var password_Error = document.getElementById("password_error");
-        var confirm_Password_Error = document.getElementById("confirm_password_error");
-
-        email_Error.textContent = "";
-        password_Error.textContent = "";
-        confirm_Password_Error.textContent = "";
-
-        var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-        if (!email.match(emailRegex)) {
-            email_Error.textContent = "Vui lòng nhập một địa chỉ email hợp lệ.";
-        }
-        if (!password.match(passwordRegex)) {
-            password_Error.textContent = "Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một số, một chữ thường và một chữ hoa.";
-        }
-        if (password !== confirmPassword) {
-            confirm_Password_Error.textContent = "Mật khẩu không khớp. Vui lòng nhập lại mật khẩu.";
-            return;
-        }
-    }
 
 </script>
