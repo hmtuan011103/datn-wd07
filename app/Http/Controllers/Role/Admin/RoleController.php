@@ -70,8 +70,9 @@ class RoleController extends BaseRoleController
         $role_permission = RolePermission::where(['role_id' => $id])->get();
         return response()->json([$role,$role_permission],200);
     }
-    public function getPermission($id){
-        $permission = Permission::find($id);
-        return response()->json([$permission],200);
+    public function getPermission(Request $request){
+        // dd($request->permissionIds);
+        $permissions = Permission::whereIn('id', $request->permissionIds)->get();
+        return response()->json([$permissions],200);
     }
 }

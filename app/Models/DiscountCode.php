@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class RolePermission extends Model
+class DiscountCode extends Model
 {
     use HasFactory,SoftDeletes;
-    protected $table = 'role_permission';
-    protected $fillable = ['permission_id','role_id'];
+    protected $table = 'discount_codes';
+
+    protected $fillable = ['id_type_discount_code','name','quantity','quantity_used','start_time','value','code','end_time'];
 }
