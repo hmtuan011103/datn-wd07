@@ -23,7 +23,7 @@ class DiscountCodeController extends BaseDiscountCodeController
         return view('admin.pages.discount_code.add', compact('title'));
     }
 
-    public function store(Request $request){
+    public function store(StoreDiscountCodeRequest $request){
         $this->discountcodeService->store($request);
         toastr()->success('Thêm thành công.','Thành công');
         return redirect()->route('create_discount_code');
@@ -35,7 +35,7 @@ class DiscountCodeController extends BaseDiscountCodeController
         return view('admin.pages.discount_code.edit', compact('title','discount_code'));
     }
 
-    public function update(Request $request, $id){
+    public function update(UpdateDiscountCodeRequest $request, $id){
         $this->discountcodeService->update($request, $id);
         toastr()->success('Sửa thành công.','Thành công');
         return redirect()->route('list_discount_code');

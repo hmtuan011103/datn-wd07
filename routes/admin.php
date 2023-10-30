@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TypeCar\Admin\TypeCarController;
 use App\Http\Controllers\Car\Admin\CarController;
 use App\Http\Controllers\DiscountCode\Admin\DiscountCodeController;
+use App\Http\Controllers\Home\Admin\HomeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Trip\Admin\TripController;
 use App\Models\DiscountCode;
@@ -23,16 +24,7 @@ use App\Models\DiscountCode;
 |
 */
 
-Route::get('/', function () {
-    if (!Auth::check() || count(Auth::user()->permissions) < 1) {
-        toastr()->info('Vui lòng đăng nhập', 'Nhắc nhở');
-        return redirect()->route('login.form');
-    }
-
-    return view('admin.pages.home.index', [
-        'title' => 'Quản trị chiến thắng'
-    ]);
-})->name('admin.homepage');
+Route::get('/', [HomeController::class, 'index'])->name('admin.homepage');
 
 Route::prefix('location')->group(function () {
     Route::get('/', [LocationController::class, 'list_location'])->name('list_location')->middleware('check_permission:read-location');
@@ -92,7 +84,7 @@ Route::prefix('car')->group(function () {
 Route::group(['prefix' => 'role_permission'], function () {
     Route::get('/list_role_permission', [RoleController::class, 'index'])->name('list_role_permission')->middleware('check_permission:create-user,read-user,update-user,delete-user');
     Route::get('/api/details/{id}', [RoleController::class, 'details'])->name('role_permission_details')->middleware('check_permission:create-user,read-user,update-user,delete-user');
-    Route::get('/api/get_permission/{id}', [RoleController::class, 'getPermission'])->name('get_permission_api')->middleware('check_permission:create-user,read-user,update-user,delete-user');
+    Route::get('/api/get_permission', [RoleController::class, 'getPermission'])->name('get_permission_api')->middleware('check_permission:create-user,read-user,update-user,delete-user');
 });
 
 Route::resource('type_cars', \App\Http\Controllers\TypeCar\Admin\TypeCarController::class)->middleware('check_permission:create-car-type,read-car-type,update-car-type,delete-car-type');

@@ -14,12 +14,12 @@ class DiscountCodeService
         return $discount_code_list;
     }
 
-    public function store(Request $request){
+    public function store(StoreDiscountCodeRequest $request){
         $discount_code_list = DiscountCode::create($request->all());
         return $discount_code_list;
     }
 
-    public function update(Request $request,$id){
+    public function update(UpdateDiscountCodeRequest $request,$id){
         $discount_code = DiscountCode::find($id);
         if ($request->isMethod('post')) {
             $discount_code->update($request->all());

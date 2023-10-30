@@ -178,7 +178,14 @@
                                 </div>
                             </li>
                         @endif
-
+                        
+                        @if (in_array('read-discount-code', Auth::user()->permissions))
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{{ route('list_discount_code') }}">
+                                    <i class="mdi mdi-form-select"></i> <span data-key="t-maps">Mã giảm giá</span>
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
                 <!-- Sidebar -->

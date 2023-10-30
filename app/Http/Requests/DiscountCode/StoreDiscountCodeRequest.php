@@ -12,7 +12,7 @@ class StoreDiscountCodeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,10 +25,10 @@ class StoreDiscountCodeRequest extends FormRequest
         return [
             'id_type_discount_code'=>'required',
             'name'=>'required',
-            'quantity'=>'required',
+            'quantity'=>'required|numeric',
             'start_time'=>'required|after:yesterday|date|date_format:Y-m-d',
-            'value'=>'required',
-            'code'=>'required', 
+            'value'=>'required|numeric',
+            'code'=>'required|unique:discount_codes,code', 
             'end_time'=>'required|after:start_time|date|date_format:Y-m-d',
         ];
     }
@@ -39,10 +39,13 @@ class StoreDiscountCodeRequest extends FormRequest
             'id_type_discount_code.required'=>'Vui lòng chọn loại mã',
             'name.required'=>'Tên không được để trống',
             'quantity.required'=>'Vui lòng thêm số lượng',
+            'quantity.numeric'=>'Vui lòng nhập số',
             'start_time.required'=>'Vui lòng nhập ngày bắt đầu',
             'start_time.after'=>'Vui lòng không chọn ngày quá khứ',
             'value.required'=>'Vui lòng thêm giá trị',
+            'value.numeric'=>'Vui lòng nhập số',
             'code.required'=>'Vui lòng thêm mã',
+            'code.unique'=>'Mã bạn nhập đã tồn tại',
             'end_time.required'=>'Vui lòng nhập ngày kết thúc',
             'end_time.after'=>'Vui lòng không chọn ngày nhỏ hơn ngày bắt đầu',
         ];
