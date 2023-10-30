@@ -29,4 +29,10 @@ Route::get('/chon-ghe', function () {
 Route::get('/dang-nhap', function () {
     return view('client.pages.auth.login');
 })->name('auth');
+
 Route::get('/lich-trinh', [TripController::class, 'lich_trinh'])->name('lich_trinh');
+
+Route::get('/tra-cuu', function () {
+    return view('client.pages.search-ticket.index');
+});
+
