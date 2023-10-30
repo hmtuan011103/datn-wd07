@@ -116,68 +116,96 @@
                 // Lưu trữ các yêu cầu AJAX trong một mảng
                 var ajaxRequests = [];
                 var responseData = [];
+                var queryString = '';
                 for (var i = 0; i < permissionIds.length; i++) {
-                    var permissionId = permissionIds[i];
-
-                    var ajaxRequest = $.ajax({
-                        url: "http://127.0.0.1:8000/manage/role_permission/api/get_permission/" +
-                            permissionId,
-                        method: "GET"
-                    });
-                    ajaxRequests.push(ajaxRequest);
-
+                    queryString += 'permissionIds[]=' + encodeURIComponent(permissionIds[i]);
+                    if (i < permissionIds.length - 1) {
+                        queryString += '&';
+                    }
                 }
-                // Đợi tất cả các yêu cầu AJAX hoàn thành
-                $.when.apply($, ajaxRequests).done(function() {
-                    // Lấy kết quả từ các yêu cầu AJAX
-                    for (var i = 0; i < arguments.length; i++) {
-                        var response = arguments[i][0];
-                        responseData.push(response);
-                    }
+                var ajaxRequest = $.ajax({
+                    url: "http://127.0.0.1:8000/manage/role_permission/api/get_permission?" +
+                        queryString,
+                    method: "GET",
+                    success: function(response) {
 
-                    // Sử dụng dữ liệu phản hồi ở đây
-                    var permission = [];
-                    if (permissionIds.length <= 1) {
-                        var per = responseData[0];
-                        permission.push(per)
-                    } else {
-                        for (var i = 0; i < responseData.length; i++) {
-                            var per = responseData[i][0];
-                            permission.push(per)
-                        }
+                        // var ul = document.createElement('ul');
+                        // response[0].forEach(function(permission) {
+                        //     console.log(permission.name)
+                        //     if (permission.parent_id == 0) {
+                        //         var li = document.createElement(
+                        //             'li');
+                        //         li.textContent = permission.name;
+                        //         ul.appendChild(li);
+                        //     } else {
+                        //         var li = document.createElement('li');
+                        //         li.style.display = 'block';
+                        //         ul.appendChild(li);
+                        //         var nestedUl = document.createElement('ul');
+                        //         // var nestedLi = document.createElement('li');
+                        //         nestedUl.textContent = permission.name;
+                        //         // nestedUl.appendChild(nestedLi);
+                        //         ul.appendChild(nestedUl);
+                        //     }
+
+                        // });
+
+                        // var container = document.getElementById('modal_permission');
+                        // while (container.firstChild) {
+                        //     container.removeChild(container.firstChild);
+                        // }
+                        // container.appendChild(ul);
+
+                        var permissions = response[0];
+                        var container = document.getElementById('modal_permission');
+                        var container_child = document.getElementById('modal_permission_child');
+
+                        // Tạo cây danh sách bằng đệ quy
+                        var ul = buildNestedList(permissions, 0);
+                        var ul_child = buildNestedList_Child(permissions);
+                        container.innerHTML = '';
+                        container.appendChild(ul);
+                        container_child.innerHTML = '';
+                        container_child.appendChild(ul_child);
                     }
-            
+                });
+
+                function buildNestedList_Child(permissions) {
                     var ul = document.createElement('ul');
-                    permission.forEach(function(permission) {
-                        if (permission.parent_id == 0) {
-                            var li = document.createElement(
-                                'li');
+                    ul.style.listStyleType = 'circle';
+                    permissions.forEach(function(permission) {
+                        if (permission.parent_id && !permissions.some(function(p) {
+                                return p.id === permission.parent_id;
+                            })) {
+                            var li = document.createElement('li');
                             li.textContent = permission.name;
                             ul.appendChild(li);
-                        } else {
-                            var li = document.createElement('li');
-                            li.style.display = 'block';
-                            ul.appendChild(li);
-                            var nestedUl = document.createElement('ul');
-                            // var nestedLi = document.createElement('li');
-                            nestedUl.textContent = permission.name;
-                            // nestedUl.appendChild(nestedLi);
-                            ul.appendChild(nestedUl);
                         }
+                    });
+                    return ul;
+                }
 
+                function buildNestedList(permissions, parentId) {
+                    var ul = document.createElement('ul');
+                    permissions.forEach(function(permission) {
+                        if (permission.parent_id === parentId) {
+                            var li = document.createElement('li');
+                            li.textContent = permission.name;
+                            ul.appendChild(li);
+
+                            // Đệ quy để tạo danh sách con
+                            var nestedUl = buildNestedList(permissions, permission.id);
+                            if (nestedUl.children.length > 0) {
+                                li.appendChild(nestedUl);
+                            }
+                        }
                     });
 
-                    var container = document.getElementById('modal_permission');
-                    while (container.firstChild) {
-                        container.removeChild(container.firstChild);
-                    }
-                    container.appendChild(ul);
-                    // console.log(permission);
-                    // $("#modal_permission").text(permission);
-                });
+                    return ul;
+                }
+
                 $("#modal_title").text(response[0].name);
                 $("#modal_role").text(response[0].name);
-
 
                 $("#roleModal").css("display", "block");
             },
@@ -186,89 +214,7 @@
             }
         });
     }
-    $(document).ready(function() {
-
-        // $(".btn-details").click(function() {
-        //     console.log('ok')
-        //     var roleId = $(this).data("role-id");
-        //     $.ajax({
-        //         url: "http://127.0.0.1:8000/manage/role_permission/api/details/" +
-        //             roleId,
-        //         method: "GET",
-        //         success: function(response) {
-
-        //             var permissionIds = [];
-        //             for (var i = 0; i < response[1].length; i++) {
-        //                 permissionIds.push(response[1][i].permission_id);
-        //             }
-        //             // Lưu trữ các yêu cầu AJAX trong một mảng
-        //             var ajaxRequests = [];
-        //             var responseData = [];
-        //             for (var i = 0; i < permissionIds.length; i++) {
-        //                 var permissionId = permissionIds[i];
-
-        //                 var ajaxRequest = $.ajax({
-        //                     url: "http://127.0.0.1:8000/manage/role_permission/api/get_permission/" +
-        //                         permissionId,
-        //                     method: "GET"
-        //                 });
-        //                 ajaxRequests.push(ajaxRequest);
-
-        //             }
-        //             // Đợi tất cả các yêu cầu AJAX hoàn thành
-        //             $.when.apply($, ajaxRequests).done(function() {
-        //                 // Lấy kết quả từ các yêu cầu AJAX
-        //                 for (var i = 0; i < arguments.length; i++) {
-        //                     var response = arguments[i][0];
-        //                     responseData.push(response);
-        //                 }
-
-        //                 // Sử dụng dữ liệu phản hồi ở đây
-        //                 // console.log(permissionIds.length);
-        //                 var permission = [];
-        //                 if (permissionIds.length <= 1) {
-        //                     var per = responseData[0].name;
-        //                     permission.push(per)
-        //                 } else {
-        //                     for (var i = 0; i < responseData.length; i++) {
-        //                         var per = responseData[i][0].name;
-        //                         permission.push(per)
-        //                     }
-        //                 }
-        //                 var ul = document.createElement('ul');
-
-        //                 permission.forEach(function(permission) {
-        //                     var li = document.createElement(
-        //                         'li');
-        //                     li.textContent = permission;
-        //                     ul.appendChild(li);
-        //                 });
-
-        //                 var container = document.getElementById('modal_permission');
-        //                 while (container.firstChild) {
-        //                     container.removeChild(container.firstChild);
-        //                 }
-        //                 container.appendChild(ul);
-        //                 // console.log(permission);
-        //                 // $("#modal_permission").text(permission);
-        //             });
-        //             $("#modal_title").text(response[0].name);
-        //             $("#modal_role").text(response[0].name);
-
-
-        //             $("#roleModal").css("display", "block");
-        //         },
-        //         error: function(xhr, status, error) {
-        //             console.error(error);
-        //         }
-        //     });
-
-        // });
-
-        // $(".close").click(function() {
-        //     $("#roleModal").css("display", "none");
-        // });
-    });
+    
 </script>
 <script src="{{ asset('admin/assets/js/pages/hummingbird-treeview.js') }}"></script>
 <script src="{{ asset('admin/assets/js/pages/hummingbird-treeview.min.js') }}"></script>

@@ -7,8 +7,11 @@ use App\Http\Controllers\UserRoles\Admin\UserRoleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TypeCar\Admin\TypeCarController;
 use App\Http\Controllers\Car\Admin\CarController;
+use App\Http\Controllers\DiscountCode\Admin\DiscountCodeController;
+use App\Http\Controllers\Home\Admin\HomeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Trip\Admin\TripController;
+use App\Models\DiscountCode;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,16 +24,7 @@ use App\Http\Controllers\Trip\Admin\TripController;
 |
 */
 
-Route::get('/', function () {
-    if (!Auth::check() || count(Auth::user()->permissions) < 1) {
-        toastr()->info('Vui lòng đăng nhập', 'Nhắc nhở');
-        return redirect()->route('login.form');
-    }
-
-    return view('admin.pages.home.index', [
-        'title' => 'Quản trị chiến thắng'
-    ]);
-})->name('admin.homepage');
+Route::get('/', [HomeController::class, 'index'])->name('admin.homepage');
 
 Route::prefix('location')->group(function () {
     Route::get('/', [LocationController::class, 'list_location'])->name('list_location')->middleware('check_permission:read-location');
@@ -90,7 +84,7 @@ Route::prefix('car')->group(function () {
 Route::group(['prefix' => 'role_permission'], function () {
     Route::get('/list_role_permission', [RoleController::class, 'index'])->name('list_role_permission')->middleware('check_permission:create-user,read-user,update-user,delete-user');
     Route::get('/api/details/{id}', [RoleController::class, 'details'])->name('role_permission_details')->middleware('check_permission:create-user,read-user,update-user,delete-user');
-    Route::get('/api/get_permission/{id}', [RoleController::class, 'getPermission'])->name('get_permission_api')->middleware('check_permission:create-user,read-user,update-user,delete-user');
+    Route::get('/api/get_permission', [RoleController::class, 'getPermission'])->name('get_permission_api')->middleware('check_permission:create-user,read-user,update-user,delete-user');
 });
 
 Route::resource('type_cars', \App\Http\Controllers\TypeCar\Admin\TypeCarController::class)->middleware('check_permission:create-car-type,read-car-type,update-car-type,delete-car-type');
@@ -103,6 +97,8 @@ Route::name('users.')->prefix('users')->group(function () {
     Route::match(['put', 'patch'], '{user}', [\App\Http\Controllers\User\Admin\UserController::class, 'update'])->name('update')->middleware('check_permission:update-user');
     Route::delete('{user}', [\App\Http\Controllers\User\Admin\UserController::class, 'destroy'])->name('destroy')->middleware('check_permission:delete-user');
     Route::get('{user}', [\App\Http\Controllers\User\Admin\UserController::class, 'show'])->name('show')->middleware('check_permission:read-user');
+    Route::get('{user}/profile', [\App\Http\Controllers\User\Admin\UserController::class, 'profile'])->name('profile')->middleware('auth');
+    Route::patch('{user}/profile/change-password', [\App\Http\Controllers\User\Admin\UserController::class, 'profileChangePassword'])->name('profile.change.password')->middleware('auth');
 });
 
 Route::name('type_users.')->prefix('type_users')->group(function () {
@@ -114,6 +110,15 @@ Route::name('type_users.')->prefix('type_users')->group(function () {
     Route::delete('{type_user}', [\App\Http\Controllers\TypeUser\Admin\TypeUserController::class, 'destroy'])->name('destroy')->middleware('check_permission:delete-user-type');
 });
 
+Route::group(['prefix' => 'discount_code'], function () {
+    Route::get('/', [DiscountCodeController::class, 'index'])->name('list_discount_code')->middleware('check_permission:read-discount-code');
+    Route::get('/create', [DiscountCodeController::class, 'add'])->name('create_discount_code')->middleware('check_permission:create-discount-code');
+    Route::post('/post_create', [DiscountCodeController::class, 'store'])->name('post_create_discount_code')->middleware('check_permission:create-discount-code');
+    Route::get('/edit/{id}', [DiscountCodeController::class, 'edit'])->name('edit_discount_code')->middleware('check_permission:update-discount-code');
+    Route::post('/post_edit/{id}', [DiscountCodeController::class, 'update'])->name('post_edit_discount_code')->middleware('check_permission:update-discount-code');
+    Route::get('/delete/{id}', [DiscountCodeController::class, 'delete'])->name('delete_discount_code')->middleware('check_permission:delete-discount-code');
+
+});
 // authen
 Route::get('login', [\App\Http\Controllers\Auth\FormController::class, 'login'])->name('login.form')->middleware('guest');
 Route::prefix('auth')->group(function () {

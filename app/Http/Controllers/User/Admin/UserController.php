@@ -5,7 +5,9 @@ namespace App\Http\Controllers\User\Admin;
 use App\Http\Controllers\User\BaseUserController;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Requests\User\UserProfileChangePasswordRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends BaseUserController
 {
@@ -151,5 +153,52 @@ class UserController extends BaseUserController
         $data = $request->ids;
 
         return $this->userService->destroyMultiple($data);
+    }
+
+    public function profile($id)
+    {
+        if (Auth::user()->id != $id) {
+            toastr()->error('Không có quyền truy cập!', 'Thất bại');
+
+            return back();
+        }
+        $title = 'Hồ sơ người dùng';
+        $pageViewInfo = 'admin.pages.user.profile';
+
+        $query = $this->userService->show($id);
+
+        if ($query->getData()->status > 203) {
+            toastr()->error('Không tồn tại!', 'Thất bại');
+
+            return back();
+        }
+
+        $data = $query->getData()->data;
+
+        return view('admin.pages.user.index', compact('title', 'pageViewInfo', 'data'));
+    }
+
+    public function profileChangePassword(UserProfileChangePasswordRequest $request, $id)
+    {
+        if (Auth::user()->id != $id) {
+            toastr()->error('Không có quyền truy cập!', 'Thất bại');
+
+            return back();
+        }
+
+        $query = $this->userService->updateProfilePassword(['password' => $request->validated()['password']], $id);
+        $message = $query->getData()->message;
+
+        // error
+        if ($query->getData()->status > 203) {
+            toastr()->error($message, 'Thất bại');
+
+            return back();
+        }
+
+        $message = $query->getData()->message;
+        toastr()->success($message, 'Thành công');
+
+        return back();
     }
 }

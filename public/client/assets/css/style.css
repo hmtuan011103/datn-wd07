@@ -91,8 +91,7 @@ input[type="radio"]:checked{
 input[type="text"],
 input[type="number"],
 input[type="date"],
-select.py-3,
-select.w-100.cursor
+select.py-3
 {
     border-color: #F9821D;
     outline: #F9821D !important;

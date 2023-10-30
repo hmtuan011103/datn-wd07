@@ -12,14 +12,14 @@ class TripController extends BaseTripController
     public function getInformationDetailTrip()
     {
         try {
-//            $route = $this->tripService->getDetailRoute("3");
-//            $locationRouteTrip = $this->tripService->getLocationRouteTrip("3");
-//            $seats = $this->tripService->getSeats("3");
-//            $seatSelected = $this->tripService->getSeatSelected("3");
-            $route = $this->tripService->getDetailRoute([4,5]);
-            $locationRouteTrip = $this->tripService->getLocationRouteTrip([4,5]);
-            $seats = $this->tripService->getSeats([4,5]);
-            $seatSelected = $this->tripService->getSeatSelected([4,5]);
+            //            $route = $this->tripService->getDetailRoute("3");
+            //            $locationRouteTrip = $this->tripService->getLocationRouteTrip("3");
+            //            $seats = $this->tripService->getSeats("3");
+            //            $seatSelected = $this->tripService->getSeatSelected("3");
+            $route = $this->tripService->getDetailRoute([4, 5]);
+            $locationRouteTrip = $this->tripService->getLocationRouteTrip([4, 5]);
+            $seats = $this->tripService->getSeats([4, 5]);
+            $seatSelected = $this->tripService->getSeatSelected([4, 5]);
             return response()->json([
                 'seatSelected' => $seatSelected,
                 'seats' => $seats,
@@ -53,29 +53,42 @@ class TripController extends BaseTripController
 
         $trip = $this->tripService->search($request);
         return response()->json($trip);
-
     }
     public function searchTrip(Request $request)
     {
         if ($request->type_ticket == 1) {
             $trips = $this->tripService->searchTrip($request);
             if ($trips == null) {
-                return response()->json(['status' => 0,$trips], 200);
+                return response()->json(['status' => 0, $trips], 200);
             } else {
-                return response()->json(['status' => 1,$trips], 200);
+                return response()->json(['status' => 1, $trips], 200);
             }
         } else {
             $trips = $this->tripService->searchTrip($request);
             if ($trips == null) {
-                return response()->json(['status' => 0,$trips], 200);
+                return response()->json(['status' => 0, $trips], 200);
             } else {
-                return response()->json(['status' => 2,$trips], 200);
+                return response()->json(['status' => 2, $trips], 200);
             }
-
         }
     }
-    public function get_type_car(){
+    public function get_type_car()
+    {
         $type_car = $this->tripService->get_all_type_car();
-        return response()->json($type_car,200);
+        return response()->json($type_car, 200);
+    }
+
+    public function getPopularTripList()
+    {
+        $data = $this->tripService->getPopularTripList();
+
+        if (count($data) < 1) {
+            return response()->json([], 400);
+        }
+        return response()->json($data, 200);
+    }
+    public function get_seat_empty(Request $request){
+        $seat_empty = $this->tripService->get_total_seat_empty($request->trip_id);
+        return response()->json($seat_empty,200);
     }
 }

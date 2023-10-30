@@ -5,6 +5,7 @@
 <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
 {!! JsValidator::formRequest('App\Http\Requests\User\StoreUserRequest', '#form-create-user') !!}
 {!! JsValidator::formRequest('App\Http\Requests\User\UpdateUserRequest', '#form-edit-user') !!}
+{!! JsValidator::formRequest('App\Http\Requests\User\UserProfileChangePasswordRequest', '#form-user-profile-change-password') !!}
 
 <!-- listjs init -->
 <script src="{{ asset('admin/assets/libs/list.js/list.min.js') }}"></script>
