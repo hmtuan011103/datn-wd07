@@ -78,13 +78,15 @@
     $('#popular-trip-container').slick({
         infinite: true,
         accessibility: false,
-        arrows: false,
         dots: true,
         slidesToShow: 3,
         slidesToScroll: 3,
         autoplay: true,
         autoplaySpeed: 2000,
         pauseOnHover: true,
+        arrows: true,
+        nextArrow: '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="cursor-pointer bi bi-chevron-right slick-arrow-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>',
+        prevArrow: '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="cursor-pointer bi bi-chevron-left slick-arrow-left" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg>',
         responsive: [{
                 breakpoint: 1024,
                 settings: {
@@ -95,6 +97,7 @@
             {
                 breakpoint: 900,
                 settings: {
+                    arrows: false,
                     slidesToShow: 2,
                     slidesToScroll: 2
                 }
@@ -102,16 +105,68 @@
             {
                 breakpoint: 550,
                 settings: {
+                    arrows: false,
                     slidesToShow: 1,
-                    slidesToScroll: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    });
+
+    $('#recent-news-container').slick({
+        infinite: true,
+        accessibility: false,
+        dots: true,
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        pauseOnHover: true,
+        arrows: true,
+        nextArrow: '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="cursor-pointer bi bi-chevron-right slick-arrow-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>',
+        prevArrow: '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="cursor-pointer bi bi-chevron-left slick-arrow-left" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg>',
+        responsive: [{
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                }
+            },
+            {
+                breakpoint: 900,
+                settings: {
+                    arrows: false,
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                }
+            },
+            {
+                breakpoint: 550,
+                settings: {
+                    arrows: false,
+                    slidesToShow: 1,
+                    slidesToScroll: 1
                 }
             }
         ]
     });
 
     // format time 02:30:04 => 2 giờ 30 phút or 02:30 sáng
-    function formatTimeVN(timeString, byDayNight = false) {
+    function formatTimeVN(timeString, byDayNight = false, byDMY = false) {
         const [hours, minutes, seconds] = timeString.split(':');
+
+        if (byDMY) {
+            // Create a Date object from the original timestamp
+            const date = new Date(timeString);
+
+            // Format the date as per the desired format (DD/MM/YYYY)
+            const day = date.getDate().toString().padStart(2, '0'); // Get day and pad with '0' if needed
+            const month = (date.getMonth() + 1).toString().padStart(2,
+                '0'); // Note: January is 0 in JavaScript Date object
+            const year = date.getFullYear();
+
+            return `${day}/${month}/${year}`;
+        }
 
         if (!byDayNight) {
             const formattedHours = parseInt(hours, 10) > 0 ? `${parseInt(hours, 10)} tiếng ` : '';
@@ -147,7 +202,8 @@
                     let start_time = '';
 
                     response.forEach(element => {
-                        trip_price = new Intl.NumberFormat().format(element.trip_price).replace(/,/g, '.');
+                        trip_price = new Intl.NumberFormat().format(element.trip_price).replace(
+                            /,/g, '.');
                         interval_trip = formatTimeVN(element.interval_trip);
                         start_time = formatTimeVN(element.start_time, true);
 
@@ -197,7 +253,58 @@
         });
     }
 
+    function fetchRecentNewsData() {
+        $.ajax({
+            url: '/api/news/recent',
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                if (response && response.length > 0) {
+                    let htmlTemplates = '';
+                    let formatCreatedAtTime = '';
+
+                    response.forEach(element => {
+                        formatCreatedAtTime = formatTimeVN(element.created_at, false, true);
+
+                        // Append the HTML templates to the slick container
+                        $('#recent-news-container').slick('slickAdd', `
+                            <div class="col col-md-4">
+                                <a href="#" class="d-block border border-1 rounded-3">
+                                    <img src="storage/${element.image}" alt="blog-image"
+                                        class="w-100 d-block border border-1 rounded-3">
+                                </a>
+                                <a class="text-uppercase fw-bold pt-2 pb-3 d-block text-decoration-none cl-black show-three-dot-text" href="#">
+                                    ${element.title}
+                                </a>
+                                <div class="d-flex justify-content-between">
+                                    <p class="cl-gray fw-medium fs-14">
+                                        ${formatCreatedAtTime}
+                                    </p>
+                                    <a href="#" class="d-block text-decoration-none cl-orange fs-14 fw-medium">
+                                        Chi tiết
+                                    </a>
+                                </div>
+                            </div>
+                        `);
+                    });
+
+                } else {
+                    $('#recent-news-container').html(
+                        '<h4 class="alert alert-warning shadow shadow text-center" role="alert">Không có dữ liệu~</h4>'
+                    );
+                }
+            },
+            error: function(error) {
+                // Handle AJAX error
+                $('#recent-news-container').html(
+                    '<h4 class="alert alert-warning shadow shadow text-center" role="alert">Không có dữ liệu~</h4>'
+                );
+            }
+        });
+    }
+
     fetchPopularTripData();
+    fetchRecentNewsData();
 </script>
 
 @yield('script')

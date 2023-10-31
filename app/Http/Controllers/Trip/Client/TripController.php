@@ -87,8 +87,19 @@ class TripController extends BaseTripController
         }
         return response()->json($data, 200);
     }
-    public function get_seat_empty(Request $request){
+    public function get_seat_empty(Request $request)
+    {
         $seat_empty = $this->tripService->get_total_seat_empty($request->trip_id);
-        return response()->json($seat_empty,200);
+        return response()->json($seat_empty, 200);
+    }
+
+    public function getRecentNews()
+    {
+        $data = $this->tripService->getRecentNews();
+
+        if (count($data) < 1) {
+            return response()->json([], 400);
+        }
+        return response()->json($data, 200);
     }
 }

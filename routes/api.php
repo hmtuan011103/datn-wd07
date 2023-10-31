@@ -53,3 +53,5 @@ Route::get('get_seat_empty', [TripController::class, 'get_seat_empty'])->name('g
 Route::get('get_data_year', [HomeController::class, 'get_data_year'])->name('get_data_year');
 
 Route::get('/search_ticket', [TicketController::class, 'search_ticket'])->name('search_ticket');
+
+Route::get('news/recent', [TripController::class, 'getRecentNews']);

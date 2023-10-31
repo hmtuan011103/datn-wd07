@@ -8,6 +8,7 @@ use App\Models\Bill;
 use App\Models\Bills;
 use App\Models\Car;
 use App\Models\Location;
+use App\Models\NewPost;
 use App\Models\Trip;
 use App\Models\TypeCar;
 use App\Models\User;
@@ -305,43 +306,43 @@ class TripService
     public function getData()
     {
         $currentDateTime = Carbon::now()->addHours(4);
-    
+
         $trips = DB::table('trips')
             ->join('cars', 'trips.car_id', '=', 'cars.id')
             ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
             ->select('trips.*', 'type_cars.name as car_type_name')
             ->orderBy('start_location', 'asc')
             ->get();
-    
+
         $availableTrips = [];
-    
+
         foreach ($trips as $trip) {
             $tripStartDate = Carbon::parse($trip->start_date);
             $tripStartTime = Carbon::parse($trip->start_time);
-    
+
             $tripDateTime = $tripStartDate->copy()->setTime($tripStartTime->hour, $tripStartTime->minute, $tripStartTime->second);
-    
+
             if ($tripDateTime->isSameDay($currentDateTime) && $tripDateTime->greaterThanOrEqualTo($currentDateTime)) {
                 $totalBookedSeats = DB::table('bills')
                     ->where('trip_id', $trip->id)
                     ->sum('total_seats');
-    
+
                 $carTotalSeat = DB::table('cars')
                     ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
                     ->where('cars.id', $trip->car_id)
                     ->value('type_cars.total_seat');
-    
+
                 $remainingSeats = $carTotalSeat - $totalBookedSeats;
-    
+
                 if ($remainingSeats > 0) {
                     $trip->remaining_seats = $remainingSeats;
                     $availableTrips[] = $trip;
                 }
             }
         }
-    
+
         $availableTripDetails = [];
-    
+
         foreach ($availableTrips as $availableTrip) {
             $tripDetails = DB::table('trips')
                 ->join('cars', 'trips.car_id', '=', 'cars.id')
@@ -350,13 +351,13 @@ class TripService
                 ->orderBy('start_location', 'asc')
                 ->select('trips.*', 'type_cars.name as car_type_name')
                 ->first();
-    
+
             $availableTripDetails[] = (array) $tripDetails;
         }
-    
+
         return $availableTripDetails;
-    } 
-  
+    }
+
 
     public function search($request)
     {
@@ -380,13 +381,14 @@ class TripService
         $type_car = TypeCar::select('type_seats')->get();
         return $type_car;
     }
-    public function get_total_seat_empty($request){
+    public function get_total_seat_empty($request)
+    {
         $bill_seat = Bill::select('total_seats')->where(['trip_id' => $request])->get();
         $total_seat_bill = 0;
-        foreach($bill_seat as $key){
+        foreach ($bill_seat as $key) {
             $total_seat_bill += $key->total_seats;
         }
-        $trip = Trip::with('car.typeCar')->where(['id'=> $request])->get();
+        $trip = Trip::with('car.typeCar')->where(['id' => $request])->get();
         $total_seat_trip = $trip[0]->car->typeCar->total_seat;
         $seats = intval($total_seat_trip) - intval($total_seat_bill);
         return $seats;
@@ -421,5 +423,12 @@ class TripService
             ->get();
 
         return collect($popularTrips)->toArray();
+    }
+
+    public function getRecentNews()
+    {
+        $recentNews = NewPost::orderBy('created_at', 'desc')->take(12)->get();
+
+        return collect($recentNews)->toArray();
     }
 }
