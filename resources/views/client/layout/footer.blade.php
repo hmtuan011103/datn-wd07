@@ -147,7 +147,7 @@
                     let start_time = '';
 
                     response.forEach(element => {
-                        trip_price = new Intl.NumberFormat().format(element.trip_price);
+                        trip_price = new Intl.NumberFormat().format(element.trip_price).replace(/,/g, '.');
                         interval_trip = formatTimeVN(element.interval_trip);
                         start_time = formatTimeVN(element.start_time, true);
 
@@ -157,19 +157,19 @@
                                 <div class="card w-100">
                                     <div class="position-relative z-1">
                                         <img src="storage/${element.start_location_image}" class="card-img-top img-fluid img-responsive"
-                                            alt="${element.start_location}" style="height: 170px;">
+                                            alt="${element.start_location}" style="height: 170px;width:100%;object-fit: cover;object-position: center;">
                                         <div class="position-absolute z-2 route-popular-title">
                                             <span class="cl-white fw-medium fs-15">Tuyến xe từ</span>
                                             <br>
-                                            <span class="cl-white fw-bold fs-20">${element.start_location}</span>
+                                            <span class="cl-white fw-bold fs-20 text-capitalize">${element.start_location}</span>
                                         </div>
                                     </div>
                                     <ul class="list-group list-group-flush border-top">
                                         <li class="list-group-item pt-3">
                                             <a>
                                                 <div class="text-decoration-none cl-black d-flex justify-content-between">
-                                                    <p class="ta-left mb-1 fs-18 fw-medium">Tới: ${element.end_location}</p>
-                                                    <p class="ta-right mb-1 fs-18 fw-medium">${trip_price} VNĐ</p>
+                                                    <p class="ta-left mb-1 fs-18 fw-medium text-capitalize">Tới: ${element.end_location}</p>
+                                                    <p class="ta-right mb-1 fs-18 fw-bold">${trip_price} VNĐ</p>
                                                 </div>
                                                 <p class="fs-15 cl-gray mb-0 fw-medium">Quãng đường: ${interval_trip}</p>
                                                 <p class="fs-15 cl-gray mb-0 fw-medium">Giờ xe chạy: ${start_time}</p>
@@ -190,7 +190,6 @@
             },
             error: function(error) {
                 // Handle AJAX error
-                console.log(error);
                 $('#popular-trip-container').html(
                     '<h4 class="alert alert-warning shadow shadow text-center" role="alert">Không có dữ liệu~</h4>'
                 );
