@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Thanh toán thành công</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('client/assets/css/checkout.css') }}">
@@ -32,9 +32,11 @@
                 </div>
 
                 <div class="detail-user-two">
-                    <p class="label-user">Đỗ Văn Nam</p>
-                    <p class="label-user">09876543</p>
-                    <p class="label-user">nam@gmail.com</p>
+                    @if($inforUser !== null)
+                        <p class="label-user">{{ $inforUser['name'] }}</p>
+                        <p class="label-user">{{ $inforUser['phone_number'] }}</p>
+                        <p class="label-user">{{ $inforUser['email'] }}</p>
+                    @endif
                 </div>
 
             </div>
@@ -45,7 +47,7 @@
                     <p class="label-infor">Trạng thái : </p>
                 </div>
                 <div class="detail-user-two">
-                    <p class="label-user">200.000đ</p>
+                    <p class="label-user">{{ number_format($totalMoney, 0, '.', '.') }}đ</p>
                     <p class="label-user">VNPAY</p>
                     <p class="label-user pttt">Đã thanh toán</p>
                 </div>
@@ -56,7 +58,7 @@
                 <div class="col-xl-3 col-lg-4 col-md-6 col-xs-12 mb-3">
                     <div class="detail-ticket">
                         <p class="text-center fw-bold">Mã vé: {{ $item->code_ticket }}</p>
-                        <div class="logo qr">
+                        <div class="logo-qr-turn d-flex justify-content-center mb-3" data-code="{{ $item->code_ticket }}">
                         </div>
                         <div class=" order-ticket">
                             <div class="column-ticket text">
@@ -80,7 +82,7 @@
                                 <p>{{ $item->code_seat  }}</p>
                                 <p>{{ $item->pickup_location  }}</p>
                                 <p>{{ $item->pay_location  }}</p>
-                                <p>{{ number_format($item->bill->trip->trip_price, 0, '.', '.') }} đ</p>
+                                <p>{{ number_format($item->bill->trip->trip_price, 0, '.', '.') }}đ</p>
                             </div>
                         </div>
                     </div>
@@ -89,11 +91,12 @@
                     </div>
                 </div>
             @endforeach
-            @forelse($data['return'] as $item)
+            @isset($data['return'])
+                @forelse($data['return'] as $item)
                     <div class="col-xl-3 col-lg-4 col-md-6 col-xs-12 mb-3">
                         <div class="detail-ticket">
                             <p class="text-center fw-bold">Mã vé: {{ $item->code_ticket }}</p>
-                            <div class="logo qr">
+                            <div class="logo-qr-return d-flex justify-content-center mb-3" data-code="{{ $item->code_ticket }}">
                             </div>
                             <div class=" order-ticket">
                                 <div class="column-ticket text">
@@ -128,7 +131,7 @@
                 @empty
                     <p></p>
                 @endforelse
-
+            @endisset
             <div class="row justify-content-center px-3">
                 <div class="col-lg-3 col-md-6 col-xs-12 text-center">
                     <a href="{{ route('trang_chu') }}" class="btn w-100 fw-medium button-important text-decoration-none d-flex justify-content-center">
@@ -159,6 +162,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{ asset('client/assets/js/url-config.js') }}"></script>
+    <script src="{{ asset('client/assets/js/qr-code.js') }}"></script>
 </div>
 </body>
 

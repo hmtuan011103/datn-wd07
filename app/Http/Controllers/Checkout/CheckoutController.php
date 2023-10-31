@@ -48,6 +48,7 @@ class CheckoutController extends Controller
                 'name' => $cacheData['name'],
                 'phone_number' => $cacheData['phone_number'],
             ]);
+            Cache::put('infor_user', $user, 1500);
             // Save to Bill Order
 
             // Bill Turn
@@ -141,7 +142,9 @@ class CheckoutController extends Controller
         if($request->vnp_ResponseCode === "00" && $cacheData !== null){
             $this->saveDataAfterCheckoutSuccess($request, $cacheData);
             return view('client.partials.checkout-success', [
-                'data' => $this->getTicketForBill()
+                'data' => $this->getTicketForBill(),
+                'inforUser' => Cache::get('infor_user'),
+                'totalMoney' => $request->vnp_Amount / 100
             ]);
         } else {
             return view('client.partials.checkout-failed', [
