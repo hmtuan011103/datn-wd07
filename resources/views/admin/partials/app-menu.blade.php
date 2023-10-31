@@ -178,6 +178,13 @@
                                 </div>
                             </li>
                         @endif
+                        @if (in_array('read-discount-code', Auth::user()->permissions))
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{{ route('list_discount_code') }}">
+                                    <i class="mdi mdi-form-select"></i> <span data-key="t-maps">Mã giảm giá</span>
+                                </a>
+                            </li>
+                        @endif
 
                     </ul>
                 </div>
@@ -185,5 +192,52 @@
             </div>
 
             <div class="sidebar-background"></div>
+=======
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarRole" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarRole">
+                        <i class="mdi mdi-account-circle-outline"></i>
+                        <span data-key="t-authentication">Vai trò & Quyền</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarRole">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('list_role') }}" class="nav-link" role="button">
+                                    Vai trò
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('list_permission') }}" class="nav-link" role="button">
+                                    Quyền
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarCarTypeCar" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="sidebarCarTypeCar">
+                        <i class="mdi mdi-car"></i>
+                        <span data-key="t-authentication">Xe và loại xe</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarCarTypeCar">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('index_typecar') }}" class="nav-link" role="button">
+                                    Loại xe
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('users.create') }}" class="nav-link">
+                                    Thêm mới
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+>>>>>>> thamnh
         </div>
     @endauth

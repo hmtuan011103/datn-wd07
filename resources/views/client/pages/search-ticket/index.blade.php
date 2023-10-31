@@ -1,0 +1,10 @@
+@extends('client.layout.main')
+@section('style')
+    @include('client.pages.search-ticket.style')
+@endsection
+@section('content')
+    @include('client.pages.search-ticket.main')
+@endsection
+@section('script')
+    @include('client.pages.search-ticket.script')
+@endsection

@@ -164,7 +164,7 @@
                             <div class="modal-body fs-4">
                                 <div class="mt-2">
                                     <span><b>Vai trò:</b> <span id="modal_role"></span></span> <br>
-                                    <span class="pb-4"><b>Các quyền:</b> <span id="modal_permission"></span></span>
+                                    <span class="pb-4"><b>Các quyền:</b> <span id="modal_permission"></span> <span id="modal_permission_child"></span></span>
                                 </div>
                                 <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
                                     <button type="button" class="btn w-sm btn-light"
