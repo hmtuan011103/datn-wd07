@@ -36,6 +36,7 @@ class AuthController extends Controller
             'message' => 'Mật khẩu đã được cập nhật.'
         ]);
     }
+    
     public function updateProfile(Request $request)
     {
         $user = auth()->user();
@@ -84,7 +85,7 @@ class AuthController extends Controller
             "redirect_url" => route('auth')
         ]);
     }
-
+   
     public function login(Request $request)
     {
         $request->validate([
@@ -105,19 +106,27 @@ class AuthController extends Controller
                     "redirect_url" => route('/')
                 ]);
             } else {
+                // Mật khẩu sai
                 return response()->json([
                     "status" => false,
-                    "message" => "Mật khẩu bạn nhập vào không đúng",
+                    "message" => "Tên tài khoản hoặc mật khẩu không chính xác.",
                 ]);
             }
+        } else {
+            // Tài khoản không tồn tại
+            return response()->json([
+                "status" => false,
+                "message" => "Tài khoản không tồn tại",
+            ]);
         }
 
+        // Đoạn mã dưới đây thêm một thông báo lỗi khi cả tài khoản và mật khẩu đều sai
         return response()->json([
             "status" => false,
-            "message" => "Tài khoản của bạn không đúng",
+            "message" => "Tài khoản và mật khẩu không đúng",
         ]);
     }
-    public function profile(){
+     public function profile(){
 
         $userdata = auth()->user();
 

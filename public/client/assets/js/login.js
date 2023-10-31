@@ -27,7 +27,7 @@ function performLogout() {
     localStorage.setItem('status', 'false');
     window.location.href = '/';
 }
-function passWord(){
+function passWord() {
     window.location.href = 'pass-word';
 }
 document.getElementById("password").addEventListener("click", function () {
