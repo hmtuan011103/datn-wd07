@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Locations\Client\LocationController;
+use App\Http\Controllers\New\Client\NewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,4 +27,5 @@ Route::get('/chon-ghe', function () {
     return view('client.pages.select-seat.index');
 });
 
-Route::get('news',[App\Http\Controllers\New\Client\NewController::class,'index'])->name('client.news');
+Route::get('news',[NewController::class,'index'])->name('client.news');
+Route::get('news/{slug?}',[NewController::class,'detail'])->name('client.news.detail');

@@ -12,5 +12,5 @@ class BaseNewController extends Controller
     public function __construct(NewPostService $NewPostService){
         $this->NewPostService = $NewPostService;
     }
-
+    
 }

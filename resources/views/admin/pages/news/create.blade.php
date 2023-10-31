@@ -37,11 +37,11 @@
                                         <div class="row">
                                             <div class="col-md-6 pt-3 pb-3">
                                                 <label for="customername-field" class="form-label">Tiêu đề *</label>
-                                                <input type="text" name="title" id="customername-field" class="form-control" placeholder="Nhập Tên Loại Xe"/>
+                                                <input type="text" name="title" id="customername-field" class="form-control" placeholder="Nhập Tên Tiêu Đề"/>
                                             </div>
                                             <div class="col-md-6 pt-3 pb-3">
                                                 <label for="customername-field" class="form-label">Ảnh </label>
-                                                <input type="file" name="image" id="customername-field" class="form-control" placeholder="Nhập Tên Loại Xe"/>
+                                                <input type="file" name="image" id="customername-field" class="form-control"/>
                                             </div>
                                             <div class="col-md-6 pt-3 pb-3">
                                                 <label for="total_seat" class="form-label">Người tạo *</label>
@@ -53,7 +53,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="email-field" class="form-label">Nội dung </label>
-                                                <textarea style="height: 100px" name="content" id="email-field" class="form-control" placeholder="Nhập Mô Tả"  ></textarea>
+                                                <textarea style="height: 100px" name="content" id="editor" class="form-control" placeholder="Nhập Mô Tả"  ></textarea>
                                             </div>
                                         </div>
 
@@ -94,4 +94,15 @@
 @endsection
 @section('script')
     @include('admin.pages.news.script')
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+                .create( document.querySelector( '#editor' ) )
+                .then( editor => {
+                        console.log( editor );
+                } )
+                .catch( error => {
+                        console.error( error );
+                } );
+</script>
 @endsection

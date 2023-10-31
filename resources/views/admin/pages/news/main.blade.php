@@ -7,12 +7,12 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                            <h4 class="mb-sm-0">Loại Xe</h4>
+                            <h4 class="mb-sm-0">Bài viết</h4>
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
-                                    <li class="breadcrumb-item active">Loại Xe</li>
+                                    <li class="breadcrumb-item active">Bài viết</li>
                                 </ol>
                             </div>
 
@@ -25,7 +25,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title mb-0">Danh Sách Loại Xe</h4>
+                                <h4 class="card-title mb-0">Danh sách bài viết</h4>
                             </div><!-- end card header -->
 
                             <div class="card-body">
@@ -56,9 +56,9 @@
                                                         <input class="form-check-input" type="checkbox" id="checkAll" value="option">
                                                     </div>
                                                 </th>
-                                                <th class="sort" data-sort="customer_name">Tiêu đề bài viết</th>
-                                                <th class="sort" data-sort="customer_name">Hình ảnh</th>
-                                                <th class="sort" data-sort="customer_name">Người tạo</th>
+                                                <th class="sort" data-sort="tieu_de">Tiêu đề bài viết</th>
+                                                <th class="sort" data-sort="hinh_anh">Hình ảnh</th>
+                                                <th class="sort" data-sort="nguoi_tao">Người tạo</th>
                                                 <th class="sort" data-sort="action">Chức Năng</th>
                                             </tr>
                                             </thead>
@@ -67,12 +67,12 @@
                                                     <tr>
                                                         <th scope="row">
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+                                                                <input class="form-check-input" type="checkbox" name="chk_child" value="option{{$item->id}}">
                                                             </div>
                                                         </th>
-                                                        <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a></td>
-                                                        <td class="customer_name">{{$item->title}}</td>
-                                                        <td class="email"><img src="{{ asset($item->image) }}" alt="" width="75px"></td>
+                                                        <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">{{$item->id}}</a></td>
+                                                        <td class="customer_name"style="width:400px;word-wrap: break-word;" >{{ substr($item->title, 0, 20) . '...' }}</td>
+                                                        <td class="email"><img src="{{ asset($item->image) }}" alt="" width="175px"></td>
                                                         <td>{{ $item->user->name }}</td>
                                                         <td>
                                                             <div class="d-flex gap-2">
@@ -104,6 +104,11 @@
                                         </div>
                                     </div>
 
+                                    {{-- <div class="d-flex justify-content-center">
+                                        <div class="">
+                                            {{ $data->render() }}
+                                        </div>
+                                    </div> --}}
                                     <div class="d-flex justify-content-end">
                                         <div class="pagination-wrap hstack gap-2">
                                             <a class="page-item pagination-prev disabled" href="javascript:void(0);">

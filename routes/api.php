@@ -28,3 +28,5 @@ Route::delete('users/destroy-multiple', [\App\Http\Controllers\User\Admin\UserCo
 
 Route::get('/location/list_client_location',[ClientLocationController::class, 'list_client_location'])->name('api.location.list');
 Route::get('searchtrip',[TripController::class, 'searchtrip'])->name('search_trip');
+
+Route::delete('news/destroy-multiple', [\App\Http\Controllers\New\Admin\NewController::class, 'destroyMultiple']);

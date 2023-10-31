@@ -24,6 +24,7 @@ class StoreNewRequest extends FormRequest
         return [
             'title' => 'required',
             'content' => 'required',
+            'image' => 'required|mimes:jpeg,png,jpg,gif|max:2048',
             'user_id' => 'required',
         ];
     }
@@ -32,6 +33,9 @@ class StoreNewRequest extends FormRequest
         return [
             'title.required'=>'Tiêu Đề Không Được Để Trống',
             'content.required'=>'Nội Dung Không Được Để Trống',
+            'image.required'=>'Ảnh không được để trống',
+            'image.mimes'=>'Không phải file ảnh',
+            'image.max'=>'Ảnh không được quá 1MB',
             'user_id.required'=>'Người Đăng Không Được Để Trống',
         ];
 

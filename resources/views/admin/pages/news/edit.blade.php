@@ -31,39 +31,51 @@
                             </div><!-- end card header -->
 
                             <div class="card-body">
-                                <form class="tablelist-form" autocomplete="off" action="{{route('update_new',$model->id)}}" method="POST" enctype="multipart/form-data">
+                                <form class="tablelist-form" autocomplete="off"
+                                    action="{{ route('update_new', $model->id) }}" method="POST"
+                                    enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col-md-6 pt-3 pb-3">
                                                 <label for="customername-field" class="form-label">Tiêu đề *</label>
-                                                <input type="text" name="title" id="customername-field" value="{{ $model->title }}" class="form-control" placeholder="Nhập Tên Loại Xe"/>
+                                                <input type="text" name="title" id="customername-field"
+                                                    value="{{ $model->title }}" class="form-control"
+                                                    placeholder="Nhập Tên Tiêu Đề" />
                                             </div>
 
                                             <div class="col-md-6 pt-3 pb-3">
                                                 <label for="total_seat" class="form-label">Người tạo *</label>
                                                 <select class="form-control" name="user_id" id="total_seat">
-                                                    @foreach($users as $user)
-                                                        <option value="{{$user->id}}" {{ $model->user_id == $user->id ? "selected" : "" }}>{{$user->name}}</option>
+                                                    @foreach ($users as $user)
+                                                        <option value="{{ $user->id }}"
+                                                            {{ $model->user_id == $user->id ? 'selected' : '' }}>
+                                                            {{ $user->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                             <div class="col-md-6 pt-3 pb-3">
                                                 <label for="customername-field" class="form-label">Ảnh </label>
-                                                <img src="{{ asset($model->image) }}" alt="" width="100" height="100">
-                                                <input type="file" value="{{$model->image}}"  name="image" id="image" class="form-control" placeholder="Nhập File Ảnh"  />
+
+                                                <input type="file" value="{{ $model->image }}" name="image1"
+                                                    id="image" class="form-control" placeholder="Nhập File Ảnh" />
+                                                    <br>
+                                                    <img src="{{ asset($model->image) }}" alt="" width="100"
+                                                    height="100">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="email-field" class="form-label">Nội dung </label>
-                                                <textarea style="height: 100px" name="content" id="email-field" class="form-control" placeholder="Nhập Mô Tả"  >{{ $model->content }}</textarea>
+                                                <textarea style="height: 100px" name="content" id="editor" class="form-control" placeholder="Nhập Mô Tả">{{ $model->content }}</textarea>
                                             </div>
                                         </div>
 
                                         <div class="modal-footer">
                                             <div class="hstack gap-2 justify-content-end">
-                                                <button type="button" class="btn btn-light"><a href="{{route('index_new')}}">Danh Sách</a></button>
-                                                <button type="submit" class="btn btn-success" id="add-btn">Cập Nhật </button>
+                                                <button type="button" class="btn btn-light"><a
+                                                        href="{{ route('index_new') }}">Danh Sách</a></button>
+                                                <button type="submit" class="btn btn-success" id="add-btn">Cập Nhật
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -83,7 +95,9 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-6">
-                        <script>document.write(new Date().getFullYear())</script> © Velzon.
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script> © Velzon.
                     </div>
                     <div class="col-sm-6">
                         <div class="text-sm-end d-none d-sm-block">
@@ -97,4 +111,15 @@
 @endsection
 @section('script')
     @include('admin.pages.news.script')
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .then(editor => {
+                console.log(editor);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
 @endsection

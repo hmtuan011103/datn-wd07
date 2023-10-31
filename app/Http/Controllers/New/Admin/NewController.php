@@ -16,7 +16,8 @@ class NewController extends BaseNewController
 {
     public function index()
     {
-        $data = NewPost::all();
+        $data = NewPost::orderBy('created_at', 'desc')->get();
+        // $data = NewPost::query()->get();
         $title = 'Trang quản lý tin tức';
         return view('admin.pages.news.main', compact('title', 'data'));
     }
@@ -31,12 +32,14 @@ class NewController extends BaseNewController
     public function store(StoreNewRequest $request)
     {
         toastr()->success('Thêm Thành Công!');
+
         $this->NewPostService->store($request);
         return redirect()->route('index_new');
     }
 
     public function destroy(string $id)
     {
+
         toastr()->success('Xóa Thành Công!');
        $this->NewPostService->destroy($id);
         return redirect()->route('index_new');
@@ -47,9 +50,15 @@ class NewController extends BaseNewController
         $users = User::all();
         return view('admin.pages.news.edit',compact('title','model','users'));
     }
-    public function update(UpdateNewRequest $request, string $id){
-        toastr()->success('Cap nhat thanh cong');
+    public function update(Request $request, string $id){
+        toastr()->success('Cập nhật thành công');
         $this->NewPostService->update($request, $id);
         return redirect()->route('index_new');
+    }
+    public function destroyMultiple(Request $request)
+    {
+        $data = $request->ids;
+
+        return $this->NewPostService->destroyMultiple($data);
     }
 }
