@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('code_ticket');
             $table->integer('bill_id');
-            $table->integer('code_seat');
+            $table->string('code_seat');
             $table->string('pickup_location')->comment('Địa điểm đón');
             $table->string('pay_location')->comment('Địa điểm trả');
             $table->timestamps();
