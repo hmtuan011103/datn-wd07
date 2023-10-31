@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Auth\Client;
 
 use App\Http\Controllers\Controller;
@@ -8,10 +7,59 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use function Laravel\Prompts\alert;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    public function changePassword(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'oldPassword' => 'required',
+            'newPassword' => 'required',
+        ]);
+
+        if (!Hash::check($request->oldPassword, $user->password)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Mật khẩu cũ không đúng.'
+            ], 400);
+        }
+
+        $user->update([
+            'password' => Hash::make($request->newPassword)
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Mật khẩu đã được cập nhật.'
+        ]);
+    }
+    public function updateProfile(Request $request)
+    {
+        $user = auth()->user();
+
+        $request->validate([
+            "name" => "required",
+            "email" => "required|email|unique:users,email," . $user->id,
+            "phone_number" => "required",
+            "location" => "nullable"
+        ]);
+
+        $user->update([
+            "name" => $request->name,
+            "email" => $request->email,
+            "phone_number" => $request->phone_number,
+            "location" =>$request->location
+        ]);
+
+        return response()->json([
+            "status" => true,
+            "message" => "Profile updated successfully",
+            "data" => $user
+        ]);
+    }
     public function register(Request $request){
 
         $request->validate([
@@ -54,7 +102,7 @@ class AuthController extends Controller
                     "status" => true,
                     "message" => "User logged in successfully",
                     "token" => $token,
-                    "redirect_url" => route('search')
+                    "redirect_url" => route('/')
                 ]);
             } else {
                 return response()->json([
@@ -67,6 +115,16 @@ class AuthController extends Controller
         return response()->json([
             "status" => false,
             "message" => "Tài khoản của bạn không đúng",
+        ]);
+    }
+    public function profile(){
+
+        $userdata = auth()->user();
+
+        return response()->json([
+            "status" => true,
+            "message" => "Profile data",
+            "data" => $userdata
         ]);
     }
 
