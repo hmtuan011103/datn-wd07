@@ -242,9 +242,11 @@ class TripService
                 $seats = intval($total_seat_trip) - intval($total_seat_bill);
                 if ($seats < intval($request->ticket)) {
                     unset($trips[$i]);
+                }else{
+                    $trips[$i]['seat_empty'] = $seats;
                 }
+                
             }
-
             if ($trips->isEmpty()) {
                 return null;
             } else {
@@ -271,6 +273,8 @@ class TripService
                 $seats = intval($total_seat_trip) - intval($total_seat_bill);
                 if ($seats < intval($request->ticket)) {
                     unset($tripstart[$i]);
+                }else{
+                    $tripstart[$i]['seat_empty'] = $seats;
                 }
             }
             $total_trip_end = count($tripend);
@@ -292,6 +296,8 @@ class TripService
 
                 if ($seats < intval($request->ticket)) {
                     unset($tripend[$i]);
+                }else{
+                    $tripend[$i]['seat_empty'] = $seats;
                 }
             }
             if ($tripstart->isEmpty() || $tripend->isEmpty()) {
