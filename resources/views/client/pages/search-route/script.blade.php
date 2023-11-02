@@ -767,7 +767,7 @@
                                     </div>
                                     <div>
                                         <button
-                                            class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip px-4" data-turn="${item.id}">Chọn
+                                            class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip px-4" onclick="redirectToSelectSeat(this)" data-turn="${item.id}">Chọn
                                             chuyến</button>
                                     </div>
                                 </div>
