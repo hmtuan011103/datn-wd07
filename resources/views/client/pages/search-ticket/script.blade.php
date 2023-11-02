@@ -143,7 +143,7 @@
                   <p>Trạng thái : </p>
                 </div>
                 <div class="detail-user-two">
-                  <p class="label-user">${data[0].total_money}.000đ</p>
+                  <p class="label-user">${data[0].total_money.toLocaleString("vi-VN")}đ</p>
                   <p class="label-user pttt">${data[0].status_pay === 0 ? "Chưa thanh toán" : "Đã thanh toán"}</p>
                 </div>
               </div>
@@ -151,7 +151,6 @@
           `;
 
                         containerTicket.appendChild(ticketInfo);
-
                         // Thêm các thông tin vé vào container-ticket
                         var ticketContainer = document.createElement("div");
                         ticketContainer.className = "ticket";
@@ -186,7 +185,7 @@
                       <p>${ticket.code_seat}</p>
                       <p>${ticket.pickup_location}</p>
                       <p>${ticket.pay_location}</p>
-                      <p>${pricePerTicket}.000đ</p>
+                      <p>${pricePerTicket.toLocaleString("vi-VN")}đ</p>
                     </div>
                   </div>
                 </div>
