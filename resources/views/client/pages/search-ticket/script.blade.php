@@ -1,5 +1,5 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("searchButton").addEventListener('click', function(event) {
@@ -17,10 +17,15 @@
             var phoneNumberInput = document.getElementById("phone_number");
             var ticketCodeInput = document.getElementById("ticketCode");
 
+            $("#phone_number").on("input", function () {
+                $(this).val($(this).val().replace(/[^0-9]/g, ""));
+            });
+
+
             // Reset previous validation state
             phoneNumberInput.style.borderColor = "";
             ticketCodeInput.style.borderColor = "";
-      
+
 
 
             // Check if any input field is empty
@@ -32,11 +37,56 @@
 
             if (ticketCodeValue === "") {
                 ticketCodeInput.style.borderColor = "red";
+                Toastify({
+                    text: "Bạn phải nhập mã vé",
+                    duration: 2000,
+                    newWindow: true,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    stopOnFocus: true,
+                    style: {
+                        background: "#EF5222",
+                        padding: "20px 10px",
+                        borderRadius: '5px'
+                    },
+                }).showToast();
                 hasError = true;
             }
 
+            const phoneNumberPattern = /^(0|\+84)[2-9]\d{8,9}$/;
             if (phoneNumberValue === "") {
                 phoneNumberInput.style.borderColor = "red";
+                Toastify({
+                    text: "Bạn phải nhập số điện thoại",
+                    duration: 2000,
+                    newWindow: true,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    stopOnFocus: true,
+                    style: {
+                        background: "#EF5222",
+                        padding: "20px 10px",
+                        borderRadius: '5px'
+                    },
+                }).showToast();
+                hasError = true;
+            } else if(!phoneNumberPattern.test(phoneNumberValue)){
+                Toastify({
+                    text: "Bạn phải nhập đúng định dạng số điện thoại",
+                    duration: 2000,
+                    newWindow: true,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    stopOnFocus: true,
+                    style: {
+                        background: "#EF5222",
+                        padding: "20px 10px",
+                        borderRadius: '5px'
+                    },
+                }).showToast();
                 hasError = true;
             }
 
@@ -117,7 +167,7 @@
                             ticketElement.innerHTML = `
               <div class="grid-ticket">
                 <div class="detail-ticket">
-                  
+
                   <div class="logo">
                     <img src="{{ asset('client/assets/images/logo_web.png') }}"  alt="">
                   </div>
