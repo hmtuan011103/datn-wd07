@@ -17,17 +17,7 @@
         <div class="pt-3 d-flex justify-content-between">
             <div></div>
             <div></div>
-            <div class="d-flex btn rounded-pill bg-white w-btn-lg-rg align justify-content-evenly">
-                <div class="pe-2">
-                    <i class="fa-solid fa-circle-user icon-user-bg fs-22"></i>
-                </div>
-                <div class="fs-14">
-                    <a href="" class="text-decoration-none cl-black fw-normal">Đăng nhập/</a>
-                </div>
-                <div class="fs-14">
-                    <a href="" class="text-decoration-none cl-black fw-normal">Đăng ký</a>
-                </div>
-            </div>
+
         </div>
     </header>
 </header>
@@ -97,7 +87,7 @@
                                         <input type="password" class="form-control" id="register-confirm-password" placeholder="Nhập lại mật khẩu">
                                     </div>
                                     <p id="confirm_password_error" class="error-message"></p>
-                                    <p id="register_add" class="error-message" style="display: none" >Email đã tồn tại</p>
+                                    <p id="register_add" class="error-message" style="display: none" >Email của bạn đã tồn tại.</p>
                                     <button type="submit" class="ant-btn-primary" onclick="validate_Form()"><span>Hoàn Thành</span></button>
                                 </div>
                         </form>
