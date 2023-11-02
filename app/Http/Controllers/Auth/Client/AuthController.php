@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Auth\Client;
 
 use App\Http\Controllers\Controller;
@@ -8,10 +7,36 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Auth;
 use function Laravel\Prompts\alert;
 
 class AuthController extends Controller
 {
+    public function changePassword(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'oldPassword' => 'required',
+            'newPassword' => 'required',
+        ]);
+
+        if (!Hash::check($request->oldPassword, $user->password)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Mật khẩu cũ không đúng.'
+            ], 400);
+        }
+
+        $user->update([
+            'password' => Hash::make($request->newPassword)
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Mật khẩu đã được cập nhật.'
+        ]);
+    }
     public function register(Request $request){
 
         $request->validate([
@@ -36,7 +61,28 @@ class AuthController extends Controller
             "redirect_url" => route('auth')
         ]);
     }
+    public function updateProfile(Request $request)
+    {
+        $user = auth()->user();
 
+        $request->validate([
+            "name" => "required",
+            "email" => "required|email|unique:users,email," . $user->id,
+            "phone_number" => "required",
+        ]);
+
+        $user->update([
+            "name" => $request->name,
+            "email" => $request->email,
+            "phone_number" => $request->phone_number,
+        ]);
+
+        return response()->json([
+            "status" => true,
+            "message" => "Profile updated successfully",
+            "data" => $user
+        ]);
+    }
     public function login(Request $request)
     {
         $request->validate([
@@ -54,21 +100,39 @@ class AuthController extends Controller
                     "status" => true,
                     "message" => "User logged in successfully",
                     "token" => $token,
-                    "redirect_url" => route('search')
+                    "redirect_url" => route('trang-chu')
                 ]);
             } else {
+                // Mật khẩu sai
                 return response()->json([
                     "status" => false,
-                    "message" => "Mật khẩu bạn nhập vào không đúng",
+                    "message" => "Tên tài khoản hoặc mật khẩu không chính xác.",
                 ]);
             }
+        } else {
+            // Tài khoản không tồn tại
+            return response()->json([
+                "status" => false,
+                "message" => "Tài khoản không tồn tại",
+            ]);
         }
 
+        // Đoạn mã dưới đây thêm một thông báo lỗi khi cả tài khoản và mật khẩu đều sai
         return response()->json([
             "status" => false,
-            "message" => "Tài khoản của bạn không đúng",
+            "message" => "Tài khoản và mật khẩu không đúng",
         ]);
     }
 
+    public function profile(){
+
+        $userdata = auth()->user();
+
+        return response()->json([
+            "status" => true,
+            "message" => "Profile data",
+            "data" => $userdata
+        ]);
+    }
 
 }

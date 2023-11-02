@@ -28,6 +28,18 @@ Route::delete('users/destroy-multiple', [\App\Http\Controllers\User\Admin\UserCo
 Route::post("register", [AuthController::class, 'register']);
 Route::post("login", [AuthController::class, 'login']);
 
+
+Route::group([
+    "middleware" => ["auth:api"]
+], function(){
+
+    Route::get("profile", [AuthController::class, "profile"]);
+    Route::get("refresh", [AuthController::class, "refreshToken"]);
+    Route::get("logout", [AuthController::class, "logout"]);
+    Route::post('update',  [AuthController::class, 'updateProfile']);
+    Route::post('password', [AuthController::class, 'changePassword']);
+});
+
 Route::get('/data', [TripController::class, 'getData'])->name('getData');
 Route::get('/search_trip', [TripController::class, 'search_start_trip'])->name('search_start_trip');
 
@@ -41,3 +53,5 @@ Route::get('get_seat_empty', [TripController::class, 'get_seat_empty'])->name('g
 Route::get('get_data_year', [HomeController::class, 'get_data_year'])->name('get_data_year');
 
 Route::get('/search_ticket', [TicketController::class, 'search_ticket'])->name('search_ticket');
+
+Route::get('news/recent', [TripController::class, 'getRecentNews']);

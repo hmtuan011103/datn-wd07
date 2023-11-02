@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('client.pages.home.index');
-});
+})->name('trang-chu');
 
 Route::get('/tim-kiem', function () {
     return view('client.pages.search-route.index');
@@ -33,6 +33,15 @@ Route::get('/dang-nhap', function () {
     return view('client.pages.auth.login');
 })->name('auth');
 
+Route::match(['get', 'post'], '/thong-tin', function () {
+    return view('client.pages.profile.profile');
+})->name('thong-tin');
+//Route::post('/pass-word', function () {
+//    return view('client.pages.auth.password');
+//})->name('auth');
+Route::match(['get', 'post'], '/pass-word', function () {
+    return view('client.pages.profile.password');
+})->name('password');
 Route::get('/lich-trinh', [TripController::class, 'lich_trinh'])->name('lich_trinh');
 Route::get('/lien-he', function () {
     return view('client.pages.contact.index');

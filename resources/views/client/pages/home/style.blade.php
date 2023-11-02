@@ -40,4 +40,19 @@
     .slick-dots li.slick-active button {
         background-color: #EF5222;
     }
+    
+    .slick-arrow-right, .slick-arrow-left {
+        position: absolute;
+        top: 35%;
+        width: fit-content;
+        z-index: 999;
+        cursor: pointer;
+    }
+    .slick-arrow-left {
+        left: -65px;
+    }
+    .slick-arrow-right {
+        right: -50px;
+    }
+
 </style>
