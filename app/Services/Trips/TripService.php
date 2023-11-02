@@ -360,6 +360,7 @@ class TripService
 
     public function search($request)
     {
+        $currentDateTime = Carbon::now()->addHours(4);
         $searchStart = $request->input('search_start');
         $searchEnd = $request->input('search_end');
 
@@ -373,7 +374,34 @@ class TripService
             ->orderBy('start_location', 'asc')
             ->get();
 
-        return $trips;
+            $availableTrips = [];
+
+            foreach ($trips as $trip) {
+                $tripStartDate = Carbon::parse($trip->start_date);
+                $tripStartTime = Carbon::parse($trip->start_time);
+        
+                $tripDateTime = $tripStartDate->copy()->setTime($tripStartTime->hour, $tripStartTime->minute, $tripStartTime->second);
+        
+                if ($tripDateTime->isSameDay($currentDateTime) && $tripDateTime->greaterThanOrEqualTo($currentDateTime)) {
+                    $totalBookedSeats = DB::table('bills')
+                        ->where('trip_id', $trip->id)
+                        ->sum('total_seats');
+        
+                    $carTotalSeat = DB::table('cars')
+                        ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
+                        ->where('cars.id', $trip->car_id)
+                        ->value('type_cars.total_seat');
+        
+                    $remainingSeats = $carTotalSeat - $totalBookedSeats;
+        
+                    if ($remainingSeats > 0) {
+                        $trip->remaining_seats = $remainingSeats;
+                        $availableTrips[] = $trip;
+                    }
+                }
+            }
+
+        return $availableTrips;
     }
     public function get_all_type_car()
     {
