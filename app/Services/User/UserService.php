@@ -286,4 +286,42 @@ class UserService
 
           return collect($allRole);
      }
+
+     public function updateProfilePassword($data, $id)
+     {
+          $user = $this->model::with('roles')->find($id);
+
+          // Default response data
+          $response = [
+               'message' => 'Vui lòng thử lại sau.',
+               'status' => ResponseAlias::HTTP_BAD_GATEWAY
+          ];
+
+          // If the user is not found, return a not found response
+          if (!$user) {
+               $response = [
+                    'message' => 'Không tìm thấy!',
+                    'status' => ResponseAlias::HTTP_NOT_FOUND
+               ];
+               return response()->json($response, $response['status']);
+          }
+
+          // If an update is needed
+          try {
+               // Use a Laravel transaction to ensure data consistency
+               $user->update($data);
+
+               $response = [
+                    'message' => 'Cập nhật thành công.',
+                    'status' => ResponseAlias::HTTP_OK,
+               ];
+
+               // If the transaction is successful, return a success response
+               return response()->json($response, $response['status']);
+          } catch (\Exception $e) {
+               // Handle other exceptions
+               // Log the error and return an error response
+               return response()->json(['message' => $e->getMessage(), 'status' => ResponseAlias::HTTP_INTERNAL_SERVER_ERROR]);
+          }
+     }
 }

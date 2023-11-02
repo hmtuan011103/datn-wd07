@@ -100,58 +100,178 @@
         var dateInputstart = document.getElementById("dateInputstart")._flatpickr.selectedDates[0];
         var dateInputend = document.getElementById("dateInputend")._flatpickr.selectedDates[0];
         if (start_location === '0') {
-            error_start_location.textContent = "Vui lòng chọn điểm đi";
+            Toastify({
+                text: `Vui lòng chọn điểm đi`,
+                duration: 2000,
+                newWindow: true,
+                close: true,
+                gravity: "top",
+                position: "right",
+                stopOnFocus: true,
+                style: {
+                    background: "#EF5222",
+                    padding: "20px 10px",
+                    borderRadius: '5px'
+                },
+            }).showToast();
+            // error_start_location.textContent = "Vui lòng chọn điểm đi";
             return;
-        } else {
-            error_start_location.textContent = "";
-        }
+        } 
+        // else {
+        //     error_start_location.textContent = "";
+        // }
         if (end_location === '0') {
-            error_end_location.textContent = "Vui lòng chọn điểm đến";
+            Toastify({
+                text: `Vui lòng chọn điểm đến`,
+                duration: 2000,
+                newWindow: true,
+                close: true,
+                gravity: "top",
+                position: "right",
+                stopOnFocus: true,
+                style: {
+                    background: "#EF5222",
+                    padding: "20px 10px",
+                    borderRadius: '5px'
+                },
+            }).showToast();
+            // error_end_location.textContent = "Vui lòng chọn điểm đến";
             return;
-        } else {
-            error_end_location.textContent = "";
         }
+        //  else {
+        //     error_end_location.textContent = "";
+        // }
         if (start_location === end_location) {
-            error_end_location.textContent = "Điểm đến phải khác điểm đi";
+            Toastify({
+                text: `Điểm đến phải khác điểm đi`,
+                duration: 2000,
+                newWindow: true,
+                close: true,
+                gravity: "top",
+                position: "right",
+                stopOnFocus: true,
+                style: {
+                    background: "#EF5222",
+                    padding: "20px 10px",
+                    borderRadius: '5px'
+                },
+            }).showToast();
+            // error_end_location.textContent = "Điểm đến phải khác điểm đi";
             return;
-        } else {
-            error_end_location.textContent = "";
-        }
+        } 
+        // else {
+        //     error_end_location.textContent = "";
+        // }
         if (start_time === '') {
-            error_start_time.textContent = "Vui lòng chọn ngày đi"
+            Toastify({
+                text: `Vui lòng chọn ngày đi`,
+                duration: 2000,
+                newWindow: true,
+                close: true,
+                gravity: "top",
+                position: "right",
+                stopOnFocus: true,
+                style: {
+                    background: "#EF5222",
+                    padding: "20px 10px",
+                    borderRadius: '5px'
+                },
+            }).showToast();
+            // error_start_time.textContent = "Vui lòng chọn ngày đi"
             return;
-        } else {
-            error_start_time.textContent = ""
-        }
+        } 
+        // else {
+        //     error_start_time.textContent = ""
+        // }
         if (type_ticket === '2') {
             if (end_time === '') {
-                error_end_time.textContent = "Vui lòng chọn ngày về";
+                Toastify({
+                text: `Vui lòng chọn ngày về`,
+                duration: 2000,
+                newWindow: true,
+                close: true,
+                gravity: "top",
+                position: "right",
+                stopOnFocus: true,
+                style: {
+                    background: "#EF5222",
+                    padding: "20px 10px",
+                    borderRadius: '5px'
+                },
+            }).showToast();
+                // error_end_time.textContent = "Vui lòng chọn ngày về";
                 return;
-            } else {
-                error_end_time.textContent = "";
             }
+            //  else {
+            //     error_end_time.textContent = "";
+            // }
 
             if (dateInputstart > dateInputend) {
-                error_end_time.textContent = "Ngày về phải lớn hơn ngày đi";
+                Toastify({
+                text: `Ngày về phải lớn hơn ngày đi`,
+                duration: 2000,
+                newWindow: true,
+                close: true,
+                gravity: "top",
+                position: "right",
+                stopOnFocus: true,
+                style: {
+                    background: "#EF5222",
+                    padding: "20px 10px",
+                    borderRadius: '5px'
+                },
+            }).showToast();
+                // error_end_time.textContent = "Ngày về phải lớn hơn ngày đi";
                 return;
-            } else {
-                error_end_time.textContent = "";
             }
+            //  else {
+            //     error_end_time.textContent = "";
+            // }
         }
 
         if (ticket > 5) {
-            error_ticket.textContent = "Số vé tối đa là 5";
+            Toastify({
+                text: `Số vé tối đa là 5`,
+                duration: 2000,
+                newWindow: true,
+                close: true,
+                gravity: "top",
+                position: "right",
+                stopOnFocus: true,
+                style: {
+                    background: "#EF5222",
+                    padding: "20px 10px",
+                    borderRadius: '5px'
+                },
+            }).showToast();
+            // error_ticket.textContent = "Số vé tối đa là 5";
             return;
-        } else {
-            error_ticket.textContent = "";
         }
+        //  else {
+        //     error_ticket.textContent = "";
+        // }
 
         if (ticket < 1) {
-            error_ticket.textContent = "Số vé tối thiểu là 1";
+            Toastify({
+                text: `Số vé tối thiểu là 1`,
+                duration: 2000,
+                newWindow: true,
+                close: true,
+                gravity: "top",
+                position: "right",
+                stopOnFocus: true,
+                style: {
+                    background: "#EF5222",
+                    padding: "20px 10px",
+                    borderRadius: '5px'
+                },
+            }).showToast();
+            // error_ticket.textContent = "Số vé tối thiểu là 1";
             return;
-        } else {
-            error_ticket.textContent = "";
         }
+        //  else {
+        //     error_ticket.textContent = "";
+        // }
 
         var form = document.getElementById("searchForm");
         var formData = new FormData(form);
@@ -276,3 +396,4 @@
         console.log(form)
     }
 </script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

@@ -19,6 +19,7 @@ class Bill extends Model
         'status_pay',
         'total_money',
         'total_money_after_discount',
+        'total_seats',
         'type_pay',
         'total_seats',
         'code_bill'

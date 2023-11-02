@@ -30,7 +30,7 @@
             console.log(selectedRows.length)
             var result = '';
             if (selectedRows.length > 0) {
-                var result = confirm('Bạn có chắc chắn muốn xóa những vai trò này')
+                var result = confirm('Bạn có chắc chắn muốn xóa những quyền này')
                 if (result) {
                     for (let a = 0; a < selectedRows.length; a++) {
                         var ajaxRequest = $.ajax({
@@ -46,7 +46,7 @@
                         Swal.fire({
                             position: "center",
                             icon: "success",
-                            title: "Xóa phân quyền thành công!",
+                            title: "Xóa quyền thành công!",
                             showConfirmButton: !1,
                             timer: 2e3,
                             showCloseButton: !0,
@@ -58,7 +58,7 @@
 
             } else {
                 Swal.fire({
-                    title: "Vui lòng chọn ít nhất 1 phân quyền",
+                    title: "Vui lòng chọn ít nhất 1 quyền",
                     confirmButtonClass: "btn btn-danger",
                     confirmButtonColor: '#d33',
                 });
