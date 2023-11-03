@@ -6,3 +6,8 @@
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
 
     {!! JsValidator::formRequest('App\Http\Requests\Contact\ContactRequest') !!}
+    <script>
+        $("#phone").on("input", function () {
+            $(this).val($(this).val().replace(/[^0-9]/g, ""));
+        });
+    </script>

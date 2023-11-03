@@ -9,6 +9,10 @@
     }
     .tab1 .title .name{
         color: orangered;
+
+    }
+    .tab1 .title .name h2{
+         font-weight: bolder;
     }
     .tab1 .content-tab1{
         margin: 15px 0;
@@ -29,7 +33,7 @@
     .tab2 .tab2-right p.bao-dap{
         color: orangered;
         font-size: 16px;
-        font-weight: bolder;
+        font-weight: 500;
     }
     .tab2 .tab2-right p,
     .tab2 .tab2-right ul li{

@@ -21,7 +21,7 @@
                     <input type="email" name="email" class="form-control input-email" placeholder="Email">
                 </div>
                 <div class="form-group col-md-6">
-                    <input type="text" name="phone_number" class="form-control" placeholder="Số điện thoại">
+                    <input type="text" id="phone" name="phone_number" class="form-control" placeholder="Số điện thoại">
                 </div>
             </div>
             <div class="row mb-3">
