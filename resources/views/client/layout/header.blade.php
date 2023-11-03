@@ -12,8 +12,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>.dropdown-toggle::after {display: none;}</style>
     @yield('style')
-
-
 </head>
 <body>
 <header class="w-full-container header-page-image">
@@ -33,7 +31,7 @@
                                 <a href="{{route('auth')}}" class="text-decoration-none cl-black fw-normal">Đăng nhập/</a>
                             </div>
                             <div class="fs-14">
-                                <a href="" class="text-decoration-none cl-black fw-normal">Đăng ký</a>
+                                <a href="{{route('auth')}}" class="text-decoration-none cl-black fw-normal">Đăng ký</a>
                             </div>
                         </div>
                     </div>

@@ -75,4 +75,5 @@
 @endsection
 @section('script')
     @include('client.pages.profile.scrip_password')
+
 @endsection

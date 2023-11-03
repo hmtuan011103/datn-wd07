@@ -1,4 +1,5 @@
 <script>
+    var isNotificationDisplayed = false;
     document.getElementById('changePasswordButton').addEventListener('click', function (event) {
         event.preventDefault();
 
@@ -46,16 +47,59 @@
         })
             .then(response => response.json())
             .then(data => {
-                if (data.status === true) {
-                    console.log('Mật khẩu đã được thay đổi thành công.');
-                    window.location.href = 'pass-word';
-                } else {
-                    console.log('Lỗi: ' + data.message);
+
+                if (data.status === true && !isNotificationDisplayed) {
+                    isNotificationDisplayed = true;
+                    Toastify({
+                        text: "Đổi Mật Khẩu Thành Công.",
+                        duration: 200000,
+                        newWindow: true,
+                        close: true,
+                        gravity: "right",
+                        position: "fixed",
+                        stopOnFocus: true,
+                        style: {
+                            "margin-top": "140px",
+                            "margin-left": "83%",
+                            position: "absolute",
+                            background: "#4CAF50",
+                            padding: "20px 10px",
+                            borderRadius: "5px",
+                            zIndex: 9999 //
+                        },
+                    }).showToast();
+
+                    setTimeout(() => {
+                        window.location.href = 'pass-word';
+                    }, 2000);
+                } else if (!isNotificationDisplayed) {
+                    isNotificationDisplayed = true;
+                    Toastify({
+                        text: "Đổi Mật Khẩu Thất Bại.",
+                        newWindow: true,
+                        close: true,
+                        gravity: "top",
+                        position: "left",
+                        stopOnFocus: true,
+                        style: {
+                            "margin-top": "140px",
+                            "margin-left": "83%",
+                            position: "absolute",
+                            background: "rgba(239, 82, 34, 0.7)",
+                            padding: "20px 10px",
+                            borderRadius: '5px',
+                            zIndex: 9999
+                        },
+                    }).showToast();
+
+                    setTimeout(() => {
+                        window.location.href = 'pass-word';
+                    }, 2000);
                 }
             })
             .catch(error => {
                 console.log('Lỗi khi gửi yêu cầu:', error);
             });
     });
-
 </script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

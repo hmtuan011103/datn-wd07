@@ -1,4 +1,5 @@
 <script>
+    var isNotificationDisplayed = false;
     function getProfile() {
         fetch('http://127.0.0.1:8000/api/profile ', {
             method: 'GET',
@@ -99,11 +100,53 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.status === true) {
-                        console.log('Cập nhật thành công');
-                        window.location.href = 'thong-tin';
-                    } else {
-                        console.log('Cập nhật thất bại: ' + data.message);
+                    if (data.status === true && !isNotificationDisplayed) {
+                        isNotificationDisplayed = true;
+                        Toastify({
+                            text: "Thay Đổi Thông Tin Thành Công.", // Nội dung thông báo của bạn
+                            duration: 200000, // Thời gian hiển thị thông báo
+                            newWindow: true,
+                            close: true,
+                            gravity: "right", // Đặt gravity là "right" để thông báo hiển thị sát lề phải
+                            position: "fixed", // Đặt vị trí là "fixed" để thông báo hiển thị ở cố định
+                            stopOnFocus: true,
+                            style: {
+                                "margin-top": "140px",
+                                "margin-left": "80%", // Đúng cú pháp và thêm dấu nháy đơn
+                                position: "absolute", // Đặt position thành "absolute"
+                                background: "#4CAF50", // Màu nền đỏ với độ trong suốt
+                                padding: "20px 10px",
+                                borderRadius: "5px",
+                                zIndex: 9999 //
+                            },
+                        }).showToast();
+
+                        setTimeout(() => {
+                            window.location.href = 'thong-tin';
+                        }, 2000);
+                    } else if (!isNotificationDisplayed) {
+                        isNotificationDisplayed = true;
+                        Toastify({
+                            text: "Thay Đổi Thông Tin Thất Bại.", // Nội dung thông báo của bạn
+                            // duration: 2000, // Thời gian hiển thị thông báo
+                            newWindow: true,
+                            close: true,
+                            gravity: "top", // Đặt gravity là "top" để thông báo hiển thị ở trên cùng
+                            position: "left", // Đặt vị trí là "right" để thông báo hiển thị bên phải
+                            stopOnFocus: true,
+                            style: {
+                                "margin-top": "140px",
+                                "margin-left": "80%",
+                                position: "absolute", // Đặt position thành "absolute"
+                                background: "rgba(239, 82, 34, 0.7)", // Màu nền đỏ với độ trong suốt
+                                padding: "20px 10px",
+                                borderRadius: '5px',
+                                zIndex: 9999 // Đặt z-index cao để hiển thị đè lên giao diện
+                            },
+                        }).showToast();
+                        setTimeout(() => {
+                            window.location.href = 'thong-tin';
+                        }, 2000);
                     }
                 })
                 .catch(error => {
@@ -128,3 +171,4 @@
         });
     }
 </script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
