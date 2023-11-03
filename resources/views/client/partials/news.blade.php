@@ -2,7 +2,7 @@
     <div class="container pt-3">
         <h3 class="text-uppercase cl-orange-bold ta-center pb-2 fw-bold m-0">Tin tức mới</h3>
         <p class="cl-orange-bold ta-center fw-medium mb-0">Được khách hàng tin tưởng và lựa chọn</p>
-        <a class="cl-orange ta-right pb-2 text-decoration-none d-block fs-15 fw-medium" href="">Xem tất cả</a>
+        <a class="cl-orange ta-right pb-2 text-decoration-none d-block fs-15 fw-medium" id="view-all-news-btn" href="">Xem tất cả</a>
         <div class="row pt-2 flex-wrap mx-auto recent-news-slide" id="recent-news-container">
             {{-- <div class="col-4">
                 <a href="" class="d-block border border-1 rounded-3">

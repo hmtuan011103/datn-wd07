@@ -199,6 +199,6 @@ class UserController extends BaseUserController
         $message = $query->getData()->message;
         toastr()->success($message, 'Thành công');
 
-        return back();
+        return redirect()->route('users.profile', ['user' => $id]);
     }
 }
