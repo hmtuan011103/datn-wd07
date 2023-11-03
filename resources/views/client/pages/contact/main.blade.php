@@ -1,6 +1,7 @@
 @include('client.pages.contact.style')
 <div class="contact container mt-3 mb-5">
     <div class="contact-left col-md-5 col-10">
+        {{-- <h4>LIÊN HỆ VỚI CHÚNG TÔI</h4> --}}
         <img src="{{ asset('client/assets/images/contact.png')}}" width="100%" alt="">
     </div>
     <div class="contact-right col-md-6 col-10">
