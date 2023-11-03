@@ -45,10 +45,10 @@
                     <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="#">Hóa đơn</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="#">Liên hệ</a>
+                    <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="{{url('/lien-he')}}">Liên hệ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="#">Về chúng tôi</a>
+                    <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="{{url('/ve-chung-toi')}}">Về chúng tôi</a>
                 </li>
             </ul>
         </nav>
