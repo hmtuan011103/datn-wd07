@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('client.pages.home.index');
-});
+})->name('trang_chu');
 
 Route::get('/tim-kiem', function () {
     return view('client.pages.search-route.index');
