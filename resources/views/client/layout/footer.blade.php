@@ -125,54 +125,61 @@
                         let trip_price = '';
                         let interval_trip = '';
                         let start_time = '';
+                        let trip_start = '';
+                        let trip_end = '';
+                        let total_seat = '';
 
                         response.forEach(element => {
+                            trip_start = element.start_location ? element.start_location :
+                                'Không dõ';
+                            trip_end = element.end_location ? element.end_location : 'Không dõ';
                             trip_price = new Intl.NumberFormat().format(element.trip_price).replace(
                                 /,/g, '.');
                             interval_trip = formatTimeVN(element.interval_trip);
                             start_time = formatTimeVN(element.start_time, true);
+                            total_seat = element.total_seat_sold ? element.total_seat_sold : 0;
 
                             // Append the HTML templates to the slick container
                             $('#popular-trip-container').slick('slickAdd', `
-                            <div class="col col-md-4">
-                                <div class="card w-100">
-                                    <div class="position-relative z-1">
-                                        <img src="storage/${element.start_location_image}" class="card-img-top img-fluid img-responsive"
-                                            alt="${element.start_location}" style="height: 170px;width:100%;object-fit: cover;object-position: center;">
-                                        <div class="position-absolute z-2 route-popular-title">
-                                            <span class="cl-white fw-medium fs-15">Tuyến xe từ</span>
-                                            <br>
-                                            <span class="cl-white fw-bold fs-20 text-capitalize">${element.start_location}</span>
+                                <div class="col col-md-4">
+                                    <div class="card w-100">
+                                        <div class="position-relative z-1">
+                                            <img src="storage/${element.start_location_image}" class="card-img-top img-fluid img-responsive"
+                                                alt="${trip_start}" style="height: 170px;width:100%;object-fit: cover;object-position: center;">
+                                            <div class="position-absolute z-2 route-popular-title">
+                                                <span class="cl-white fw-medium fs-15">Tuyến xe từ</span>
+                                                <br>
+                                                <span class="cl-white fw-bold fs-20 text-capitalize">${trip_start}</span>
+                                            </div>
                                         </div>
+                                        <ul class="list-group list-group-flush border-top">
+                                            <li class="list-group-item pt-3">
+                                                <a>
+                                                    <div class="text-decoration-none cl-black d-flex justify-content-between">
+                                                        <p class="ta-left mb-1 fs-18 fw-medium text-capitalize">Tới: ${trip_end}</p>
+                                                        <p class="ta-right mb-1 fs-18 fw-bold">${trip_price} Đ</p>
+                                                    </div>
+                                                    <p class="fs-15 cl-gray mb-0 fw-medium">Quãng đường: ${interval_trip}</p>
+                                                    <p class="fs-15 cl-gray mb-0 fw-medium">Giờ xe chạy: ${start_time}</p>
+                                                    <p class="fs-15 pb-2 cl-gray mb-0 fw-medium">${total_seat} người từng trải nghiệm</p>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <ul class="list-group list-group-flush border-top">
-                                        <li class="list-group-item pt-3">
-                                            <a>
-                                                <div class="text-decoration-none cl-black d-flex justify-content-between">
-                                                    <p class="ta-left mb-1 fs-18 fw-medium text-capitalize">Tới: ${element.end_location}</p>
-                                                    <p class="ta-right mb-1 fs-18 fw-bold">${trip_price} Đ</p>
-                                                </div>
-                                                <p class="fs-15 cl-gray mb-0 fw-medium">Quãng đường: ${interval_trip}</p>
-                                                <p class="fs-15 cl-gray mb-0 fw-medium">Giờ xe chạy: ${start_time}</p>
-                                                <p class="fs-15 pb-2 cl-gray mb-0 fw-medium">${element.total_seat_sold} người từng trải nghiệm</p>
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </div>
-                            </div>
-                        `);
+                            `);
                         });
 
                     } else {
                         $('#popular-trip-container').html(
-                            '<h4 class="alert alert-warning shadow shadow text-center" role="alert">Không có dữ liệu~</h4>'
+                            '<h4 class="text-center" role="alert">Không có dữ liệu</h4>'
                         );
                     }
                 },
                 error: function(error) {
                     // Handle AJAX error
                     $('#popular-trip-container').html(
-                        '<h4 class="alert alert-warning shadow shadow text-center" role="alert">Không có dữ liệu~</h4>'
+                        '<h4 class="text-center" role="alert">Không có dữ liệu</h4>'
                     );
                 }
             });
@@ -229,6 +236,7 @@
                     if (response && response.length > 0) {
                         let htmlTemplates = '';
                         let formatCreatedAtTime = '';
+                        $('#view-all-news-btn').removeClass('d-none');
 
                         response.forEach(element => {
                             formatCreatedAtTime = formatTimeVN(element.created_at, false, true);
@@ -257,15 +265,19 @@
 
                     } else {
                         $('#recent-news-container').html(
-                            '<h4 class="alert alert-warning shadow shadow text-center" role="alert">Không có dữ liệu~</h4>'
+                            '<h4 class="text-center" role="alert">Không có dữ liệu</h4>'
                         );
+
+                        $('#view-all-news-btn').addClass('d-none');
                     }
                 },
                 error: function(error) {
                     // Handle AJAX error
                     $('#recent-news-container').html(
-                        '<h4 class="alert alert-warning shadow shadow text-center" role="alert">Không có dữ liệu~</h4>'
+                        '<h4 class="text-center" role="alert">Không có dữ liệu</h4>'
                     );
+
+                    $('#view-all-news-btn').addClass('d-none');
                 }
             });
         }
@@ -296,19 +308,11 @@
             return formattedHours + formattedMinutes;
         }
 
-        let period = 'sáng'; // Default to morning
-
-        // Check if the hour is in the afternoon/evening
-        if (parseInt(hours, 10) >= 12) {
-            period = 'chiều';
-        }
-
         // Convert 24-hour format to 12-hour format for display with leading zeros
-        const formattedHours = ('0' + (parseInt(hours, 10) > 12 ? parseInt(hours, 10) - 12 : parseInt(hours, 10)))
-            .slice(-2);
-        const formattedMinutes = ('0' + parseInt(minutes, 10)).slice(-2);
+        const formattedHours = ('0' + hours).slice(-2);
+        const formattedMinutes = ('0' + minutes).slice(-2);
 
-        return `${formattedHours}:${formattedMinutes} ${period}`;
+        return `${formattedHours}:${formattedMinutes}`;
     }
 </script>
 

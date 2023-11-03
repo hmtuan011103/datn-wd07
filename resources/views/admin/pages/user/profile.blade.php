@@ -136,11 +136,11 @@
                                             <input type="password" class="form-control pe-4" name="password_current"
                                                 id="validationCustomPasswordcur" placeholder="********" minlength="8"
                                                 maxlength="16">
-                                            @error('password_current')
+                                            {{-- @error('password_current')
                                                 <div class="help-block error-help-block">
                                                     {{ $message }}
                                                 </div>
-                                            @enderror
+                                            @enderror --}}
                                         </div>
                                         <br>
                                         <div class="col">
@@ -154,11 +154,11 @@
                                             <input type="password" class="form-control" name="password"
                                                 id="validationCustomPassword" placeholder="********" minlength="8"
                                                 maxlength="16">
-                                            @error('password')
+                                            {{-- @error('password')
                                                 <div class="help-block error-help-block">
                                                     {{ $message }}
                                                 </div>
-                                            @enderror
+                                            @enderror --}}
                                         </div>
 
                                         <div class="col">
@@ -172,11 +172,11 @@
                                             <input type="password" class="form-control" name="password_confirmation"
                                                 id="validationCustomPasswordRe" placeholder="********" minlength="8"
                                                 maxlength="16">
-                                            @error('password_confirmation')
+                                            {{-- @error('password_confirmation')
                                                 <div class="help-block error-help-block">
                                                     {{ $message }}
                                                 </div>
-                                            @enderror
+                                            @enderror --}}
                                         </div>
 
                                         <div class="col-12 my-4">
