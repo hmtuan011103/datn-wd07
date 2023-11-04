@@ -59,6 +59,24 @@
 
                         window.location.href = 'pass-word';
                 } else {
+                    Toastify({
+                        text: "Đổi Mật Khẩu Thất Bại.",
+                        duration: 2000,
+                        newWindow: true,
+                        close: true,
+                        gravity: "right",
+                        position: "absolute",
+                        stopOnFocus: true,
+                        style: {
+                            "margin-top": "100px",
+                            "right": "10px",
+                            "background": "#fadaa5",
+                            "padding": "20px 10px",
+                            "border-radius": "5px",
+                            "z-index": "9999",
+                            "position": "absolute",
+                        }
+                    }).showToast();
                     document.getElementById('old_Password').value = '';
                     document.getElementById('new_Password').value = '';
                     document.getElementById('confirm_PasswordS').value = '';
