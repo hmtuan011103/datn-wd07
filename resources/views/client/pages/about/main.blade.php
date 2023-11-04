@@ -10,8 +10,10 @@
             </div>
         </div>
         <div class="content-tab1">
-            <p>Tập đoàn Chiến Thắng – Chiến Thắng Group được thành lập năm 2023. Với hoạt động kinh doanh chính trong lĩnh vực mua bán xe ô tô, vận tải hành khách, bất động sản và kinh doanh dịch vụ. Phương Trang dần trở thành cái tên quen thuộc đồng hành cùng người Việt trên mọi lĩnh vực.</p>
-            <p>Trải qua hơn 20 năm hình thành và phát triển đặt khách hàng là trọng tâm, chúng tôi tự hào trở thành doanh nghiệp vận tải nòng cốt đóng góp tích cực vào sự phát triển chung của ngành vận tải nói riêng và nền kinh tế đất nước nói chung. Luôn cải tiến mang đến chất lượng dịch vụ tối ưu nhất dành cho khách hàng, Công ty Phương Trang được ghi nhận qua nhiều giải thưởng danh giá như “Thương hiệu số 1 Việt Nam, “Top 10 Thương hiệu nổi tiếng Việt Nam”, “Top 10 Dịch vụ hoàn hảo vì quyền lợi người tiêu dùng năm 2022”, “Top 10 Doanh nghiệp tiêu biểu Việt Nam”, “Top 10 thương hiệu, sản phẩm dịch vụ uy tín Việt Nam – ASEAN 2022” …</p>
+           <p>Chúng tôi, Chiến Thắng Bus, là một công ty vận tải khách hàng chuyên nghiệp với kinh nghiệm dày dặn trong lĩnh vực này. Chúng tôi tự hào là đối tác tin cậy của hàng khách hàng trong việc cung cấp dịch vụ vận chuyển an toàn, tiện lợi và chất lượng cao.
+           </p>
+           <p>
+           Với mục tiêu mang lại trải nghiệm vận chuyển tốt nhất cho khách hàng, chúng tôi đã đầu tư mạnh mẽ vào đội ngũ nhân viên giàu kinh nghiệm và đội xe hiện đại. Đội ngũ nhân viên của chúng tôi được đào tạo chuyên nghiệp và luôn sẵn sàng phục vụ với sự tận tâm và chu đáo. Chúng tôi cam kết đảm bảo an toàn và đúng giờ cho mỗi chuyến đi, đồng thời tạo ra một môi trường thoải mái và thân thiện cho khách hàng.</p>
         </div>
     </div>
     <div class="tab2 mt-5">
@@ -33,7 +35,7 @@
     <div class="tab3 mt-3">
         <div class="tab3-left col-md-6 col-11">
             <h4>TRIẾT LÝ</h4>
-            <p>Hội nhập và phát triển góp phần vào sự thịnh vượng của đất nước. Nguồn nhân lực chính là nhân tố then chốt, là tài sản lớn nhất của Công ty Phương Trang, chú trọng tạo ra môi trường làm việc hiện đại, năng động, thân thiện và trao cơ hội phát triển nghề nghiệp cho tất cả thành viên. Sự hài lòng của khách hàng là minh chứng cho chất lượng dịch vụ của Phương Trang. Không ngừng hoàn thiện và phát triển năng lực kinh doanh, Phương Trang thấu hiểu nhu cầu khách hàng, mang đến sản phẩm dịch vụ hoàn hảo, đáp ứng tối đa mong đợi của khách hàng.</p>
+            <p>Hội nhập và phát triển góp phần vào sự thịnh vượng của đất nước. Nguồn nhân lực chính là nhân tố then chốt, là tài sản lớn nhất của Công ty, chú trọng tạo ra môi trường làm việc hiện đại, năng động, thân thiện và trao cơ hội phát triển nghề nghiệp cho tất cả thành viên. Sự hài lòng của khách hàng là minh chứng cho chất lượng dịch vụ của Chiến Thắng. Không ngừng hoàn thiện và phát triển năng lực kinh doanh, Chiến Thắng thấu hiểu nhu cầu khách hàng, mang đến sản phẩm dịch vụ hoàn hảo, đáp ứng tối đa mong đợi của khách hàng.</p>
         </div>
         <div class="tab3-right col-md-6 col-11">
             <img src="https://storage.googleapis.com/futa-busline-web-cms-prod/Artboard_5_3x_cf15563d46/Artboard_5_3x_cf15563d46.png" width="100%" alt="">
@@ -45,7 +47,8 @@
         </div>
         <div class="tab4-right col-md-6 col-11">
             <h4>CHIẾN THẮNG CITY BUS</h4>
-            <p>Mảng vận tải hành khách công cộng Chiến Thắng Bus là mảnh ghép quan trọng trong chuỗi hoạt động chính mà Công ty Phương Trang hướng đến. Đầu tư vào những xe đời mới chất lượng cao, xe buýt Phương Trang mang đến cho hành khách đầy đủ tiện nghi như máy lạnh, wifi cùng đội ngũ lái xe, nhân viên chuyên nghiệp. Xe buýt Phương Trang cam kết mang đến cho khách hàng những chuyến đi an toàn, thoải mái với mức giá phù hợp, những chuyến đi “Chất lượng là danh dự.” Hiện nay, xe buýt Phương Trang đã có mặt tại 07 tỉnh thành: Đồng Tháp, Lâm Đồng, Thừa Thiên Huế, Khánh Hòa, Cần Thơ, An Giang và Ninh Thuận. Tiếp theo năm 2023, Công ty sẽ đưa vào khai thác chính thức các tuyến xe buýt mới trên địa bàn các tỉnh thành: Thành phố Hồ Chí Minh, Vĩnh Long, Đồng Nai, Tiền Giang, Bạc Liêu, Bến Tre, Kiên Giang…đáp ứng tối đa nhu cầu đi lại của người dân, giảm phương tiện cá nhân, góp phần thay đổi bộ mặt giao thông theo hướng hiện đại và tinh giản hơn.</p>
+            <p>Tại Chiến Thắng Bus, chúng tôi không chỉ đơn thuần cung cấp dịch vụ vận tải, mà còn xây dựng mối quan hệ lâu dài với khách hàng. Chúng tôi luôn đặt lợi ích của khách hàng lên hàng đầu. Chúng tôi cam kết mang đến cho khách hàng dịch vụ vận chuyển chất lượng với mức giá hợp lý. Chúng tôi tự hào được là đối tác đáng tin cậy của các khách hàng cá nhân, doanh nghiệp và tổ chức. Sự tin tưởng và sự hài lòng của khách hàng là động lực để chúng tôi không ngừng nâng cao chất lượng dịch vụ và mở rộng phạm vi hoạt động. Hãy để Chiến Thắng Bus trở thành đối tác vận tải đáng tin cậy của bạn. Chúng tôi sẵn lòng hỗ trợ và đáp ứng mọi nhu cầu vận chuyển của bạn. Xin vui lòng liên hệ với chúng tôi để biết thêm thông tin chi tiết và để chúng tôi được phục vụ bạn tốt nhất.
+            </p>
         </div>
     </div>
 </div>

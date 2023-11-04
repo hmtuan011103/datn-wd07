@@ -109,6 +109,15 @@ Route::name('type_users.')->prefix('type_users')->group(function () {
     Route::match(['put', 'patch'], '{type_user}', [\App\Http\Controllers\TypeUser\Admin\TypeUserController::class, 'update'])->name('update')->middleware('check_permission:update-user-type');
     Route::delete('{type_user}', [\App\Http\Controllers\TypeUser\Admin\TypeUserController::class, 'destroy'])->name('destroy')->middleware('check_permission:delete-user-type');
 });
+Route::prefix('news')->group(function () {
+    Route::get('/', [\App\Http\Controllers\New\Admin\NewController::class, 'index'])->name('index_new');
+    Route::get('/create', [\App\Http\Controllers\New\Admin\NewController::class, 'create'])->name('create_new');
+    Route::post('/store', [\App\Http\Controllers\New\Admin\NewController::class, 'store'])->name('store_new');
+    Route::get('/edit/{id}', [\App\Http\Controllers\New\Admin\NewController::class, 'edit'])->name('edit_new');
+    Route::put('/update/{id}', [\App\Http\Controllers\New\Admin\NewController::class, 'update'])->name('update_new');
+    Route::delete('/destroy/{id}',
+        [\App\Http\Controllers\New\Admin\NewController::class, 'destroy'])->name('destroy_new');
+});
 
 Route::group(['prefix' => 'discount_code'], function () {
     Route::get('/', [DiscountCodeController::class, 'index'])->name('list_discount_code')->middleware('check_permission:read-discount-code');
@@ -117,8 +126,8 @@ Route::group(['prefix' => 'discount_code'], function () {
     Route::get('/edit/{id}', [DiscountCodeController::class, 'edit'])->name('edit_discount_code')->middleware('check_permission:update-discount-code');
     Route::post('/post_edit/{id}', [DiscountCodeController::class, 'update'])->name('post_edit_discount_code')->middleware('check_permission:update-discount-code');
     Route::get('/delete/{id}', [DiscountCodeController::class, 'delete'])->name('delete_discount_code')->middleware('check_permission:delete-discount-code');
-
 });
+
 // authen
 Route::get('login', [\App\Http\Controllers\Auth\FormController::class, 'login'])->name('login.form')->middleware('guest');
 Route::prefix('auth')->group(function () {

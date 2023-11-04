@@ -30,7 +30,8 @@ class User extends Authenticatable implements JWTSubject, CanResetPasswordContra
         'address',
         'description',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'location'
     ];
 
     /**
@@ -100,5 +101,8 @@ class User extends Authenticatable implements JWTSubject, CanResetPasswordContra
     public function getJWTCustomClaims()
     {
         return [];
+    }
+    public function news(){
+        return $this->hasMany(NewPost::class,'user_id');
     }
 }

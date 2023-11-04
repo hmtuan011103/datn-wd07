@@ -1,6 +1,6 @@
 <style>
     .form-login{
-        width: 60%;
+        width: 70%;
         z-index: 5;
         position: absolute;
         top: 100px;
@@ -64,4 +64,5 @@
         color: red;
         font-size: 14px;
     }
+
 </style>

@@ -9,17 +9,24 @@ use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class TripController extends BaseTripController
 {
-    public function getInformationDetailTrip()
+    public function getInformationDetailTrip(Request $request)
     {
         try {
-            //            $route = $this->tripService->getDetailRoute("3");
-            //            $locationRouteTrip = $this->tripService->getLocationRouteTrip("3");
-            //            $seats = $this->tripService->getSeats("3");
-            //            $seatSelected = $this->tripService->getSeatSelected("3");
-            $route = $this->tripService->getDetailRoute([4, 5]);
-            $locationRouteTrip = $this->tripService->getLocationRouteTrip([4, 5]);
-            $seats = $this->tripService->getSeats([4, 5]);
-            $seatSelected = $this->tripService->getSeatSelected([4, 5]);
+            $arrayIdBySearch = [];
+            $tripTurn = $request->query('trip_turn');
+            $tripReturn = $request->query('trip_return');
+            $paramsId = "";
+            if ($tripTurn && !$tripReturn) {
+                $paramsId = $tripTurn;
+            } elseif ($tripTurn && $tripReturn) {
+                $arrayIdBySearch[] = $tripTurn;
+                $arrayIdBySearch[] = $tripReturn;
+                $paramsId = $arrayIdBySearch;
+            }
+            $route = $this->tripService->getDetailRoute($paramsId);
+            $locationRouteTrip = $this->tripService->getLocationRouteTrip($paramsId);
+            $seats = $this->tripService->getSeats($paramsId);
+            $seatSelected = $this->tripService->getSeatSelected($paramsId);
             return response()->json([
                 'seatSelected' => $seatSelected,
                 'seats' => $seats,

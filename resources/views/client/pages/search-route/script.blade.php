@@ -151,7 +151,7 @@
             }).showToast();
             // error_start_location.textContent = "Vui lòng chọn điểm đi";
             return;
-        } 
+        }
         // else {
         //     error_start_location.textContent = "";
         // }
@@ -193,7 +193,7 @@
             }).showToast();
             // error_end_location.textContent = "Điểm đến phải khác điểm đi";
             return;
-        } 
+        }
         // else {
         //     error_end_location.textContent = "";
         // }
@@ -214,7 +214,7 @@
             }).showToast();
             // error_start_time.textContent = "Vui lòng chọn ngày đi"
             return;
-        } 
+        }
         // else {
         //     error_start_time.textContent = ""
         // }
@@ -542,7 +542,7 @@
                                 }
                             }
 
-                            const matchType = checkedTypes.includes(item.car.type_car.type_seats);
+                            const matchType = checkedTypes.includes(item.car.type_car.type_seats.toString());
                             if (checkedOptions.length > 0 && checkedTypes.length > 0) {
                                 // Nếu cả hai điều kiện đều được chọn, so sánh cả hai điều kiện
 
@@ -553,6 +553,7 @@
                                 return matchOption || matchType;
                             }
                         });
+
                         var datafilter1 = data[1].filter((item) => {
                             const startTime = new Date(`2000-01-01T${item.start_time}`);
                             const startHour = startTime.getHours();
@@ -571,7 +572,6 @@
 
                             const matchType = checkedTypes.includes(item.car.type_car.type_seats
                                 .toString());
-
                             if (checkedOptions.length > 0 && checkedTypes.length > 0) {
                                 // Nếu cả hai điều kiện đều được chọn, so sánh cả hai điều kiện
                                 return matchOption && matchType;
@@ -687,6 +687,7 @@
         //     var buttonData = event.target.dataset.type;
         //     console.log(buttonData);
         // }
+
         function showFilterSearch(data, datafilter, countfilter) {
             if (data.status == 0 || datafilter.length == 0) {
                 document.getElementById('searchresultfalse').style.display = 'block';
@@ -732,11 +733,11 @@
                     document.getElementById('start_end').innerHTML =
                         `${item.start_location} - ${item.end_location} (${datafilter.length})`;
                     var type_seat = item.car.type_car.type_seats == 1 ? 'Ghế' : 'Giường';
-                    fetch(link + 'api/get_seat_empty?trip_id=' + item.id)
-                        .then(function(response) {
-                            return response.json();
-                        })
-                        .then(function(data) {
+                    // fetch(link + 'api/get_seat_empty?trip_id=' + item.id)
+                    //     .then(function(response) {
+                    //         return response.json();
+                    //     })
+                    //     .then(function(data) {})
                             var htmlresult =
                                 `<div class="p-4 border border-1 rounded-3 mt-3 w-100">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -761,19 +762,18 @@
                                         <p class="mx-2 mb-0 circle-menu-style rounded-pill"></p>
                                         <p class="fs-14 mb-0 cl-orange fw-medium">${type_seat} </p>
                                         <p class="mx-2 mb-0 circle-menu-style rounded-pill"></p>
-                                        <p class="fs-14 mb-0 cl-orange fw-medium">${data} chỗ trống</p>
+                                        <p class="fs-14 mb-0 cl-orange fw-medium">${item.seat_empty} chỗ trống</p>
                                         <p class="ps-2 fs-14 cl-blue-light text-decoration-underline cursor mb-0 fw-medium">Chọn ghế</p>
                                     </div>
                                     <div>
                                         <button
-                                            class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip px-4" data-turn="${item.id}">Chọn
+                                            class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip px-4" onclick="redirectToSelectSeat(this)" data-turn="${item.id}">Chọn
                                             chuyến</button>
                                     </div>
                                 </div>
                             </div>`;
                             document.getElementById('searchresults').innerHTML += htmlresult;
 
-                        })
                 });
             } else {
                 document.getElementById('searchresultfalse').style.display = 'none';
@@ -832,11 +832,7 @@
                                 `${item.start_location} - ${item.end_location} (${datafilter[0].length})`;
                             var type_seat = item.car.type_car.type_seats == 1 ? 'Ghế' :
                                 'Giường';
-                            fetch(link + 'api/get_seat_empty?trip_id=' + item.id)
-                                .then(function(response) {
-                                    return response.json();
-                                })
-                                .then(function(data) {
+
                                     var htmlresult =
                                         `<div class="p-4 border border-1 rounded-3 mt-3 w-100">
                             <div class="d-flex justify-content-between align-items-center">
@@ -861,7 +857,7 @@
                                     <p class="mx-2 mb-0 circle-menu-style rounded-pill"></p>
                                     <p class="fs-14 mb-0 cl-orange fw-medium">${type_seat}</p>
                                     <p class="mx-2 mb-0 circle-menu-style rounded-pill"></p>
-                                    <p class="fs-14 mb-0 cl-orange fw-medium">${data} chỗ trống</p>
+                                    <p class="fs-14 mb-0 cl-orange fw-medium">${item.seat_empty} chỗ trống</p>
                                     <p class="ps-2 fs-14 cl-blue-light text-decoration-underline cursor mb-0 fw-medium">Chọn ghế</p>
                                 </div>
                                 <div>
@@ -880,7 +876,7 @@
                                         buttonselected.style.backgroundColor = '#F9821D';
                                         buttonselected.style.color = '#fff';
                                     }
-                                })
+
                         });
                     }
 
@@ -932,11 +928,7 @@
                                 `${item.start_location} - ${item.end_location} (${datafilter[1].length})`;
                             var type_seat = item.car.type_car.type_seats == 1 ? 'Ghế' :
                                 'Giường';
-                            fetch(link + 'api/get_seat_empty?trip_id=' + item.id)
-                                .then(function(response) {
-                                    return response.json();
-                                })
-                                .then(function(data) {
+
                                     var htmlresult =
                                         `<div class="p-4 border border-1 rounded-3 mt-3 w-100">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -961,7 +953,7 @@
                                         <p class="mx-2 mb-0 circle-menu-style rounded-pill"></p>
                                         <p class="fs-14 mb-0 cl-orange fw-medium">${type_seat}</p>
                                         <p class="mx-2 mb-0 circle-menu-style rounded-pill"></p>
-                                        <p class="fs-14 mb-0 cl-orange fw-medium">${data} chỗ trống</p>
+                                        <p class="fs-14 mb-0 cl-orange fw-medium">${item.seat_empty} chỗ trống</p>
                                         <p class="ps-2 fs-14 cl-blue-light text-decoration-underline cursor mb-0 fw-medium">Chọn ghế</p>
                                     </div>
                                     <div>
@@ -980,7 +972,7 @@
                                         buttonselected.style.backgroundColor = '#F9821D';
                                         buttonselected.style.color = '#fff';
                                     }
-                                })
+
                         });
                     }
                 });
@@ -1035,11 +1027,15 @@
 
     function submitFormCookie(formId) {
         var form = document.getElementById("myFormCookie" + formId);
-        console.log(form)
         form.submit();
     }
 
     var selectedButtons = [];
+
+    function redirectToSelectSeat(button) {
+        const tripTurn = button.getAttribute('data-turn');
+        window.location.href = `/chon-ghe?trip_turn=${tripTurn}`;
+    }
 
     function handleClick(button, event) {
         event.preventDefault();
@@ -1075,6 +1071,7 @@
                 selectedButtons[1].setAttribute('data-turn', b1);
                 selectedButtons[1].setAttribute('data-return', b2);
                 localStorage.removeItem("buttontrip")
+                window.location.href = `/chon-ghe?trip_turn=${b1}&trip_return=${b2}`;
             } else {
                 buttonselected = document.querySelector(
                     `.buttontrip[data-id="${localStorage.getItem('buttontrip')}"]`

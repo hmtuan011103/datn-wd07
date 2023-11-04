@@ -8,10 +8,11 @@
                 </div>
             </div>
         </div>
-        <div class="border-bottom-4 mx-0 py-4 row" id="info-turn-return">
-            {{-- Hiển thị thông tin điểm đón trả --}}
-        </div>
-        <form action="" class="" method="" id="form-forward-checkout">
+        <form action="{{ route('thanh_toan') }}" class="" method="POST" id="form-forward-checkout">
+            @csrf
+            <div class="border-bottom-4 mx-0 py-4 row" id="info-turn-return">
+                {{-- Hiển thị thông tin điểm đón trả --}}
+            </div>
             <div class="border-bottom-4 py-4">
                 <div class="px-4 d-flex">
                     <div class="w-50 pe-4">
@@ -53,8 +54,31 @@
                     {{-- In ra tổng tiền cần thanh toán --}}
                 </div>
                 <div>
-                    <button class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip px-4">Hủy</button>
-                    <button class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip-2 px-4">Thanh toán</button>
+                    <button class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip px-4"
+                            type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        Thông tin đang đặt
+                    </button>
+                    <button class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip-2 px-4"
+                            name="redirect" type="submit">
+                        Thanh toán
+                    </button>
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"
+                    >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header justify-content-center">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Thông tin chuyến đi của bạn</h1>
+                                </div>
+                                <div class="modal-body text-center">
+                                    Chưa có thông tin gì
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>

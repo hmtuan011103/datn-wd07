@@ -2,6 +2,6 @@
 @section('content')
     @include('client.pages.search-route.main')
 @endsection
-@section('script')
+{{-- @section('script')
     @include('client.pages.search-route.script')
-@endsection
+@endsection --}}

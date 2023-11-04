@@ -8,9 +8,4 @@
 
 @include('client.partials.show-filter-search')
 
-
-
-
-
-
 @include('client.pages.search-route.script')

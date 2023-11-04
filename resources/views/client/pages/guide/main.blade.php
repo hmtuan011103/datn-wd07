@@ -2,7 +2,7 @@
 <div class="container mt-5 mb-5">
     <div class="title">
          <h4>Hướng dẫn đặt vé xe trên Website Chiến Thắng Bus</h4>
-         <p>Nhằm giúp khách hàng thuận lợi hơn trong mua sắm, nay Chiến Thắng Bus ra mắt hình thức <b>ĐẶT VÉ ONLINE TRÊN WEBSITE</b>, dưới đây là hướng dẫn những bước cơ bản để quý khách hàng có thể mua vé online một cách dễ dàng.</p>
+         <p>Nhằm giúp khách hàng thuận lợi hơn trong mua sắm, nay Chiến Thắng Bus ra mắt hình thức <b>đặt vé online trên website</b>, dưới đây là hướng dẫn những bước cơ bản để quý khách hàng có thể mua vé online một cách dễ dàng.</p>
     </div>
     <div class="step1 col-md-12 col-11">
         <p><b>Bước 1: Mở trình duyệt</b> trên thiết bị di động/máy tính cá nhân (Chrome, Cốc Cốc). Sau đó truy cập vào website: <b>www.chienthangbus.com</b>. Tại đây bạn có <b>2 cách</b> để tìm kiếm chuyến đi của mình: </p>

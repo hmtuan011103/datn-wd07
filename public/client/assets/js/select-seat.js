@@ -22,8 +22,31 @@ const getErrorWhenCallApi = (statusCode) => {
 
 const dataDetailTrip = async () => {
     try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const paramTripTurn = urlParams.get('trip_turn');
+        const tripTurn = paramTripTurn ? `?trip_turn=${paramTripTurn}` : ``;
+        const paramTripReturn = urlParams.get('trip_return');
+        const tripReturn = paramTripReturn ? `&trip_return=${paramTripReturn}` : ``;
+        const trip_turn = $("<input>");
+        trip_turn.attr("name", "trip_turn");
+        trip_turn.attr("type", "hidden");
+        trip_turn.attr("id", "trip_turn");
+        trip_turn.attr("hidden", true);
+        trip_turn.val(paramTripTurn);
+
+        const trip_return = $("<input>");
+        trip_return.attr("name", "trip_return");
+        trip_return.attr("type", "hidden");
+        trip_return.attr("id", "trip_return");
+        trip_return.attr("hidden", true);
+        trip_return.val(paramTripReturn);
+
+        $("#form-forward-checkout").append(trip_turn);
+        if(paramTripReturn) {
+            $("#form-forward-checkout").append(trip_return)
+        }
         const result = await $.ajax({
-            url: `${baseApiUrl}/information-detail-trip`,
+            url: `${baseApiUrl}/information-detail-trip${tripTurn}${tripReturn}`,
             type: 'GET',
             contentType: 'application/json',
         });
@@ -67,10 +90,10 @@ const handleDateDetail = (date, time) => {
 
 $(function () {
     dataDetailTrip().then(res => {
-        console.log(res);
         const seats = res.seats;
         const route = res.route;
         const seatSelected = res.seatSelected;
+        console.log(seatSelected);
         const locationRouteTrip = res.locationRouteTrip;
 
         let amountSeatTurn = 0;
@@ -188,7 +211,7 @@ $(function () {
                         `);
                     }
 
-                    const isSeatSelected = arraySeatSelected.includes(seat[0]);
+                    const isSeatSelected = arraySeatSelected.includes(seat[1]);
 
                     const seatHtml = `
                         <td class="position-relative ${isSeatSelected ? 'cursor-not-allowed' : 'cursor'}">
@@ -335,7 +358,8 @@ $(function () {
                 `);
                     }
 
-                    const isSeatSelected = seatSelected.includes(seat.id);
+                    const isSeatSelected = seatSelected.includes(seat.code);
+
 
                     const seatHtml = `
                         <td class="position-relative ${isSeatSelected ? 'cursor-not-allowed' : 'cursor'}">
@@ -510,7 +534,7 @@ $(function () {
                         `);
                     }
 
-                    const isSeatSelected = arraySeatSelected.includes(seat[0]);
+                    const isSeatSelected = arraySeatSelected.includes(seat[1]);
 
                     const seatHtml = `
                         <td class="position-relative ${isSeatSelected ? 'cursor-not-allowed' : 'cursor'}">
@@ -632,7 +656,7 @@ $(function () {
                         `);
                     }
 
-                    const isSeatSelected = arraySeatSelected.includes(seat[0]);
+                    const isSeatSelected = arraySeatSelected.includes(seat[1]);
 
                     const seatHtml = `
                         <td class="position-relative ${isSeatSelected ? 'cursor-not-allowed' : 'cursor'}">
@@ -760,8 +784,7 @@ $(function () {
                     `);
                     }
 
-                    const isSeatSelected = seatSelected.includes(seat.id);
-
+                    const isSeatSelected = seatSelected.includes(seat.code);
                     const seatHtml = `
                     <td class="position-relative ${isSeatSelected ? 'cursor-not-allowed' : 'cursor'}">
                         <img src="${baseImageUrl}/${isSeatSelected ? 'seat_disabled' : 'seat_active'}.svg" alt="" class="w-100">
@@ -874,7 +897,7 @@ $(function () {
             `);
                     }
 
-                    const isSeatSelected = seatSelected.includes(seat.id);
+                    const isSeatSelected = seatSelected.includes(seat.code);
 
                     const seatHtml = `
             <td class="position-relative ${isSeatSelected ? 'cursor-not-allowed' : 'cursor'}">
@@ -1094,7 +1117,7 @@ $(function () {
                         }).showToast();
                         return false;
                     }
-                    alert('hehe');
+                    form.submit();
                 }
             });
 
@@ -1243,7 +1266,7 @@ $(function () {
                             <div class="w-50">
                                 <p class="fw-medium mb-1">ĐIỂM ĐÓN</p>
                                 <select class="form-select w-100 cursor"
-                                    id="place-start-turn-${index}" aria-label="place_start_${index}"
+                                    id="place-start-turn-${index}" name="place_start_turn_${index}" aria-label="place_start_${index}"
                                 >
                                 </select>
                             </div>
@@ -1252,7 +1275,7 @@ $(function () {
                             <div class="w-50">
                                 <p class="fw-medium mb-1">ĐIỂM TRẢ</p>
                                 <select class="form-select w-100 cursor"
-                                    id="place-end-turn-${index}" aria-label="place_end_${index}"
+                                    id="place-end-turn-${index}" name="place_end_turn_${index}" aria-label="place_end_${index}"
                                 >
                                 </select>
                             </div>
@@ -1296,14 +1319,14 @@ $(function () {
                     <div class="px-4 d-flex align-items-center justify-content-between">
                         <div class="w-50">
                             <p class="fw-medium mb-1">ĐIỂM ĐÓN</p>
-                            <select class="form-select w-100 cursor" id="place-start-turn" aria-label="place_start">
+                            <select class="form-select w-100 cursor" id="place-start-turn" name="place_start_turn" aria-label="place_start">
                             </select>
                         </div>
                         <div class="between-place-solid mx-4">
                         </div>
                         <div class="w-50">
                             <p class="fw-medium mb-1">ĐIỂM TRẢ</p>
-                            <select class="form-select w-100 cursor"  id="place-end-turn" aria-label="place_end">
+                            <select class="form-select w-100 cursor"  id="place-end-turn" name="place_end_turn" aria-label="place_end">
                             </select>
                         </div>
                     </div>

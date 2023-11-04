@@ -1,4 +1,4 @@
-    <form class="content-container-right ps-4 w-70"  style="display:none" id="searchresulttrue">
+    <div class="content-container-right ps-4 w-70"  style="display:none" id="searchresulttrue">
         <p class="title-trip-found fs-20 fw-medium" id="start_end"><span id="total_trip"></span></p>
         <div class="d-flex">
             <button type="button" class="btn bg-white border border-1 me-2 fs-14 cl-orange bg-button-orange">
@@ -11,7 +11,7 @@
         </div>
 
         <div id="type_ticket_two">
-            
+
         </div>
 
         <div id="searchresults">
@@ -50,7 +50,7 @@
             </div> --}}
         </div>
 
-    </form>
+    </div>
     <div class="content-container-right ps-4 w-70 text-center" style="display:none" id="searchresultfalse">
         <div class="ant-empty mt-20 mb-4 mt-5">
             <div class="mb-3"><img src="https://futabus.vn/images/empty_list.svg" alt="empty_list" width="260">

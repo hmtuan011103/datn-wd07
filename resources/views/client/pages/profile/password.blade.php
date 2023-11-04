@@ -39,70 +39,41 @@
                 <div class="col-md-8">
                     <div class="text-center text-md-left">
                         <h2 class="text-xl font-medium text-[#111111]"> Đặt lại mật khẩu</h2>
-                        <p class="text-gray mt-3 mb-4 text-[13px]">  Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu cho người khách</p>
+                        <p class="text-gray mt-3 mb-4 text-[13px]"> Để bảo mật tài khoản, vui lòng không chia sẻ mật
+                            khẩu cho người khách</p>
                     </div>
                     <div class="mt-6 rounded-2xl border p-3">
                         <form id="confirm_Password" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label for="old_Password" class="text-gray">Mật khẩu cũ</label>
-                                <input class="form-control" id="old_Password" type="text" value="">
+                                <input class="form-control" id="old_Password" type="password">
+                                <span class="text-danger" id="oldPasswordError"></span>
                             </div>
+
                             <div class="form-group">
                                 <label for="new_Password" class="text-gray">Mật khẩu mới</label>
-                                <input class="form-control" id="new_Password" type="text" value="">
+                                <input class="form-control" id="new_Password" type="password">
+                                <span class="text-danger" id="newPasswordError"></span>
                             </div>
+
                             <div class="form-group">
                                 <label for="confirm_Password" class="text-gray">Xác nhận mật khẩu</label>
-                                <input class="form-control" id="confirm_PasswordS" type="text" value="">
+                                <input class="form-control" id="confirm_PasswordS" type="password">
+                                <span class="text-danger" id="confirmPasswordError"></span>
                             </div>
                             <div class="mt-4 text-center">
-                                <button id="changePasswordButton" type="button" class="btn btn-primary">Cập nhật</button>
+                                <button id="changePasswordButton" type="button" class="btn btn-primary">Cập nhật
+                                </button>
                             </div>
-                        </form >
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </main>
-    <script>
-        document.getElementById('changePasswordButton').addEventListener('click', function (event) {
-            event.preventDefault(); // Ngăn gửi form mặc định
-
-            var old_Password = document.getElementById('old_Password').value;
-            var new_Password = document.getElementById('new_Password').value;
-            var confirm_PasswordS = document.getElementById('confirm_PasswordS').value;
-                if (new_Password !== confirm_PasswordS) {
-                    alert('Mật khẩu mới và xác nhận mật khẩu không khớp.');
-                    return;
-                }
-
-                var data = {
-                    oldPassword: old_Password,
-                    newPassword: new_Password
-                };
-                    fetch('http://127.0.0.1:8000/pass-word', {
-                        method: 'post',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': 'Bearer ' + localStorage.getItem('token')
-                        },
-                        body: JSON.stringify(data),
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.status === true) {
-                                alert('Mật khẩu đã được thay đổi thành công.');
-                            } else {
-                                alert('Lỗi: ' + data.message);
-                            }
-                        })
-                        .catch(error => {
-                            // alert('Lỗi khi gửi yêu cầu: ' + error);
-                            console.log(error)
-                        });
-            });
-        // }
-    </script>
 @endsection
+@section('script')
+    @include('client.pages.profile.scrip_password')
 
+@endsection
