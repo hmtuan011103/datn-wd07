@@ -96,48 +96,9 @@
                 .then(data => {
                     if (data.status === true && !isNotificationDisplayed) {
                         isNotificationDisplayed = true;
-                        Toastify({
-                            text: "Thay Đổi Thông Tin Thành Công.",
-                            duration: 2000,
-                            newWindow: true,
-                            close: true,
-                            gravity: "right",
-                            position: "absolute",
-                            stopOnFocus: true,
-                            style: {
-                                "margin-top": "100px",
-                                "right": "10px",
-                                "background": "#4CAF50",
-                                "padding": "20px 10px",
-                                "border-radius": "5px",
-                                "z-index": "9999",
-                                "position": "absolute",
-                            }
-                        }).showToast();
-
-                        setTimeout(() => {
-                            window.location.href = 'thong-tin';
-                        }, 2000);
+                        window.location.href = 'thong-tin';
                     } else if (!isNotificationDisplayed) {
                         isNotificationDisplayed = true;
-                        Toastify({
-                            text: "Thay Đổi Thông Tin Thất Bại.",
-                            duration: 2000,
-                            newWindow: true,
-                            close: true,
-                            gravity: "right",
-                            position: "absolute",
-                            stopOnFocus: true,
-                            style: {
-                                "margin-top": "100px",
-                                "right": "10px",
-                                "background": "#fadaa5",
-                                "padding": "20px 10px",
-                                "border-radius": "5px",
-                                "z-index": "9999",
-                                "position": "absolute",
-                        }
-                    }).showToast();
                     }
                 })
                 .catch(error => {

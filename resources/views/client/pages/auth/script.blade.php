@@ -92,7 +92,7 @@
         }
 
         if (password.length < 8) {
-            passwordError.textContent = "Mật khẩu phải có ít nhất 8 ký tự.";
+            passwordError.textContent = "Vui lòng nhập mật khẩu.";
             isValid = false;
         }
 

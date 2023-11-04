@@ -28,7 +28,7 @@ function performLogout() {
     window.location.href = '/';
 }
 function passWord() {
-    window.location.href = 'pass-word';
+    window.location.href = 'mat-khau';
 }
 document.getElementById("password").addEventListener("click", function () {
     passWord();

@@ -35,10 +35,9 @@ Route::get('/dang-nhap', function () {
 Route::match(['get', 'post'], '/thong-tin', function () {
     return view('client.pages.profile.profile');
 })->name('thong-tin');
-Route::match(['get', 'post'], '/pass-word', function () {
+Route::match(['get', 'post'], '/mat-khau', function () {
     return view('client.pages.profile.password');
-})->name('pass-word');
-
+})->name('mat-khau');
 Route::get('/lich-trinh', [TripController::class, 'lich_trinh'])->name('lich_trinh');
 Route::get('/lien-he', function () {
     return view('client.pages.contact.index');
