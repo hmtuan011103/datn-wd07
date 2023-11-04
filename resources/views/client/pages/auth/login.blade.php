@@ -52,7 +52,7 @@
                                     <input type="password" class="form-control " id="login-password" placeholder="Bạn hãy nhập mật khẩu">
                                 </div>
                                 <p id="password-error" class="error-message" ></p>
-                                <p id="login_add" class="error-message" style="display: none" >Email của bạn không tồn tại.</p>
+                                <p id="error-message" class="error-message" style="display: none;"></p>
                                 <button type="submit" class="ant-btn-primary" onclick="validateForm()">Đăng Nhập</button>
                             </form>
                         <form id="register-form" style="display: none">

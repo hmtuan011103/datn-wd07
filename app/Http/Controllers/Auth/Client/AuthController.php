@@ -13,7 +13,14 @@ class AuthController extends Controller
 {
     public function changePassword(Request $request)
     {
+        // Kiểm tra xem người dùng hiện tại có tồn tại không
         $user = Auth::user();
+        if (!$user) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Người dùng không tồn tại.'
+            ]);
+        }
 
         $request->validate([
             'oldPassword' => 'required',
@@ -36,6 +43,7 @@ class AuthController extends Controller
             'message' => 'Mật khẩu đã được cập nhật.'
         ]);
     }
+
 
     public function updateProfile(Request $request)
     {
@@ -109,21 +117,21 @@ class AuthController extends Controller
                 // Mật khẩu sai
                 return response()->json([
                     "status" => false,
-                    "message" => "Tên tài khoản hoặc mật khẩu không chính xác.",
+                    "message" => "Tài khoản hoặc mật khẩu không chính xác.",
                 ]);
             }
         } else {
             // Tài khoản không tồn tại
             return response()->json([
                 "status" => false,
-                "message" => "Tài khoản không tồn tại",
+                "message" => "Tài khoản hoặc mật khẩu không chính xác.",
             ]);
         }
 
         // Đoạn mã dưới đây thêm một thông báo lỗi khi cả tài khoản và mật khẩu đều sai
         return response()->json([
             "status" => false,
-            "message" => "Tài khoản và mật khẩu không đúng",
+            "message" => "Tài khoản hoặc mật khẩu không chính xác.",
         ]);
     }
      public function profile(){

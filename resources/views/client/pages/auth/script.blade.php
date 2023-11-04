@@ -81,8 +81,8 @@
         var passwordError = document.getElementById("password-error");
         var errorContainer = document.getElementById("error-message");
         var isValid = true;
-        const login_add = document.getElementById("login_add");
-        login_add.style.display = "none";
+        // const login_add = document.getElementById("login_add");
+        // login_add.style.display = "none";
         emailError.textContent = ""; // Xóa bất kỳ thông báo lỗi cũ
         passwordError.textContent = "";
 
@@ -122,7 +122,6 @@
                 });
 
                 const responseData = await response.json();
-
                 if (responseData.status === true) {
                     localStorage.setItem('token', responseData.token);
                     localStorage.setItem('status', true);
@@ -131,10 +130,9 @@
                     const errorMessage = responseData.message;
                     const errorElement = document.getElementById("error-message");
                     errorElement.textContent = errorMessage;
+                    errorElement.style.display = "block";
                 }
             } catch (error) {
-                const login_add = document.getElementById("login_add");
-                login_add.style.display = "block";
             }
         }
     });
