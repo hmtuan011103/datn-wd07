@@ -38,14 +38,14 @@
                                     @method('PUT')
                                     <div class="modal-body">
                                         <div class="row">
-                                            <div class="col-md-6 pt-3 pb-3">
+                                            <div class="col-md-6 pt-3">
                                                 <label for="customername-field" class="form-label">Tiêu đề *</label>
                                                 <input type="text" name="title" id="customername-field"
                                                     value="{{ $model->title }}" class="form-control"
                                                     placeholder="Nhập Tên Tiêu Đề" />
                                             </div>
 
-                                            <div class="col-md-6 pt-3 pb-3">
+                                            <div class="col-md-6 pt-3">
                                                 <label for="total_seat" class="form-label">Người tạo *</label>
                                                 <select class="form-control" name="user_id" id="total_seat">
                                                     @foreach ($users as $user)
@@ -55,13 +55,13 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="col-md-6 pt-3 pb-3">
+                                            <div class="col-md-6 pt-3">
                                                 <label for="customername-field" class="form-label">Ảnh </label>
 
                                                 <input type="file" value="{{ $model->image }}" name="image1"
                                                     id="image" class="form-control" placeholder="Nhập File Ảnh" />
                                                     <br>
-                                                    <img src="{{ asset($model->image) }}" alt="" width="100"
+                                                    <img style="padding-bottom: 10px" src="{{ asset($model->image) }}" alt="" width="100"
                                                     height="100">
                                             </div>
                                             <div class="mb-3">

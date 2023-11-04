@@ -31,12 +31,12 @@ class StoreNewRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required'=>'Tiêu Đề Không Được Để Trống',
-            'content.required'=>'Nội Dung Không Được Để Trống',
-            'image.required'=>'Ảnh không được để trống',
-            'image.mimes'=>'Không phải file ảnh',
-            'image.max'=>'Ảnh không được quá 1MB',
-            'user_id.required'=>'Người Đăng Không Được Để Trống',
+            'title.required' => 'Vui lòng nhập tiêu đề',
+        'content.required' => 'Nội Dung Không Được Để Trống',
+        'image.required' => 'Ảnh không được để trống',
+        'image.mimes' => 'Không phải file ảnh',
+        'image.max' => 'Ảnh không được quá 1MB',
+        'user_id.required' => 'Người Đăng Không Được Để Trống',
         ];
 
     }

@@ -35,24 +35,24 @@
                                     @csrf
                                     <div class="modal-body">
                                         <div class="row">
-                                            <div class="col-md-6 pt-3 pb-3">
-                                                <label for="customername-field" class="form-label">Tiêu đề *</label>
-                                                <input type="text" name="title" id="customername-field" class="form-control" placeholder="Nhập Tên Tiêu Đề"/>
+                                            <div class="col-md-6 pt-3">
+                                                <label for="" class="form-label">Tiêu đề *</label>
+                                                <input type="text" name="title" id="" class="form-control" placeholder="Nhập Tên Tiêu Đề"/>
+                                            </div>
+                                            <div class="col-md-6 pt-3">
+                                                <label for="" class="form-label">Ảnh </label>
+                                                <input type="file" name="image" id="" class="form-control"/>
                                             </div>
                                             <div class="col-md-6 pt-3 pb-3">
-                                                <label for="customername-field" class="form-label">Ảnh </label>
-                                                <input type="file" name="image" id="customername-field" class="form-control"/>
-                                            </div>
-                                            <div class="col-md-6 pt-3 pb-3">
-                                                <label for="total_seat" class="form-label">Người tạo *</label>
-                                                <select class="form-control" name="user_id" id="total_seat">
+                                                <label for="" class="form-label">Người tạo *</label>
+                                                <select class="form-control" name="user_id" id="">
                                                     @foreach($users as $user)
                                                         <option value="{{$user->id}}">{{$user->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="email-field" class="form-label">Nội dung </label>
+                                                <label for="" class="form-label">Nội dung </label>
                                                 <textarea style="height: 100px" name="content" id="editor" class="form-control" placeholder="Nhập Mô Tả"  ></textarea>
                                             </div>
                                         </div>

@@ -27,5 +27,5 @@ Route::get('/chon-ghe', function () {
     return view('client.pages.select-seat.index');
 });
 
-Route::get('news',[NewController::class,'index'])->name('client.news');
-Route::get('news/{slug?}',[NewController::class,'detail'])->name('client.news.detail');
+Route::get('tin-tuc',[NewController::class,'index'])->name('client.news');
+Route::get('tin-tuc/{slug?}',[NewController::class,'detail'])->name('client.news.detail');
