@@ -30,7 +30,7 @@
         <nav class="pt-3 pb-4">
             <ul class="nav nav-underline justify-content-center gap-6">
                 <li class="nav-item">
-                    <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block active" aria-current="page" href="#">Trang chủ</a>
+                    <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " aria-current="page" href="{{url('/')}}">Trang chủ</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="{{url('/lich-trinh')}}">Lịch trình</a>

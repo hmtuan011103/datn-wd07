@@ -37,7 +37,7 @@
     }
     .tab2 .tab2-right p,
     .tab2 .tab2-right ul li{
-        font-size: 17px;
+        font-size: 16px;
     }
     .tab2 .tab2-right ul li{
         padding: 10px 0;
@@ -57,7 +57,7 @@
         color: orangered;
     }
     .tab3 p{
-        font-size: 17px;
+        font-size: 16px;
     }
 
     /* TAB 4 */

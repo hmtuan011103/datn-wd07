@@ -6,6 +6,7 @@
     .title h4{
         text-align: center;
         font-weight: bold;
+        padding-bottom: 20px;
 
     }
     .title p{
@@ -23,12 +24,12 @@
         border-radius: 20px;
     }
     p{
-        font-size: 17px;
+        font-size: 16px;
     }
     @media(max-width:767px){
         .container{
             padding: 0 15px;
-            font-size: 17px;
+            font-size: 16px;
         }
     }
 </style>
