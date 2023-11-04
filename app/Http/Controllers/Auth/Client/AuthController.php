@@ -111,7 +111,7 @@ class AuthController extends Controller
                     "status" => true,
                     "message" => "User logged in successfully",
                     "token" => $token,
-                    "redirect_url" => route('/')
+                    "redirect_url" => route('trang_chu')
                 ]);
             } else {
                 // Mật khẩu sai
