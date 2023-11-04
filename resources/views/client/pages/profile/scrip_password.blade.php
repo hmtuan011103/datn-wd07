@@ -1,5 +1,5 @@
 <script>
-    var isNotificationDisplayed = false;
+    // var isNotificationDisplayed = false;
     document.getElementById('changePasswordButton').addEventListener('click', function (event) {
         event.preventDefault();
 
@@ -55,8 +55,7 @@
             .then(response => response.json())
             .then(data => {
 
-                if (data.status === true && !isNotificationDisplayed) {
-                    isNotificationDisplayed = true;
+                if (data.status === true) {
                     Toastify({
                         text: "Đổi Mật Khẩu Thành Công.",
                         duration: 2000,
@@ -78,8 +77,7 @@
                     setTimeout(() => {
                         window.location.href = 'pass-word';
                     }, 2000);
-                } else if (!isNotificationDisplayed) {
-                    isNotificationDisplayed = true;
+                } else {
                     Toastify({
                         text: "Đổi Mật Khẩu Thất Bại.",
                         duration: 2000,
@@ -91,7 +89,7 @@
                         style: {
                             "margin-top": "100px",
                             "right": "10px",
-                            "background": "#4CAF50",
+                            "background": "#fadaa5",
                             "padding": "20px 10px",
                             "border-radius": "5px",
                             "z-index": "9999",
@@ -105,7 +103,7 @@
                 }
             })
             .catch(error => {
-                console.log('Lỗi khi gửi yêu cầu:', error);
+                // console.log('Lỗi khi gửi yêu cầu:', error);
             });
     });
 

@@ -24,7 +24,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => 'Mật khẩu cũ không đúng.'
-            ], 400);
+            ]);
         }
 
         $user->update([
@@ -36,7 +36,7 @@ class AuthController extends Controller
             'message' => 'Mật khẩu đã được cập nhật.'
         ]);
     }
-    
+
     public function updateProfile(Request $request)
     {
         $user = auth()->user();
@@ -85,7 +85,7 @@ class AuthController extends Controller
             "redirect_url" => route('auth')
         ]);
     }
-   
+
     public function login(Request $request)
     {
         $request->validate([
