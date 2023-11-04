@@ -5,6 +5,7 @@ use App\Http\Controllers\Locations\Client\LocationController;
 use App\Http\Controllers\Trip\Client\TripController;
 use App\Http\Controllers\Contact\Client\ContactController;
 
+use App\Http\Controllers\New\Client\NewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -59,3 +60,6 @@ Route::get('/tra-cuu', function () {
     return view('client.pages.search-ticket.index');
 });
 
+
+Route::get('tin-tuc',[NewController::class,'index'])->name('client.news');
+Route::get('tin-tuc/{slug?}',[NewController::class,'detail'])->name('client.news.detail');

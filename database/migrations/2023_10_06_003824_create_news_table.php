@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('news', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->comment('admin đăng bài');
+            $table->unsignedBigInteger('user_id')->comment('admin đăng bài');
             $table->string('title');
+            $table->string('image')->nullable();
             $table->text('content');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
+    //php của bạn k đặt đc folder là new nên mình sửa lại nhé
 
     /**
      * Reverse the migrations.

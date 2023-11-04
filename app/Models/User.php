@@ -102,4 +102,7 @@ class User extends Authenticatable implements JWTSubject, CanResetPasswordContra
     {
         return [];
     }
+    public function news(){
+        return $this->hasMany(NewPost::class,'user_id');
+    }
 }

@@ -66,3 +66,6 @@ Route::get('/search_ticket', [TicketController::class, 'search_ticket'])->name('
 Route::get('/test-data', [\App\Http\Controllers\Checkout\CheckoutController::class, 'getTicketForBill']);
 
 Route::get('news/recent', [TripController::class, 'getRecentNews']);
+
+
+Route::delete('news/destroy-multiple', [\App\Http\Controllers\New\Admin\NewController::class, 'destroyMultiple']);
