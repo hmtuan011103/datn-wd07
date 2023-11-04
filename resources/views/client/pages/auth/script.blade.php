@@ -3,17 +3,33 @@
     const loginName = document.getElementById("loginName");
     const registerName = document.getElementById("registerName");
     const registerForm = document.getElementById("register-form");
-    // Mặc định hiển thị form đăng nhập và ẩn form đăng ký
+
     loginForm.style.display = "block";
     loginName.style.display = "block";
     registerForm.style.display = "none";
     registerName.style.display = "none";
+
+    function clearRegisterForm() {
+        document.getElementById("register-phone").value = "";
+        document.getElementById("register-name").value = "";
+        document.getElementById("register-email").value = "";
+        document.getElementById("register-password").value = "";
+        document.getElementById("register-confirm-password").value = "";
+        document.getElementById("tel-error-container").textContent = "";
+        document.getElementById("name-error-container").textContent = "";
+        document.getElementById("email_error").textContent = "";
+        document.getElementById("password_error").textContent = "";
+        document.getElementById("confirm_password_error").textContent = "";
+    }
+
     document.getElementById("login-link").addEventListener("click", () => {
         loginForm.style.display = "block";
         loginName.style.display = "block";
         registerForm.style.display = "none";
         registerName.style.display = "none";
+        clearRegisterForm();
     });
+
     document.getElementById("register-link").addEventListener("click", () => {
         loginName.style.display = "none";
         registerName.style.display = "block";
@@ -29,7 +45,9 @@
         $("#login-link").css("color", "rgba(239,82,34,.6)");
         $("#register-link").css("color", "black");
     })
-    //
+    $("#register-phone").on("input", function () {
+        $(this).val($(this).val().replace(/[^0-9]/g, ""));
+    });
     function showForm(formNumber) {
         document.querySelector('.form1').style.display = 'block';
         document.querySelector('.form2').style.display = 'none';
@@ -54,6 +72,7 @@
             document.querySelector('.form2').style.display = 'block';
         }
     }
+    // apiUrl_login
     function validateForm() {
         var email = document.getElementById("login-username").value;
         var password = document.getElementById("login-password").value;
@@ -61,18 +80,66 @@
         var emailError = document.getElementById("email-error");
         var passwordError = document.getElementById("password-error");
         var errorContainer = document.getElementById("error-message");
+        var isValid = true;
+        const login_add = document.getElementById("login_add");
+        login_add.style.display = "none";
         emailError.textContent = ""; // Xóa bất kỳ thông báo lỗi cũ
         passwordError.textContent = "";
+
         if (!email.match(emailRegex)) {
             emailError.textContent = "Vui lòng nhập một địa chỉ email hợp lệ.";
-            errorContainer.style.display = "none"; // Ẩn phần tử lỗi tổng quan
+            isValid = false;
         }
-        if (password.length < 1) {
-            passwordError.textContent = "Tên tài khoản hoặc mật khẩu không chính xác.";
-            errorContainer.style.display = "none"; // Ẩn phần tử lỗi tổng quan
-            // return;
+
+        if (password.length < 8) {
+            passwordError.textContent = "Mật khẩu phải có ít nhất 8 ký tự.";
+            isValid = false;
         }
+
+        return isValid;
     }
+
+    const apiUrl_login = 'http://127.0.0.1:8000/api/login';
+    loginForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        var isValid = validateForm();
+
+        if (isValid) {
+            const username = document.getElementById("login-username").value;
+            const password = document.getElementById("login-password").value;
+            const data = {
+                email: username,
+                password: password
+            };
+
+            try {
+                const response = await fetch(apiUrl_login, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                const responseData = await response.json();
+
+                if (responseData.status === true) {
+                    localStorage.setItem('token', responseData.token);
+                    localStorage.setItem('status', true);
+                    window.location.href = responseData.redirect_url;
+                } else if (responseData.status === false) {
+                    const errorMessage = responseData.message;
+                    const errorElement = document.getElementById("error-message");
+                    errorElement.textContent = errorMessage;
+                }
+            } catch (error) {
+                const login_add = document.getElementById("login_add");
+                login_add.style.display = "block";
+            }
+        }
+    });
+    // apiUrl_register
+    // http://127.0.0.1:8000/
     function validate_Form() {
         var email = document.getElementById("register-email").value;
         var password = document.getElementById("register-password").value;
@@ -84,59 +151,40 @@
         password_Error.textContent = "";
         confirm_Password_Error.textContent = "";
         var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-        if (!email.match(emailRegex)) {
+        var passwordRegex = /^.{8,}$/;
+        const register_add = document.getElementById("register_add");
+        register_add.style.display = "none";
+
+        var isValid = true; // Tạo biến để theo dõi tính hợp lệ
+
+        if (email.trim() === '') {
+            email_Error.textContent = "Vui lòng nhập địa chỉ email.";
+            isValid = false;
+        } else if (!email.match(emailRegex)) {
             email_Error.textContent = "Vui lòng nhập một địa chỉ email hợp lệ.";
+            isValid = false;
         }
-        if (!password.match(passwordRegex)) {
-            password_Error.textContent = "Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một số, một chữ thường và một chữ hoa.";
+
+        if (password.trim() === '') {
+            password_Error.textContent = "Vui lòng nhập mật khẩu.";
+            isValid = false;
+        } else if (!password.match(passwordRegex)) {
+            password_Error.textContent = "Mật khẩu phải có ít nhất 8 ký tự.";
+            isValid = false;
         }
+
         if (password !== confirmPassword) {
             confirm_Password_Error.textContent = "Mật khẩu không khớp. Vui lòng nhập lại mật khẩu.";
-            return;
+            isValid = false;
         }
+
+        return isValid; // Trả về giá trị true nếu dữ liệu hợp lệ, false nếu có lỗi.
     }
-    // apiUrl_login
-    const apiUrl_login = 'http://127.0.0.1:8000/api/login';
-    loginForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        const username = document.getElementById("login-username").value;
-        const password = document.getElementById("login-password").value;
-        const data = {
-            email: username,
-            password: password
-        };
-        try {
-            const response = await fetch(apiUrl_login, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
-            // if (response.ok) {
-                const responseData = await response.json();
-            if (responseData.status === true) {
-                localStorage.setItem('token', responseData.token);
-                localStorage.setItem('status', true);
-                window.location.href = responseData.redirect_url;
-            }
-            if (responseData.status === false) {
-                const errorMessage = responseData.message;
-                const errorElement = document.getElementById("error-message");
-                errorElement.textContent = errorMessage;
-                return;
-            }
-            // }
-        } catch (error) {
-            console.error('Lỗi kết nối đến máy chủ:', error);
-        }
-    });
-    // apiUrl_register
-    // http://127.0.0.1:8000/
     const apiUrl_register = 'api/register';
-        registerForm.addEventListener("submit", async (event) => {
-            event.preventDefault();
+    registerForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        var isValid = validate_Form()
+        if (isValid) {
             const phone = document.getElementById("register-phone").value;
             const name = document.getElementById("register-name").value;
             const email = document.getElementById("register-email").value;
@@ -167,6 +215,8 @@
                 const register_add = document.getElementById("register_add");
                 register_add.style.display = "block";
             }
-        });
-       
+        }
+    });
+
 </script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script

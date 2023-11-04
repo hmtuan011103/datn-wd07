@@ -12,7 +12,14 @@
         document.getElementById('confirmPasswordError').textContent = '';
 
         var hasError = false;
-
+        if (new_Password.length < 8) {
+            document.getElementById('newPasswordError').textContent = 'Mật khẩu mới phải có ít nhất 8 ký tự.';
+            hasError = true;
+        }
+        if (new_Password !== confirm_PasswordS) {
+            document.getElementById('confirmPasswordError').textContent = 'Mật khẩu mới và xác nhận mật khẩu không khớp.';
+            hasError = true;
+        }
         if (old_Password.trim() === '') {
             document.getElementById('oldPasswordError').textContent = 'Mật khẩu cũ không được để trống.';
             hasError = true;
@@ -52,23 +59,22 @@
                     isNotificationDisplayed = true;
                     Toastify({
                         text: "Đổi Mật Khẩu Thành Công.",
-                        duration: 200000,
+                        duration: 2000,
                         newWindow: true,
                         close: true,
                         gravity: "right",
-                        position: "fixed",
+                        position: "absolute",
                         stopOnFocus: true,
                         style: {
-                            "margin-top": "140px",
-                            "margin-left": "83%",
-                            position: "absolute",
-                            background: "#4CAF50",
-                            padding: "20px 10px",
-                            borderRadius: "5px",
-                            zIndex: 9999 //
-                        },
+                            "margin-top": "100px",
+                            "right": "10px",
+                            "background": "#4CAF50",
+                            "padding": "20px 10px",
+                            "border-radius": "5px",
+                            "z-index": "9999",
+                            "position": "absolute",
+                        }
                     }).showToast();
-
                     setTimeout(() => {
                         window.location.href = 'pass-word';
                     }, 2000);
@@ -76,30 +82,32 @@
                     isNotificationDisplayed = true;
                     Toastify({
                         text: "Đổi Mật Khẩu Thất Bại.",
+                        duration: 2000,
                         newWindow: true,
                         close: true,
-                        gravity: "top",
-                        position: "left",
+                        gravity: "right",
+                        position: "absolute",
                         stopOnFocus: true,
                         style: {
-                            "margin-top": "140px",
-                            "margin-left": "83%",
-                            position: "absolute",
-                            background: "rgba(239, 82, 34, 0.7)",
-                            padding: "20px 10px",
-                            borderRadius: '5px',
-                            zIndex: 9999
-                        },
+                            "margin-top": "100px",
+                            "right": "10px",
+                            "background": "#4CAF50",
+                            "padding": "20px 10px",
+                            "border-radius": "5px",
+                            "z-index": "9999",
+                            "position": "absolute",
+                        }
                     }).showToast();
+                    document.getElementById('old_Password').value = '';
+                    document.getElementById('new_Password').value = '';
+                    document.getElementById('confirm_PasswordS').value = '';
 
-                    setTimeout(() => {
-                        window.location.href = 'pass-word';
-                    }, 2000);
                 }
             })
             .catch(error => {
                 console.log('Lỗi khi gửi yêu cầu:', error);
             });
     });
+
 </script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

@@ -62,29 +62,23 @@
         var phone_Profile = document.getElementById('phone_Profile').value;
         var email_Profile = document.getElementById('email_Profile').value;
         var location_Profile = document.getElementById('location_Profile').value;
-        var nameError = document.getElementById('nameError');
-        var phoneError = document.getElementById('phoneError');
-
-        nameError.textContent = '';
-        phoneError.textContent = '';
-        var errors = [];
-        if (!name_Profile.trim()) {
-            errors.push('Vui lòng nhập họ và tên.');
+        document.getElementById('nameError').textContent = '';
+        document.getElementById('phoneError').textContent = '';
+        var hasError = false;
+        if (name_Profile.trim() === '') {
+            nameError.textContent = 'Họ và tên không được để trống.';
+            hasError = true;
         }
-
-        if (!phone_Profile.trim()) {
-            errors.push('Vui lòng nhập số điện thoại.');
-        }
-
         if (!/^(0\d{9})$/.test(phone_Profile)) {
-            errors.push('Số điện thoại không hợp lệ.');
+            phoneError.textContent = 'Số điện thoại không hợp lệ.';
+            hasError = true;
         }
 
-        // Hiển thị tất cả các lỗi (nếu có)
-        displayErrors(errors);
+        if (hasError) {
+            return;
+        }
 
-        if (errors.length === 0) {
-            const data = {
+            var data = {
                 name: name_Profile,
                 phone_number: phone_Profile,
                 email: email_Profile,
@@ -103,22 +97,22 @@
                     if (data.status === true && !isNotificationDisplayed) {
                         isNotificationDisplayed = true;
                         Toastify({
-                            text: "Thay Đổi Thông Tin Thành Công.", // Nội dung thông báo của bạn
-                            duration: 200000, // Thời gian hiển thị thông báo
+                            text: "Thay Đổi Thông Tin Thành Công.",
+                            duration: 2000,
                             newWindow: true,
                             close: true,
-                            gravity: "right", // Đặt gravity là "right" để thông báo hiển thị sát lề phải
-                            position: "fixed", // Đặt vị trí là "fixed" để thông báo hiển thị ở cố định
+                            gravity: "right",
+                            position: "absolute",
                             stopOnFocus: true,
                             style: {
-                                "margin-top": "140px",
-                                "margin-left": "80%", // Đúng cú pháp và thêm dấu nháy đơn
-                                position: "absolute", // Đặt position thành "absolute"
-                                background: "#4CAF50", // Màu nền đỏ với độ trong suốt
-                                padding: "20px 10px",
-                                borderRadius: "5px",
-                                zIndex: 9999 //
-                            },
+                                "margin-top": "100px",
+                                "right": "10px",
+                                "background": "#4CAF50",
+                                "padding": "20px 10px",
+                                "border-radius": "5px",
+                                "z-index": "9999",
+                                "position": "absolute",
+                            }
                         }).showToast();
 
                         setTimeout(() => {
@@ -127,48 +121,31 @@
                     } else if (!isNotificationDisplayed) {
                         isNotificationDisplayed = true;
                         Toastify({
-                            text: "Thay Đổi Thông Tin Thất Bại.", // Nội dung thông báo của bạn
-                            // duration: 2000, // Thời gian hiển thị thông báo
+                            text: "Thay Đổi Thông Tin Thất Bại.",
+                            duration: 2000,
                             newWindow: true,
                             close: true,
-                            gravity: "top", // Đặt gravity là "top" để thông báo hiển thị ở trên cùng
-                            position: "left", // Đặt vị trí là "right" để thông báo hiển thị bên phải
+                            gravity: "right",
+                            position: "absolute",
                             stopOnFocus: true,
                             style: {
-                                "margin-top": "140px",
-                                "margin-left": "80%",
-                                position: "absolute", // Đặt position thành "absolute"
-                                background: "rgba(239, 82, 34, 0.7)", // Màu nền đỏ với độ trong suốt
-                                padding: "20px 10px",
-                                borderRadius: '5px',
-                                zIndex: 9999 // Đặt z-index cao để hiển thị đè lên giao diện
-                            },
-                        }).showToast();
-                        setTimeout(() => {
-                            window.location.href = 'thong-tin';
-                        }, 2000);
+                                "margin-top": "100px",
+                                "right": "10px",
+                                "background": "#4CAF50",
+                                "padding": "20px 10px",
+                                "border-radius": "5px",
+                                "z-index": "9999",
+                                "position": "absolute",
+                        }
+                    }).showToast();
                     }
                 })
                 .catch(error => {
                     console.log('Lỗi khi gửi yêu cầu: ' + error);
                 });
-        }
     });
-
-    function displayErrors(errors) {
-        var nameError = document.getElementById('nameError');
-        var phoneError = document.getElementById('phoneError');
-        nameError.textContent = '';
-        phoneError.textContent = '';
-
-        errors.forEach(function (error) {
-            if (error.includes('họ và tên')) {
-                nameError.textContent = error;
-            }
-            if (error.includes('số điện thoại')) {
-                phoneError.textContent = error;
-            }
-        });
-    }
+    $("#phone_Profile").on("input", function () {
+        $(this).val($(this).val().replace(/[^0-9]/g, ""));
+    });
 </script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

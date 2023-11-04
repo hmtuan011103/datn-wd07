@@ -25,7 +25,7 @@
     <div class="container" >
         <div class="d-flex justify-content-center">
             <div class="row form-login rounded ">
-                <div class="col-md-7" >
+                <div class="col-md-6 col-sm-12 col-xl-7" >
                     <div class="login_tag mt-4" style="width: 40%;">
                         <img src="http://127.0.0.1:8000/client/assets/images/logo_chienthang.jpg" alt="" style="width: 100%;/* max-width: 100%; */height: auto;padding-left: 25px;">
                     </div>
@@ -33,7 +33,7 @@
                         <img src="http://127.0.0.1:8000/client/assets/images/tcv.svg" alt="" style="max-width: 100%; height: auto;">
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-6 col-sm-12 col-xl-5">
                     <div class="text-center mt-4 mb-4" id= "loginName"><h4>Đăng Nhập Tài Khoản</h4></div>
                     <div class="text-center mt-4 mb-4" id= "registerName"style="display: none;"><h4>Tạo Tài Khoản</h4></div>
                     <p class="text-center">
@@ -44,7 +44,7 @@
                             <form id="login-form">
                                 <div class="input-group">
                                     <span class="input-group-text" id="inputGroupPrepend2"> <i class="mdi mdi-gmail"></i></span>
-                                    <input type="email" class="form-control " id="login-username" placeholder="Bạn hãy nhập email">
+                                    <input type="text" class="form-control " id="login-username" placeholder="Bạn hãy nhập email">
                                 </div>
                                 <p id="email-error" class="error-message" ></p>
                                 <div class="input-group">
@@ -52,7 +52,7 @@
                                     <input type="password" class="form-control " id="login-password" placeholder="Bạn hãy nhập mật khẩu">
                                 </div>
                                 <p id="password-error" class="error-message" ></p>
-                                <div class="mb-4" id="error-message" style="color: red;"></div>
+                                <p id="login_add" class="error-message" style="display: none" >Email của bạn không tồn tại.</p>
                                 <button type="submit" class="ant-btn-primary" onclick="validateForm()">Đăng Nhập</button>
                             </form>
                         <form id="register-form" style="display: none">
@@ -74,7 +74,7 @@
                                 <div class="form2"  style="display: none;">
                                     <div class="input-group">
                                         <span class="input-group-text" id="inputGroupPrepend2"><i class="mdi mdi-gmail"></i></span>
-                                        <input name="email" type="email" class="form-control" id="register-email" placeholder="Bạn hãy nhập email">
+                                        <input name="email" type="text" class="form-control" id="register-email" placeholder="Bạn hãy nhập email">
                                     </div>
                                     <p id="email_error" class="error-message"></p>
                                     <div class="input-group">

@@ -32,4 +32,11 @@
         border-color: #F9821D;
         box-shadow: none;
     }
+    .text-danger{
+        padding-left: 10px;
+        font-size: 14px;
+        font-weight: normal;
+        display: block;
+        padding-bottom: 10px;
+    }
 </style>
