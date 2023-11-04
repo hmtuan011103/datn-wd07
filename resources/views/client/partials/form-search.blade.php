@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="col-6 ta-right fs-15">
-            <a href="" class=" text-decoration-none cl-orange">Hướng dẫn mua vé</a>
+            <a href="{{url('/huong-dan-mua-ve')}}" class=" text-decoration-none cl-orange">Hướng dẫn mua vé</a>
         </div>
     </div>
     <div class="row py-3">

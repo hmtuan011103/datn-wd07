@@ -28,7 +28,6 @@
     .btn-submit{
         background-color: #F15A24;
         color: white;
-        margin: 15px 0;
         padding: 5px 0;
         width: 100%;
         transition: 0.5s ease-in-out;

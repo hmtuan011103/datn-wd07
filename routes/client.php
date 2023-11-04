@@ -50,9 +50,9 @@ Route::get('/lien-he', function () {
 Route::get('ve-chung-toi', function () {
     return view('client.pages.about.index');
 })->name('ve_chung_toi');
-Route::get('huong-dan-dat-ve', function () {
+Route::get('huong-dan-mua-ve', function () {
     return view('client.pages.guide.index');
-})->name('huong_dan_mua_hang');
+})->name('huong_dan_mua_ve');
 Route::post('post_contact', [ContactController::class, 'store'])->name('create_contact');
 
 
