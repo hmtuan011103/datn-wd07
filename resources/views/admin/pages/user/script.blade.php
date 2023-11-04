@@ -23,7 +23,7 @@
 
 <script>
     //     $('#validationCustomPassword').on('input', function() {
-    $('#validationCustomPassword, #validationCustomPasswordRe').on('input', function() {
+    $('#validationCustomPasswordRe').on('input', function() {
         // Get the values of the current password, new password, and password confirmation inputs
         var currentPassword = $('#validationCustomPasswordcur').val();
         var newPassword = $('#validationCustomPassword').val();
