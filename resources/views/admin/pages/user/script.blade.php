@@ -22,6 +22,21 @@
 <script src={{ asset('admin/assets/js/pages/src/user/multijs.js') }}></script>
 
 <script>
+    var isValid = true;
+
+    $('#form-user-profile-change-password').submit(function(event) {
+        if (!isValid) {
+            event.preventDefault();
+        }
+
+        var currentPassword = $('#validationCustomPasswordcur').val();
+        var newPassword = $('#validationCustomPassword').val();
+        if (currentPassword === newPassword) {
+            $('#validationCustomPassword-error').text(
+                'Mật khẩu mới phải khác mật khẩu hiện tại.');
+        }
+    });
+
     //     $('#validationCustomPassword').on('input', function() {
     $('#validationCustomPasswordRe').on('input', function() {
         // Get the values of the current password, new password, and password confirmation inputs
@@ -33,9 +48,11 @@
             // If they are the same, show an error message or perform desired action
             $('#validationCustomPassword-error').text(
                 'Mật khẩu mới phải khác mật khẩu hiện tại.');
+            isValid = false;
         } else {
             // If they are different, clear the error message or perform desired action
             $('#validationCustomPassword-error').text('');
+            isValid = true;
         }
     });
 </script>
