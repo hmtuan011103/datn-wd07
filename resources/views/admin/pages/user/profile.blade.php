@@ -136,11 +136,6 @@
                                             <input type="password" class="form-control pe-4" name="password_current"
                                                 id="validationCustomPasswordcur" placeholder="********" minlength="8"
                                                 maxlength="16">
-                                            @error('password_current')
-                                                <div class="help-block error-help-block">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
                                         </div>
                                         <br>
                                         <div class="col">
@@ -154,11 +149,6 @@
                                             <input type="password" class="form-control" name="password"
                                                 id="validationCustomPassword" placeholder="********" minlength="8"
                                                 maxlength="16">
-                                            @error('password')
-                                                <div class="help-block error-help-block">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
                                         </div>
 
                                         <div class="col">
@@ -172,11 +162,6 @@
                                             <input type="password" class="form-control" name="password_confirmation"
                                                 id="validationCustomPasswordRe" placeholder="********" minlength="8"
                                                 maxlength="16">
-                                            @error('password_confirmation')
-                                                <div class="help-block error-help-block">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
                                         </div>
 
                                         <div class="col-12 my-4">
@@ -201,3 +186,14 @@
         </div>
     </div>
 </div>
+
+@if (session('result-change-password'))
+    <script>
+        setTimeout(function() {
+            location.reload();
+        }, 1000);
+    </script>
+    @php
+        toastr()->success('Cập nhật thành công', 'Thành công');
+    @endphp
+@endif

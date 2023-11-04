@@ -54,3 +54,5 @@ Route::get('get_data_year', [HomeController::class, 'get_data_year'])->name('get
 
 Route::get('/search_ticket', [TicketController::class, 'search_ticket'])->name('search_ticket');
 Route::get('/test-data', [\App\Http\Controllers\Checkout\CheckoutController::class, 'getTicketForBill']);
+
+Route::get('news/recent', [TripController::class, 'getRecentNews']);

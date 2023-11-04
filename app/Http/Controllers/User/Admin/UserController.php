@@ -196,9 +196,8 @@ class UserController extends BaseUserController
             return back();
         }
 
-        $message = $query->getData()->message;
-        toastr()->success($message, 'Thành công');
+        // toastr()->success($message, 'Thành công');
 
-        return back();
+        return to_route('users.profile', ['user' => $id])->with('result-change-password', '200');
     }
 }
