@@ -320,4 +320,10 @@ footer.pt-4{
 .justify-content-between {
     margin-bottom:10px;
 }
-
+.dropdown-menu.show{
+    padding: 0;
+}
+.dropdown-menu a:visited {
+    background: #fff;
+    color: black;
+}
