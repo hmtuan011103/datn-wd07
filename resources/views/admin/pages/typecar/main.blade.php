@@ -78,7 +78,7 @@
                                                 @if ($item->type_seats == 1)
                                                         Ghế Ngồi
                                                 @elseif ($item->type_seats == 2)
-                                                        Ghế Giường Nằm
+                                                        Giường Nằm
                                                 @endif
                                                 </td>
                                                 <td class="email">{{$item->description}}</td>
@@ -98,6 +98,35 @@
                                                     </div>
                                                 </td>
                                             </tr>
+                                            <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="mt-2 text-center">
+                                                                <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                                                                <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                                                                    <h4>Bạn có chắc chắn ?</h4>
+                                                                    <p class="text-muted mx-4 mb-0">Bạn có chắc chắn muốn xóa loại xe này đi không ?</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+
+                                                                <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Đóng</button>
+                                                                <form action="{{route('destroy_typecar', $item->id)}}" id="item-{{$item->id}}" method="post">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button class="btn w-sm btn-danger " type="submit">
+                                                                        Chấp nhận
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @endforeach
                                         </tbody>
                                     </table>
@@ -105,9 +134,7 @@
                                         <div class="text-center">
                                             <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px">
                                             </lord-icon>
-                                            <h5 class="mt-2">Sorry! No Result Found</h5>
-                                            <p class="text-muted mb-0">We've searched more than 150+ Orders We did not find any
-                                                orders for you search.</p>
+                                            <h5 class="mt-2">Không có bản ghi nào</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -131,40 +158,6 @@
                 <!-- end col -->
             </div>
             <!-- end row -->
-            <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="mt-2 text-center">
-                                <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
-                                <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
-                                    <h4>Are you Sure ?</h4>
-                                    <p class="text-muted mx-4 mb-0">Are you Sure You want to Remove this Record ?</p>
-                                </div>
-                            </div>
-                            <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
-
-                                <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
-
-                                @foreach($data as $item)
-                                    <form action="{{route('destroy_typecar',$item)}}" id="item-{{$item->id}}" method="post">
-                                        @endforeach
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn w-sm btn-danger " type="submit">
-                                            Yes, Delete It!
-                                        </button>
-                                    </form>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
     </div>
     <!-- container-fluid -->
     </div>

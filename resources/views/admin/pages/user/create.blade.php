@@ -14,10 +14,10 @@
                                 @csrf
                                 @method('POST')
 
-                                <div class="col-md-2">
-                                    <label for="validationCustom01" class="form-label">*Tên người dùng</label>
+                                <div class="col-lg-3">
+                                    <label for="validationCustom01" class="form-label">Tên người dùng *</label>
                                     <input type="text" class="form-control" name="name" id="validationCustom01"
-                                        placeholder="something" value="{{ old('name') }}" required>
+                                        placeholder="Vui lòng nhập tên người dùng" value="{{ old('name') }}" required>
                                     @error('name')
                                         <div class="help-block error-help-block">
                                             {{ $message }}
@@ -25,10 +25,10 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-3">
-                                    <label for="validationCustomEmail" class="form-label">*Email</label>
+                                <div class="col-lg-3">
+                                    <label for="validationCustomEmail" class="form-label">Email *</label>
                                     <input type="email" class="form-control" name="email" id="validationCustomEmail"
-                                        placeholder="something@something.something" value="{{ old('email') }}"
+                                        placeholder="Nhập địa chỉ email" value="{{ old('email') }}"
                                         required>
                                     @error('email')
                                         <div class="help-block error-help-block">
@@ -37,10 +37,10 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-2">
-                                    <label for="validationCustomPhone" class="form-label">*Số điện thoại</label>
+                                <div class="col-lg-3">
+                                    <label for="validationCustomPhone" class="form-label">Số điện thoại *</label>
                                     <input type="text" class="form-control" name="phone_number"
-                                        id="validationCustomPhone" placeholder="0342222222"
+                                        id="validationCustomPhone" placeholder="Nhập số điện thoại"
                                         value="{{ old('phone_number') }}" required>
                                     @error('phone_number')
                                         <div class="help-block error-help-block">
@@ -49,8 +49,26 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-2">
-                                    <label for="validationCustomPassword" class="form-label">*Mật khẩu</label>
+                                <div class="col-lg-3">
+                                    <label for="validationTypeUserSelect" class="form-label">Loại người dùng *</label>
+                                    <select class="form-select" id="validationTypeUserSelect" name="user_type_id"
+                                            required>
+                                        <option selected disabled value="">...</option>
+                                        @foreach ($allTypeUserData as $item)
+                                            <option value="{{ $item->id }}" @selected($item->id == old('user_type_id'))>
+                                                {{ $item->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('user_type_id')
+                                    <div class="help-block error-help-block">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <label for="validationCustomPassword" class="form-label">Mật khẩu *</label>
                                     <input type="password" class="form-control" name="password"
                                         id="validationCustomPassword" placeholder="********" minlength="8"
                                         maxlength="16" required>
@@ -61,8 +79,8 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-2">
-                                    <label for="validationCustomPasswordRe" class="form-label">*Xác nhận mật khẩu</label>
+                                <div class="col-lg-4">
+                                    <label for="validationCustomPasswordRe" class="form-label">Xác nhận mật khẩu *</label>
                                     <input type="password" class="form-control" name="password_confirmation"
                                         id="validationCustomPasswordRe" placeholder="********" minlength="8"
                                         maxlength="16" required>
@@ -73,26 +91,19 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-2">
-                                    <label for="validationTypeUserSelect" class="form-label">*Loại người dùng</label>
-                                    <select class="form-select" id="validationTypeUserSelect" name="user_type_id"
-                                        required>
-                                        <option selected disabled value="">...</option>
-                                        @foreach ($allTypeUserData as $item)
-                                            <option value="{{ $item->id }}" @selected($item->id == old('user_type_id'))>
-                                                {{ $item->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('user_type_id')
-                                        <div class="help-block error-help-block">
-                                            {{ $message }}
-                                        </div>
+                                <div class="col-lg-4">
+                                    <label for="validationCustomAddress" class="form-label">Địa chỉ</label>
+                                    <input type="text" class="form-control" name="address"
+                                           id="validationCustomAddress" placeholder="Nhập địa chỉ của bạn" value="{{ old('address') }}">
+                                    @error('address')
+                                    <div class="help-block error-help-block">
+                                        {{ $message }}
+                                    </div>
                                     @enderror
                                 </div>
 
-                                <div class="col-md-6">
-                                    <label for="validationUserRoleSelect" class="form-label">*Vai trò</label>
+                                <div class="col-lg-12">
+                                    <label for="validationUserRoleSelect" class="form-label">Vai trò *</label>
                                     <select class="form-select" id="validationUserRoleSelect" name="roles[]"
                                         multiple="multiple" required>
                                         @foreach ($allUserRoleData as $item)
@@ -102,33 +113,22 @@
                                         @endforeach
                                     </select>
                                     @error('roles')
-                                        <div class="help-block error-help-block">
+                                        <div class="help-block error-help-block pt-2">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
 
-                                <div class="col">
+                                <div class="col-lg-12">
                                     <div class="d-flex flex-column">
                                         <label for="validationCustomDescription" class="form-label">Mô tả</label>
-                                        <textarea name="description" id="validationCustomDescription" cols="30" rows="12">{{ old('description') }}</textarea>
+                                        <textarea name="description" id="validationCustomDescription" cols="30" rows="8">{{ old('description') }}</textarea>
                                         @error('description')
                                             <div class="help-block error-help-block">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="validationCustomAddress" class="form-label">Địa chỉ</label>
-                                    <input type="text" class="form-control" name="address"
-                                        id="validationCustomAddress" placeholder="..." value="{{ old('address') }}">
-                                    @error('address')
-                                        <div class="help-block error-help-block">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
                                 </div>
 
                                 <div class="col-12 mb-3 mt-4">

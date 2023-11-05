@@ -15,13 +15,13 @@ class CarController extends BaseCarController
     public function index()
     {
         $data = $this->CarService->index();
-        $title = 'Trang phân quyền';
+        $title = 'Danh sách xe';
         return view('admin.pages.car.main', compact('title', 'data'));
     }
 
     public function create()
     {
-        $title = 'Trang phân quyền';
+        $title = 'Thêm mới xe';
         $data = TypeCar::query()->get();
         return view('admin.pages.car.create', compact('title', 'data'));
     }
@@ -37,7 +37,7 @@ class CarController extends BaseCarController
     {
 
         $model = Car::findOrFail($id);
-        $title = 'Trang phân quyền';
+        $title = 'Sửa thông tin xe';
         $data = TypeCar::query()->get();
         return view('admin.pages.car.edit',compact('title', 'data','model'));
     }
