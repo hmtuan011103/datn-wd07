@@ -151,7 +151,7 @@
                                 return p.id === permission.parent_id;
                             })) {
                             var li = document.createElement('li');
-                            li.textContent = permission.name;
+                            li.textContent = permission.description;
                             ul.appendChild(li);
                         }
                     });

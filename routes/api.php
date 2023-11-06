@@ -69,3 +69,6 @@ Route::get('news/recent', [TripController::class, 'getRecentNews']);
 
 
 Route::delete('news/destroy-multiple', [\App\Http\Controllers\New\Admin\NewController::class, 'destroyMultiple']);
+
+
+Route::get('permission/delete/{id}', [App\Http\Controllers\Permissions\Admin\PermissionController::class, 'delete']);

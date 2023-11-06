@@ -35,7 +35,7 @@ class RoleController extends BaseRoleController
     {
         $role = $this->roleService->add($request);
         if ($role->id) {
-            toastr()->success('Thêm vai trò mới thành công!');
+            toastr()->success('Thành công','Thêm vai trò mới thành công!');
             return redirect()->route('add_role');
         }
     }
@@ -52,7 +52,7 @@ class RoleController extends BaseRoleController
     {
         $role = $this->roleService->update($request, $id);
         if ($role) {
-            toastr()->success('Sửa vai trò mới thành công!');
+            toastr()->success('Thành công','Sửa vai trò mới thành công!');
             return redirect()->route('list_role');
         }
     }
