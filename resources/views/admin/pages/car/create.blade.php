@@ -9,12 +9,12 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                            <h4 class="mb-sm-0">Chuyến Xe</h4>
+                            <h4 class="mb-sm-0">Xe</h4>
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
-                                    <li class="breadcrumb-item active">Chuyến Xe</li>
+                                    <li class="breadcrumb-item active">Thêm Mới Xe</li>
                                 </ol>
                             </div>
 
@@ -27,7 +27,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title mb-0">Thêm Mới Chuyến Xe</h4>
+                                <h4 class="card-title mb-0">Thêm Mới Xe</h4>
                             </div><!-- end card header -->
 
                             <div class="card-body">
@@ -35,8 +35,8 @@
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-6 pt-3 pb-3">
-                                            <label for="name" class="form-label">Tên Chuyến Xe *</label>
-                                            <input type="text" name="name" id="name" class="form-control" placeholder="Nhập Tên Chuyến Xe"  />
+                                            <label for="name" class="form-label">Tên Xe *</label>
+                                            <input type="text" name="name" id="name" class="form-control" placeholder="Nhập Tên Xe"  />
                                         </div>
                                         <div class="col-md-6 pt-3 pb-3">
                                             <label for="image" class="form-label">Ảnh </label>
@@ -61,8 +61,8 @@
                                         <div class="col-md-6 pt-3 pb-3">
                                             <label for="status" class="form-label">Trạng Thái</label>
                                             <select class="form-control" aria-label="Default select example" name="status" >
-                                                <option value="0">Xe Đã Ngừng Hoạt Động</option>
-                                                <option value="1">Xe Đang Hoạt Động</option>
+                                                <option value="0">Xe Đang Hoạt Động</option>
+                                                <option value="1">Xe Đã Ngừng Hoạt Động</option>
                                             </select>
                                         </div>
                                         <div class="md-3">

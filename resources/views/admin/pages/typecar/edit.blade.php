@@ -14,7 +14,7 @@
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
-                                    <li class="breadcrumb-item active">Loại Xe</li>
+                                    <li class="breadcrumb-item active">Cập Nhật Loại Xe</li>
                                 </ol>
                             </div>
 
@@ -60,7 +60,7 @@
                                         <div class="modal-footer">
                                             <div class="hstack gap-2 justify-content-end">
                                                 <button type="button" class="btn btn-light"><a href="{{route('index_typecar')}}">Danh Sách</a></button>
-                                                <button type="submit" class="btn btn-success" id="add-btn">Cập nhật</button>
+                                                <button type="submit" class="btn btn-success" id="add-btn">Cập Nhật</button>
                                             </div>
                                         </div>
                                     </div>

@@ -7,6 +7,7 @@ use App\Http\Requests\TypeCar\StoreTypeCarRequest;
 use App\Http\Requests\TypeCar\UpdateTypeCarRequest;
 use Illuminate\Http\Request;
 use App\Models\TypeCar;
+use App\Models\Car;
 
 class TypeCarController extends BaseTypeCarController
 {
@@ -26,7 +27,7 @@ class TypeCarController extends BaseTypeCarController
     {
         toastr()->success('Thành công','Thêm Thành Công!');
         $this->TypeCarService->store($request);
-        return redirect()->route('index_typecar');
+        return back();
     }
     public function edit(Request $request)
     {
@@ -42,8 +43,15 @@ class TypeCarController extends BaseTypeCarController
     }
     public function destroy(string $id)
     {
-        $this->TypeCarService->destroy($id);
-        toastr()->success('Thành công','Xóa Thành Công!');
-        return back();
+        $model = TypeCar::query()->findOrFail($id);
+
+        $relatedCars = Car::where('id_type_car', $model->id)->get();
+
+        if ($relatedCars->isEmpty()) {
+            $model->delete();
+            return response()->json(['message' => 'Xóa loại xe thành công'], 200);
+        }
+
+        return response()->json(['message' => 'Không thể xóa loại xe'], 400);
     }
 }

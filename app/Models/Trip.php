@@ -12,7 +12,7 @@ class Trip extends Model
     use HasFactory;
     protected $table = 'trips';
 
-    protected $fillable = ['car_id','drive_id','assistantCar_id','start_date','start_time','start_location','status','trip_price','end_location'];
+    protected $fillable = ['car_id','drive_id','assistantCar_id','interval_trip','start_date','start_time','start_location','status','trip_price','end_location'];
 
     public function bills(): HasMany {
         return $this->hasMany(Bill::class, 'trip_id', 'id');

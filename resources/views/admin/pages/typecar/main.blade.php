@@ -34,7 +34,7 @@
                                     <div class="col-sm-auto">
                                         <div>
                                             <a href="{{route('create_typecar')}}"><button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal" a><i class="ri-add-line align-bottom me-1"></i> Thêm Mới</button></a>
-                                            <button class="btn btn-soft-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
+                                            <button class="btn btn-soft-danger" onClick="deleteMultiples()"><i class="ri-delete-bin-2-line"></i></button>
                                         </div>
                                     </div>
                                     <div class="col-sm">
@@ -53,7 +53,8 @@
                                         <tr>
                                             <th scope="col" style="width: 50px;">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="checkAll" value="option">
+                                                    <input class="form-check-input" type="checkbox" id="checkAll"
+                                                           value="option">
                                                 </div>
                                             </th>
                                             <th class="sort" data-sort="customer_name">Tên Loại Xe</th>
@@ -68,7 +69,7 @@
                                             <tr>
                                                 <th scope="row">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+                                                        <input class="form-check-input" type="checkbox" name="rowCheckbox" value="{{$item->id}}">
                                                     </div>
                                                 </th>
                                                 <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a></td>
@@ -88,40 +89,38 @@
                                                             <a href="{{route('edit_typecar',['id'=>$item->id])}}" class="btn btn-success btn-sm edit-item-btn" ><i class="bx bx-edit"></i></a>
                                                         </div>
                                                         <div class="remove">
-
-                                                            <button
-                                                                class="btn btn-sm btn-danger remove-item-btn"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#deleteRecordModal"><i class="bx bx-trash"></i></button>
+                                                            <button class="btn btn-sm btn-danger btn-remove"
+                                                                    data-bs-toggle="modal" data-bs-target="#modalDelete"
+                                                                    data-role-id="{{ $item->id }}"><i
+                                                                    class="bx bx-trash"></i></button>
                                                         </div>
 
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1" aria-hidden="true">
+                                            <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                 aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                                                    id="btn-close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="mt-2 text-center">
-                                                                <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                                                                <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
+                                                                           colors="primary:#f7b84b,secondary:#f06548"
+                                                                           style="width:100px;height:100px"></lord-icon>
                                                                 <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
-                                                                    <h4>Bạn có chắc chắn ?</h4>
-                                                                    <p class="text-muted mx-4 mb-0">Bạn có chắc chắn muốn xóa loại xe này đi không ?</p>
+                                                                    <h4>Xác nhận xóa ?</h4>
+                                                                    <span id="role-id" hidden></span>
+                                                                    <p class="text-muted mx-4 mb-0">Bạn có chắc chắn muốn xóa chuyến đi này ?</p>
                                                                 </div>
                                                             </div>
                                                             <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
-
-                                                                <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Đóng</button>
-                                                                <form action="{{route('destroy_typecar', $item->id)}}" id="item-{{$item->id}}" method="post">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button class="btn w-sm btn-danger " type="submit">
-                                                                        Chấp nhận
-                                                                    </button>
-                                                                </form>
+                                                                <button type="button" class="btn w-sm btn-light"
+                                                                        data-bs-dismiss="modal">Đóng</button>
+                                                                <button type="button" class="btn w-sm btn-danger " id="delete-record">Xóa</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -178,5 +177,6 @@
         </div>
     </footer>
 </div>
+
 @endsection
 
