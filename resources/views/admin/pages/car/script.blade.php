@@ -121,7 +121,7 @@
                     Swal.fire({
                         position: "center",
                         icon: "success",
-                        title: "Xóa xe không thành công!",
+                        title: "Xóa xe thành công!",
                         showConfirmButton: false,
                         timer: 2000,
                         showCloseButton: true,
