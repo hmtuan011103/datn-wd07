@@ -128,35 +128,8 @@
                         queryString,
                     method: "GET",
                     success: function(response) {
-
-                        // var ul = document.createElement('ul');
-                        // response[0].forEach(function(permission) {
-                        //     console.log(permission.name)
-                        //     if (permission.parent_id == 0) {
-                        //         var li = document.createElement(
-                        //             'li');
-                        //         li.textContent = permission.name;
-                        //         ul.appendChild(li);
-                        //     } else {
-                        //         var li = document.createElement('li');
-                        //         li.style.display = 'block';
-                        //         ul.appendChild(li);
-                        //         var nestedUl = document.createElement('ul');
-                        //         // var nestedLi = document.createElement('li');
-                        //         nestedUl.textContent = permission.name;
-                        //         // nestedUl.appendChild(nestedLi);
-                        //         ul.appendChild(nestedUl);
-                        //     }
-
-                        // });
-
-                        // var container = document.getElementById('modal_permission');
-                        // while (container.firstChild) {
-                        //     container.removeChild(container.firstChild);
-                        // }
-                        // container.appendChild(ul);
-
                         var permissions = response[0];
+                        console.log(response);
                         var container = document.getElementById('modal_permission');
                         var container_child = document.getElementById('modal_permission_child');
 
@@ -190,7 +163,8 @@
                     permissions.forEach(function(permission) {
                         if (permission.parent_id === parentId) {
                             var li = document.createElement('li');
-                            li.textContent = permission.name;
+                            li.textContent = permission.description;
+                            li.style.fontSize = '16px';
                             ul.appendChild(li);
 
                             // Đệ quy để tạo danh sách con
@@ -214,7 +188,7 @@
             }
         });
     }
-    
+
 </script>
 <script src="{{ asset('admin/assets/js/pages/hummingbird-treeview.js') }}"></script>
 <script src="{{ asset('admin/assets/js/pages/hummingbird-treeview.min.js') }}"></script>

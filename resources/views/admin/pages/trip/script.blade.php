@@ -182,7 +182,6 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
                 showCloseButton: !0,
             })
         });
-
     });
 </script>
 
@@ -214,15 +213,58 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
 </script>
 
 <script>
-    function formatTime() {
-        var input = document.getElementById("timeInput");
-        var value = input.value;
 
-        if (value.length === 4) {
-            var hour = value.substr(0, 2);
-            var minute = value.substr(2);
-            var formattedTime = hour + "giờ " + minute + "phút";
-            input.value = formattedTime;
+    $("#timeInput").on("input", function () {
+        $(this).val($(this).val().replace(/[^0-9]/g, ""));
+    });
+
+    function formatTime() {
+        const input = document.getElementById("timeInput");
+        const pattern = /^\d{2}giờ \d{2}phút$/;
+        const pattern1 = /^\d{2}giờ \d{1}phút$/;
+        const pattern2 = /^giờ phút$/;
+        const pattern3 = /^\d{1}giờ \d{2}phút$/;
+        const pattern4 = /^\d{1}giờ \d{1}phút$/;
+        let value = input.value;
+        if(!pattern.test(value) && !pattern1.test(value) && !pattern2.test(value) && !pattern3.test(value) && !pattern4.test(value)) {
+            if(value === "0") {
+                input.value = "";
+                return true;
+            }
+            if (value.length > 4){
+                value = value.substr(0, 4);
+            }
+
+            if (value.length <= 4) {
+                let hour = value.substr(0, 2);
+                const minute = value.substr(2);
+                let formattedTime = "";
+                if (minute >= 60) {
+                    hour++;
+                    const minutePr = minute - 60;
+                    formattedTime = hour + "giờ " + minutePr + "phút";
+                } else {
+                    formattedTime = hour + "giờ " + minute + "phút";
+                }
+                input.value = formattedTime;
+            }
+            if (value.length <= 3) {
+                let hour = value.substr(0, 1);
+                const minute = value.substr(1, 2);
+                let formattedTime = "";
+                if (minute >= 60) {
+                    hour++;
+                    const minutePr = minute - 60;
+                    formattedTime = hour + "giờ " + minutePr + "phút";
+                } else {
+                    formattedTime = hour + "giờ " + minute + "phút";
+                }
+                input.value = formattedTime;
+            }
+            if (value.length <= 2) {
+                var formattedTime = value + "giờ " + "00phút";
+                input.value = formattedTime;
+            }
         }
     }
 
@@ -235,7 +277,6 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
         if (value.length === 4) {
             var hour = value.substr(0, 2);
             var minute = value.substr(2);
-
             // Kiểm tra nếu giờ hoặc phút không phải là số
             if (isNaN(hour) || isNaN(minute)) {
                 // Khôi phục giá trị trước đó
