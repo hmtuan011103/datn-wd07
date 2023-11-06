@@ -47,7 +47,7 @@ function formatInterval($parameter)
      $minute = $carbon->format('i');
 
      // Tạo chuỗi định dạng "H giờ i phút"
-     $output = $hour . ' giờ ' . $minute . ' phút';
+     $output = $hour . 'giờ ' . $minute . 'phút';
 
      return $output;
 }

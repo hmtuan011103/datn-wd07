@@ -47,13 +47,13 @@
                 }
 
                 return `
-            
+
                 <div class="alldata">
                     <div class="schedule-card flex w-full flex-col gap-[6px] text-left " >
                         ${res.map(function(item) {
                                         if(item.start_location === trip.start_location) {
-                                            return ` 
-                                            <div class="ant-row items-center" > 
+                                            return `
+                                            <div class="ant-row items-center" >
                                                 <div class="ant-col ant-col-6" >
                                                     <div class="flex w-full items-center gap-2">
                                                         <span class="font-medium text-orange"> ${item.start_location}</span>
@@ -74,10 +74,10 @@
 
                                                 </div>`
                                         }
-                                    
+
                                     }) .filter(Boolean) // Remove any falsy values (null, undefined) from the array
                 .join('')
-                                } 
+                                }
                                 </div>
                             </div>
             `;
@@ -152,7 +152,7 @@
                     var $searchResults = $('#content');
                     $searchResults.empty();
                     printedTripNames = [];
-                  
+
 
                     if (Array.isArray(data)) {
                         data.forEach(function(trip) {
@@ -188,17 +188,17 @@
                                 </div>`;
 
                                 $searchResults.append(output);
-                             
+
 
                             }
                         });
                     }
-                    
+
                 }
-                
+
             });
-           
+
         }, 300);
-        
+
     }
 </script>

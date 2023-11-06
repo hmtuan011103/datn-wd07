@@ -41,10 +41,16 @@ class TripService
     public function create(StoreTripRequest $request)
     {
         if ($request->isMethod('POST')) {
-
             $params = $request->all();
-            unset($params['_token']);
+            $timeFloat = $request->interval_trip;
+            $hourMinute = str_replace(['giờ', 'phút'], '', $timeFloat);
+            $hourMinuteArray = explode(' ', $hourMinute);
+            $hour = $hourMinuteArray[0];
+            $minute = $hourMinuteArray[1];
+            $time = sprintf("%02d:%02d:00", $hour, $minute);
 
+            $params['interval_trip'] = $time;
+            unset($params['_token']);
             return Trip::create($params);
         }
     }
@@ -55,7 +61,15 @@ class TripService
         Trip::find($id);
         if ($request->isMethod('POST')) {
             $params = $request->except('proengsoft_jsvalidation', '_token');
-            // dd($params);
+            $timeFloat = $request->interval_trip;
+            $hourMinute = str_replace(['giờ', 'phút'], '', $timeFloat);
+            $hourMinuteArray = explode(' ', $hourMinute);
+            $hour = $hourMinuteArray[0];
+            $minute = $hourMinuteArray[1];
+            $time = sprintf("%02d:%02d:00", $hour, $minute);
+
+            $params['interval_trip'] = $time;
+            unset($params['_token']);
             return Trip::where('id', $id)->update($params);
         }
     }
@@ -246,7 +260,7 @@ class TripService
                 }else{
                     $trips[$i]['seat_empty'] = $seats;
                 }
-                
+
             }
             if ($trips->isEmpty()) {
                 return null;
@@ -386,21 +400,21 @@ class TripService
             foreach ($trips as $trip) {
                 $tripStartDate = Carbon::parse($trip->start_date);
                 $tripStartTime = Carbon::parse($trip->start_time);
-        
+
                 $tripDateTime = $tripStartDate->copy()->setTime($tripStartTime->hour, $tripStartTime->minute, $tripStartTime->second);
-        
+
                 if ($tripDateTime->isSameDay($currentDateTime) && $tripDateTime->greaterThanOrEqualTo($currentDateTime)) {
                     $totalBookedSeats = DB::table('bills')
                         ->where('trip_id', $trip->id)
                         ->sum('total_seats');
-        
+
                     $carTotalSeat = DB::table('cars')
                         ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
                         ->where('cars.id', $trip->car_id)
                         ->value('type_cars.total_seat');
-        
+
                     $remainingSeats = $carTotalSeat - $totalBookedSeats;
-        
+
                     if ($remainingSeats > 0) {
                         $trip->remaining_seats = $remainingSeats;
                         $availableTrips[] = $trip;

@@ -6,6 +6,8 @@ use App\Http\Requests\Permission\AddPermissionRequest;
 use App\Models\Permission;
 use App\Models\RolePermission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class PermissionService
 {
@@ -69,22 +71,30 @@ class PermissionService
     }
     public function delete($id)
     {
-        // Permission::find($id)->delete();
-
-        $delete = Permission::where('id', $id)
-        ->orWhere('parent_id', $id)
-        ->delete();
-        if ($delete) {
-            RolePermission::where('permission_id', $id)
-                ->delete();
-            $pers = Permission::where('parent_id', $id)->get();
-            foreach ($pers as $per) {
-                $id_per = $per->id;
-                RolePermission::where('permission_id', $id_per)
-                    ->delete();
+        DB::beginTransaction();
+        try{
+            $idDelete = Permission::query()->find($id);
+            if($idDelete){
+                $rolePermissions = RolePermission::query()->where('permission_id', $idDelete)->get();
+                if($rolePermissions) {
+                    foreach ($rolePermissions as $rolePermission) {
+                        RolePermission::query()->find($rolePermission->id)->delete();
+                    }
+                }
+                $childPermissions = Permission::query()->where('parent_id', $idDelete)->get();
+                if($childPermissions) {
+                    foreach ($childPermissions as $childPermission) {
+                        Permission::query()->find($childPermission->id)->delete();
+                    }
+                }
+                $idDelete->delete();
             }
+            DB::commit();
+            return $idDelete;
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            Log::error('Có lỗi khi xóa', [$exception]);
+            return false;
         }
-        // toastr()->success('Xóa dữ liệu thành công!', 'Thành Công');
-        return $delete;
     }
 }
