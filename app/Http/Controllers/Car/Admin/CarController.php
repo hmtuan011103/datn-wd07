@@ -44,11 +44,7 @@ class CarController extends BaseCarController
 
     public function update(UpdateCarRequest $request ,string $id)
     {
-
-
         $model = Car::query()->findOrFail($id);
-        dd($model);
-
         $olbImg = $model->image;
         if ($request->hasFile('image')) {
             $model->image = upload_file('car', $request->file('image'));

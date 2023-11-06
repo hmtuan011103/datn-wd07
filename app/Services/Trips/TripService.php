@@ -61,7 +61,15 @@ class TripService
         Trip::find($id);
         if ($request->isMethod('POST')) {
             $params = $request->except('proengsoft_jsvalidation', '_token');
-            // dd($params);
+            $timeFloat = $request->interval_trip;
+            $hourMinute = str_replace(['giờ', 'phút'], '', $timeFloat);
+            $hourMinuteArray = explode(' ', $hourMinute);
+            $hour = $hourMinuteArray[0];
+            $minute = $hourMinuteArray[1];
+            $time = sprintf("%02d:%02d:00", $hour, $minute);
+
+            $params['interval_trip'] = $time;
+            unset($params['_token']);
             return Trip::where('id', $id)->update($params);
         }
     }
