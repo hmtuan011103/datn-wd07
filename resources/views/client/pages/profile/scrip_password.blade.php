@@ -57,7 +57,7 @@
 
                 if (data.status === true) {
 
-                        window.location.href = 'pass-word';
+                        window.location.href = 'mat-khau';
                 } else {
                     Toastify({
                         text: "Đổi Mật Khẩu Thất Bại.",

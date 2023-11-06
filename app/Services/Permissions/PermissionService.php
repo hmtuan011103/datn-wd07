@@ -75,13 +75,13 @@ class PermissionService
         try{
             $idDelete = Permission::query()->find($id);
             if($idDelete){
-                $rolePermissions = RolePermission::query()->where('permission_id', $idDelete)->get();
+                $rolePermissions = RolePermission::query()->where('permission_id', $idDelete->id)->get();
                 if($rolePermissions) {
                     foreach ($rolePermissions as $rolePermission) {
                         RolePermission::query()->find($rolePermission->id)->delete();
                     }
                 }
-                $childPermissions = Permission::query()->where('parent_id', $idDelete)->get();
+                $childPermissions = Permission::query()->where('parent_id', $idDelete->id)->get();
                 if($childPermissions) {
                     foreach ($childPermissions as $childPermission) {
                         Permission::query()->find($childPermission->id)->delete();

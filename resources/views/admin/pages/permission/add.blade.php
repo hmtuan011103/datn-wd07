@@ -33,7 +33,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="mb-3">
-                                                <label for="" class="form-label">Tên</label>
+                                                <label for="" class="form-label">Tên *</label>
                                                 <input type="text" class="form-control" name="name"
                                                     placeholder="Mã quyền">
                                             </div>
@@ -41,7 +41,7 @@
                                         <!--end col-->
                                         <div class="col-md-12">
                                             <div class="mb-3">
-                                                <label for="" class="form-label">Mô tả</label>
+                                                <label for="" class="form-label">Mô tả *</label>
                                                 <textarea class="form-control" name="description" id="" cols="10" rows="10"></textarea>
                                             </div>
                                         </div>
