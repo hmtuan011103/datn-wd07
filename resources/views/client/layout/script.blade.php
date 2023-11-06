@@ -10,8 +10,30 @@ var menuItems = document.querySelectorAll('.nav a');
 for (var i = 0; i < menuItems.length; i++) {
   if (menuItems[i].href === currentURL) {
     // Thêm class "active" cho thẻ <a> tương ứng
-    menuItems[i].classList.add('active');
+    menuItems[i].classList.add('actives');
     break; // Thoát khỏi vòng lặp nếu đã tìm thấy trang hiện tại
   }
 }
+
+// $(document).ready(function () {
+//             $(".btn_menu_mobile").click(function () {
+//                 $(".btn_menu_mobile").toggleClass("active");
+//                 $(".menu_move").toggleClass("active");
+//                 // $("body").toggleClass("active");
+//             });
+//         });
+$(document).ready(function() {
+      $(".btn_menu_mobile").click(function() {
+        $(".menu_move").toggleClass("active");
+        $("body").toggleClass("active");
+      });
+
+      $(document).click(function(event) {
+        if (!$(event.target).closest('.btn_menu_mobile').length && !$(event.target).closest('.header_mobile').length) {
+          $(".menu_move").removeClass("active");
+          $("body").removeClass("active");
+
+        }
+      });
+    });
 </script>

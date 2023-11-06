@@ -1,7 +1,7 @@
 <form id="searchForm" onsubmit="submitForm(event)"
     class="container position-relative pa-t-215 bg-white rounded-4 border-orange px-4 spacing-form-search">
     <div class="row align-items-center pt-4">
-        <div class="col-6 d-flex">
+        <div class="col-md-6 col-8 d-flex">
             <div class="form-check cursor pe-4">
                 <input class="form-check-input cursor" type="radio" name="type-ticket" onclick="showFormElement()"
                     id="one-way" value="1" checked>
@@ -17,12 +17,12 @@
                 </label>
             </div>
         </div>
-        <div class="col-6 ta-right fs-15">
+        <div class="col-md-6 col-4 ta-right fs-15 huong-dan">
             <a href="{{url('/huong-dan-mua-ve')}}" class=" text-decoration-none cl-orange">Hướng dẫn mua vé</a>
         </div>
     </div>
     <div class="row py-3">
-        <div class="col-3">
+        <div class="col-md-3 col-6">
             <label for="" class="form-label fs-15">Điểm đi</label>
             <select class="form-select py-3" aria-label="Default select example" name="start_location"
                 id="mySelectstart">
@@ -32,29 +32,29 @@
             <span class="text-danger" id="error_start_location"></span>
         </div>
 
-        <div class="col-3">
+        <div class="col-md-3 col-6">
             <label for="" class="form-label fs-15">Điểm đến</label>
             <select class="form-select py-3" aria-label="Default select example" name="end_location" id="mySelectend">
                 <option value="0" selected hidden>Chọn điểm đến</option>
             </select>
             <span class="text-danger" id="error_end_location"></span>
         </div>
-        <div class="col-3">
+        <div class="col-md-2 col-12">
             <label for="" class="form-label fs-15">Ngày đi</label>
             {{-- <input type="date" class="form-control py-3" id="dateInput"> --}}
             <input type="text" class="form-control py-3" name="start_time" id="dateInputstart"
                 placeholder="dd/mm/yyyy">
             <span class="text-danger" id="error_start_time"></span>
         </div>
-        <div class="col-3 row">
-            <div class="col-8" style="display:none" id="returndate">
+        <div class="col-md-4 col-12"  style="display:flex;">
+            <div class="col-md-6 col-12" style="display:none;padding-right:15px;" id="returndate">
                 <label for="" class="form-label fs-15">Ngày về</label>
                 {{-- <input type="date" class="form-control py-3" id="" placeholder=""> --}}
                 <input type="text" class="form-control py-3" name="end_time" id="dateInputend"
                     placeholder="dd/mm/yyyy">
                 <span class="text-danger" id="error_end_time"></span>
             </div>
-            <div class="col" id="totalticket">
+            <div class="col-md-6 col-12" id="totalticket">
                 <label for="" class="form-label fs-15">Số vé</label>
                 <select class="form-select py-3" name="ticket" id="tickettotal" aria-label="Default select example">
                     <option value="1" selected>1</option>
@@ -111,7 +111,7 @@
 
     </div>
     <div class="row justify-content-center">
-        <div class="col-3 ta-center">
+        <div class="col-md-3 col-7 ta-center">
             <button type="submit"
                 class="found-bus-ticket rounded-pill w-100 bg-orange-button cl-white btn-seact-trip fw-medium">Tìm
                 chuyến xe</button>

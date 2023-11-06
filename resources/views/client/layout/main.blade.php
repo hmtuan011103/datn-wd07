@@ -4,4 +4,5 @@
 </main>
 @include('client.layout.footer')
 @include('client.layout.script')
+@include('client.layout.style')
 

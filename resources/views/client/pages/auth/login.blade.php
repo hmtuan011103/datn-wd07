@@ -33,7 +33,7 @@
                         <img src="http://127.0.0.1:8000/client/assets/images/tcv.svg" alt="" style="max-width: 100%; height: auto;">
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12 col-xl-5">
+                <div class="col-md-6 col-12">
                     <div class="text-center mt-4 mb-4" id= "loginName"><h4>Đăng Nhập Tài Khoản</h4></div>
                     <div class="text-center mt-4 mb-4" id= "registerName"style="display: none;"><h4>Tạo Tài Khoản</h4></div>
                     <p class="text-center">
@@ -97,11 +97,10 @@
         </div>
         <div class ="main_information">
             <div class="text-center">
-
                 <h2 style ="color: #00613d;"><p >Kết Nối Chiến Thắng Lines</p></h2>
                 <span>Đa dạng hệ sinh thái Chien Thang Lines qua App Chien Thang: mua vé xe Chiến Thắng, Xe Hợp Đồng, Xe Buýt, Giao hàng...</span>
             </div>
-            <div class="mt-10 mt-5 mb-5">
+            <div class="mt-10 mt-5 mb-5 image">
                 <img src="http://127.0.0.1:8000/client/assets/images/login_banner.png" style="width: 100%;">
             </div>
         </div>

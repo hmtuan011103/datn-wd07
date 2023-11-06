@@ -1,7 +1,7 @@
 .form-ticket {
     margin-top: 30px;
     width: 50%;
-   margin-left: 25%;
+    margin-left: 25%;
 }
 
 .form-group {
@@ -28,7 +28,7 @@
     border-color: #FB6400;
     outline: 0;
   }
-  
+
   .form-label {
     position: absolute;
     top: -0.5rem;
@@ -40,7 +40,7 @@
     display: none;
   }
 
-  
+
   .form-control:focus + .form-label,
   .form-control:not(:placeholder-shown) + .form-label {
     top: -1rem;
@@ -84,22 +84,6 @@
     font-size: 1.3rem;
   }
 
-  /* detail ticket */
-
-/* 
-body {
-    background-color: grey;
-
-
-}
-
-.container {
-    background-color: white;
-    padding: 20px;
-    width: 80%;
-
-} */
-
 .container-ticket {
     border: 1px solid rgb(225, 225, 225);
     /* padding: 20px; */
@@ -118,7 +102,7 @@ body {
     font-size: 1rem;
     font-weight: 700;
     color: black;
-    
+
 }
 .text-user {
     display: flex;
@@ -148,7 +132,7 @@ body {
     justify-content: space-around;
     align-items: center;
     padding: 0 0 12px 12px ;
-    
+
 }
 
 .detail-ticket {
@@ -156,14 +140,12 @@ body {
   border-radius: 8px 8px 0 0;
     width: 95%;
     border-bottom: none;
-  
-
 }
 
 .detail-ticket .logo {
     width: 150px;
     margin-bottom: 20px;
-    margin-left: 17%;
+    margin-left: 15%;
 }
 
 .detail-ticket .logo img {
@@ -186,7 +168,7 @@ p {
     text-align: right;
 }
 .text p {
-  color: gray; 
+  color: gray;
 }
 .data p:nth-child(1) {
   color: green;
@@ -211,7 +193,7 @@ p {
     text-align: center;
     border: 1px solid rgb(225, 225, 225);
     width: 95%;
-    height: 50px;
+    height: 60px;
     border-radius: 0 0 8px 8px;
     border-top: none;
     padding: 8px 8px 0 8px ;
@@ -221,7 +203,7 @@ p {
     font-size: 0.6rem;
     font-weight: 500;
     color: green;
-    
+
 }
 #hi {
     background-color: #F7F7F7;
@@ -244,4 +226,49 @@ p {
   }
 .modal-header-ticket .close{
   padding: 8px;
+}
+@media(max-width:767px){
+    .title-search{
+        text-align: center;
+        margin-bottom: 25px;
+      }
+      .title-search p{
+        color: rgb(1, 108, 1);
+        font-size: 20px;
+      }
+      .form-ticket {
+        width: 70%;
+        margin-left: 15%;
+    }
+    .ticket{
+        grid-template-columns: 1fr 1fr;
+    }
+    .detail-ticket {
+          width: 100%;
+      }
+
+      .detail-ticket .logo {
+          width: 170px;
+          margin-bottom: 20px;
+          margin-left: 5%;
+      }
+      .column-ticket p{
+        font-size: 0.5rem;
+    }
+    .text-footer{
+        width: 100%;
+        height: 60px;
+    }
+    .text-footer p{
+        font-size: 0.5rem;
+    }
+    .col-md-6{
+        padding-left: 0 !important;
+    }
+    .detail-user {
+        padding-left: 7%;
+    }
+    #resultModal .modal-dialog{
+        width: 95%;
+    }
 }

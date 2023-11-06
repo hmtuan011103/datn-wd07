@@ -1,7 +1,7 @@
 <div class="route-popular bg-route-popular pb-4">
     <div class="container pt-3 px-2">
-        <h3 class="text-uppercase cl-orange-bold ta-center pb-2 fw-bold m-0">Tuyển phổ biến</h3>
-        <p class="cl-orange-bold ta-center pb-2 fw-medium">Được khách hàng tin tưởng và lựa chọn</p>
+        <h3 class="text-uppercase cl-orange-bold ta-center pb-2 fw-bold m-0 title-home">Tuyến phổ biến</h3>
+        <p class="cl-orange-bold ta-center pb-2 fw-mediumư">Được khách hàng tin tưởng và lựa chọn</p>
         <div class="row flex-wrap mx-auto popular-trip-slide" id="popular-trip-container">
             {{-- <div class="col-4">
                 <div class="card w-100">

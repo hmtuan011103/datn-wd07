@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<link rel="stylesheet" href="{{ asset('client/assets/css/responsive/home.css') }}">
 
 <style>
     /* the slides */
@@ -40,7 +41,7 @@
     .slick-dots li.slick-active button {
         background-color: #EF5222;
     }
-    
+
     .slick-arrow-right, .slick-arrow-left {
         position: absolute;
         top: 35%;

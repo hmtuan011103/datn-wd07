@@ -116,7 +116,7 @@
             }).showToast();
             // error_start_location.textContent = "Vui lòng chọn điểm đi";
             return;
-        } 
+        }
         // else {
         //     error_start_location.textContent = "";
         // }
@@ -158,7 +158,7 @@
             }).showToast();
             // error_end_location.textContent = "Điểm đến phải khác điểm đi";
             return;
-        } 
+        }
         // else {
         //     error_end_location.textContent = "";
         // }
@@ -179,7 +179,7 @@
             }).showToast();
             // error_start_time.textContent = "Vui lòng chọn ngày đi"
             return;
-        } 
+        }
         // else {
         //     error_start_time.textContent = ""
         // }
@@ -363,11 +363,11 @@
             if (myDataArray.length > 0) {
                 document.getElementById('searchrecently').innerHTML +=
                     `<a href="#" onclick="submitFormCookie('${formId}')"
-                        class="col-2 bg-search-latest fs-15 border border-1 rounded-2 mx-2 text-decoration-none cl-black">
+                        class="col-md-2 col-4 bg-search-latest fs-15 border border-1 rounded-2 mx-2 text-decoration-none cl-black">
                         <div class="d-flex py-2">
-                            <p class="m-0 p-0 fs-15">${data.start_location}</p>
+                            <p class="m-0 p-0 fs-14">${data.start_location}</p>
                             <p class="px-1 py-0 m-0 fs-15"> - </p>
-                            <p class="m-0 p-0 fs-15">${data.end_location}</p>
+                            <p class="m-0 p-0 fs-14">${data.end_location}</p>
                         </div>
                         <p class="p-0  fs-13">${data.start_time}</p>
                     </a>`
@@ -389,7 +389,7 @@
                     </form>`
 
             }
-        }); 
+        });
     function submitFormCookie(formId) {
         var form = document.getElementById("myFormCookie" + formId);
         form.submit();

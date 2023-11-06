@@ -1,4 +1,4 @@
-  <div class="container ">
+  <div class="container">
       <div class="form-ticket">
           <div class="title-search">
               <p>TRA CỨU THÔNG TIN ĐẶT VÉ</p>
@@ -14,11 +14,11 @@
             </div>
             <div class="button">
               <button type="submit" id="searchButton" class="btn-search">Tra cứu</button>
-      
+
             </div>
           </form>
       </div>
-    
+
     </div>
 
   @include('client.pages.search-ticket.detail-ticket')

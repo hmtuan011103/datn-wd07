@@ -1,13 +1,13 @@
 <footer class="pt-4">
     <div class="container pt-3">
         <div class="d-flex justify-content-between">
-            <div>
+            <div class="col-md-6 col-12">
                 <div class="d-flex justify-content-between">
-                    <div>
+                    <div class="col-md-8 col-6">
                         <p class="text-uppercase fw-medium fs-15 mb-0">TRUNG TÂM TỔNG ĐÀI & CSKH</p>
                         <p class="fs-30 cl-orange fw-medium">1900 6067</p>
                     </div>
-                    <div>
+                    <div class="col-md-4 col-6">
                         <img src="{{ asset('client/assets/images/bct.png') }}" alt="" class=""
                             style="width: 160px;">
                     </div>
@@ -23,16 +23,16 @@
                     <span class="cl-gray">Email:</span> hotro@chienthang.vn
                 </p>
                 <div class="d-flex justify-content-between">
-                    <div class="fs-15 fw-medium">
+                    <div class="fs-15 fw-medium col-md-6">
                         <span class="cl-gray">Điện thoại:</span> 02838386852
                     </div>
-                    <div class="fs-15 fw-medium">
+                    <div class="fs-15 fw-medium col-md-6">
                         <span class="cl-gray">Fax:</span> 02838386853
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-between">
-                <div class="pe-5">
+            <div class="d-flex justify-content-between col-md-6">
+                <div class="pe-5 footer-none">
                     <p class="fw-medium cl-orange">Chien Thang Lines</p>
                     <ul class="p-0 m-0">
                         <li class="li-style-none py-1"><a href=""
@@ -47,7 +47,7 @@
                                 class="fw-medium text-decoration-none cl-black fs-15">Mạng lưới văn phòng</a></li>
                     </ul>
                 </div>
-                <div class="ps-5">
+                <div class="ps-5 footer-none">
                     <p class="fw-medium cl-orange">Hỗ trợ</p>
                     <ul class="p-0 m-0">
                         <li class="li-style-none py-1"><a href=""
@@ -65,7 +65,7 @@
             </div>
         </div>
     </div>
-    <div class="bg-footer-final ta-center mt-5 py-2 fw-medium cl-white fs-15">
+    <div class="bg-footer-final ta-center mt-5 py-2 fw-medium cl-white fs-15 ban-quyen">
         © 2023 | Bản quyền thuộc về Công ty Cổ Phần Xe khách Chiến Thắng - Chien Thang Bus Lines 2023
     </div>
 </footer>
@@ -156,8 +156,8 @@
                                             <li class="list-group-item pt-3">
                                                 <a>
                                                     <div class="text-decoration-none cl-black d-flex justify-content-between">
-                                                        <p class="ta-left mb-1 fs-18 fw-medium text-capitalize">Tới: ${trip_end}</p>
-                                                        <p class="ta-right mb-1 fs-18 fw-bold">${trip_price} Đ</p>
+                                                        <p class="ta-left mb-1 fs-16 fw-medium text-capitalize">Tới: ${trip_end}</p>
+                                                        <p class="ta-right mb-1 fs-16 fw-bold">${trip_price} Đ</p>
                                                     </div>
                                                     <p class="fs-15 cl-gray mb-0 fw-medium">Quãng đường: ${interval_trip}</p>
                                                     <p class="fs-15 cl-gray mb-0 fw-medium">Giờ xe chạy: ${start_time}</p>

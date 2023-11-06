@@ -64,5 +64,30 @@
         color: red;
         font-size: 14px;
     }
+    @media(max-width:767px){
+         /* FOOTER  */
+    .footer-none{
+    display: none;
+    }
+    .ban-quyen{
+    font-size: 12px;
+    }
+    #loginName h4,
+    #registerName h4{
+        font-size: 23px;
+    }
+    .text-center a{
+        font-size: 17px;
+    }
+    .main_information{
+       margin-top: 220px;
+    }
+    .main_information .text-center h2{
+        font-size: 25px;
+    }
+    .main_information .text-center span{
+        font-size: 15px;
+    }
+    }
 
 </style>

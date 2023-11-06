@@ -2,9 +2,9 @@
     box-sizing: border-box !important;
 }
 .container{
-    max-width: 1128px;
+    /* max-width: 1128px; */
     margin: 0 auto;
-    padding: 0;
+    /* padding: 0; */
 }
 /* Banner for index */
 .header-page-image {
@@ -15,6 +15,8 @@
 .banner-index{
     min-height: 250px;
     margin-top: 20px;
+    position: absolute;
+    top: -70px;
 }
 
 /* Định nghĩa màu */
@@ -111,13 +113,13 @@ select.w-100.cursor:focus
 
 
 /* Định nghĩa hover cho menu */
-.active{
+.actives{
     border-bottom: 3px solid #ffffff !important;
     color: #ffffff !important;
     text-shadow: 0px 1px 1px #ffffff !important;
 }
 
-.nav-link:not(.active):hover {
+.nav-link:not(.actives):hover {
     text-shadow: 0px 1px 1px #ffffff !important;
     border-bottom: 3px solid #ffffff !important;
     color: #ffffff !important;
@@ -125,7 +127,7 @@ select.w-100.cursor:focus
 
 /* Định nghĩa chiều rông và chiều cao */
 .w-btn-lg-rg {
-    width: 186px;
+    /* width: 186px; */
     line-height: 20px;
 }
 .ta-center{
@@ -146,7 +148,7 @@ select.w-100.cursor:focus
 .gap-2{
     gap: 16px;
 }
-.gap-6 {
+.gap-4 {
     gap: 6%;
 }
 

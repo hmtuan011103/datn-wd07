@@ -994,7 +994,7 @@
             if (myDataArray.length > 0) {
                 document.getElementById('searchrecently').innerHTML +=
                     `<a href="#" onclick="submitFormCookie('${formId}')"
-                        class="col-2 bg-search-latest fs-15 border border-1 rounded-2 mx-2 text-decoration-none cl-black">
+                        class="col-md-2 col-6 bg-search-latest fs-15 border border-1 rounded-2 mx-2 text-decoration-none cl-black">
                         <div class="d-flex py-2">
                             <p class="m-0 p-0 fs-15">${data.start_location}</p>
                             <p class="px-1 py-0 m-0 fs-15"> - </p>

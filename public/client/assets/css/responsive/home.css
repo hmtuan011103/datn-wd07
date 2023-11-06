@@ -1,0 +1,40 @@
+@media(max-width:767px){
+    /* FORM SEARCH  */
+    .huong-dan{
+        font-size: 13px;
+        padding: 0;
+    }
+    #banner-sale-outstanding{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #banner-sale-outstanding .img{
+        padding: 10px 0;
+    }
+    .title-home{
+        font-size: 18px;
+    }
+    .spacing-form-search{
+        margin-bottom: 50px;
+    }
+
+    /* QUALITY */
+    .img-quality{
+        display: none;
+    }
+    .text-title-quality{
+        font-size: 20px;
+    }
+    .text-content-quality{
+        font-size: 13px;
+    }
+
+    /* FOOTER  */
+    .footer-none{
+        display: none;
+    }
+    .ban-quyen{
+        font-size: 12px;
+    }
+}

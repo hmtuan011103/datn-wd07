@@ -1,0 +1,110 @@
+.header_mobile{
+    display: none;
+}
+@media (max-width: 767px) {
+    body.active{
+        overflow: hidden !important;
+    }
+    .header .header_mobile {
+        display: block;
+    }
+
+    .header .header-desktop {
+        display: none;
+    }
+
+    .header .header_mobile .menu_set {
+        background: rgb(131,58,180);
+        background: linear-gradient(0deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 0%, rgba(252,176,69,1) 100%);
+        padding: 13px 0px;
+    }
+
+    .header .header_mobile .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .header .header_mobile .btn_menu_mobile .item_menu {
+        background-color: white;
+        width: 35px;
+        height: 5px;
+        margin: 5px 0px;
+        border-radius: 15px;
+    }
+
+    .header .header_mobile .btn_menu_mobile {
+        margin-left: 10px;
+    }
+
+    .header .header_mobile .menu_move {
+        background-color: #fff;
+        /* padding: 10px; */
+        width: 60%;
+        height: 100%;
+        position: fixed;
+        left: 0;
+        z-index: 999;
+        opacity: 0;
+        transform: translateX(-130px);
+        transition: 0.35s ease-in-out;
+
+    }
+
+    .header .header_mobile .menu_move ul {
+        padding: 0;
+        margin: 0;
+    }
+
+    .header .header_mobile .menu_move ul li {
+        list-style: none;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .header .header_mobile .menu_move ul .lines{
+        height: 0.5px;
+        background-color: black;
+    }
+    .header .header_mobile .menu_move ul li a {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        color: black;
+        font-weight: 500;
+        text-decoration: none;
+        font-size: 16px;
+        padding: 15px;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .header .header_mobile .menu_move.active {
+        transform: translateX(0);
+        opacity: 1;
+        transition: 0.35s ease-in-out;
+    }
+    .header-page-image{
+        background-image:none;
+        min-height: 0;
+    }
+    /* định nghĩa lại banner-index */
+    .banner-index{
+        position: static;
+        min-height: 0;
+       margin-bottom: 15px;
+    }
+    .banner-index img{
+    }
+    /* padding của thằng form-search */
+    .pa-t-215{
+       top: 0;
+    }
+
+     /* FOOTER  */
+    .footer-none{
+    display: none;
+    }
+    .ban-quyen{
+    font-size: 12px;
+    }
+}
