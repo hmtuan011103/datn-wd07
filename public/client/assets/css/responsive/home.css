@@ -1,3 +1,30 @@
+@media(max-width:990px){
+    #searchForm.pa-t-215{
+        top: 140px;
+     }
+     #mySelectstart.form-select,
+     #mySelectend.form-select,
+     #tickettotal.form-select{
+        line-height: 17px;
+        font-size: 14px;
+    }
+     .form-control{
+        line-height: 17px !important;
+        font-size: 14px !important;
+    }
+    .spacing-form-search{
+        margin-bottom: 180px;
+    }
+    .img-quality{
+        margin-top: 10%;
+    }
+    .text-title-quality{
+        font-size: 20px;
+    }
+    .text-content-quality{
+        font-size: 14px;
+    }
+}
 @media(max-width:767px){
     /* FORM SEARCH  */
     .huong-dan{
@@ -17,6 +44,14 @@
     }
     .spacing-form-search{
         margin-bottom: 50px;
+    }
+    .form-select{
+        line-height: 17px;
+        font-size: 14px;
+    }
+     .form-control{
+        line-height: 17px !important;
+        font-size: 14px !important;
     }
 
     /* QUALITY */

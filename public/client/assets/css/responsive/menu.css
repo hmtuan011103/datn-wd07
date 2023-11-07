@@ -89,14 +89,10 @@
     }
     /* định nghĩa lại banner-index */
     .banner-index{
-        position: static;
-        min-height: 0;
-       margin-bottom: 15px;
-    }
-    .banner-index img{
+        display: none;
     }
     /* padding của thằng form-search */
-    .pa-t-215{
+    #searchForm.pa-t-215{
        top: 0;
     }
 

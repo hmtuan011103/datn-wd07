@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="col-md-6 img-quality">
-                <img src="{{ asset('client/assets/images/quality-4.svg') }}" alt="" class="w-100 d-block">
+                <img src="{{ asset('client/assets/images/quality-5.svg') }}" alt="" class="w-100 d-block">
             </div>
         </div>
     </div>

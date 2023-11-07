@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="row py-3">
-        <div class="col-md-3 col-6">
+        <div class="col-md-3 col-6 .form-search">
             <label for="" class="form-label fs-15">Điểm đi</label>
             <select class="form-select py-3" aria-label="Default select example" name="start_location"
                 id="mySelectstart">
