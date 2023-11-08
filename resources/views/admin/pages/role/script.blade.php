@@ -19,7 +19,6 @@
                 selectedRows.push(checkboxes[i].value);
             }
         }
-        console.log(selectedRows.length)
         var result = '';
         if (selectedRows.length > 0) {
             var result = confirm('Bạn có chắc chắn muốn xóa những vai trò này')

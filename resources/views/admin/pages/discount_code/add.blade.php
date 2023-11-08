@@ -54,12 +54,12 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label for="customername-field" class="form-label">Số lượng*</label>
-                                            <input type="text" class="form-control" name="quantity" />
+                                            <input type="number" class="form-control" name="quantity" />
 
                                         </div>
                                         <div class="col-md-6">
                                             <label for="customername-field" class="form-label">Gía trị*</label>
-                                            <input type="text" class="form-control" name="value" />
+                                            <input type="number" class="form-control" name="value" />
 
                                         </div>
                                         <div class="col-md-6">
