@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -105,4 +106,5 @@ class User extends Authenticatable implements JWTSubject, CanResetPasswordContra
     public function news(){
         return $this->hasMany(NewPost::class,'user_id');
     }
+
 }

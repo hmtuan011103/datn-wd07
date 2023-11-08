@@ -13,6 +13,7 @@ use App\Models\Seat;
 use App\Models\Trip;
 use App\Models\TypeCar;
 use App\Models\User;
+use App\Models\UserRole;
 use Carbon\Carbon;
 use DateInterval;
 use DateTime;
@@ -520,24 +521,12 @@ class TripService
 
     public function getDrive()
     {
-        $userDrive = DB::table('user_role')
-            ->join('users', 'user_role.user_id', '=', 'users.id')
-            ->where('user_role.role_id', '=', 4)
-            ->select('users.*')
-            ->get();
-
-        return $userDrive;
+        return User::query()->where('user_type_id', 4)->get();
     }
 
     public function assistantCar()
     {
-        $assistantCar = DB::table('user_role')
-            ->join('users', 'user_role.user_id', '=', 'users.id')
-            ->where('user_role.role_id', '=', 2)
-            ->select('users.*')
-            ->get();
-
-        return $assistantCar;
+        return User::query()->where('user_type_id', 5)->get();
     }
 
     public function getCar()

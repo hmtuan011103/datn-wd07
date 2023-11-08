@@ -82,10 +82,7 @@
         var errorContainer = document.getElementById("error-message");
         var isValid = true;
         const errorElement = document.getElementById("error-message");
-        // errorElement.textContent = errorMessage;
         errorElement.style.display = "none";
-        // const login_add = document.getElementById("login_add");
-        // login_add.style.display = "none";
         emailError.textContent = ""; // Xóa bất kỳ thông báo lỗi cũ
         passwordError.textContent = "";
 
@@ -93,12 +90,6 @@
             emailError.textContent = "Vui lòng nhập địa chỉ email hợp lệ.";
             isValid = false;
         }
-
-        if (password.length < 8) {
-            passwordError.textContent = "Mật khẩu không đúng.";
-            isValid = false;
-        }
-
         return isValid;
     }
 
