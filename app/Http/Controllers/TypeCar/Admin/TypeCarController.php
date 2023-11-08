@@ -43,15 +43,10 @@ class TypeCarController extends BaseTypeCarController
     }
     public function destroy(string $id)
     {
-        $model = TypeCar::query()->findOrFail($id);
-
-        $relatedCars = Car::where('id_type_car', $model->id)->get();
-
-        if ($relatedCars->isEmpty()) {
-            $model->delete();
-            return response()->json(['message' => 'Xóa loại xe thành công'], 200);
-        }
-
-        return response()->json(['message' => 'Không thể xóa loại xe'], 400);
+        $this->TypeCarService->destroy($id);
+    }
+    public function destroy_all(string $id)
+    {
+        $this->TypeCarService->destroy_all($id);
     }
 }

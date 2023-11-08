@@ -40,7 +40,7 @@
 
                 for (let a = 0; a < selectedRows.length; a++) {
                     var ajaxRequest = $.ajax({
-                        url: "http://127.0.0.1:8000/manage/car/destroy/" + selectedRows[a],
+                        url: "http://127.0.0.1:8000/manage/car/destroy_all/" + selectedRows[a],
                         method: "GET"
                     });
 
@@ -107,38 +107,8 @@
                 if (row) {
                     row.style.display = 'none';
                 }
-
-                if (response.status === 200) {
-                    Swal.fire({
-                        position: "center",
-                        icon: "error",
-                        title: "Xóa xe thành công!",
-                        showConfirmButton: false,
-                        timer: 2000,
-                        showCloseButton: true,
-                    });
-                } else {
-                    Swal.fire({
-                        position: "center",
-                        icon: "success",
-                        title: "Xóa xe thành công!",
-                        showConfirmButton: false,
-                        timer: 2000,
-                        showCloseButton: true,
-                    });
-                }
             });
 
-            ajaxRequest.fail(function(response) {
-                Swal.fire({
-                    position: "center",
-                    icon: "error",
-                    title: "Xóa xe không thành công!",
-                    showConfirmButton: false,
-                    timer: 2000,
-                    showCloseButton: true,
-                });
-            });
         });
     });
 </script>

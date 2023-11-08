@@ -47,7 +47,7 @@
                                                <label for="type_seats" class="form-label">Loại Ghế *</label>
                                                <select class="form-control" aria-label="Default select example" name="type_seats" >
                                                    <option value="1">Ghế Ngồi</option>
-                                                   <option value="2">Ghế Giường Nằm</option>
+                                                   <option value="2">Giường Nằm</option>
                                                </select>
                                            </div>
                                            <div class="col-md-6 pb-3">

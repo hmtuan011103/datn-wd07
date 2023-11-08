@@ -45,77 +45,16 @@ class CarController extends BaseCarController
 
     public function update(UpdateCarRequest $request ,string $id)
     {
-        $model = Car::query()->findOrFail($id);
-        $model->fill($request->all());
-        $olbImg = $model->image;
-        if ($request->hasFile('image')) {
-            $model->image = upload_file('car', $request->file('image'));
-            delete_file($olbImg);
-        }
-
-        $model->save();
+        $this->CarService->update($request,$id);
         toastr()->success('Thành công','Sửa Thành Công!');
-
-       $seats = Seat::query()->where('car_id', $model->id)->get();
-       if ($seats) {
-           foreach ($seats as $seat) {
-               $seat->delete();
-           }
-       }
-
-       $id_car = $model->id;
-       $request = $request->id_type_car;
-       $data = TypeCar::find($request);
-       $seat = $data->total_seat;
-       for ($i = 1; $i <= $seat; $i++) {
-           $seats = Seat::query();
-           if ($i <= 24) {
-               if ($i < 10){
-                   $seats->create([
-                       'car_id' => $id_car,
-                       'code_seat' => 'A0' . $i,
-                   ]);
-               }else{
-                   $seats->create([
-                       'car_id' => $id_car,
-                       'code_seat' => 'A' . $i,
-                   ]);
-               }
-
-           } else {
-               if ($i < 34){
-                   $seats->create([
-                       'car_id' => $id_car,
-                       'code_seat' => 'B0' . ($i-24),
-                   ]);
-               }else{
-                   $seats->create([
-                       'car_id' => $id_car,
-                       'code_seat' => 'B' . ($i-24),
-                   ]);
-               }
-           }
-       }
-       return redirect()->route('index_car');
+        return redirect()->route('index_car');
     }
     public function destroy(string $id)
     {
-        $model = Car::query()->findOrFail($id);
-        $olbImg = $model->image;
-        delete_file($olbImg);
-        $seats = Seat::query()->where('car_id', $model->id)->get();
-        if ($seats) {
-            foreach ($seats as $seat) {
-                $seat->delete();
-            }
-        }
-       $relatedTrips = Trip::where('car_id', $model->id)->get();
-
-       if ($relatedTrips->isEmpty()) {
-           $model->delete();
-           return response()->json(['message' => 'Xóa loại xe thành công'], 200);
-       }
-
-        return response()->json(['message' => 'Không thể xóa loại xe'], 400);
+        $this->CarService->destroy($id);
+    }
+        public function destroy_all(string $id)
+    {
+        $this->CarService->destroy_all($id);
     }
 }
