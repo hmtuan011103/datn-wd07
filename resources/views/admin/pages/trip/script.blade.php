@@ -78,13 +78,6 @@
         }
     }
 </script>
-
-{{-- show detail --}}
-{{-- <script
-src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
-></script> --}}
-{{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> --}}
-
 <script>
     $(document).ready(function() {
         $('.btn-show').click(function() {
@@ -134,7 +127,8 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
                     $('label#end_location').text(response.data[0].end_location)
                     $('label#trip_price').text(response.data[0].trip_price)
                     $('label#start_time').text(response.data[0].start_time)
-                    $('label#interval_trip').text(convertTime(response.data[0].interval_trip));
+                    $('label#interval_trip').text(convertTime(response.data[0]
+                        .interval_trip));
 
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
@@ -213,8 +207,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
 </script>
 
 <script>
-
-    $("#timeInput").on("input", function () {
+    $("#timeInput").on("input", function() {
         $(this).val($(this).val().replace(/[^0-9]/g, ""));
     });
 
@@ -226,12 +219,13 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
         const pattern3 = /^\d{1}giờ \d{2}phút$/;
         const pattern4 = /^\d{1}giờ \d{1}phút$/;
         let value = input.value;
-        if(!pattern.test(value) && !pattern1.test(value) && !pattern2.test(value) && !pattern3.test(value) && !pattern4.test(value)) {
-            if(value === "0") {
+        if (!pattern.test(value) && !pattern1.test(value) && !pattern2.test(value) && !pattern3.test(value) && !pattern4
+            .test(value)) {
+            if (value === "0") {
                 input.value = "";
                 return true;
             }
-            if (value.length > 4){
+            if (value.length > 4) {
                 value = value.substr(0, 4);
             }
 
@@ -289,3 +283,4 @@ src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
         }
     }
 </script>
+

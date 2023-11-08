@@ -159,6 +159,13 @@
                             </li>
                         @endif
 
+                        @if (in_array('read-search-ticket', Auth::user()->permissions))
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('form_search') }}">
+                                <i class="mdi mdi-sticker-text-outline"></i> <span data-key="t-maps">Tra cứu vé</span>
+                            </a>
+                        </li>
+                    @endif
                     </ul>
                 </div>
                 <!-- Sidebar -->

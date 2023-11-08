@@ -22,10 +22,11 @@ class TripController extends BaseTripController
     }
 
     public function form_create_trip() {
-        $cars = Car::all();
-        $users = User::all();
+        $cars = $this->tripService->getCar();
+        $userDrive = $this->tripService->getDrive();
+        $assistantCar = $this->tripService->assistantCar();
         $locations = $this->tripService->get_parent_id();
-        return view('admin.pages.trip.create',compact('cars','users','locations'),[
+        return view('admin.pages.trip.create',compact('cars','userDrive','assistantCar','locations'),[
             'title' => 'Thêm chuyến đi '
         ]);
     }
@@ -42,10 +43,11 @@ class TripController extends BaseTripController
     public function edit_trip($id) {
        
         $trip = Trip::find($id);
-        $cars = Car::all();
-        $users = User::all();
+        $cars = $this->tripService->getCar();
+        $userDrive = $this->tripService->getDrive();
+        $assistantCar = $this->tripService->assistantCar();
         $locations = $this->tripService->get_parent_id();
-        return view('admin.pages.trip.edit', compact('trip','users','cars','locations'),[
+        return view('admin.pages.trip.edit', compact('trip','userDrive','assistantCar','cars','locations'),[
             'title' => 'Sửa chuyến đi'
         ]);
 

@@ -101,7 +101,7 @@
             var phone_number = phoneNumberInput.value;
             var code_bill = ticketCodeInput.value;
 
-            fetch(link + 'api/search_ticket?phone_number=' + phone_number + '&code_bill=' + code_bill)
+            fetch(link + 'api/search_ticket_admin?phone_number=' + phone_number + '&code_bill=' + code_bill)
                 .then(function(response) {
                     if (!response.ok) {
                         throw new Error('Response status: ' + response.status);
