@@ -24,7 +24,7 @@ class UpdateCarRequest extends FormRequest
         return [
             'color' => 'required',
             'id_type_car' => 'required',
-            'license_plate' => 'required|unique:cars',
+            'license_plate' => 'required',
             'name' => 'required',
             'status' => 'required',
         ];
@@ -34,7 +34,7 @@ class UpdateCarRequest extends FormRequest
     {
         return [
             'license_plate.required'=>'Biển Số Xe Không Được Để Trống.',
-            'license_plate.unique'=>'Biển Số Xe Không Được Trùng nhau.',
+//            'license_plate.unique'=>'Biển Số Xe Không Được Trùng nhau.',
             'color.required'=>'Vui Lòng Chọn Màu Của Xe.',
             'id_type_car.required'=>'Vui Lòng Nhập Số Lượng Ghế.',
 //            'image.required'=>'Ảnh Không Được Để Trống.',

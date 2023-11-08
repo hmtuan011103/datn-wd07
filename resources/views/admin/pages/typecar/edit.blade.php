@@ -47,8 +47,8 @@
                                             <div class="col-md-6 pb-3">
                                                 <label for="type_seats" class="form-label">Loại ghế</label>
                                                 <select class="form-control" aria-label="Default select example" name="type_seats">
-                                                    <option value="1" @if ($model->type_seats == 0) selected @endif>Ghế Ngồi</option>
-                                                    <option value="2" @if ($model->type_seats == 1) selected @endif>Ghế Giường Nằm</option>
+                                                    <option value="1" @if ($model->type_seats == 1) selected @endif>Ghế Ngồi</option>
+                                                    <option value="2" @if ($model->type_seats == 2) selected @endif>Giường Nằm</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-6 pb-3">
