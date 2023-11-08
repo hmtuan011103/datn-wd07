@@ -254,7 +254,7 @@ class TripService
                 foreach ($seat_bill as $value) {
                     $seat_id = array_merge($seat_id, json_decode($value->seat_id, true));
                 }
-                $seat_code = Seat::select('code_seat')->whereIn('id', $seat_id)->get();
+                $seat_code = Seat::select('code_seat')->whereIn('code_seat', $seat_id)->get();
                 $seat_code_car = Seat::select('code_seat')->where('car_id', $trips[$i]->car->id)->get();
                 $seat_code_array_car = [];
                 foreach($seat_code_car as $value) {
@@ -295,7 +295,7 @@ class TripService
                 foreach ($seat_bill as $value) {
                     $seat_id = array_merge($seat_id, json_decode($value->seat_id, true));
                 }
-                $seat_code = Seat::select('code_seat')->whereIn('id', $seat_id)->get();
+                $seat_code = Seat::select('code_seat')->whereIn('code_seat', $seat_id)->get();
                 $seat_code_car = Seat::select('code_seat')->where('car_id', $tripstart[$i]->car->id)->get();
                 $seat_code_array_car = [];
                 foreach($seat_code_car as $value) {
@@ -327,7 +327,7 @@ class TripService
                 foreach ($seat_bill as $value) {
                     $seat_id = array_merge($seat_id, json_decode($value->seat_id, true));
                 }
-                $seat_code = Seat::select('code_seat')->whereIn('id', $seat_id)->get();
+                $seat_code = Seat::select('code_seat')->whereIn('code_seat', $seat_id)->get();
                 $seat_code_car = Seat::select('code_seat')->where('car_id', $tripend[$i]->car->id)->get();
                 $seat_code_array_car = [];
                 foreach($seat_code_car as $value) {

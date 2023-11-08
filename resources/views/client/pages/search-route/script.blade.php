@@ -699,7 +699,6 @@
                     document.getElementById('start_end').innerHTML =
                         `${item.start_location} - ${item.end_location} (${datafilter.length})`;
                     var type_seat = item.car.type_car.type_seats == 1 ? 'Ghế' : 'Giường';
-
                     var htmlresult =
                         `<div class="p-4 border border-1 rounded-3 mt-3 w-100">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -720,7 +719,7 @@
                                 </div>
                                 <div class="d-flex pt-4 justify-content-between align-items-center">
                                     <div class="d-flex align-items-center">
-                                        <p class="fs-14 mb-0 cl-orange fw-medium">${item.trip_price}.000đ</p>
+                                        <p class="fs-14 mb-0 cl-orange fw-medium">${item.trip_price.toLocaleString("vi-VN")}đ</p>
                                         <p class="mx-2 mb-0 circle-menu-style rounded-pill"></p>
                                         <p class="fs-14 mb-0 cl-orange fw-medium">${type_seat} </p>
                                         <p class="mx-2 mb-0 circle-menu-style rounded-pill"></p>
@@ -729,7 +728,7 @@
                                     </div>
                                     <div>
                                         <button
-                                            class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip px-4" data-turn="${item.id}">Chọn
+                                            class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip px-4" onclick="redirectToSelectSeat(this)"  data-turn="${item.id}">Chọn
                                             chuyến</button>
                                     </div>
                                 </div>
@@ -812,7 +811,7 @@
                             </div>
                             <div class="d-flex pt-4 justify-content-between align-items-center">
                                 <div class="d-flex align-items-center">
-                                    <p class="fs-14 mb-0 cl-orange fw-medium">${item.trip_price}.000đ</p>
+                                    <p class="fs-14 mb-0 cl-orange fw-medium">${item.trip_price.toLocaleString("vi-VN")}đ</p>
                                     <p class="mx-2 mb-0 circle-menu-style rounded-pill"></p>
                                     <p class="fs-14 mb-0 cl-orange fw-medium">${type_seat}</p>
                                     <p class="mx-2 mb-0 circle-menu-style rounded-pill"></p>
@@ -908,7 +907,7 @@
                                 </div>
                                 <div class="d-flex pt-4 justify-content-between align-items-center">
                                     <div class="d-flex align-items-center">
-                                        <p class="fs-14 mb-0 cl-orange fw-medium">${item.trip_price}.000đ</p>
+                                        <p class="fs-14 mb-0 cl-orange fw-medium">${item.trip_price.toLocaleString("vi-VN")}đ</p>
                                         <p class="mx-2 mb-0 circle-menu-style rounded-pill"></p>
                                         <p class="fs-14 mb-0 cl-orange fw-medium">${type_seat}</p>
                                         <p class="mx-2 mb-0 circle-menu-style rounded-pill"></p>
