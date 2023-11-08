@@ -15,4 +15,16 @@
         color: #ffffff !important;
         border: #110101 !important;
       }
+
+    .floor.active {
+        background-color: rgb(219, 92, 34) !important;
+        color: #ffffff !important;
+        border: #110101 !important;
+    }
+
+    .rowseat.active {
+        background-color: rgb(219, 92, 34) !important;
+        color: #ffffff !important;
+        border: #110101 !important;
+    }
 </style>

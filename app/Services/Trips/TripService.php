@@ -8,6 +8,7 @@ use App\Models\Bill;
 use App\Models\Bills;
 use App\Models\Car;
 use App\Models\Location;
+use App\Models\Seat;
 use App\Models\Trip;
 use App\Models\TypeCar;
 use App\Models\User;
@@ -233,19 +234,29 @@ class TripService
                         continue;
                     }
                 }
-                $total_seat_trip = $trips[$i]->car->typeCar->total_seat;
-                $seat_bill = Bills::select('total_seats')->where(['trip_id' => $trips[$i]->id])->get();
-                $total_seat_bill = 0;
+                $seat_bill = Bills::select('total_seats','seat_id')->where(['trip_id' => $trips[$i]->id])->get();
+                $seat_id = [];
                 foreach ($seat_bill as $value) {
-                    $total_seat_bill += intval($value->total_seats);
+                    $seat_id = array_merge($seat_id, json_decode($value->seat_id, true));
                 }
-                $seats = intval($total_seat_trip) - intval($total_seat_bill);
+                $seat_code = Seat::select('code_seat')->whereIn('id', $seat_id)->get();
+                $seat_code_car = Seat::select('code_seat')->where('car_id', $trips[$i]->car->id)->get();
+                $seat_code_array_car = [];
+                foreach($seat_code_car as $value) {
+                    $seat_code_array_car[] = $value->code_seat;
+                }
+                $seat_code_array = [];
+                foreach($seat_code as $value) {
+                    $seat_code_array[] = $value->code_seat;
+                }
+                $seat_code_empty = array_diff($seat_code_array_car, $seat_code_array);
+                $trips[$i]['seat_code'] = $seat_code_empty;
+                $seats = count($seat_code_empty);
                 if ($seats < intval($request->ticket)) {
                     unset($trips[$i]);
                 }else{
                     $trips[$i]['seat_empty'] = $seats;
                 }
-                
             }
             if ($trips->isEmpty()) {
                 return null;
@@ -264,13 +275,24 @@ class TripService
                         continue;
                     }
                 }
-                $total_seat_trip = $tripstart[$i]->car->typeCar->total_seat;
-                $seat_bill = Bills::select('total_seats')->where(['trip_id' => $tripstart[$i]->id])->get();
-                $total_seat_bill = 0;
+                $seat_bill = Bills::select('total_seats','seat_id')->where(['trip_id' => $tripstart[$i]->id])->get();
+                $seat_id = [];
                 foreach ($seat_bill as $value) {
-                    $total_seat_bill += intval($value->total_seats);
+                    $seat_id = array_merge($seat_id, json_decode($value->seat_id, true));
                 }
-                $seats = intval($total_seat_trip) - intval($total_seat_bill);
+                $seat_code = Seat::select('code_seat')->whereIn('id', $seat_id)->get();
+                $seat_code_car = Seat::select('code_seat')->where('car_id', $tripstart[$i]->car->id)->get();
+                $seat_code_array_car = [];
+                foreach($seat_code_car as $value) {
+                    $seat_code_array_car[] = $value->code_seat;
+                }
+                $seat_code_array = [];
+                foreach($seat_code as $value) {
+                    $seat_code_array[] = $value->code_seat;
+                }
+                $seat_code_empty = array_diff($seat_code_array_car, $seat_code_array);
+                $tripstart[$i]['seat_code'] = $seat_code_empty;
+                $seats = count($seat_code_empty);
                 if ($seats < intval($request->ticket)) {
                     unset($tripstart[$i]);
                 }else{
@@ -285,14 +307,24 @@ class TripService
                         continue;
                     }
                 }
-                $total_seat_trip = $tripend[$i]->car->typeCar->total_seat;
-                $seat_bill = Bills::select('total_seats')->where(['trip_id' => $tripend[$i]->id])->get();
-                $total_seat_bill = 0;
+                $seat_bill = Bills::select('total_seats','seat_id')->where(['trip_id' => $tripend[$i]->id])->get();
+                $seat_id = [];
                 foreach ($seat_bill as $value) {
-                    $total_seat_bill += intval($value->total_seats);
+                    $seat_id = array_merge($seat_id, json_decode($value->seat_id, true));
                 }
-
-                $seats = intval($total_seat_trip) - intval($total_seat_bill);
+                $seat_code = Seat::select('code_seat')->whereIn('id', $seat_id)->get();
+                $seat_code_car = Seat::select('code_seat')->where('car_id', $tripend[$i]->car->id)->get();
+                $seat_code_array_car = [];
+                foreach($seat_code_car as $value) {
+                    $seat_code_array_car[] = $value->code_seat;
+                }
+                $seat_code_array = [];
+                foreach($seat_code as $value) {
+                    $seat_code_array[] = $value->code_seat;
+                }
+                $seat_code_empty = array_diff($seat_code_array_car, $seat_code_array);
+                $tripend[$i]['seat_code'] = $seat_code_empty;
+                $seats = count($seat_code_empty);
 
                 if ($seats < intval($request->ticket)) {
                     unset($tripend[$i]);
@@ -383,7 +415,7 @@ class TripService
     }
     public function get_all_type_car()
     {
-        $type_car = TypeCar::select('type_seats')->get();
+        $type_car = TypeCar::select('type_seats')->distinct()->get();
         return $type_car;
     }
     public function get_total_seat_empty($request){
