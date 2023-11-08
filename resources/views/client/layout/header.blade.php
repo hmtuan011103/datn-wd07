@@ -86,7 +86,7 @@
                             <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="{{url('/lich-trinh')}}">Lịch trình</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="#">Tra cứu vé</a>
+                            <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="{{url('/tra-cuu')}}">Tra cứu vé</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="#">Tin tức</a>
