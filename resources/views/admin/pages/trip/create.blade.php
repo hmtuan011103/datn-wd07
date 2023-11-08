@@ -53,7 +53,7 @@
 										  <label class="control-label">Tài xế</label>
 										  <select class="form-select"   name="drive_id">
 											  <option value="">Chọn tài xé</option>
-											  @foreach ($users as $user)
+											  @foreach ($userDrive as $user)
 											  <option value="{{$user->id}}">{{$user->name}}</option>
 											  @endforeach
 										  </select>
@@ -65,7 +65,7 @@
 										  <label class="control-label">Phụ xe</label>
 										  <select class="form-select"   name="assistantCar_id">
 											  <option value="">Chọn phụ xe</option>
-											  @foreach ($users as $user)
+											  @foreach ($assistantCar as $user)
 											  <option value="{{$user->id}}">{{$user->name}}</option>
 											  @endforeach
 										  </select>

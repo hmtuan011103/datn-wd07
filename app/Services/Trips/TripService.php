@@ -50,8 +50,14 @@ class TripService
             $minute = $hourMinuteArray[1];
             $time = sprintf("%02d:%02d:00", $hour, $minute);
 
+            $trip_price = $request->trip_price;
+            $fomatPrice = str_replace(".", "", $trip_price);
+
+
             $params['interval_trip'] = $time;
+            $params['trip_price'] = $fomatPrice;
             unset($params['_token']);
+            // dd($params);
             return Trip::create($params);
         }
     }
@@ -375,7 +381,7 @@ class TripService
 
             if ($tripDateTime->isSameDay($currentDateTime) && $tripDateTime->lessThan($currentDateTime->copy()->addHours(4))) {
                 unset($trips[$key]);
-            }else{
+            } else {
                 $totalBookedSeats = DB::table('bills')
                     ->where('trip_id', $trip->id)
                     ->sum('total_seats');
@@ -425,34 +431,34 @@ class TripService
             ->orderBy('start_location', 'asc')
             ->get();
 
-            $availableTrips = [];
+        $availableTrips = [];
 
-            foreach ($trips as $key => $trip) {
-                $tripStartDate = Carbon::parse($trip->start_date);
-                $tripStartTime = Carbon::parse($trip->start_time);
+        foreach ($trips as $key => $trip) {
+            $tripStartDate = Carbon::parse($trip->start_date);
+            $tripStartTime = Carbon::parse($trip->start_time);
 
-                $tripDateTime = $tripStartDate->copy()->setTime($tripStartTime->hour, $tripStartTime->minute, $tripStartTime->second);
+            $tripDateTime = $tripStartDate->copy()->setTime($tripStartTime->hour, $tripStartTime->minute, $tripStartTime->second);
 
-                if ($tripDateTime->isSameDay($currentDateTime) && $tripDateTime->lessThan($currentDateTime->copy()->addHours(4))) {
-                    unset($trips[$key]);
-                }else{
-                    $totalBookedSeats = DB::table('bills')
-                        ->where('trip_id', $trip->id)
-                        ->sum('total_seats');
+            if ($tripDateTime->isSameDay($currentDateTime) && $tripDateTime->lessThan($currentDateTime->copy()->addHours(4))) {
+                unset($trips[$key]);
+            } else {
+                $totalBookedSeats = DB::table('bills')
+                    ->where('trip_id', $trip->id)
+                    ->sum('total_seats');
 
 
-                    $carTotalSeat = DB::table('cars')
-                        ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
-                        ->where('cars.id', $trip->car_id)
-                        ->value('type_cars.total_seat');
-                    $remainingSeats = $carTotalSeat - $totalBookedSeats;
+                $carTotalSeat = DB::table('cars')
+                    ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
+                    ->where('cars.id', $trip->car_id)
+                    ->value('type_cars.total_seat');
+                $remainingSeats = $carTotalSeat - $totalBookedSeats;
 
-                    if ($remainingSeats > 0) {
-                        $trip->remaining_seats = $remainingSeats;
-                        $availableTrips[] =  $trip;
-                    }
+                if ($remainingSeats > 0) {
+                    $trip->remaining_seats = $remainingSeats;
+                    $availableTrips[] =  $trip;
                 }
             }
+        }
 
         return $availableTrips;
     }
@@ -511,4 +517,35 @@ class TripService
 
         return collect($recentNews)->toArray();
     }
+
+    public function getDrive()
+    {
+        $userDrive = DB::table('user_role')
+            ->join('users', 'user_role.user_id', '=', 'users.id')
+            ->where('user_role.role_id', '=', 4)
+            ->select('users.*')
+            ->get();
+
+        return $userDrive;
+    }
+
+    public function assistantCar()
+    {
+        $assistantCar = DB::table('user_role')
+            ->join('users', 'user_role.user_id', '=', 'users.id')
+            ->where('user_role.role_id', '=', 2)
+            ->select('users.*')
+            ->get();
+
+        return $assistantCar;
+    }
+
+    public function getCar()
+    {
+        $car = DB::table('cars')
+            ->where('status', 0)
+            ->get();
+        return $car;
+    }
+
 }
