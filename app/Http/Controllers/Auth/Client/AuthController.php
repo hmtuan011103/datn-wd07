@@ -13,7 +13,6 @@ class AuthController extends Controller
 {
     public function changePassword(Request $request)
     {
-        // Kiểm tra xem người dùng hiện tại có tồn tại không
         $user = Auth::user();
         if (!$user) {
             return response()->json([
@@ -90,7 +89,7 @@ class AuthController extends Controller
         return response()->json([
             "status" => true,
             "message" => "User created successfully",
-            "redirect_url" => route('auth')
+            "redirect_url" => route('dang-nhap')
         ]);
     }
 
@@ -112,7 +111,7 @@ class AuthController extends Controller
                     "message" => "User logged in successfully",
                     "token" => $token,
                     "redirect_url" => route('trang_chu')
-                ]);
+                ])->header('Authorization', 'Bearer ' . $token);
             } else {
                 // Mật khẩu sai
                 return response()->json([

@@ -30,10 +30,10 @@
                                 <i class="fa-solid fa-circle-user icon-user-bg fs-22"></i>
                             </div>
                             <div class="fs-14">
-                                <a href="{{route('auth')}}" class="text-decoration-none cl-black fw-normal">Đăng nhập/</a>
+                                <a href="{{route('dang-nhap')}}" class="text-decoration-none cl-black fw-normal">Đăng nhập/</a>
                             </div>
                             <div class="fs-14">
-                                <a href="{{route('auth')}}" class="text-decoration-none cl-black fw-normal">Đăng ký</a>
+                                <a href="{{route('dang-nhap')}}" class="text-decoration-none cl-black fw-normal">Đăng ký</a>
                             </div>
                         </div>
                     </div>
