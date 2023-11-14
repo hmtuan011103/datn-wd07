@@ -37,7 +37,7 @@
                                         <div class="col-sm-auto">
                                             <div>
                                                 <a href="{{route('create_car')}}"><button type="button" class="btn btn-success add-btn"  a><i class="ri-add-line align-bottom me-1"></i> Thêm Mới</button></a>
-                                                <button class="btn btn-soft-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
+                                                <button class="btn btn-soft-danger" onClick="deleteMultiples()"><i class="ri-delete-bin-2-line"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -62,7 +62,7 @@
                                                 </div>
                                             </th>
                                             <th data-sort="customer_name">Ảnh</th>
-                                            <th data-sort="customer_name">Tên Chuyến Xe</th>
+                                            <th data-sort="customer_name">Tên Xe</th>
                                             <th data-sort="customer_name">Loại Xe</th>
                                             <th data-sort="customer_name">Trạng Thái</th>
                                             <th data-sort="customer_name">Màu Xe</th>
@@ -77,18 +77,18 @@
                                             <tr>
                                                 <th scope="row">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+                                                        <input class="form-check-input" type="checkbox" name="rowCheckbox" value="{{$item->id}}">
                                                     </div>
                                                 </th>
                                                 <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a></td>
-                                                <td class="customer_name"><img src="{{ asset($item->image) }}" alt="" width="100px"></td>
+                                                <td class="customer_name" style="width: 110px"><img src="{{ asset($item->image) }}" alt="" style="width: 100%"></td>
                                                 <td class="customer_name">{{$item->name}}</td>
                                                 <td class="customer_name">{{$item->typecar_name}}</td>
                                                 <td class="customer_name">
                                                     @if ($item->status == 0)
-                                                        Xe Đã Ngừng Hoạt Động
+                                                         Xe Đang Hoạt Động
                                                     @elseif ($item->status == 1)
-                                                        Xe Đang Hoạt Động
+                                                         Xe Đã Ngừng Hoạt Động
                                                     @endif
                                                 </td>
                                                 <td class="customer_name" >
@@ -102,22 +102,54 @@
                                                         <div >
                                                             <button type="button" class="btn btn-sm btn-secondary"
                                                                     data-bs-toggle="modal" id="create-btn"
-                                                                    data-bs-target="#modal{{$item->id}}"> <i class="bx bx bx-show"></i></button>
+                                                                    data-bs-target="#modal{{$item->id}}">
+                                                                <i class="bx bx bx-show"></i>
+                                                            </button>
                                                         </div>
                                                         <div class="edit">
-                                                            <a href="{{route('edit_car',['id'=>$item->id])}}" class="btn btn-success btn-sm edit-item-btn" ><i class="bx bx-edit"></i></a>
+                                                            <a href="{{route('edit_car',['id'=>$item->id])}}"
+                                                               class="btn btn-success btn-sm edit-item-btn" >
+                                                                <i class="bx bx-edit"></i>
+                                                            </a>
                                                         </div>
                                                         <div class="remove">
-
-                                                            <button
-                                                                class="btn btn-sm btn-danger remove-item-btn"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#deleteRecordModal"><i class="bx bx-trash"></i></button>
+                                                            <button class="btn btn-sm btn-danger btn-remove"
+                                                                    data-bs-toggle="modal" data-bs-target="#modalDelete"
+                                                                    data-role-id="{{ $item->id }}"><i
+                                                                    class="bx bx-trash"></i></button>
                                                         </div>
                                                     </div>
                                                 <td>
 
                                             </tr>
+                                            <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                                                    id="btn-close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="mt-2 text-center">
+                                                                <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
+                                                                           colors="primary:#f7b84b,secondary:#f06548"
+                                                                           style="width:100px;height:100px"></lord-icon>
+                                                                <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                                                                    <h4>Xác nhận xóa ?</h4>
+                                                                    <span id="role-id" hidden></span>
+                                                                    <p class="text-muted mx-4 mb-0">Bạn có chắc chắn muốn xóa loại xe này ?</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                                                                <button type="button" class="btn w-sm btn-light"
+                                                                        data-bs-dismiss="modal">Đóng</button>
+                                                                <button type="button" class="btn w-sm btn-danger " id="delete-record">Xóa</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @endforeach
                                         </tbody>
                                     </table>
@@ -127,10 +159,7 @@
                                                        trigger="loop" colors="primary:#121331,secondary:#08a88a"
                                                        style="width:75px;height:75px">
                                             </lord-icon>
-                                            <h5 class="mt-2">Sorry! No Result Found</h5>
-                                            <p class="text-muted mb-0">We've searched more than 150+ Orders We
-                                                did not find any
-                                                orders for you search.</p>
+                                            <h5 class="mt-2">Không có bản ghi nào</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -139,11 +168,11 @@
                                     <div class="pagination-wrap hstack gap-2">
                                         <a class="page-item pagination-prev disabled"
                                            href="javascript:void(0);">
-                                            Previous
+                                            Trước
                                         </a>
                                         <ul class="pagination listjs-pagination mb-0"></ul>
                                         <a class="page-item pagination-next" href="javascript:void(0);">
-                                            Next
+                                            Sau
                                         </a>
                                     </div>
                                 </div>
@@ -209,40 +238,6 @@
                 </div>
             </div>
             @endforeach
-            <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="mt-2 text-center">
-                                <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
-                                <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
-                                    <h4>Are you Sure ?</h4>
-                                    <p class="text-muted mx-4 mb-0">Are you Sure You want to Remove this Record ?</p>
-                                </div>
-                            </div>
-                            <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
-                                <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
-{{--                                @foreach($data as $item)--}}
-
-{{--                                @endforeach--}}
-                                @foreach($data as $item)
-                                    <form action="{{route('destroy_car',$item)}}" id="item-{{$item->id}}" method="post">
-                                        @endforeach
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn w-sm btn-danger" type="submit">
-                                            Yes, Delete It!
-                                        </button>
-                                    </form>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         <!-- container-fluid -->
     </div>

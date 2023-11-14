@@ -87,7 +87,7 @@
                                                         <td class="phone">{{ $role->description }}</td>
                                                         <td class="date">{{ helperFormatTime($role->created_at) }}</td>
                                                         <td class="status">{{ helperFormatTime($role->updated_at) }}</td>
-                                                
+
                                                         <td>
                                                             <div class="d-flex gap-2">
                                                                 <div class="edit">
@@ -156,15 +156,12 @@
                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h3>Thông tin chi tiết vai trò: <br> <b id="modal_title"></b></h3>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                    id="btn-close"></button>
-                            </div>
+
                             <div class="modal-body fs-4">
                                 <div class="mt-2">
-                                    <span><b>Vai trò:</b> <span id="modal_role"></span></span> <br>
-                                    <span class="pb-4"><b>Các quyền:</b> <span id="modal_permission"></span> <span id="modal_permission_child"></span></span>
+                                    <span><b style="font-size: 16px">Vai trò:</b> <span id="modal_role" style="font-size: 16px"></span></span> <br>
+                                    <span class="pb-4"><b style="font-size: 16px">Các quyền:</b> <span id="modal_permission"  style="font-size: 16px"></span>
+                                        <span id="modal_permission_child"  style="font-size: 16px"></span></span>
                                 </div>
                                 <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
                                     <button type="button" class="btn w-sm btn-light"

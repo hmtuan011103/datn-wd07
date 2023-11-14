@@ -9,6 +9,7 @@ use App\Http\Controllers\TypeCar\Admin\TypeCarController;
 use App\Http\Controllers\Car\Admin\CarController;
 use App\Http\Controllers\DiscountCode\Admin\DiscountCodeController;
 use App\Http\Controllers\Home\Admin\HomeController;
+use App\Http\Controllers\Ticket\Admin\TicketController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Trip\Admin\TripController;
 use App\Models\DiscountCode;
@@ -69,7 +70,8 @@ Route::prefix('typecar')->group(function () {
     Route::post('/store', [TypeCarController::class, 'store'])->name('store_typecar')->middleware('check_permission:create-car-type');
     Route::get('/edit/{id}', [TypeCarController::class, 'edit'])->name('edit_typecar')->middleware('check_permission:update-car-type');
     Route::put('/update/{id}', [TypeCarController::class, 'update'])->name('update_typecar')->middleware('check_permission:update-car-type');
-    Route::delete('/destroy/{id}', [TypeCarController::class, 'destroy'])->name('destroy_typecar')->middleware('check_permission:delete-car-type');
+    Route::get('/destroy/{id}', [TypeCarController::class, 'destroy'])->name('destroy_typecar')->middleware('check_permission:delete-car-type');
+    Route::get('/destroy_all/{id}', [TypeCarController::class, 'destroy_all'])->name('destroy_typecar')->middleware('check_permission:delete-car-type');
 });
 
 Route::prefix('car')->group(function () {
@@ -78,7 +80,8 @@ Route::prefix('car')->group(function () {
     Route::post('/store', [CarController::class, 'store'])->name('store_car')->middleware('check_permission:create-car');
     Route::get('/edit/{id}', [CarController::class, 'edit'])->name('edit_car')->middleware('check_permission:update-car');
     Route::put('/update/{id}', [CarController::class, 'update'])->name('update_car')->middleware('check_permission:update-car');
-    Route::delete('/destroy/{id}', [CarController::class, 'destroy'])->name('destroy_car')->middleware('check_permission:delete-car');
+    Route::get('/destroy/{id}', [CarController::class, 'destroy'])->name('destroy_car')->middleware('check_permission:delete-car');
+    Route::get('/destroy_all/{id}', [CarController::class, 'destroy_all'])->name('destroy_car')->middleware('check_permission:delete-car');
 });
 
 Route::group(['prefix' => 'role_permission'], function () {
@@ -142,6 +145,12 @@ Route::middleware(['guest'])->group(function () {
     Route::post('new-password', [\App\Http\Controllers\Auth\SubmitController::class, 'newPasswordSubmit'])->name('password.update');
 });
 
+//search ticket
+
+Route::prefix('search-ticket')->group(function () {
+    Route::get('/', [TicketController::class, 'form_search'])->name('form_search')->middleware('check_permission:read-search-ticket');
+
+});
 
 // đặt cuối route
 Route::fallback(function () {

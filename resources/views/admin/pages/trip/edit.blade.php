@@ -54,7 +54,7 @@
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Tài xế</label>
                                                 <select class="form-select"   name="drive_id">
-                                                    @foreach ($users as $user)
+                                                    @foreach ($userDrive as $user)
                                                         {{-- <option value="{{$user->id}}" {{$user->id}} == {{$trip->user_id}} ? "selected" : "">{{$user->name}}</option> --}}
                                                         <?php $selected = $user->id == $trip->drive_id ? 'selected' : ''; ?>
                                                         <option {{ $selected }} value="{{ $user->id }}">
@@ -69,7 +69,7 @@
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Phụ xe</label>
                                                 <select class="form-select"   name="assistantCar_id">
-                                                    @foreach ($users as $user)
+                                                    @foreach ($assistantCar as $user)
                                                         {{-- <option value="{{$user->id}}" {{$user->id}} == {{$trip->user_id}} ? "selected" : "">{{$user->name}}</option> --}}
                                                         <?php $selected = $user->id == $trip->assistantCar_id ? 'selected' : ''; ?>
                                                         <option {{ $selected }} value="{{ $user->id }}">

@@ -14,7 +14,7 @@
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
-                                    <li class="breadcrumb-item active">Bài viết</li>
+                                    <li class="breadcrumb-item active">Thêm mới bài viết</li>
                                 </ol>
                             </div>
 
@@ -35,15 +35,11 @@
                                     @csrf
                                     <div class="modal-body">
                                         <div class="row">
-                                            <div class="col-md-6 pt-3">
+                                            <div class="col-lg-6 pb-3">
                                                 <label for="" class="form-label">Tiêu đề *</label>
                                                 <input type="text" name="title" id="" class="form-control" placeholder="Nhập Tên Tiêu Đề"/>
                                             </div>
-                                            <div class="col-md-6 pt-3">
-                                                <label for="" class="form-label">Ảnh </label>
-                                                <input type="file" name="image" id="" class="form-control"/>
-                                            </div>
-                                            <div class="col-md-6 pt-3 pb-3">
+                                            <div class="col-lg-6 pb-3">
                                                 <label for="" class="form-label">Người tạo *</label>
                                                 <select class="form-control" name="user_id" id="">
                                                     @foreach($users as $user)
@@ -51,9 +47,17 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-lg-12 pb-3">
+                                                <label for="" class="form-label">Ảnh *</label>
+                                                <input type="file" name="image" id="" class="form-control"/>
+                                            </div>
+
                                             <div class="mb-3">
-                                                <label for="" class="form-label">Nội dung </label>
-                                                <textarea style="height: 100px" name="content" id="editor" class="form-control" placeholder="Nhập Mô Tả"  ></textarea>
+                                                <label for="" class="form-label">Nội dung *</label>
+                                                <textarea style="height: 100px" name="content" id="editor" class="form-control"></textarea>
+                                                @error('content')
+                                                    <div style="font-weight: 500; margin-bottom: 10px; color: red;">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
 

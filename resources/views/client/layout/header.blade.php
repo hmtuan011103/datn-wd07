@@ -80,13 +80,13 @@
                 <nav class="pt-3 pb-4">
                     <ul class="nav nav-underline justify-content-center gap-6">
                         <li class="nav-item">
-                            <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block active" aria-current="page" href="#">Trang chủ</a>
+                            <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block" href="{{url('/')}}">Trang chủ</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="{{url('/lich-trinh')}}">Lịch trình</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="#">Tra cứu vé</a>
+                            <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="{{url('/tra-cuu')}}">Tra cứu vé</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="#">Tin tức</a>
@@ -95,10 +95,10 @@
                             <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="#">Hóa đơn</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="#">Liên hệ</a>
+                            <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="{{url('/lien-he')}}">Liên hệ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="#">Về chúng tôi</a>
+                            <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="{{url('/ve-chung-toi')}}">Về chúng tôi</a>
                         </li>
                     </ul>
                 </nav>

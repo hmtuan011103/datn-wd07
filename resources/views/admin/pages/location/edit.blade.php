@@ -41,14 +41,17 @@
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Ảnh</label> <br>
-                                             <img id="image_preview"
-                                                        src="{{ Storage::url($location->image) }}" alt="Customer image"
-                                                        style="max-width: 200px; max-height: 100px"></label> <br> <br>
+
                                                 <input class="form-control" name="image" value="{{$location->image}}" placeholder="Last Name"
                                                     type="file">
-                                                <span aria-hidden="true"></span>         
+                                                <span aria-hidden="true"></span>
+                                                <br>
+                                                <img id="image_preview"
+                                                     src="{{ asset('storage/' . $location->image) }}" alt="Chưa có ảnh"
+                                                     style="max-width: 200px; max-height: 100px"
+                                                >
+                                                <br>
                                             </div>
-
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
@@ -62,12 +65,12 @@
                                                     @foreach ($locations as $locat)
                                                     @if ($location['parent_id'] == $locat['id'])
                                                         <option value="{{ $locat['id'] }}" selected>{{ $locat['name'] }}</option>
-                                                    @else                                                                                                     
+                                                    @else
                                                         <option value="{{ $locat['id'] }}">{{ $locat['name'] }}</option>
-                                                    @endif                                                 
+                                                    @endif
                                                 @endforeach
 
-                                              
+
 
                                                 </select>
                                                 <span aria-hidden="true"></span>
@@ -82,7 +85,7 @@
                                         </div>
 
 
-                                    </div> 
+                                    </div>
 
                                     <div class="hstack gap-2 justify-content-end">
                                         <a href="{{route('list_location')}}"><button type="button" class="btn btn-light">Danh

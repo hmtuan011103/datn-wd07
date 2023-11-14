@@ -14,10 +14,10 @@
                                 @csrf
                                 @method('PATCH')
 
-                                <div class="col-md-2">
-                                    <label for="validationCustom01" class="form-label">*Tên người dùng</label>
+                                <div class="col-lg-3">
+                                    <label for="validationCustom01" class="form-label">Tên người dùng *</label>
                                     <input type="text" class="form-control" name="name" id="validationCustom01"
-                                        placeholder="something" value="{{ $data->name }}" required>
+                                        placeholder="Vui lòng nhập tên người dùng" value="{{ $data->name }}" required>
                                     @error('name')
                                         <div class="help-block error-help-block">
                                             {{ $message }}
@@ -25,10 +25,10 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-3">
-                                    <label for="validationCustomEmail" class="form-label">*Email</label>
+                                <div class="col-lg-3">
+                                    <label for="validationCustomEmail" class="form-label">Email *</label>
                                     <input type="email" class="form-control" name="email" id="validationCustomEmail"
-                                        placeholder="something@something.something" value="{{ $data->email }}"
+                                        placeholder="Nhập địa chỉ email" value="{{ $data->email }}"
                                         required>
                                     @error('email')
                                         <div class="help-block error-help-block">
@@ -37,10 +37,10 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-2">
-                                    <label for="validationCustomPhone" class="form-label">*Số điện thoại</label>
+                                <div class="col-lg-3">
+                                    <label for="validationCustomPhone" class="form-label">Số điện thoại *</label>
                                     <input type="text" class="form-control" name="phone_number"
-                                        id="validationCustomPhone" placeholder="0342222222"
+                                        id="validationCustomPhone" placeholder="Nhập số điện thoại"
                                         value="{{ $data->phone_number }}" required>
                                     @error('phone_number')
                                         <div class="help-block error-help-block">
@@ -49,8 +49,8 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-2">
-                                    <label for="validationTypeUserSelect" class="form-label">*Loại người dùng</label>
+                                <div class="col-lg-3">
+                                    <label for="validationTypeUserSelect" class="form-label">Loại người dùng *</label>
                                     <select class="form-select" id="validationTypeUserSelect" name="user_type_id"
                                         required>
                                         <option selected disabled value="">...</option>
@@ -67,8 +67,8 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-6">
-                                    <label for="validationUserRoleSelect" class="form-label">*Vai trò</label>
+                                <div class="col-lg-12">
+                                    <label for="validationUserRoleSelect" class="form-label">Vai trò *</label>
                                     <select class="form-select" id="validationUserRoleSelect" name="roles[]"
                                         multiple="multiple" required>
                                         @foreach ($data->role_all as $item)
@@ -82,16 +82,16 @@
                                         @endforeach
                                     </select>
                                     @error('roles')
-                                        <div class="help-block error-help-block">
+                                        <div class="help-block error-help-block pt-2">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
 
-                                <div class="col">
+                                <div class="col-lg-12">
                                     <div class="d-flex flex-column">
                                         <label for="validationCustomDescription" class="form-label">Mô tả</label>
-                                        <textarea name="description" id="validationCustomDescription" cols="30" rows="12">{{ $data->description }}</textarea>
+                                        <textarea name="description" id="validationCustomDescription" cols="30" rows="8">{{ $data->description }}</textarea>
                                         @error('description')
                                             <div class="help-block error-help-block">
                                                 {{ $message }}
@@ -100,7 +100,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-lg-12">
                                     <label for="validationCustomAddress" class="form-label">Địa chỉ</label>
                                     <input type="text" class="form-control" name="address"
                                         id="validationCustomAddress" placeholder="..." value="{{ $data->address }}">
@@ -114,7 +114,7 @@
                                 <div class="col-md-12 mt-5">
                                     <h3>Tùy Chọn đổi mật khẩu:</h3>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-lg-6">
                                     <label for="validationCustomPassword" class="form-label">Mật khẩu mới</label>
                                     <input type="password" class="form-control" name="password"
                                         id="validationCustomPassword" placeholder="********" minlength="8"
@@ -126,7 +126,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-lg-6">
                                     <label for="validationCustomPasswordRe" class="form-label">
                                         Xác nhận mật khẩu mới
                                     </label>

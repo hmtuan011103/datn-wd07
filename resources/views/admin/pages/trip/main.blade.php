@@ -85,7 +85,7 @@
                                                         <td class="phone">{{ $trip->end_location }}</td>
                                                         <td class="phone">{{ formatDateTrip($trip->start_date) }}</td>
                                                         <td class="phone">{{ formatTime($trip->start_time) }}</td>
-                                                        <td class="phone">{{ $trip->trip_price }}.000 VND</td>
+                                                        <td class="phone">{{ fomatPrice($trip->trip_price) }} VND</td>
 
 
                                                         <td>

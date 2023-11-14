@@ -22,8 +22,8 @@ class StoreNewRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required',
-            'content' => 'required',
+            'title' => 'required|min:50|max:70',
+            'content' => 'required|min:1024',
             'image' => 'required|mimes:jpeg,png,jpg,gif|max:2048',
             'user_id' => 'required',
         ];
@@ -32,11 +32,14 @@ class StoreNewRequest extends FormRequest
     {
         return [
             'title.required' => 'Vui lòng nhập tiêu đề',
-        'content.required' => 'Nội Dung Không Được Để Trống',
-        'image.required' => 'Ảnh không được để trống',
-        'image.mimes' => 'Không phải file ảnh',
-        'image.max' => 'Ảnh không được quá 1MB',
-        'user_id.required' => 'Người Đăng Không Được Để Trống',
+            'title.min' => 'Vui lòng nhập tiêu đề trên 50 kí tự',
+            'title.max' => 'Vui lòng nhập tiêu đề đưới 70 kí tự',
+            'content.required' => 'Nội Dung Không Được Để Trống',
+            'content.min' => 'Nội Dung phải ít nhất 1024 từ',
+            'image.required' => 'Ảnh không được để trống',
+            'image.mimes' => 'Bạn phải chọn ảnh',
+            'image.max' => 'Ảnh không được quá 2MB',
+            'user_id.required' => 'Người Đăng Không Được Để Trống',
         ];
 
     }

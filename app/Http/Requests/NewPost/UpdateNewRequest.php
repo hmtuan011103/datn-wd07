@@ -22,17 +22,24 @@ class UpdateNewRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required',
-            'content' => 'required',
+            'title' => 'required|min:50|max:70',
+            'content' => 'required|min:1024',
+            'image' => 'required|mimes:jpeg,png,jpg,gif|max:2048',
             'user_id' => 'required',
         ];
     }
     public function messages(): array
     {
         return [
-            'title.required' => 'Tiêu đề không được để trống',
-            'content.required' => 'Nội dung không được để trống',
-            'user_id.required' => 'Người đăng không được để trống',
+            'title.required' => 'Vui lòng nhập tiêu đề',
+            'title.min' => 'Vui lòng nhập tiêu đề trên 50 kí tự',
+            'title.max' => 'Vui lòng nhập tiêu đề đưới 70 kí tự',
+            'content.required' => 'Nội Dung Không Được Để Trống',
+            'content.min' => 'Nội Dung phải ít nhất 1024 từ',
+            'image.required' => 'Ảnh không được để trống',
+            'image.mimes' => 'Bạn phải chọn ảnh',
+            'image.max' => 'Ảnh không được quá 2MB',
+            'user_id.required' => 'Người Đăng Không Được Để Trống',
         ];
     }
 }
