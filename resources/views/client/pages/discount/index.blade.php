@@ -1,0 +1,10 @@
+@extends('client.layout.main')
+@section('style')
+    @include('client.pages.discount.style')
+@endsection
+@section('content')
+    @include('client.pages.discount.main')
+@endsection
+@section('script')
+    @include('client.pages.discount.script')
+@endsection

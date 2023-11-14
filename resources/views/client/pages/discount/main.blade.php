@@ -1,9 +1,4 @@
-@extends('client.layout.main')
-@section('style')
-    @include('client.pages.profile.style')
-@endsection
-@section('content')
-    <main>
+<main>
         <div class="container_one">
             <div class="row">
                 <div class="col-md-3">
@@ -42,43 +37,12 @@
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-8">
-                    <div class="text-center text-md-left">
-                        <h2 class="text-xl font-medium text-[#111111]"> Đặt lại mật khẩu</h2>
-                        <p class="text-gray mt-3 mb-4 text-[13px]"> Để bảo mật tài khoản, vui lòng không chia sẻ mật
-                            khẩu cho người khách</p>
-                    </div>
-                    <div class="mt-6 rounded-2xl border p-3">
-                        <form id="confirm_Password" method="POST">
-                            @csrf
-                            <div class="form-group">
-                                <label for="old_Password" class="text-gray">Mật khẩu cũ</label>
-                                <input class="form-control" id="old_Password" type="password">
-                                <span class="text-danger" id="oldPasswordError"></span>
-                            </div>
+                    <h2>Danh Sách Mã Giảm Giá</h2>
 
-                            <div class="form-group">
-                                <label for="new_Password" class="text-gray">Mật khẩu mới</label>
-                                <input class="form-control" id="new_Password" type="password">
-                                <span class="text-danger" id="newPasswordError"></span>
-                            </div>
+                    <div class="discount-container">
 
-                            <div class="form-group">
-                                <label for="confirm_Password" class="text-gray">Xác nhận mật khẩu</label>
-                                <input class="form-control" id="confirm_PasswordS" type="password">
-                                <span class="text-danger" id="confirmPasswordError"></span>
-                            </div>
-                            <div class="mt-4 text-center">
-                                <button id="changePasswordButton" type="button" class="btn btn-primary">Cập nhật
-                                </button>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
-@endsection
-@section('script')
-    @include('client.pages.profile.scrip_password')
-
-@endsection
+</main>

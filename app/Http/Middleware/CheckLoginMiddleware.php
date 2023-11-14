@@ -15,21 +15,10 @@ class CheckLoginMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if ($request->hasHeader('Authorization')) {
-            $authorizationHeader = $request->header('Authorization');
-            if (preg_match('/Bearer\s+(.*)$/i', $authorizationHeader, $matches)) {
-                $requestToken = $matches[1];
-
-                // Kiểm tra đăng nhập dựa trên requestToken
-                $user = JWTAuth::toUser($requestToken);
-
-                if ($user) {
-                    // Người dùng đã đăng nhập, tiếp tục xử lý yêu cầu
-                    return $next($request);
-                }
-            }
+        if ($request->session()->has('jwt_token')) {
+            return $next($request);
         }
 
-        return response()->json(['message' => 'Unauthorized.'], 401);
+        return redirect()->route('dang-nhap');
     }
 }

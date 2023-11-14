@@ -45,7 +45,63 @@ class CarController extends BaseCarController
 
     public function update(UpdateCarRequest $request ,string $id)
     {
-        $this->CarService->update($request,$id);
+        $data = $request->validated();
+        $model = Car::query()->findOrFail($id);
+
+        if ($model->trips()->exists()) {
+            if (isset($data['status']) && $model->status != $data['status']) {
+                toastr()->error('Không thành công', 'Xe Đang Hoạt Động Không Được Sửa Trạng Thái!');
+                return redirect()->back()->withInput();
+            }
+        }
+        $model->fill($request->except('image'));
+        $olbImg = $model->image;
+        if ($request->hasFile('image')) {
+            delete_file($olbImg);
+            $model->image = upload_file('car', $request->file('image'));
+
+        }
+        $seats = Seat::query()->where('car_id', $model->id)->get();
+        if ($seats) {
+            foreach ($seats as $seat) {
+                $seat->delete();
+            }
+        }
+        $model->save();
+
+        $id_car = $model->id;
+        $request = $request->id_type_car;
+        $data = TypeCar::find($request);
+        $seat = $data->total_seat;
+        for ($i = 1; $i <= $seat; $i++) {
+            $seats = Seat::query();
+            if ($i <= 24) {
+                if ($i < 10){
+                    $seats->create([
+                        'car_id' => $id_car,
+                        'code_seat' => 'A0' . $i,
+                    ]);
+                }else{
+                    $seats->create([
+                        'car_id' => $id_car,
+                        'code_seat' => 'A' . $i,
+                    ]);
+                }
+
+            } else {
+                if ($i < 34){
+                    $seats->create([
+                        'car_id' => $id_car,
+                        'code_seat' => 'B0' . ($i-24),
+                    ]);
+                }else{
+                    $seats->create([
+                        'car_id' => $id_car,
+                        'code_seat' => 'B' . ($i-24),
+                    ]);
+                }
+            }
+        }
         toastr()->success('Thành công','Sửa Thành Công!');
         return redirect()->route('index_car');
     }

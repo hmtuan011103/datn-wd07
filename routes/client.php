@@ -36,7 +36,9 @@ Route::get('/dang-nhap', function () {
 Route::match(['get', 'post'], '/thong-tin', function () {
     return view('client.pages.profile.profile');
 })->name('thong-tin')->middleware('checklogin');
-
+Route::match(['get', 'post'], '/ma-giam-gia', function () {
+    return view('client.pages.discount.index');
+})->name('ma-giam-gia')->middleware('checklogin');
 Route::match(['get', 'post'], '/mat-khau', function () {
     return view('client.pages.profile.password');
 })->name('mat-khau')->middleware('checklogin');

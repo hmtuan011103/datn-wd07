@@ -17,16 +17,49 @@ if (status === 'true') {
 }
 
 function performAutoLogout() {
-    localStorage.removeItem('token');
-    localStorage.setItem('status', 'false');
-    window.location.href = '/';
+    fetch('http://127.0.0.1:8000/api/logout', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status) {
+                localStorage.removeItem('token');
+                localStorage.setItem('status', 'false');
+                window.location.href = '/';
+            } else {
+                console.error(data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
 }
 
 function performLogout() {
-    localStorage.removeItem('token');
-    localStorage.setItem('status', 'false');
-    window.location.href = '/';
+    fetch('http://127.0.0.1:8000/api/logout', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status) {
+                localStorage.removeItem('token');
+                localStorage.setItem('status', 'false');
+                window.location.href = '/';
+            } else {
+                console.error(data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
 }
+
 function passWord() {
     window.location.href = 'mat-khau';
 }
@@ -38,6 +71,12 @@ function profile() {
 }
 document.getElementById("profile").addEventListener("click", function () {
     profile();
+});
+function discount() {
+    window.location.href = 'ma-giam-gia';
+}
+document.getElementById("discount").addEventListener("click", function () {
+    discount();
 });
 document.getElementById("logoutButton").addEventListener("click", function () {
     performLogout();

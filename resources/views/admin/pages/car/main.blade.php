@@ -67,7 +67,6 @@
                                             <th data-sort="customer_name">Trạng Thái</th>
                                             <th data-sort="customer_name">Màu Xe</th>
                                             <th data-sort="customer_name">Biển Số Xe</th>
-                                            <th data-sort="customer_name">Mô Tả</th>
                                             <th data-sort="action">Chức Năng</th>
 
                                         </tr>
@@ -96,7 +95,6 @@
                                                     </p>
                                                 </td>
                                                 <td class="customer_name">{{$item->license_plate}}</td>
-                                                <td class="customer_name">{{$item->description}}</td>
                                                 <td>
                                                     <div class="d-flex gap-2">
                                                         <div >

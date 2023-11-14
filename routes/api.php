@@ -33,7 +33,8 @@ Route::group([
 
     Route::get("profile", [AuthController::class, "profile"]);
     Route::get("refresh", [AuthController::class, "refreshToken"]);
-    Route::get("logout", [AuthController::class, "logout"]);
+    Route::get('discounts', [AuthController::class, 'discount']);
+    Route::post("logout", [AuthController::class, "logout"]);
     Route::post('update_profile',  [AuthController::class, 'updateProfile']);
     Route::post('password', [AuthController::class, 'changePassword']);
 });
