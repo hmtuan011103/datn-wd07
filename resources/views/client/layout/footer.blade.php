@@ -31,8 +31,8 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-between col-md-6">
-                <div class="pe-5 footer-none">
+            <div class="d-flex justify-content-between col-md-5">
+                <div class=" footer-none col-6">
                     <p class="fw-medium cl-orange">Chien Thang Lines</p>
                     <ul class="p-0 m-0">
                         <li class="li-style-none py-1"><a href=""
@@ -47,7 +47,7 @@
                                 class="fw-medium text-decoration-none cl-black fs-15">Mạng lưới văn phòng</a></li>
                     </ul>
                 </div>
-                <div class="ps-5 footer-none">
+                <div class=" footer-none col-6">
                     <p class="fw-medium cl-orange">Hỗ trợ</p>
                     <ul class="p-0 m-0">
                         <li class="li-style-none py-1"><a href=""

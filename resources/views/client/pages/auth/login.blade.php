@@ -25,7 +25,7 @@
     <div class="container" >
         <div class="d-flex justify-content-center">
             <div class="row form-login rounded ">
-                <div class="col-md-6 col-sm-12 col-xl-7" >
+                <div class="col-md-6 col-sm-12" >
                     <div class="login_tag mt-4" style="width: 40%;">
                         <img src="http://127.0.0.1:8000/client/assets/images/logo_chienthang.jpg" alt="" style="width: 100%;/* max-width: 100%; */height: auto;padding-left: 25px;">
                     </div>

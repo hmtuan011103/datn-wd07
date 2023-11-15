@@ -1,5 +1,5 @@
-<div class="container d-flex justify-content-between mb-5">
-    <div class="w-70 border border-1 rounded-3 pt-4">
+<div class="container d-flex justify-content-between mb-5 select-seat">
+    <div class="w-70 border border-1 rounded-3 pt-4 select-seat-item">
         <div class="border-bottom-4 pb-4">
             <div class="px-4">
                 {{-- Hiển thị tiêu đề --}}
@@ -14,7 +14,7 @@
                 {{-- Hiển thị thông tin điểm đón trả --}}
             </div>
             <div class="border-bottom-4 py-4">
-                <div class="px-4 d-flex">
+                <div class="px-4 d-flex customer-information">
                     <div class="w-50 pe-4">
                         <p class="fs-18 fw-medium infor-user-title">Thông tin khách hàng</p>
                         <div class="">
@@ -49,16 +49,16 @@
                     </label>
                 </div>
             </div>
-            <div class="p-4 d-flex justify-content-between align-items-center">
+            <div class="p-4 d-flex justify-content-between align-items-center pay">
                 <div id="total-detail-price-trip-checkout">
                     {{-- In ra tổng tiền cần thanh toán --}}
                 </div>
                 <div>
-                    <button class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip px-4"
+                    <button class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip px-4 btn-pay"
                             type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         Thông tin đang đặt
                     </button>
-                    <button class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip-2 px-4"
+                    <button class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip-2 px-4 btn-pay"
                             name="redirect" type="submit">
                         Thanh toán
                     </button>

@@ -1,0 +1,146 @@
+.mobile{
+    display: none;
+}
+.list-btn-filter{
+    display: block !important;
+}
+.list-btn-filter-v2{
+    display: none !important;
+}
+@media(max-width:990px){
+    /* FILTER SEARCH  */
+    .filter-search{
+        width: 40%;
+    }
+    .filter-search.p-3{
+        padding: 0 !important;
+    }
+    .form-check{
+        font-size: 15px !important;
+    }
+    .btn-light{
+        font-size: 13px !important;
+    }
+
+      /* RESULT FILTER  */
+    .show-filter-seach{
+        width: 60%;
+    }
+    .fs-14.btn-primary{
+        font-size: 12px !important;
+    }
+    .px-4.btn-primary{
+        padding: 5px 10px !important;
+    }
+    .item-filter{
+        font-size: 12px !important;
+    }
+}
+@media(max-width:767px){
+    .mobile{
+        display: block;
+    }
+    .total-filter-search{
+        display:block !important;
+    }
+    /* FILTER SEARCH  */
+    .filter-search{
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        margin-bottom: 15px !important;
+        transition: max-height 0.3s ease;
+    }
+    .filter-search.p-3{
+        padding: 0 !important;
+    }
+    .filter-search.active{
+        display: block;
+    }
+    .justify-content-between.title-filter{
+        justify-content: space-around !important;
+        align-items: center !important;
+        margin-bottom: 0 !important;
+        padding-top: 10px !important;
+    }
+    .type-hours.pt-3{
+        padding-top: 0 !important;
+    }
+    p.pb-2{
+        padding-bottom: 5px !important;
+        font-size: 17px !important;
+    }
+    #checkboxContainer{
+        display: flex;
+        flex-wrap: wrap;
+
+    }
+     .form-check{
+        font-size: 15px !important;
+    }
+    .py-4{
+        padding-top: 0.5rem !important;
+        padding-bottom: 0.5rem !important;
+    }
+
+
+
+    /* RESULT FILTER  */
+    .show-filter-seach{
+        width: 100%;
+    }
+    .show-filter-seach.ps-4{
+        padding-left: 0 !important;
+    }
+    .list-btn-filter-v2{
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    .list-btn-filter{
+        display: none !important;
+    }
+    .filter-time{
+        font-size: 15px !important;
+    }
+    .filter-time-area{
+        font-size: 11px !important;
+    }
+    .p-4.border{
+        padding: 0.5rem !important;
+    }
+    .fs-14.btn-primary{
+        font-size: 12px !important;
+    }
+    .px-4.btn-primary{
+        padding: 5px 10px !important;
+    }
+    .item-filter{
+        font-size: 12px !important;
+    }
+
+
+
+    /* RESULT EMPTY  */
+    #searchresultfalse{
+        text-align: center;
+        margin-left: 50px;
+        padding-top: 0 !important ;
+    }
+    .img-empty img{
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+    .text-empty{
+        font-size: 13px !important;
+        font-weight: 500;
+    }
+    .pt-5{
+        padding-top: 1.5rem !important;
+    }
+    .mt-5{
+        margin-top: 0 !important;
+    }
+}

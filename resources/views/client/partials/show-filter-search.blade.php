@@ -1,12 +1,15 @@
-    <div class="content-container-right ps-4 w-70"  style="display:none" id="searchresulttrue">
+    <div class="content-container-right ps-4 w-70 show-filter-seach"  style="display:none" id="searchresulttrue">
         <p class="title-trip-found fs-20 fw-medium" id="start_end"><span id="total_trip"></span></p>
-        <div class="d-flex">
+        <div class="d-flex list-btn-filter">
             <button type="button" class="btn bg-white border border-1 me-2 fs-14 cl-orange bg-button-orange">
                 <i class="fa-solid fa-hand-holding-dollar pe-1 fs-15"></i> Giá rẻ bất ngờ
             </button>
             <button type="button" class="btn btn-light bg-white border border-1 me-2 fs-14">
                 <i class="fa-regular fa-clock pe-1 fs-15"></i>
                 Giờ khởi hành
+            </button>
+            <button type="button" class="btn bg-white border border-1 me-2 fs-14 cl-orange bg-button-orange mobile block-filter">
+                <i class="fa-solid fa-pen-to-square"></i> Bộ lọc
             </button>
         </div>
 
@@ -53,8 +56,9 @@
     </div>
     <div class="content-container-right ps-4 w-70 text-center" style="display:none" id="searchresultfalse">
         <div class="ant-empty mt-20 mb-4 mt-5">
-            <div class="mb-3"><img src="https://futabus.vn/images/empty_list.svg" alt="empty_list" width="260">
+            <div class="mb-3 img-empty">
+                <img src="https://futabus.vn/images/empty_list.svg" alt="empty_list" width="260">
             </div>
-            <div class="fs-5 fw-bold">Không có kết quả được tìm thấy.</div>
+            <div class="fs-5 fw-bold text-empty">Không có kết quả được tìm thấy.</div>
         </div>
     </div>

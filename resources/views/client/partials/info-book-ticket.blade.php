@@ -1,4 +1,4 @@
-    <div class="w-30 ms-4">
+    <div class="w-30 ms-4 info-book-ticket">
         <div id="info-book-ticket">
             {{-- Thông tin chi tiết vé đang đặt --}}
         </div>

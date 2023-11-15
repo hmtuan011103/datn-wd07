@@ -1,6 +1,33 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
+//   $(document).ready(function() {
+//       $(".block-filter").click(function() {
+//         $(".filter-search").toggleClass("active");
+//         // $("body").toggleClass("active");
+//       });
+
+//       $(document).click(function(event) {
+//         if (!$(event.target).closest('.btn_menu_mobile').length && !$(event.target).closest('.header_mobile').length) {
+//           $(".menu_move").removeClass("active");
+//           $("body").removeClass("active");
+
+//         }
+//       });
+//     });
+var filterButton = document.querySelector(".block-filter");
+var filterDiv = document.querySelector(".filter-search");
+filterButton.addEventListener("click", function() {
+  if (filterDiv.style.maxHeight) {
+    // Nếu div bộ lọc đang hiển thị, ẩn nó bằng cách đặt max-height là 0
+    filterDiv.style.maxHeight = null;
+  } else {
+    // Nếu div bộ lọc đang ẩn, hiển thị nó bằng cách đặt max-height là giá trị lớn hơn 0
+    filterDiv.style.maxHeight = filterDiv.scrollHeight + "px";
+  }
+});
+</script>
+<script>
     var link = 'http://127.0.0.1:8000/';
     window.addEventListener('beforeunload', function() {
         localStorage.clear();
@@ -741,16 +768,16 @@
                             var htmlresult =
                                 `<div class="p-4 border border-1 rounded-3 mt-3 w-100">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <p class="mb-0 pe-3 fw-medium">${item.start_time.slice(0, -3)}</p>
+                                    <p class="mb-0 pe-3 fw-medium filter-time">${item.start_time.slice(0, -3)}</p>
                                     <img src="{{ asset('client/assets/images/start_place.svg') }}" alt="">
                                     <span class="border-dotted"></span>
                                     <div class="ta-center show-time-run">
-                                        <p class="fw-medium mb-0">${parseInt(item.interval_trip.substring(0, 2))} giờ</p>
-                                        <p class="fs-13 fw-medium">(Asian/Ho Chi Minh)</p>
+                                        <p class="fw-medium mb-0 filter-time">${parseInt(item.interval_trip.substring(0, 2))} giờ</p>
+                                        <p class="fs-13 fw-medium filter-time-area">(Asian/Ho Chi Minh)</p>
                                     </div>
                                     <span class="border-dotted"></span>
                                     <img src="{{ asset('client/assets/images/end_place.svg') }}" alt="">
-                                    <p class="mb-0 ps-3 fw-medium">${calculateEndTime(item.start_time,item.interval_trip)}</p>
+                                    <p class="mb-0 ps-3 fw-medium filter-time">${calculateEndTime(item.start_time,item.interval_trip)}</p>
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <p class="mb-0 fs-15 fw-medium">${item.start_location}</p>
@@ -758,12 +785,11 @@
                                 </div>
                                 <div class="d-flex pt-4 justify-content-between align-items-center">
                                     <div class="d-flex align-items-center">
-                                        <p class="fs-14 mb-0 cl-orange fw-medium">${item.trip_price}đ</p>
+                                        <p class="fs-14 mb-0 cl-orange fw-medium item-filter">${item.trip_price}đ</p>
                                         <p class="mx-2 mb-0 circle-menu-style rounded-pill"></p>
-                                        <p class="fs-14 mb-0 cl-orange fw-medium">${type_seat} </p>
+                                        <p class="fs-14 mb-0 cl-orange fw-medium item-filter">${type_seat} </p>
                                         <p class="mx-2 mb-0 circle-menu-style rounded-pill"></p>
-                                        <p class="fs-14 mb-0 cl-orange fw-medium">${item.seat_empty} chỗ trống</p>
-                                        <p class="ps-2 fs-14 cl-blue-light text-decoration-underline cursor mb-0 fw-medium">Chọn ghế</p>
+                                        <p class="fs-14 mb-0 cl-orange fw-medium item-filter">${item.seat_empty} chỗ trống</p>
                                     </div>
                                     <div>
                                         <button
@@ -994,7 +1020,7 @@
             if (myDataArray.length > 0) {
                 document.getElementById('searchrecently').innerHTML +=
                     `<a href="#" onclick="submitFormCookie('${formId}')"
-                        class="col-md-2 col-6 bg-search-latest fs-15 border border-1 rounded-2 mx-2 text-decoration-none cl-black">
+                        class="col-md-2 col-4 bg-search-latest fs-15 border border-1 rounded-2 mx-2 text-decoration-none cl-black">
                         <div class="d-flex py-2">
                             <p class="m-0 p-0 fs-15">${data.start_location}</p>
                             <p class="px-1 py-0 m-0 fs-15"> - </p>

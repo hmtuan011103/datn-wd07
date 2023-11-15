@@ -1,11 +1,23 @@
-<div class="container d-flex pt-5 pb-4">
-    <div  class="filter-container-left bg-route-popular p-3 rounded-3 w-30">
-        <div class="d-flex justify-content-between">
+<div class="container d-flex pt-5 pb-4 total-filter-search">
+    <div class="d-flex list-btn-filter-v2">
+        <button type="button" class="btn bg-white border border-1 me-2 fs-14 cl-orange bg-button-orange">
+            <i class="fa-solid fa-hand-holding-dollar pe-1 fs-15"></i> Giá rẻ bất ngờ
+        </button>
+        <button type="button" class="btn btn-light bg-white border border-1 me-2 fs-14">
+            <i class="fa-regular fa-clock pe-1 fs-15"></i>
+            Giờ khởi hành
+        </button>
+        <button type="button" class="btn bg-white border border-1 me-2 fs-14 cl-orange bg-button-orange mobile block-filter">
+            <i class="fa-solid fa-pen-to-square"></i> Bộ lọc
+        </button>
+    </div>
+    <div  class="filter-container-left bg-route-popular p-3 rounded-3 w-30 filter-search">
+        <div class="d-flex justify-content-between title-filter">
             <p class="text-uppercase fw-medium fs-16">Bộ lọc tìm kiếm</p>
             <p class="fs-15 cl-orange fw-medium cursor">Bỏ lọc <span class="ps-1"><i class="fa-regular fa-trash-can fs-18"></i></span></p>
         </div>
         <div class="type-hours border-bottom pt-3">
-            <p class="mb-0 pb-2 fw-medium">Giờ đi</p>
+            <p class="mb-0 pb-2 px-2 fw-medium">Giờ đi</p>
             <div class="ps-2" id="checkboxContainer">
                 <div class="form-check mb-2 cursor">
                     <input class="form-check-input cursor filter-time"  type="checkbox" value="00-06" id="" >
@@ -40,8 +52,8 @@
             <div class="d-flex" id="type_car_all">
                 {{-- <button type="button" class="btn btn-light bg-white border border-1 me-2 fs-14">Ghế</button>
                 <button type="button" class="btn btn-light bg-white border border-1 me-2 fs-14">Giường</button>
-                <button type="button" class="btn btn-light bg-white border border-1 me-2 fs-14 type-seat">Limousine</button>--}} 
-                
+                <button type="button" class="btn btn-light bg-white border border-1 me-2 fs-14 type-seat">Limousine</button>--}}
+
             </div>
         </div>
         <div class="type-car border-bottom py-4 px-2">

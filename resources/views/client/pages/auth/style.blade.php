@@ -64,6 +64,18 @@
         color: red;
         font-size: 14px;
     }
+    @media(max-width:990px){
+        #loginName h4,
+    #registerName h4{
+        font-size: 23px;
+    }
+    .text-center a{
+        font-size: 17px;
+    }
+    .m-4{
+        margin: 0.5rem !important;
+    }
+    }
     @media(max-width:767px){
          /* FOOTER  */
     .footer-none{

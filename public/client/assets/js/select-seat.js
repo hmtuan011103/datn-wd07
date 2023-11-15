@@ -1008,14 +1008,14 @@ $(function () {
             const startDateTurn = handleDate(route[0].start_date);
             const startDateReturn = handleDate(route[1].start_date);
             informationTripSearch.append(`
-                <h3 class="">${route[0].start_location} - ${route[0].end_location}</h3>
-                <p class="fw-medium ta-center">${startDateTurn} - ${startDateReturn}</p>
+                <h3 class="title-location">${route[0].start_location} - ${route[0].end_location}</h3>
+                <p class="fw-medium ta-center title-time">${startDateTurn} - ${startDateReturn}</p>
             `);
         } else {
             const startDate = handleDate(route.start_date);
             informationTripSearch.append(`
-                <h3 class="">${route.start_location} - ${route.end_location}</h3>
-                <p class="fw-medium ta-center">${startDate}</p>
+                <h3 class="title-location">${route.start_location} - ${route.end_location}</h3>
+                <p class="fw-medium ta-center title-time">${startDate}</p>
             `);
         }
 
@@ -1156,7 +1156,7 @@ $(function () {
                             </div>
                             <div class="d-flex justify-content-between mb-1">
                                 <p class="cl-gray fs-15 fw-medium mb-1" >Số ghế</p>
-                                <p class="fw-medium fs-15 mb-1">
+                                <p class="fw-medium fs-15 mb-1 number-seat">
                                     <span id="code-seat-turn-${idFollow}"></span>
                                 </p>
                             </div>
@@ -1211,7 +1211,7 @@ $(function () {
                         </div>
                         <div class="d-flex justify-content-between mb-1">
                             <p class="cl-gray fs-15 fw-medium mb-1" >Số ghế</p>
-                            <p class="fw-medium fs-15 mb-1">
+                            <p class="fw-medium fs-15 mb-1 number-seat">
                                 <span id="code-seat-turn"></span>
                             </p>
                         </div>
@@ -1262,9 +1262,9 @@ $(function () {
                             </div>
                             <p class="fs-14 fw-medium">${nameRoute} ${startDate}</p>
                         </div>
-                        <div class="px-4 d-flex align-items-center justify-content-between">
+                        <div class="px-4 d-flex align-items-center justify-content-between reception">
                             <div class="w-50">
-                                <p class="fw-medium mb-1">ĐIỂM ĐÓN</p>
+                                <p class="fw-medium mb-1 title-reception">ĐIỂM ĐÓN</p>
                                 <select class="form-select w-100 cursor"
                                     id="place-start-turn-${index}" name="place_start_turn_${index}" aria-label="place_start_${index}"
                                 >
@@ -1273,7 +1273,7 @@ $(function () {
                             <div class="between-place-solid mx-4">
                             </div>
                             <div class="w-50">
-                                <p class="fw-medium mb-1">ĐIỂM TRẢ</p>
+                                <p class="fw-medium mb-1 title-reception">ĐIỂM TRẢ</p>
                                 <select class="form-select w-100 cursor"
                                     id="place-end-turn-${index}" name="place_end_turn_${index}" aria-label="place_end_${index}"
                                 >
@@ -1309,23 +1309,23 @@ $(function () {
 
         } else {
             $('#info-turn-return').append(`
-                <div class="col-12">
+                <div class="col-12 ">
                     <div class="px-4">
                         <div class="infor-place-title d-flex align-items-center">
                             <p class="fs-18 fw-medium">Thông tin đón trả</p>
                             <p><i class="fa-solid fa-circle-exclamation fs-16 ps-2 cursor cl-orange"></i></p>
                         </div>
                     </div>
-                    <div class="px-4 d-flex align-items-center justify-content-between">
+                    <div class="px-4 d-flex align-items-center justify-content-between reception">
                         <div class="w-50">
-                            <p class="fw-medium mb-1">ĐIỂM ĐÓN</p>
+                            <p class="fw-medium mb-1 title-reception">ĐIỂM ĐÓN</p>
                             <select class="form-select w-100 cursor" id="place-start-turn" name="place_start_turn" aria-label="place_start">
                             </select>
                         </div>
                         <div class="between-place-solid mx-4">
                         </div>
                         <div class="w-50">
-                            <p class="fw-medium mb-1">ĐIỂM TRẢ</p>
+                            <p class="fw-medium mb-1 title-reception">ĐIỂM TRẢ</p>
                             <select class="form-select w-100 cursor"  id="place-end-turn" name="place_end_turn" aria-label="place_end">
                             </select>
                         </div>

@@ -18,6 +18,16 @@
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
     @yield('validateRequest')
 
+    <!-- Data Table  -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
+
+    <script src="{{ asset('client/assets/js/url-config.js') }}"></script>
+    <script>
+        new DataTable('#flight-route');
+    </script>
+{{--
     <script>
         function deleteMultiples() {
             var checkboxes = document.getElementsByName('rowCheckbox');
@@ -64,16 +74,16 @@
                 });
             }
         }
-    </script>
+    </script> --}}
 
 
 
 
 
-    <script>
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             var deleteButtons = document.getElementsByClassName('btn-remove');
-
+            console.log(deleteButtons);
             Array.from(deleteButtons).forEach(function(button) {
                 button.addEventListener('click', function() {
                     var roleId = this.dataset
@@ -108,6 +118,47 @@
             });
 
         });
+    </script> --}}
+    <script>
+        function confirmDelete(itemId) {
+            Swal.fire({
+                html: '<div class="mt-3"><lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon><div class="mt-4 pt-2 fs-15 mx-5"><h4>Xác nhận xóa?</h4><p class="text-muted mx-4 mb-0">Bạn có chắc muốn xóa đi không?</p></div></div>',
+                showCancelButton: true,
+                confirmButtonText: "Đồng ý",
+                confirmButtonClass: "btn btn-primary w-xs mx-2 mb-1",
+                cancelButtonText: "Hủy",
+                cancelButtonClass: "btn btn-danger w-xs mb-1",
+                reverseButtons: true,
+                buttonsStyling: false,
+                showCloseButton: true,
+                customClass: {
+                    confirmButton: "btn btn-primary w-xs mx-2 mb-1",
+                    cancelButton: "btn btn-danger w-xs mb-1",
+                },
+            }).then((result) => {
+                var rowdelete = document.getElementById('row' + itemId);
+                if (result.isConfirmed) {
+                    var ajaxRequest = $.ajax({
+                        url: baseUrl + "/manage/permission/delete/" +
+                            itemId,
+                        method: "GET"
+                    });
+                    if (rowdelete) {
+                        rowdelete.remove();
+                        location.reload();
+                    }
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Xóa vai trò thành công!",
+                        showConfirmButton: !1,
+                        timer: 2e3,
+                        showCloseButton: !0,
+                    })
+
+                }
+            });
+        }
     </script>
 
 

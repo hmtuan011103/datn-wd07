@@ -24,6 +24,11 @@
     .text-content-quality{
         font-size: 14px;
     }
+    /* .footer-none{
+        display: none;
+    }
+    .ban-quyen{
+        font-size: 12px;} */
 }
 @media(max-width:767px){
     /* FORM SEARCH  */

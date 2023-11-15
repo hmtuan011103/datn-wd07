@@ -1,0 +1,130 @@
+@media(max-width:990px){
+    .info-book-ticket{
+        width: 40%;
+    }
+    .select-seat-item{
+        width: 60%;
+    }
+    .w-32{
+        width: 15px;
+    }
+     /* ĐÓN TRẢ  */
+     .reception{
+        display: block !important;
+    }
+    .w-50{
+        width: 100% !important;
+        margin-bottom: 15px;
+    }
+    .between-place-solid{
+        display: none;
+    }
+    .title-reception{
+        font-size: 15px !important;
+    }
+    .number-seat{
+        font-size: 13px;
+    }
+
+
+     /* INFORMATION  */
+     .customer-information{
+       display: block !important;
+    }
+    .w-50{
+        width: 100% !important;
+    }
+    .ps-4{
+        padding-left: 0 !important;
+    }
+
+    /* PAY  */
+    .pay{
+        display: block !important;
+    }
+    #total-detail-price-trip-checkout{
+        margin-bottom: 10px;
+    }
+    .btn-pay{
+        margin-bottom: 10px;
+        width: 100%;
+    }
+}
+@media(max-width:767px){
+    /* TITLE PAGE  */
+    .title-location{
+        font-size: 20px !important;
+        text-align: center;
+    }
+    .title-time{
+        font-size: 17px !important;
+        text-align: center;
+    }
+
+
+    /* SELECT SEAT  */
+    .select-seat{
+        display: flex !important;
+        flex-wrap: wrap-reverse !important;
+    }
+    .info-book-ticket{
+        width: 100%;
+        margin-bottom: 15px !important;
+        font-size: 10px !important;
+    }
+    .info-book-ticket.ms-4{
+        margin-left:0 !important ;
+    }
+    .select-seat-item{
+        width: 100%;
+    }
+    .py-4{
+        padding: 0.5rem 0 !important;
+    }
+    .pb-4{
+        padding-bottom: 0 !important;
+    }
+    .w-32{
+        width: 15px;
+    }
+    .ms-4{
+        margin-left: 0 !important;
+    }
+
+    /* ĐÓN TRẢ  */
+    .reception{
+        display: block !important;
+    }
+    .w-50{
+        width: 100% !important;
+        margin-bottom: 15px;
+    }
+    .between-place-solid{
+        display: none;
+    }
+    .title-reception{
+        font-size: 15px !important;
+    }
+
+
+    /* INFORMATION  */
+    .customer-information{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .ps-4{
+        padding-left: 0 !important;
+    }
+
+    /* PAY  */
+    .pay{
+        display: block !important;
+    }
+    #total-detail-price-trip-checkout{
+        margin-bottom: 10px;
+    }
+    .btn-pay{
+        margin-bottom: 10px;
+        width: 100%;
+    }
+}

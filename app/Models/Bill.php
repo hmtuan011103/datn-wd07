@@ -21,7 +21,6 @@ class Bill extends Model
         'total_money_after_discount',
         'total_seats',
         'type_pay',
-        'total_seats',
         'code_bill'
     ];
 
