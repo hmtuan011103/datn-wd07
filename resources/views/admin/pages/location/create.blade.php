@@ -12,9 +12,6 @@
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <h4 class="mb-sm-0">Thêm địa điểm</h4>
-
-                      
-
                     </div>
                 </div>
             </div>
@@ -49,11 +46,11 @@
 										<select class="form-select"  name="parent_id">
 											{{-- <option value="" style="color:rgb(168, 168, 168)">Chọn địa điểm</option> --}}
 											<option value="" selected>Trống</option>
-											
+
 											@foreach ($location as $item)
 											<option value="{{$item->id}}">{{$item->name}}</option>
 											@endforeach
-									
+
 										</select>
 										<span  aria-hidden="true"></span> </div>
 									</div>
@@ -63,19 +60,19 @@
 										<textarea class="form-control" style="height: 130px" name="description" placeholder="Mô tả..."></textarea>
 										<span  aria-hidden="true"></span> </div>
 									</div>
-									
-								
-									
-								
-									 </div> 
-                                
+
+
+
+
+									 </div>
+
                                     <div class="hstack gap-2 justify-content-end">
                                         <a href="{{route('list_location')}}"><button type="button" class="btn btn-light"
                                             >Danh sách</button></a>
                                         <button type="submit" class="btn btn-success">Thêm mới</button>
                                         <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
                                     </div>
-                                
+
                             </form>
                         </div><!-- end card -->
                     </div>

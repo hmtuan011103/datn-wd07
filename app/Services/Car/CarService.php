@@ -2,12 +2,12 @@
 
 namespace App\Services\Car;
 
-//use App\Http\Requests\Car\UpdateCarRequest;
 use App\Http\Requests\Car\StoreCarRequest;
 use App\Http\Requests\Car\UpdateCarRequest;
 use App\Models\Seat;
 //use App\Models\type_car;
 use App\Models\Car;
+use App\Models\Trip;
 use App\Models\TypeCar;
 use http\Env\Request;
 
@@ -37,7 +37,6 @@ class CarService
         $request = $request->id_type_car;
         $data = TypeCar::find($request);
         $seat = $data->total_seat;
-
         for ($i = 1; $i <= $seat; $i++) {
             $seats = Seat::query();
             if ($i <= 24) {
@@ -127,14 +126,40 @@ class CarService
     {
         $model = Car::query()->findOrFail($id);
         $olbImg = $model->image;
-        delete_file($olbImg);
-        $seats = Seat::query()->where('car_id', $model->id)->get();
-        if ($seats) {
-            foreach ($seats as $seat) {
-                $seat->delete();
-            }
-        }
-        $model->delete();
-    }
-}
 
+        $relatedTrips = Trip::where('car_id', $model->id)->get();
+
+        if ($relatedTrips->isEmpty()) {
+            delete_file($olbImg);
+            $seats = Seat::query()->where('car_id', $model->id)->get();
+            if ($seats) {
+                foreach ($seats as $seat) {
+                    $seat->delete();
+                }
+            }
+            $model->delete();
+            return  toastr()->success('Thành công','Xóa Thành Công!');
+        }
+        return  toastr()->error('Không Thành Công','Xóa Không Thành Công');
+
+    }
+    public function destroy_all(string $id)
+    {
+        $model = Car::query()->findOrFail($id);
+        $olbImg = $model->image;
+        $relatedTrips = Trip::where('car_id', $model->id)->get();
+        if ($relatedTrips->isEmpty()) {
+            delete_file($olbImg);
+            $seats = Seat::query()->where('car_id', $model->id)->get();
+            if ($seats) {
+                foreach ($seats as $seat) {
+                    $seat->delete();
+                }
+            }
+            $model->delete();
+
+
+        };
+    }
+
+}

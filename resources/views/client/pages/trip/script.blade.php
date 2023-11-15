@@ -47,13 +47,13 @@
                 }
 
                 return `
-            
+
                 <div class="alldata">
                     <div class="schedule-card flex w-full flex-col gap-[6px] text-left " >
                         ${res.map(function(item) {
                                         if(item.start_location === trip.start_location) {
-                                            return ` 
-                                            <div class="ant-row items-center" > 
+                                            return `
+                                            <div class="ant-row items-center" >
                                                 <div class="ant-col ant-col-6" >
                                                     <div class="flex w-full items-center gap-2">
                                                         <span class="font-medium text-orange"> ${item.start_location}</span>
@@ -63,21 +63,21 @@
                                                 </div>
                                                 <div class="ant-col ant-col-2">${item.car_type_name}</div>
                                                 <div class="ant-col ant-col-4">${convertTime(item.interval_trip)}</div>
-                                                <div class="ant-col ant-col-2">${item.trip_price}.000 VNĐ</div>
+                                                <div class="ant-col ant-col-2">${item.trip_price.toLocaleString("vi-VN")}đ</div>
                                                 <!-- <div class="ant-col ant-col-2"></div> -->
                                                 <div class="ant-col flex justify-end" style="flex: 1 1 auto;">
                                                     <button type="button"
-                                                        class="ant-btn ant-btn-round ant-btn-default button-default mr-2" data-turn="${item.id}">
+                                                        class="ant-btn ant-btn-round ant-btn-default button-default mr-2"  onclick="redirectToSelectSeat(this)" data-turn="${item.id}">
                                                         <span>Chọn chuyến</span>
                                                     </button>
                                                 </div>
 
                                                 </div>`
                                         }
-                                    
+
                                     }) .filter(Boolean) // Remove any falsy values (null, undefined) from the array
                 .join('')
-                                } 
+                                }
                                 </div>
                             </div>
             `;
@@ -152,7 +152,7 @@
                     var $searchResults = $('#content');
                     $searchResults.empty();
                     printedTripNames = [];
-                  
+
 
                     if (Array.isArray(data)) {
                         data.forEach(function(trip) {
@@ -177,9 +177,9 @@
                                             </div>
                                             <div class="ant-col ant-col-2">${item.car_type_name}</div>
                                             <div class="ant-col ant-col-4">11 giờ 30 phút</div>
-                                            <div class="ant-col ant-col-2">${item.trip_price}.000 VNĐ</div>
+                                            <div class="ant-col ant-col-2">${item.trip_price.toLocaleString("vi-VN")}đ</div>
                                             <div class="ant-col flex justify-end" style="flex: 1 1 auto;">
-                                                <button type="button" class="ant-btn ant-btn-round ant-btn-default button-default mr-2" data-turn="${item.id}">
+                                                <button type="button" class="ant-btn ant-btn-round ant-btn-default button-default mr-2"  onclick="redirectToSelectSeat(this)" data-turn="${item.id}">
                                                     <span>Chọn chuyến</span>
                                                 </button>
                                             </div>
@@ -188,17 +188,24 @@
                                 </div>`;
 
                                 $searchResults.append(output);
-                             
+
 
                             }
                         });
                     }
-                    
+
                 }
-                
+
             });
-           
+
         }, 300);
-        
+
+    }
+
+</script>
+<script>
+        function redirectToSelectSeat(button) {
+        const tripTurn = button.getAttribute('data-turn');
+        window.location.href = `/chon-ghe?trip_turn=${tripTurn}`;
     }
 </script>

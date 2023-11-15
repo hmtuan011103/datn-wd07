@@ -8,7 +8,7 @@
                     <p type="button" class="close" data-dismiss="modal" aria-hidden="true">X</p>
                 </div>
                 <div class="modal-body">
-                  
+
                     <div class="row">
                         <div class="col-md-6">
                             <p>Tên xe : <label id="car_name"></label></p>
@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </div>

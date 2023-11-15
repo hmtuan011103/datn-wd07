@@ -248,19 +248,19 @@ filterButton.addEventListener("click", function() {
         if (type_ticket === '2') {
             if (end_time === '') {
                 Toastify({
-                text: `Vui lòng chọn ngày về`,
-                duration: 2000,
-                newWindow: true,
-                close: true,
-                gravity: "top",
-                position: "right",
-                stopOnFocus: true,
-                style: {
-                    background: "#EF5222",
-                    padding: "20px 10px",
-                    borderRadius: '5px'
-                },
-            }).showToast();
+                    text: `Vui lòng chọn ngày về`,
+                    duration: 2000,
+                    newWindow: true,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    stopOnFocus: true,
+                    style: {
+                        background: "#EF5222",
+                        padding: "20px 10px",
+                        borderRadius: '5px'
+                    },
+                }).showToast();
                 // error_end_time.textContent = "Vui lòng chọn ngày về";
                 return;
             }
@@ -270,19 +270,19 @@ filterButton.addEventListener("click", function() {
 
             if (dateInputstart > dateInputend) {
                 Toastify({
-                text: `Ngày về phải lớn hơn ngày đi`,
-                duration: 2000,
-                newWindow: true,
-                close: true,
-                gravity: "top",
-                position: "right",
-                stopOnFocus: true,
-                style: {
-                    background: "#EF5222",
-                    padding: "20px 10px",
-                    borderRadius: '5px'
-                },
-            }).showToast();
+                    text: `Ngày về phải lớn hơn ngày đi`,
+                    duration: 2000,
+                    newWindow: true,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    stopOnFocus: true,
+                    style: {
+                        background: "#EF5222",
+                        padding: "20px 10px",
+                        borderRadius: '5px'
+                    },
+                }).showToast();
                 // error_end_time.textContent = "Ngày về phải lớn hơn ngày đi";
                 return;
             }
@@ -545,103 +545,29 @@ filterButton.addEventListener("click", function() {
                 showFilterSearch(datadefault, data, countfilter)
                 const checkedOptions = [];
                 const checkedTypes = [];
-                // console.log(data)
-                // console.log(datadend)
-                //Hàm lọc dữ liệu
-                function filterData(data, checkedOptions, checkedTypes) {
-                    if (checkedOptions.length === 0 && checkedTypes.length === 0) {
+                const checkedFloors = [];
+                const checkedRowSeats = [];
+                function filterData(data, checkedOptions, checkedTypes, checkedFloors, checkedRowSeats) {
+                    if (checkedOptions.length === 0 && checkedTypes.length === 0 && checkedFloors.length ===
+                        0 && checkedRowSeats.length === 0) {
                         return data;
                     }
                     if (Array.isArray(data[0])) {
                         var datafilter0 = data[0].filter((item) => {
-                            const startTime = new Date(`2000-01-01T${item.start_time}`);
-                            const startHour = startTime.getHours();
-
-                            let matchOption = false;
-                            for (const option of checkedOptions) {
-                                const [start, end] = option.split("-");
-                                const startHourOption = parseInt(start);
-                                const endHourOption = parseInt(end);
-
-                                if (startHour > startHourOption && startHour <= endHourOption) {
-                                    matchOption = true;
-                                    break;
-                                }
-                            }
-
-                            const matchType = checkedTypes.includes(item.car.type_car.type_seats.toString());
-                            if (checkedOptions.length > 0 && checkedTypes.length > 0) {
-                                // Nếu cả hai điều kiện đều được chọn, so sánh cả hai điều kiện
-
-                                return matchOption && matchType;
-                            } else {
-
-                                // Nếu chỉ có một điều kiện được chọn, lấy một điều kiện
-                                return matchOption || matchType;
-                            }
+                            return filter_search(item,checkedOptions, checkedTypes, checkedFloors, checkedRowSeats);
                         });
 
                         var datafilter1 = data[1].filter((item) => {
-                            const startTime = new Date(`2000-01-01T${item.start_time}`);
-                            const startHour = startTime.getHours();
-
-                            let matchOption = false;
-                            for (const option of checkedOptions) {
-                                const [start, end] = option.split("-");
-                                const startHourOption = parseInt(start);
-                                const endHourOption = parseInt(end);
-
-                                if (startHour > startHourOption && startHour <= endHourOption) {
-                                    matchOption = true;
-                                    break;
-                                }
-                            }
-
-                            const matchType = checkedTypes.includes(item.car.type_car.type_seats
-                                .toString());
-                            if (checkedOptions.length > 0 && checkedTypes.length > 0) {
-                                // Nếu cả hai điều kiện đều được chọn, so sánh cả hai điều kiện
-                                return matchOption && matchType;
-                            } else {
-                                // Nếu chỉ có một điều kiện được chọn, lấy một điều kiện
-                                return matchOption || matchType;
-                            }
+                            return filter_search(item,checkedOptions, checkedTypes, checkedFloors, checkedRowSeats);
                         });
                         return [datafilter0, datafilter1]
                     } else {
-
                         return data.filter((item) => {
-                            const startTime = new Date(`2000-01-01T${item.start_time}`);
-                            const startHour = startTime.getHours();
-
-                            let matchOption = false;
-                            for (const option of checkedOptions) {
-                                const [start, end] = option.split("-");
-                                const startHourOption = parseInt(start);
-                                const endHourOption = parseInt(end);
-
-                                if (startHour > startHourOption && startHour <= endHourOption) {
-                                    matchOption = true;
-                                    break;
-                                }
-                            }
-
-                            const matchType = checkedTypes.includes(item.car.type_car.type_seats
-                                .toString());
-
-                            if (checkedOptions.length > 0 && checkedTypes.length > 0) {
-                                // Nếu cả hai điều kiện đều được chọn, so sánh cả hai điều kiện
-                                return matchOption && matchType;
-                            } else {
-                                // Nếu chỉ có một điều kiện được chọn, lấy một điều kiện
-                                return matchOption || matchType;
-                            }
+                            return filter_search(item,checkedOptions, checkedTypes, checkedFloors, checkedRowSeats);
                         });
                     }
 
                 }
-
-
 
                 //Hàm xử lý sự kiện khi checkbox thay đổi
                 function handleCheckboxChange(event) {
@@ -659,7 +585,7 @@ filterButton.addEventListener("click", function() {
                         }
                     }
                     // Lọc dữ liệu
-                    const filteredData = filterData(data, checkedOptions, checkedTypes);
+                    const filteredData = filterData(data, checkedOptions, checkedTypes, checkedFloors, checkedRowSeats);
                     // Hiển thị kết quả
                     var countfilter = 1;
                     showFilterSearch(datadefault, filteredData, countfilter);
@@ -685,7 +611,7 @@ filterButton.addEventListener("click", function() {
                     }
 
                     // Lọc dữ liệu
-                    const filteredData = filterData(data, checkedOptions, checkedTypes);
+                    const filteredData = filterData(data, checkedOptions, checkedTypes, checkedFloors, checkedRowSeats);
 
                     // Hiển thị kết quả
                     var countfilter = 0;
@@ -693,27 +619,74 @@ filterButton.addEventListener("click", function() {
 
                 }
 
+                function handleFloorButtonClick(event) {
+                    const button = event.target;
+                    const type = button.dataset.type;
+                    if (button.classList.contains("active")) {
+                        // Nếu button đã được chọn, loại bỏ loại khỏi mảng checkedFloors
+                        const index = checkedFloors.indexOf(type);
+                        if (index > -1) {
+                            checkedFloors.splice(index, 1);
+                        }
+                        button.classList.remove("active");
+                    } else {
+                        // Nếu button chưa được chọn, thêm loại vào mảng checkedFloors
+                        checkedFloors.push(type);
+                        button.classList.add("active");
+                    }
+
+                    // Lọc dữ liệu
+                    const filteredData = filterData(data, checkedOptions, checkedTypes, checkedFloors, checkedRowSeats);
+
+                    // Hiển thị kết quả
+                    var countfilter = 0;
+                    showFilterSearch(datadefault, filteredData, countfilter);
+
+                }
+                function handleRowSeatButtonClick(event) {
+                    const button = event.target;
+                    const type = button.dataset.type;
+                    if (button.classList.contains("active")) {
+                        // Nếu button đã được chọn, loại bỏ loại khỏi mảng checkedFloors
+                        const index = checkedRowSeats.indexOf(type);
+                        if (index > -1) {
+                            checkedRowSeats.splice(index, 1);
+                        }
+                        button.classList.remove("active");
+                    } else {
+                        // Nếu button chưa được chọn, thêm loại vào mảng checkedFloors
+                        checkedRowSeats.push(type);
+                        button.classList.add("active");
+                    }
+                    // Lọc dữ liệu
+                    const filteredData = filterData(data, checkedOptions, checkedTypes, checkedFloors, checkedRowSeats);
+                    // Hiển thị kết quả
+                    var countfilter = 0;
+                    showFilterSearch(datadefault, filteredData, countfilter);
+
+                }
                 //Gắn sự kiện cho các checkbox khi tài liệu HTML đã được tải và sẵn sàng
                 const checkboxes = document.querySelectorAll('input[type="checkbox"]');
                 checkboxes.forEach((checkbox) => {
                     checkbox.addEventListener("change", handleCheckboxChange);
                 });
 
-                // Gắn sự kiện cho các button loại khi tài liệu HTML đã được tải và sẵn sàng
+                // Gắn sự kiện cho các button loại xe khi tài liệu HTML đã được tải và sẵn sàng
                 const typeButtons = document.querySelectorAll(".type-seat");
                 typeButtons.forEach((button) => {
                     button.addEventListener("click", handleTypeButtonClick);
                 });
-
-                // console.log(data)
-                // Khởi tạo mặc định - Hiển thị tất cả dữ liệu
+                // Gắn sự kiện cho các button tầng khi tài liệu HTML đã được tải và sẵn sàng
+                const floorButtons = document.querySelectorAll(".floor");
+                floorButtons.forEach((button) => {
+                    button.addEventListener("click", handleFloorButtonClick);
+                });
+                const rowSeatButtons = document.querySelectorAll(".rowseat");
+                rowSeatButtons.forEach((button) => {
+                    button.addEventListener("click", handleRowSeatButtonClick);
+                });
 
             })
-
-        // function handleClick(event) {
-        //     var buttonData = event.target.dataset.type;
-        //     console.log(buttonData);
-        // }
 
         function showFilterSearch(data, datafilter, countfilter) {
             if (data.status == 0 || datafilter.length == 0) {
@@ -726,13 +699,6 @@ filterButton.addEventListener("click", function() {
                     document.getElementById('count1824').innerHTML = `(0)`
                 }
             } else if (data.status == 1) {
-
-                // if (Array.isArray(data[0])) {
-                //     var result = data[0]
-                // } else {
-                //     var result = Object.values(data[0]);
-                // }
-
 
                 var count0006 = datafilter.filter(item => item.start_time > '00:00:00' && item.start_time <=
                     '06:00:00').length;
@@ -760,13 +726,8 @@ filterButton.addEventListener("click", function() {
                     document.getElementById('start_end').innerHTML =
                         `${item.start_location} - ${item.end_location} (${datafilter.length})`;
                     var type_seat = item.car.type_car.type_seats == 1 ? 'Ghế' : 'Giường';
-                    // fetch(link + 'api/get_seat_empty?trip_id=' + item.id)
-                    //     .then(function(response) {
-                    //         return response.json();
-                    //     })
-                    //     .then(function(data) {})
-                            var htmlresult =
-                                `<div class="p-4 border border-1 rounded-3 mt-3 w-100">
+                    var htmlresult =
+                        `<div class="p-4 border border-1 rounded-3 mt-3 w-100">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <p class="mb-0 pe-3 fw-medium filter-time">${item.start_time.slice(0, -3)}</p>
                                     <img src="{{ asset('client/assets/images/start_place.svg') }}" alt="">
@@ -785,7 +746,7 @@ filterButton.addEventListener("click", function() {
                                 </div>
                                 <div class="d-flex pt-4 justify-content-between align-items-center">
                                     <div class="d-flex align-items-center">
-                                        <p class="fs-14 mb-0 cl-orange fw-medium item-filter">${item.trip_price}đ</p>
+                                        <p class="fs-14 mb-0 cl-orange fw-medium item-filter">${item.trip_price.toLocaleString("vi-VN")}đ</p>
                                         <p class="mx-2 mb-0 circle-menu-style rounded-pill"></p>
                                         <p class="fs-14 mb-0 cl-orange fw-medium item-filter">${type_seat} </p>
                                         <p class="mx-2 mb-0 circle-menu-style rounded-pill"></p>
@@ -793,12 +754,13 @@ filterButton.addEventListener("click", function() {
                                     </div>
                                     <div>
                                         <button
-                                            class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip px-4" onclick="redirectToSelectSeat(this)" data-turn="${item.id}">Chọn
+                                            class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip px-4" onclick="redirectToSelectSeat(this)"  data-turn="${item.id}">Chọn
                                             chuyến</button>
                                     </div>
                                 </div>
                             </div>`;
-                            document.getElementById('searchresults').innerHTML += htmlresult;
+                    document.getElementById('searchresults').innerHTML += htmlresult;
+
 
                 });
             } else {
@@ -837,11 +799,7 @@ filterButton.addEventListener("click", function() {
                         document.getElementById('count1218').innerHTML = `(${count1218})`
                         document.getElementById('count1824').innerHTML = `(${count1824})`
                     }
-                    // if (Array.isArray(data[0][0])) {
-                    //     var result = data[0][0]
-                    // } else {
-                    //     var result = Object.values(data[0][0]);
-                    // }
+
                     if (datafilter[0].length == 0) {
                         document.getElementById('searchresults').innerHTML =
                             `<div class=" ps-4 text-center">
@@ -859,8 +817,8 @@ filterButton.addEventListener("click", function() {
                             var type_seat = item.car.type_car.type_seats == 1 ? 'Ghế' :
                                 'Giường';
 
-                                    var htmlresult =
-                                        `<div class="p-4 border border-1 rounded-3 mt-3 w-100">
+                            var htmlresult =
+                                `<div class="p-4 border border-1 rounded-3 mt-3 w-100">
                             <div class="d-flex justify-content-between align-items-center">
                                 <p class="mb-0 pe-3 fw-medium">${item.start_time.slice(0, -3)}</p>
                                 <img src="{{ asset('client/assets/images/start_place.svg') }}" alt="">
@@ -879,7 +837,7 @@ filterButton.addEventListener("click", function() {
                             </div>
                             <div class="d-flex pt-4 justify-content-between align-items-center">
                                 <div class="d-flex align-items-center">
-                                    <p class="fs-14 mb-0 cl-orange fw-medium">${item.trip_price}.000đ</p>
+                                    <p class="fs-14 mb-0 cl-orange fw-medium">${item.trip_price.toLocaleString("vi-VN")}đ</p>
                                     <p class="mx-2 mb-0 circle-menu-style rounded-pill"></p>
                                     <p class="fs-14 mb-0 cl-orange fw-medium">${type_seat}</p>
                                     <p class="mx-2 mb-0 circle-menu-style rounded-pill"></p>
@@ -893,15 +851,15 @@ filterButton.addEventListener("click", function() {
                                 </div>
                             </div>
                         </div>`;
-                                    document.getElementById('searchresults').innerHTML +=
-                                        htmlresult;
-                                    buttonselected = document.querySelector(
-                                        `.buttontrip[data-id="${localStorage.getItem('buttontrip')}"]`
-                                    )
-                                    if (buttonselected !== null) {
-                                        buttonselected.style.backgroundColor = '#F9821D';
-                                        buttonselected.style.color = '#fff';
-                                    }
+                            document.getElementById('searchresults').innerHTML +=
+                                htmlresult;
+                            buttonselected = document.querySelector(
+                                `.buttontrip[data-id="${localStorage.getItem('buttontrip')}"]`
+                            )
+                            if (buttonselected !== null) {
+                                buttonselected.style.backgroundColor = '#F9821D';
+                                buttonselected.style.color = '#fff';
+                            }
 
                         });
                     }
@@ -955,8 +913,8 @@ filterButton.addEventListener("click", function() {
                             var type_seat = item.car.type_car.type_seats == 1 ? 'Ghế' :
                                 'Giường';
 
-                                    var htmlresult =
-                                        `<div class="p-4 border border-1 rounded-3 mt-3 w-100">
+                            var htmlresult =
+                                `<div class="p-4 border border-1 rounded-3 mt-3 w-100">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <p class="mb-0 pe-3 fw-medium">${item.start_time.slice(0, -3)}</p>
                                     <img src="{{ asset('client/assets/images/start_place.svg') }}" alt="">
@@ -975,7 +933,7 @@ filterButton.addEventListener("click", function() {
                                 </div>
                                 <div class="d-flex pt-4 justify-content-between align-items-center">
                                     <div class="d-flex align-items-center">
-                                        <p class="fs-14 mb-0 cl-orange fw-medium">${item.trip_price}.000đ</p>
+                                        <p class="fs-14 mb-0 cl-orange fw-medium">${item.trip_price.toLocaleString("vi-VN")}đ</p>
                                         <p class="mx-2 mb-0 circle-menu-style rounded-pill"></p>
                                         <p class="fs-14 mb-0 cl-orange fw-medium">${type_seat}</p>
                                         <p class="mx-2 mb-0 circle-menu-style rounded-pill"></p>
@@ -989,15 +947,15 @@ filterButton.addEventListener("click", function() {
                                     </div>
                                 </div>
                             </div>`;
-                                    document.getElementById('searchresults').innerHTML +=
-                                        htmlresult;
-                                    buttonselected = document.querySelector(
-                                        `.buttontrip[data-id="${localStorage.getItem('buttontrip')}"]`
-                                    )
-                                    if (buttonselected !== null) {
-                                        buttonselected.style.backgroundColor = '#F9821D';
-                                        buttonselected.style.color = '#fff';
-                                    }
+                            document.getElementById('searchresults').innerHTML +=
+                                htmlresult;
+                            buttonselected = document.querySelector(
+                                `.buttontrip[data-id="${localStorage.getItem('buttontrip')}"]`
+                            )
+                            if (buttonselected !== null) {
+                                buttonselected.style.backgroundColor = '#F9821D';
+                                buttonselected.style.color = '#fff';
+                            }
 
                         });
                     }
@@ -1010,8 +968,6 @@ filterButton.addEventListener("click", function() {
 
             }
         }
-
-
 
         var myDataArray = getDataFromCookieArray();
         var formId = 0;
@@ -1124,6 +1080,153 @@ filterButton.addEventListener("click", function() {
             selectedButtons.push(button);
             localStorage.setItem("buttontrip", button.getAttribute("data-id"));
         }
+    }
+
+    function filter_search(item,checkedOptions, checkedTypes, checkedFloors, checkedRowSeats) {
+        const startTime = new Date(`2000-01-01T${item.start_time}`);
+        const startHour = startTime.getHours();
+        let dataresult = true;
+        if (checkedOptions.length > 0) {
+            dataresult = false;
+            for (const option of checkedOptions) {
+                const [start, end] = option.split("-");
+                const startHourOption = parseInt(start);
+                const endHourOption = parseInt(end);
+
+                if (startHour > startHourOption && startHour <= endHourOption) {
+                    dataresult = true;
+                    break;
+                }
+            }
+        }
+        if (dataresult == false) {
+            return false;
+        }
+        if (checkedTypes.length > 0) {
+            dataresult = checkedTypes.includes(item.car.type_car.type_seats
+                .toString());
+        }
+        if (dataresult == false) {
+            return false;
+        }
+        var seat_code = item.seat_code;
+        var result = [];
+        for (var key in seat_code) {
+            if (seat_code.hasOwnProperty(key)) {
+                var value = seat_code[key];
+                var number = value.replace(/\d/g, "");
+                result.push(number);
+            }
+        }
+        var countdown = 0;
+        var countup = 0;
+        for (var i = 0; i < result.length; i++) {
+            if (result[i] == 'A') {
+                countdown++;
+            } else if (result[i] == 'B') {
+                countup++;
+            }
+        }
+        let matchFloor = true;
+        if (checkedFloors.length > 0) {
+            if (checkedFloors == 'down') {
+                if (countdown > 0) {
+                    dataresult = true
+                } else {
+                    dataresult = false
+                }
+            } else if (checkedFloors == 'up') {
+                if (countup > 0) {
+                    dataresult = true
+                } else {
+                    dataresult = false
+                }
+            } else {
+                if (countup > 0 && countdown > 0) {
+                    dataresult = true
+                } else {
+                    dataresult = false
+                }
+            }
+        }
+        if (dataresult == false) {
+            return false;
+        }
+
+        var resultstring = [];
+        for (var key in seat_code) {
+            if (seat_code.hasOwnProperty(key)) {
+                var value = seat_code[key];
+                var number = parseInt(value.replace(/\D/g, ""));
+                resultstring.push(number);
+            }
+        }
+        var counttop = 0;
+        var countmid = 0;
+        var countend = 0;
+        for (var i = 0; i < resultstring.length; i++) {
+            numberseat = parseInt(resultstring[i]);
+            if (numberseat <= 6) {
+                counttop++;
+            } else if (numberseat > 6 && numberseat <= 18) {
+                countmid++;
+            }else if (numberseat > 18) {
+                countend++
+            }
+        }
+        if (checkedRowSeats.length == 1) {
+            if (checkedRowSeats == 'top') {
+                if (counttop > 0) {
+                    dataresult = true
+                } else {
+                    dataresult = false
+                }
+            } else if (checkedRowSeats == 'mid') {
+                if (countmid > 0) {
+                    dataresult = true
+                } else {
+                    dataresult = false
+                }
+            }else if (checkedRowSeats == 'end') {
+                if (countend > 0) {
+                    dataresult = true
+                } else {
+                    dataresult = false
+                }
+            }
+            // else if (checkedRowSeats == ['end', 'mid']) {
+            //     if (countend > 0) {
+            //         dataresult = true
+            //     } else {
+            //         dataresult = false
+            //     }
+            // }
+        }else if (checkedRowSeats.length == 2) {
+            if ((checkedRowSeats[0] == 'top' && checkedRowSeats[1] == 'mid') || (checkedRowSeats[0] == 'mid' && checkedRowSeats[1] == 'top')) {
+                if (counttop > 0 && countmid > 0) {
+                    dataresult = true
+                } else {
+                    dataresult = false
+                }
+            }
+            if ((checkedRowSeats[0] == 'top' && checkedRowSeats[1] == 'end') || (checkedRowSeats[0] == 'end' && checkedRowSeats[1] == 'top')) {
+                if (counttop > 0 && countmid > 0) {
+                    dataresult = true
+                } else {
+                    dataresult = false
+                }
+            }
+            if ((checkedRowSeats[0] == 'mid' && checkedRowSeats[1] == 'end') || (checkedRowSeats[0] == 'end' && checkedRowSeats[1] == 'mid')) {
+                if (counttop > 0 && countmid > 0) {
+                    dataresult = true
+                } else {
+                    dataresult = false
+                }
+            }
+        }else{
+            dataresult = true
+        }
+        return dataresult;
     }
 </script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

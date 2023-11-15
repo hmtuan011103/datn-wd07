@@ -5,7 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\Client\AuthController;
 use App\Http\Controllers\Home\Admin\HomeController;
 use App\Http\Controllers\Locations\Client\LocationController as ClientLocationController;
+use App\Http\Controllers\Ticket\Admin\TicketController as AdminTicketController;
 use App\Http\Controllers\Ticket\Client\TicketController;
+use App\Http\Controllers\Trip\Admin\TripController as AdminTripController;
 use App\Http\Controllers\Trip\Client\TripController;
 
 /*
@@ -69,3 +71,8 @@ Route::get('news/recent', [TripController::class, 'getRecentNews']);
 
 
 Route::delete('news/destroy-multiple', [\App\Http\Controllers\New\Admin\NewController::class, 'destroyMultiple']);
+
+Route::get('permission/delete/{id}', [App\Http\Controllers\Permissions\Admin\PermissionController::class, 'delete']);
+
+Route::get('/search_ticket_admin', [AdminTicketController::class, 'search_ticket_admin'])->name('search_ticket_admin');
+

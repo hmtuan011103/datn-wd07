@@ -14,38 +14,41 @@ class TripController extends BaseTripController
 {
     public function list_trip()
     {
-        // $trips = Trip::all();       
+        // $trips = Trip::all();
         $trips = $this->tripService->list_desc();
-        return view('admin.pages.trip.main',  compact('trips'), [      
+        return view('admin.pages.trip.main',  compact('trips'), [
             'title' => 'Danh sách chuyến đi'
         ]);
     }
 
     public function form_create_trip() {
-        $cars = Car::all();
-        $users = User::all();
+        $cars = $this->tripService->getCar();
+        $userDrive = $this->tripService->getDrive();
+        $assistantCar = $this->tripService->assistantCar();
         $locations = $this->tripService->get_parent_id();
-        return view('admin.pages.trip.create',compact('cars','users','locations'),[
+        return view('admin.pages.trip.create',compact('cars','userDrive','assistantCar','locations'),[
             'title' => 'Thêm chuyến đi '
         ]);
+
     }
 
     public function create_trip (StoreTripRequest $request) {
- 
+
         $this->tripService->create($request);
         // dd($trip);
             toastr()->success('Thêm thành công.','Thành công');
             return redirect()->route('form_create_trip');
-        
+
     }
 
     public function edit_trip($id) {
-       
+
         $trip = Trip::find($id);
-        $cars = Car::all();
-        $users = User::all();
+        $cars = $this->tripService->getCar();
+        $userDrive = $this->tripService->getDrive();
+        $assistantCar = $this->tripService->assistantCar();
         $locations = $this->tripService->get_parent_id();
-        return view('admin.pages.trip.edit', compact('trip','users','cars','locations'),[
+        return view('admin.pages.trip.edit', compact('trip','userDrive','assistantCar','cars','locations'),[
             'title' => 'Sửa chuyến đi'
         ]);
 
@@ -55,11 +58,11 @@ class TripController extends BaseTripController
             $this->tripService->edit_trip($request,$id);
             toastr()->success('Sửa thành công.','Thành công');
             return redirect()->route('list_trip');
-       
+
     }
 
     public function delete_trip($id) {
-        Trip::find($id)->delete();     
+        Trip::find($id)->delete();
         // toastr()->success('Xóa thành công.','Thành công');
         return redirect()->route('list_trip');
 
@@ -69,11 +72,11 @@ class TripController extends BaseTripController
     {
         $trip = array();
         $trip[] = Trip::find($id);
-        $trip[] = Trip::select('trips.*','users.name as drive_name')->join('users', 'users.id', '=', 'trips.drive_id')->where('trips.id', '=', $id)->get();        
-        $trip[] = Trip::select('trips.*','users.name as assistantCar_name')->join('users', 'users.id', '=', 'trips.assistantCar_id')  ->where('trips.id', '=', $id)->get();   
-        $trip[] = Trip::select('trips.*','cars.name as car_name')->join('cars', 'cars.id', '=', 'trips.car_id')->where('trips.id', '=', $id)->get();   
+        $trip[] = Trip::select('trips.*','users.name as drive_name')->join('users', 'users.id', '=', 'trips.drive_id')->where('trips.id', '=', $id)->get();
+        $trip[] = Trip::select('trips.*','users.name as assistantCar_name')->join('users', 'users.id', '=', 'trips.assistantCar_id')  ->where('trips.id', '=', $id)->get();
+        $trip[] = Trip::select('trips.*','cars.name as car_name')->join('cars', 'cars.id', '=', 'trips.car_id')->where('trips.id', '=', $id)->get();
 
-        
+
         return response()->json(['data'=>$trip],200); // 200 là mã lỗi
     }
 }

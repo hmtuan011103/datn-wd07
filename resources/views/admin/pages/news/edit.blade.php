@@ -14,7 +14,7 @@
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
-                                    <li class="breadcrumb-item active">Bài viết</li>
+                                    <li class="breadcrumb-item active">Cập nhật bài viết</li>
                                 </ol>
                             </div>
 
@@ -27,7 +27,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title mb-0">Thêm Mới Bài viết</h4>
+                                <h4 class="card-title mb-0">Cập nhật bài viết</h4>
                             </div><!-- end card header -->
 
                             <div class="card-body">
@@ -66,7 +66,10 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="email-field" class="form-label">Nội dung </label>
-                                                <textarea style="height: 100px" name="content" id="editor" class="form-control" placeholder="Nhập Mô Tả">{{ $model->content }}</textarea>
+                                                <textarea style="height: 100px" name="content" id="editor" class="form-control">{{ $model->content }}</textarea>
+                                                @error('content')
+                                                <div style="font-weight: 500; margin-bottom: 10px; color: red;">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
 

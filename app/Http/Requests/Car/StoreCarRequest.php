@@ -25,7 +25,7 @@ class StoreCarRequest extends FormRequest
             'image' => 'mimes:jpeg,png,jpg,gif,jfif',
             'color' => 'required',
             'id_type_car' => 'required',
-            'license_plate' => 'required',
+            'license_plate' => 'required|unique:cars',
             'name' => 'required',
             'status' => 'required',
         ];
@@ -35,6 +35,7 @@ class StoreCarRequest extends FormRequest
     {
         return [
             'license_plate.required'=>'Biển Số Xe Không Được Để Trống.',
+            'license_plate.unique'=>'Biển Số Xe Không Được Trùng nhau.',
             'color.required'=>'Vui Lòng Chọn Màu Của Xe.',
             'id_type_car.required'=>'Vui Lòng Nhập Số Lượng Ghế.',
 //            'image.required'=>'Ảnh Không Được Để Trống.',

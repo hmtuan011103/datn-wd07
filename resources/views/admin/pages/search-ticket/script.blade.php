@@ -101,7 +101,7 @@
             var phone_number = phoneNumberInput.value;
             var code_bill = ticketCodeInput.value;
 
-            fetch(link + 'api/search_ticket?phone_number=' + phone_number + '&code_bill=' + code_bill)
+            fetch(link + 'api/search_ticket_admin?phone_number=' + phone_number + '&code_bill=' + code_bill)
                 .then(function(response) {
                     if (!response.ok) {
                         throw new Error('Response status: ' + response.status);
@@ -126,7 +126,7 @@
               <p>THÔNG TIN VÉ</p>
             </div>
             <div class="row detail-user">
-              <div class="col-md-6 col-11 text-user">
+              <div class="col-md-6 text-user">
                 <div class="detail-user-one">
                   <p>Họ và tên : </p>
                   <p>Số điện thoại : </p>
@@ -138,7 +138,7 @@
                   <p class="label-user">${data[0].email}</p>
                 </div>
               </div>
-              <div class="col-md-6 col-11 text-user">
+              <div class="col-md-6 text-user">
                 <div class="detail-user-one">
                   <p>Tổng giá vé : </p>
                   <p>Trạng thái : </p>
@@ -191,7 +191,7 @@
                   </div>
                 </div>
                 <div class="text-footer" id="hi">
-                  <p>Mang mã vé đến quầy để đổi vé lên xe trước giờ chạy ít nhất 60 phút</p>
+                  <p>Hãy mang mã vé đến văn phòng để đổi vé lên xe trước giờ xuất bến ít nhất 60 phút</p>
                 </div>
               </div>
             `;
@@ -215,11 +215,4 @@
         });
         // end logic
     });
-
-    // const exitIcon = document.querySelector('.exit-icon');
-    // const modal = document.querySelector('.modal-dialog');
-
-    // exitIcon.addEventListener('click', function() {
-    // modal.style.display = 'none'; // Ẩn đi phần tử có lớp CSS "modal"
-    // });
 </script>

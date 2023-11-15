@@ -13,13 +13,13 @@ class PermissionController extends BasePermissionController
 {
     public function index()
     {
-        $title = 'Trang quyền';
+        $title = 'Danh sách quyền';
         $permissions = $this->permissionService->index();
         return view('admin.pages.permission.main', compact('title', 'permissions'));
     }
     public function add()
     {
-        $title = 'Trang add ';
+        $title = 'Thêm mới quyền';
         $permissions = Permission::where(['parent_id' => 0])->get();
         return view('admin.pages.permission.add', compact('title', 'permissions'));
     }
@@ -32,7 +32,7 @@ class PermissionController extends BasePermissionController
     }
     public function edit($id)
     {
-        $title = 'Trang phân quyền';
+        $title = 'Chỉnh sửa quyền';
         $permission = Permission::find($id);
         $permissions = Permission::where(['parent_id' => 0])->get();
         return view('admin.pages.permission.edit', compact('permission', 'title', 'permissions'));

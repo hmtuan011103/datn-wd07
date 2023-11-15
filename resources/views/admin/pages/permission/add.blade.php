@@ -33,15 +33,15 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="mb-3">
-                                                <label for="compnayNameinput" class="form-label">Tên</label>
+                                                <label for="" class="form-label">Tên *</label>
                                                 <input type="text" class="form-control" name="name"
-                                                    placeholder="Name Permission">
+                                                    placeholder="Mã quyền">
                                             </div>
                                         </div>
                                         <!--end col-->
                                         <div class="col-md-12">
                                             <div class="mb-3">
-                                                <label for="phonenumberInput" class="form-label">Mô tả</label>
+                                                <label for="" class="form-label">Mô tả *</label>
                                                 <textarea class="form-control" name="description" id="" cols="10" rows="10"></textarea>
                                             </div>
                                         </div>
@@ -51,7 +51,7 @@
                                             <select class="form-select form-select-md" name="parent_id">
                                                 <option selected value="0" ></option>
                                                   @foreach($permissions as $per)
-                                                    <option value="<?= $per->id ?>"><?= $per->name ?></option>
+                                                    <option value="{{ $per->id }}">{{ $per->name }}</option>
                                                  @endforeach
                                             </select>
                                         </div>
