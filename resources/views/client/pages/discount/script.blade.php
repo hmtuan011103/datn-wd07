@@ -3,8 +3,9 @@
         fetch('http://127.0.0.1:8000/api/discounts', {
             method: 'GET',
             headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                'Content-Type': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getCookie('token'),
             },
         })
             .then(response => {

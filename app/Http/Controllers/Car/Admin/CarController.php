@@ -15,9 +15,14 @@ class CarController extends BaseCarController
 {
     public function index()
     {
+        $carTypeNames = TypeCar::pluck('name');
+        $carColors = Car::pluck('color')->unique();
+        $carStatuses = Car::pluck('status')->unique();
         $data = $this->CarService->index();
         $title = 'Danh sách xe';
-        return view('admin.pages.car.main', compact('title', 'data'));
+
+
+        return view('admin.pages.car.main', compact('title', 'data', 'carTypeNames', 'carColors', 'carStatuses'));
     }
 
     public function create()
@@ -109,8 +114,9 @@ class CarController extends BaseCarController
     {
         $this->CarService->destroy($id);
     }
-        public function destroy_all(string $id)
+    public function destroy_all(string $id)
     {
         $this->CarService->destroy_all($id);
     }
+
 }
