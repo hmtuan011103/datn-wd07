@@ -111,6 +111,35 @@
 
         });
     });
+    $(document).ready(function() {
+        $('#carColor').on('change', function() {
+            var selectedColor = $(this).find(':selected').css('background-color');
+            $('.selected-color').css('background-color', selectedColor);
+        });
+    });
+</script>
+<script>
+    function filterTable() {
+        // Lấy giá trị đã chọn từ dropdown
+        var selectedCarType = $('#carType').val().toLowerCase();
+        var selectedCarStatus = $('#carStatus').val();
+
+        // Ẩn tất cả các dòng trước khi hiển thị lại dòng phù hợp
+        $('.car-row').hide();
+
+        // Hiển thị dòng có loại xe và trạng thái tương ứng
+        $('.car-row').each(function() {
+            var carType = $(this).data('car-type').toLowerCase();
+            var carStatus = $(this).find('.customer_name').eq(3).text().trim();
+
+            if (
+                (selectedCarType === '' || carType === selectedCarType) &&
+                (selectedCarStatus === '' || (selectedCarStatus === '0' && carStatus === 'Xe Đang Hoạt Động') || (selectedCarStatus === '1' && carStatus === 'Xe Đã Ngừng Hoạt Động'))
+            ) {
+                $(this).show();
+            }
+        });
+    }
 </script>
 
 

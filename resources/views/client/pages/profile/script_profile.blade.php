@@ -1,11 +1,14 @@
 <script>
     var isNotificationDisplayed = false;
+    var initialValue = 0;  // Giá trị mặc định
+
     function getProfile() {
-        fetch('http://127.0.0.1:8000/api/profile ', {
+        fetch('http://127.0.0.1:8000/api/profile', {
             method: 'GET',
             headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                'Content-Type': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getCookie('token'),
             },
         })
             .then(response => response.json())
@@ -30,6 +33,16 @@
                     const location_Profile = document.getElementById('location_Profile');
                     location_Profile.value = data.data.location;
                     email_Profile.setAttribute('readonly', 'true');
+
+                    // Gán giá trị "total_seats" vào biến initialValue
+                    initialValue = data.data.total_seats || initialValue;
+
+                    // Cập nhật thanh tiến trình
+                    const maxValue = 20;
+                    const clampedInitialValue = Math.min(initialValue, maxValue);
+                    $('#progressInput').val(clampedInitialValue);
+                    const percentage = (clampedInitialValue / maxValue) * 100;
+                    $('.line').css('width', percentage + '%');
                 } else {
                     console.error("Lỗi: " + data.message);
                 }
@@ -38,8 +51,11 @@
                 console.error("Lỗi khi lấy hồ sơ: " + error);
             });
     }
+
+    // Gọi hàm getProfile khi trang tải
     getProfile();
-    document.getElementById('editButton').addEventListener('click', function (event) {
+
+document.getElementById('editButton').addEventListener('click', function (event) {
         event.preventDefault();
 
         // Lấy tham chiếu đến hai biểu mẫu
@@ -87,8 +103,9 @@
             fetch('http://127.0.0.1:8000/api/update_profile', {
                 method: 'post',
                 headers: {
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    'Authorization': 'Bearer ' + getCookie('token'),
                 },
                 body: JSON.stringify(data),
             })
@@ -127,4 +144,5 @@
         $(this).val($(this).val().replace(/[^0-9]/g, ""));
     });
 </script>
+
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

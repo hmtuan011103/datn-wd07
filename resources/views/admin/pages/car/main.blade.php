@@ -51,6 +51,47 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="filter-container">
+                                    <div class="filter-group-inline">
+                                        <label for="carType">Loại Xe</label>
+                                        <select id="carType" onchange="filterTable()">
+                                            <option value="">-- Chọn Loại Xe --</option>
+                                            @foreach ($carTypeNames as $carTypeName)
+                                                <option value="{{ strtolower($carTypeName) }}">{{ $carTypeName }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="filter-group-inline">
+                                        <label for="carStatus">Trạng Thái</label>
+                                        <select id="carStatus" onchange="filterTable()">
+                                            <option value="">-- Chọn Trạng Thái --</option>
+                                            @foreach ($carStatuses as $status)
+                                                <option value="{{ $status }}">
+                                                    @if ($status == '0')
+                                                        Xe Đang Hoạt Động
+                                                    @elseif ($status == '1')
+                                                        Xe Đã Ngừng Hoạt Động
+                                                    @endif
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+{{--                                    <div class="filter-group-inline">--}}
+{{--                                        <label for="carColor">Màu Xe</label>--}}
+{{--                                        <div class="custom-dropdown">--}}
+{{--                                            <span class="selected-color"></span>--}}
+{{--                                            <select id="carColor">--}}
+{{--                                                <option value="">-- Chọn Màu Xe --</option>--}}
+{{--                                                @foreach ($carColors as $color)--}}
+{{--                                                    <option value="{{ $color }}" style="background-color: {{ $color }}">--}}
+{{--                                                        {{ $color }}--}}
+{{--                                                    </option>--}}
+{{--                                                @endforeach--}}
+{{--                                            </select>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+                                </div>
 
                                 <div class="table-responsive table-card mt-3 mb-1">
                                     <table class="table align-middle table-nowrap" id="customerTable">
@@ -67,14 +108,13 @@
                                             <th data-sort="customer_name">Trạng Thái</th>
                                             <th data-sort="customer_name">Màu Xe</th>
                                             <th data-sort="customer_name">Biển Số Xe</th>
-                                            <th data-sort="customer_name">Mô Tả</th>
                                             <th data-sort="action">Chức Năng</th>
 
                                         </tr>
                                         </thead>
                                         <tbody class="list form-check-all">
                                         @foreach($data as $item)
-                                            <tr>
+                                            <tr class="car-row" data-car-type="{{ strtolower($item->typecar_name) }}">
                                                 <th scope="row">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox" name="rowCheckbox" value="{{$item->id}}">
@@ -96,7 +136,6 @@
                                                     </p>
                                                 </td>
                                                 <td class="customer_name">{{$item->license_plate}}</td>
-                                                <td class="customer_name">{{$item->description}}</td>
                                                 <td>
                                                     <div class="d-flex gap-2">
                                                         <div >
@@ -258,4 +297,6 @@
         </div>
     </footer>
 </div>
+
 @endsection
+

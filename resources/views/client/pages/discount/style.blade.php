@@ -92,8 +92,37 @@
     .mr-2 {
          margin-right: 0.5rem!important;
     }
-    .border_main {
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    .discount-container {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
         border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .discount-item {
+        flex: 0 0 calc(33.3333% - 20px);
+        margin: 10px;
+        padding: 15px;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+        background-color: #ffffff;
+    }
+
+    .discount-label {
+        font-weight: bold;
+        margin-right: 5px;
+    }
+
+    .discount-value {
+        color: #007bff;
+    }
+
+    h2 {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
     }
 </style>

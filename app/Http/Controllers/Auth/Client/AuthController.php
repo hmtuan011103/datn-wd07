@@ -3,17 +3,18 @@ namespace App\Http\Controllers\Auth\Client;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\DiscountCode;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
     public function changePassword(Request $request)
     {
-        // Kiểm tra xem người dùng hiện tại có tồn tại không
         $user = Auth::user();
         if (!$user) {
             return response()->json([
@@ -90,7 +91,7 @@ class AuthController extends Controller
         return response()->json([
             "status" => true,
             "message" => "User created successfully",
-            "redirect_url" => route('auth')
+            "redirect_url" => route('dang-nhap')
         ]);
     }
 
@@ -106,15 +107,14 @@ class AuthController extends Controller
         if ($user) {
             if (password_verify($request->password, $user->password)) {
                 $token = JWTAuth::fromUser($user);
-
+                $request->session()->put('jwt_token', $token);
                 return response()->json([
                     "status" => true,
                     "message" => "User logged in successfully",
                     "token" => $token,
                     "redirect_url" => route('trang_chu')
-                ]);
+                ])->header('Authorization', 'Bearer ' . $token);
             } else {
-                // Mật khẩu sai
                 return response()->json([
                     "status" => false,
                     "message" => "Tài khoản hoặc mật khẩu không chính xác.",
@@ -134,14 +134,63 @@ class AuthController extends Controller
             "message" => "Tài khoản hoặc mật khẩu không chính xác.",
         ]);
     }
-     public function profile(){
+    public function profile(){
+        // Lấy thông tin người dùng
+        $userData = auth()->user();
 
-        $userdata = auth()->user();
+        $totalSeats = DB::table('bills')
+            ->where('user_id', $userData->id)
+            ->sum('total_seats');
+
+        $userData->total_seats = $totalSeats;
 
         return response()->json([
             "status" => true,
             "message" => "Profile data",
-            "data" => $userdata
+            "data" => $userData
+        ]);
+    }
+    public function logout(Request $request){
+
+        auth()->logout();
+        $request->session()->forget('jwt_token');
+        return response()->json([
+            "status" => true,
+            "message" => "User logged out successfully"
+        ]);
+    }
+
+    public function discount()
+    {
+        $userData = auth()->user();
+
+        // Lấy tổng số ghế đã đặt từ bảng "bills"
+        $totalSeats = DB::table('bills')
+            ->where('user_id', $userData->id)
+            ->sum('total_seats');
+
+        // Lấy danh sách mã giảm giá từ bảng "discount_codes" trừ những mã đã sử dụng
+        $usedDiscounts = DB::table('bills')
+            ->where('user_id', $userData->id)
+            ->whereNotNull('discount_code_id')
+            ->pluck('discount_code_id');
+
+        $allDiscounts = DiscountCode::all();
+
+        // Chuyển đổi collection thành mảng
+        $unusedDiscounts = $allDiscounts->reject(function ($discount) use ($usedDiscounts) {
+            return in_array($discount->id, $usedDiscounts->toArray());
+        })->toArray();
+
+        $combinedData = [
+            'total_seats' => $totalSeats,
+            'discounts' => $unusedDiscounts,
+        ];
+
+        return response()->json([
+            "status" => true,
+            "message" => "List of discounts and total seats",
+            "data" => $combinedData
         ]);
     }
 
