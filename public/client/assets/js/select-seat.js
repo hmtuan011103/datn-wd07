@@ -202,6 +202,7 @@ $(function () {
                     .filter(item => item[0] === nameKeySelectedSeats)
                     .map(item => item[1]);
                 seats.forEach((seat, index) => {
+
                     const sttSeat = index + 1;
                     if (sttSeat % 4 === 1) {
                         $(`#show-seat-${indexParent}`).append(`
@@ -302,23 +303,6 @@ $(function () {
                         }
                     });
                 });
-                $(`#show-seat-${indexParent}`).append(`
-                        <tr class="gap-1 d-flex align-items-center justify-content-center header-car">
-                            <td colspan="2">
-                                <span class="fs-10 p-2 fw-medium border-start">
-                                    Cửa lên
-                                </span>
-                            </td>
-                            <td class="w-32 h-32">
-
-                            </td>
-                            <td colspan="2">
-                                <span class="fs-10 p-2 fw-medium border border-1">
-                                    Tài xế
-                                </span>
-                            </td>
-                        </tr>
-                    `);
             } else {
                 const seats_turn = $("<input>");
                 seats_turn.attr("name", "seats_turn[]");
@@ -348,6 +332,7 @@ $(function () {
                     </div>
                 `)
                 $('#show-seat-for-trip').append(showSeatForTrip);
+
                 seats.forEach((seat, index) => {
                     const sttSeat = index + 1;
                     if (sttSeat % 4 === 1) {
@@ -441,23 +426,7 @@ $(function () {
                         }
                     });
                 });
-                $('#show-seat-0').append(`
-                    <tr class="gap-1 d-flex align-items-center justify-content-center header-car">
-                        <td colspan="2">
-                            <span class="fs-10 p-2 fw-medium border-start">
-                                Cửa lên
-                            </span>
-                        </td>
-                        <td class="w-32 h-32">
 
-                        </td>
-                        <td colspan="2">
-                            <span class="fs-10 p-2 fw-medium border border-1">
-                                Tài xế
-                            </span>
-                        </td>
-                    </tr>
-                `);
                 $('#show-seat-for-trip').addClass('justify-content-center');
             }
         }
@@ -525,6 +494,7 @@ $(function () {
                 showSeatForTripLayer1.prepend('<p class="layer-name fs-13 fw-medium ta-center">Tầng 1</p>');
                 $('#show-seat-for-trip').append(showSeatForTripLayer1);
                 seats.slice(0, maxSeatsPerLayer).forEach((seat, index) => {
+
                     const sttSeat = index + 1;
                     if (sttSeat % 4 === 1) {
                         $(`#show-seat-1-${indexParent}`).append(`
@@ -625,23 +595,7 @@ $(function () {
                         }
                     });
                 });
-                $(`#show-seat-1-${indexParent}`).append(`
-                    <tr class="gap-1 d-flex align-items-center header-car justify-content-center">
-                        <td colspan="2">
-                            <span class="fs-10 p-2 fw-medium border-start">
-                                Cửa lên
-                            </span>
-                        </td>
-                        <td class="w-32 h-32">
 
-                        </td>
-                        <td colspan="2">
-                            <span class="fs-10 p-2 fw-medium border border-1">
-                                Tài xế
-                            </span>
-                        </td>
-                    </tr>
-                `);
 
                 const showSeatForTripLayer2 = $(`<table class="col-6 spacing-floor-second"><tbody id="show-seat-2-${indexParent}"></tbody></table>`);
                 showSeatForTripLayer2.prepend('<p class="layer-name spacing-floor-second-title ta-center fs-13 fw-medium">Tầng 2</p>');
@@ -774,6 +728,7 @@ $(function () {
                 const showSeatForTripLayer1 = $('<table class="col-6"><tbody id="show-seat-1"></tbody></table>');
                 showSeatForTripLayer1.prepend('<p class="layer-name fs-13 fw-medium ta-center">Tầng 1</p>');
                 $('#show-seat-for-trip').append(showSeatForTripLayer1);
+
                 seats.slice(0, maxSeatsPerLayer).forEach((seat, index) => {
                     const sttSeat = index + 1;
                     if (sttSeat % 4 === 1) {
@@ -865,23 +820,7 @@ $(function () {
                         }
                     });
                 });
-                $('#show-seat-1').append(`
-                    <tr class="gap-1 d-flex align-items-center header-car justify-content-center">
-                        <td colspan="2">
-                            <span class="fs-10 p-2 fw-medium border-start">
-                                Cửa lên
-                            </span>
-                        </td>
-                        <td class="w-32 h-32">
 
-                        </td>
-                        <td colspan="2">
-                            <span class="fs-10 p-2 fw-medium border border-1">
-                                Tài xế
-                            </span>
-                        </td>
-                    </tr>
-                `);
 
                 const showSeatForTripLayer2 = $('<table class="col-6 spacing-floor-second"><tbody id="show-seat-2"></tbody></table>');
                 showSeatForTripLayer2.prepend('<p class="layer-name spacing-floor-second-title ta-center fs-13 fw-medium">Tầng 2</p>');
@@ -986,15 +925,15 @@ $(function () {
         $('#show-seat-for-trip').append(`
                 <div class="my-auto col-12 d-flex justify-content-center pt-4">
                     <div class="d-flex align-items-center mb-3 ms-4">
-                        <img src="${baseImageUrl}/seat_disabled.svg" alt="" class="w-14">
+                        <img src="${baseImageUrl}/seat_disabled.svg" alt="" class="w-20px">
                         <p class="fs-13 fw-medium mb-1 ps-2">Đã bán</p>
                     </div>
                     <div class="d-flex align-items-center mb-3 ms-4">
-                        <img src="${baseImageUrl}/seat_active.svg" alt=""  class="w-14">
+                        <img src="${baseImageUrl}/seat_active.svg" alt=""  class="w-20px">
                         <p class="fs-13 fw-medium mb-1 ps-2">Còn trống</p>
                     </div>
                     <div class="d-flex align-items-center mb-3 ms-4">
-                        <img src="${baseImageUrl}/seat_selecting.svg" alt=""  class="w-14">
+                        <img src="${baseImageUrl}/seat_selecting.svg" alt=""  class="w-20px">
                         <p class="fs-13 fw-medium mb-1 ps-2">Đang chọn</p>
                     </div>
                 </div>

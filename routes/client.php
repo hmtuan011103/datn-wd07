@@ -20,18 +20,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('client.pages.home.index');
+    $title = "Chiến thắng | Trang chủ";
+    return view('client.pages.home.index', compact('title'));
 })->name('trang_chu');
 
 Route::get('/tim-kiem', function () {
-    return view('client.pages.search-route.index');
+    $title = "Chiến thắng | Tìm kiếm chuyến xe";
+    return view('client.pages.search-route.index', compact('title'));
 })->name('search');
 
 Route::get('/chon-ghe', function () {
-    return view('client.pages.select-seat.index');
+    $title = "Chiến thắng | Chọn ghế chuyến xe";
+    return view('client.pages.select-seat.index', compact('title'));
 });
 Route::get('/dang-nhap', function () {
-    return view('client.pages.auth.login');
+    $title = "Chiến thắng | Đăng nhập/Đăng ký";
+    return view('client.pages.auth.login', compact('title'));
 })->name('auth');
 Route::match(['get', 'post'], '/thong-tin', function () {
     return view('client.pages.profile.profile');

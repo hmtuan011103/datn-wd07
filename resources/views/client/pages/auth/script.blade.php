@@ -90,6 +90,12 @@
             emailError.textContent = "Vui lòng nhập địa chỉ email hợp lệ.";
             isValid = false;
         }
+
+        if (password.length === 0) {
+            passwordError.textContent = "Mật khẩu không được để trống.";
+            isValid = false;
+        }
+
         return isValid;
     }
 
@@ -117,8 +123,8 @@
 
                 const responseData = await response.json();
                 if (responseData.status === true) {
-                    localStorage.setItem('token', responseData.token);
-                    localStorage.setItem('status', true);
+                    setCookie('token', responseData.token, 10);
+                    setCookie('status', true, 10);
                     window.location.href = responseData.redirect_url;
                 } else if (responseData.status === false) {
                     const errorMessage = responseData.message;
@@ -210,5 +216,14 @@
         }
     });
 
+    function setCookie(name, value, minutes) {
+        var expires = "";
+        if (minutes) {
+            var date = new Date();
+            date.setTime(date.getTime() + (minutes * 60 * 1000)); // chuyển đổi phút thành mili giây
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + value + expires + "; path=/";
+    }
 </script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

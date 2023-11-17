@@ -241,6 +241,9 @@ footer.pt-4{
 .w-14 {
     width: 14% !important;
 }
+.w-20px {
+    width: 20px !important;
+}
 .w-70{
     width: 70%;
 }

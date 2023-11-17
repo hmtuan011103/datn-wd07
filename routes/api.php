@@ -76,3 +76,8 @@ Route::get('permission/delete/{id}', [App\Http\Controllers\Permissions\Admin\Per
 
 Route::get('/search_ticket_admin', [AdminTicketController::class, 'search_ticket_admin'])->name('search_ticket_admin');
 
+// Api test email when checkout successful
+Route::get('/test-mail', [AdminTicketController::class, 'testMail']);
+
+
+
