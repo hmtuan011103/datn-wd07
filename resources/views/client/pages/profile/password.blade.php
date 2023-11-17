@@ -1,5 +1,6 @@
 @extends('client.layout.main')
 @section('style')
+    @include('client.pages.trip.style')
     @include('client.pages.profile.style')
 @endsection
 @section('content')
@@ -47,7 +48,7 @@
                         <p class="text-gray mt-3 mb-4 text-[13px]"> Để bảo mật tài khoản, vui lòng không chia sẻ mật
                             khẩu cho người khách</p>
                     </div>
-                    <div class="mt-6 rounded-2xl border p-3">
+                    <div class="mt-6 rounded-2xl border p-3 border_main">
                         <form id="confirm_Password" method="POST">
                             @csrf
                             <div class="form-group">
@@ -80,5 +81,4 @@
 @endsection
 @section('script')
     @include('client.pages.profile.scrip_password')
-
 @endsection

@@ -47,8 +47,9 @@
         fetch('http://127.0.0.1:8000/api/password', {
             method: 'post',
             headers: {
+                'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                'Authorization': 'Bearer ' + getCookie('token'),
             },
             body: JSON.stringify(data),
         })

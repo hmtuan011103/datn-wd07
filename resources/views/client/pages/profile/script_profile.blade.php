@@ -6,8 +6,9 @@
         fetch('http://127.0.0.1:8000/api/profile', {
             method: 'GET',
             headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                'Content-Type': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getCookie('token'),
             },
         })
             .then(response => response.json())
@@ -102,8 +103,9 @@ document.getElementById('editButton').addEventListener('click', function (event)
             fetch('http://127.0.0.1:8000/api/update_profile', {
                 method: 'post',
                 headers: {
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    'Authorization': 'Bearer ' + getCookie('token'),
                 },
                 body: JSON.stringify(data),
             })

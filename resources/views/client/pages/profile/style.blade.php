@@ -92,4 +92,8 @@
     .mr-2 {
          margin-right: 0.5rem!important;
     }
+    .border_main {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
 </style>

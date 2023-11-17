@@ -42,12 +42,12 @@
                     </ul>
                 </div>
                 <div class="col-md-1"></div>
-                <div class="col-md-8">
+                <div class="col-md-8 ">
                     <div class="text-center text-md-left">
                         <h2 class="text-xl font-medium text-[#111111]">Thông tin tài khoản</h2>
                         <p class="text-gray mt-3 mb-4 text-[13px]">Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
                     </div>
-                    <div class="mt-6 rounded-2xl border p-3">
+                    <div class="mt-6 rounded-2xl border p-3 border_main" >
                        <div class="row" id="userInfor">
                            <div class="col-4 mb-4 text-center">
                                <img src="{{ asset('client/assets/images/Facebook-Avatar_3.png') }}" alt="Avatar" class="rounded-circle avatar-image mb-2">
