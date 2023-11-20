@@ -178,7 +178,30 @@
                                 </div>
                             </li>
                         @endif
-
+                        {{-- Banner --}}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarCarTypeCar" data-bs-toggle="collapse"
+                                role="button" aria-expanded="false" aria-controls="sidebarCarTypeCar">
+                                <i class="mdi mdi-car"></i>
+                                <span data-key="t-authentication">Banner</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarCarTypeCar">
+                                <ul class="nav nav-sm flex-column">
+                                    @if (in_array('read-car-type', Auth::user()->permissions))
+                                        <li class="nav-item">
+                                            <a href="{{ route('banner.index') }}" class="nav-link" role="button">
+                                                Banner
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('banner.index') }}" class="nav-link" role="button">
+                                                Create
+                                            </a>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </div>
+                        </li>
                     </ul>
                 </div>
                 <!-- Sidebar -->
