@@ -118,8 +118,10 @@ Route::prefix('news')->group(function () {
     Route::post('/store', [\App\Http\Controllers\New\Admin\NewController::class, 'store'])->name('store_new');
     Route::get('/edit/{id}', [\App\Http\Controllers\New\Admin\NewController::class, 'edit'])->name('edit_new');
     Route::put('/update/{id}', [\App\Http\Controllers\New\Admin\NewController::class, 'update'])->name('update_new');
-    Route::delete('/destroy/{id}',
-        [\App\Http\Controllers\New\Admin\NewController::class, 'destroy'])->name('destroy_new');
+    Route::delete(
+        '/destroy/{id}',
+        [\App\Http\Controllers\New\Admin\NewController::class, 'destroy']
+    )->name('destroy_new');
 });
 
 Route::group(['prefix' => 'discount_code'], function () {
@@ -149,8 +151,13 @@ Route::middleware(['guest'])->group(function () {
 
 Route::prefix('search-ticket')->group(function () {
     Route::get('/', [TicketController::class, 'form_search'])->name('form_search')->middleware('check_permission:read-search-ticket');
-
 });
+
+Route::middleware('check_permission:read-statistic')->name('statistics.')->prefix('statistics_general')->group(function () {
+    Route::get('/', [\App\Http\Controllers\Statistic\Admin\StatisticController::class, 'index'])->name('car');
+    Route::get('/user', [\App\Http\Controllers\Statistic\Admin\StatisticController::class, 'user'])->name('user');
+});
+
 
 // đặt cuối route
 Route::fallback(function () {
