@@ -14,7 +14,6 @@ class ReviewController extends BaseReviewController
     public function create(){
         $abc = env('APP_URL');
         $currentEnv = App::environment();
-        dd($abc);
         return view("client.pages.review.index");
     }
 
@@ -30,12 +29,12 @@ class ReviewController extends BaseReviewController
             'content'=> $content
         ];
         if (isset($request->stars)) {
-           $result = $this->reviewService->store($request); 
+           $result = $this->reviewService->store($request);
         }else{
             toastr()->error('Không thành công','Bạn chưa chọn số sao!');
             return view('client.pages.review.index', compact('data'));
         }
-        
+
         if ($result->id) {
             toastr()->success('Thành công','Thêm đánh giá mới thành công!');
             return redirect()->route('review');

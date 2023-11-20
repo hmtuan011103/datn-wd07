@@ -45,7 +45,8 @@ class TripController extends BaseTripController
     }
     public function lich_trinh()
     {
-        return view('client.pages.trip.index');
+        $title = "Chiến thắng | Lịch Trình";
+        return view('client.pages.trip.index', compact('title'));
     }
 
     public function getData()
