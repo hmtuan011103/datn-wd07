@@ -24,6 +24,11 @@ class Car extends Model
     public function seats(){
         return $this->hasMany(Seat::class,'car_id','id');
     }
+    public function trips()
+    {
+        return $this->hasMany(Trip::class, 'car_id', 'id');
+    }
+
 
 
 }

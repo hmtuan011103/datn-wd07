@@ -69,23 +69,9 @@
         position: absolute;
         width: calc(100% - 20px);
         height: 2px;
-        background-color: #ffc107;
-        /* Màu vàng đậm */
-        top: 50%;
-        left: 20px;
-        /* Khoảng cách từ trái */
-        z-index: 0;
-        margin-top: -13px;
-    }
-
-    .grey-line {
-        position: absolute;
-        width: calc(100% - 20px);
-        height: 2px;
         background-color: #ddd;
         top: 50%;
         left: 20px;
-        /* Khoảng cách từ trái */
         z-index: 0;
         margin-top: -13px;
     }
@@ -99,19 +85,6 @@
         background-color: #007bff;
     }
 
-    .initial .step-circle {
-        background-color: red;
-        border-color: red;
-    }
-
-    .initial .line {
-        background-color: red;
-    }
-
-    .yellow .line {
-        background-color: yellow !important;
-    }
-
     #contentContainer {
         border: 1px solid #ddd;
         padding: 20px;
@@ -119,16 +92,37 @@
     .mr-2 {
          margin-right: 0.5rem!important;
     }
-    .border_main {
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    .discount-container {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
         border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-    img, video {
-        max-width: 100%;
-        height: auto;
+
+    .discount-item {
+        flex: 0 0 calc(33.3333% - 20px);
+        margin: 10px;
+        padding: 15px;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+        background-color: #ffffff;
     }
-    .rounded-circle {
-        width: 80%;
-        margin: 0px 30px;
+
+    .discount-label {
+        font-weight: bold;
+        margin-right: 5px;
+    }
+
+    .discount-value {
+        color: #007bff;
+    }
+
+    h2 {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
     }
 </style>
