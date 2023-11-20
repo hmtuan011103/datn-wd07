@@ -15,7 +15,7 @@ class TicketController extends BaseTicketController
     }
     public function search_ticket_admin(Request $request)
     {
-        $ticket = $this->ticketService->search_ticket($request);
-        return response()->json($ticket);   
+        $ticket_admin = $this->ticketService->search_ticket($request);
+        return response()->json($ticket_admin);   
      }
 }

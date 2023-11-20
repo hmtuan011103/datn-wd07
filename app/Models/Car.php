@@ -10,19 +10,20 @@ class Car extends Model
     use HasFactory;
     protected $fillable = [
         'id_type_car',
-        'image' ,
+        'image',
         'license_plate',
         'name',
         'status',
-        'color' ,
+        'color',
         'description',
     ];
     public function typeCar()
     {
-        return $this->belongsTo(TypeCar::class, 'id_type_car','id');
+        return $this->belongsTo(TypeCar::class, 'id_type_car', 'id');
     }
-    public function seats(){
-        return $this->hasMany(Seat::class,'car_id','id');
+    public function seats()
+    {
+        return $this->hasMany(Seat::class, 'car_id', 'id');
     }
     public function trips()
     {
@@ -30,5 +31,8 @@ class Car extends Model
     }
 
 
-
+    public function trips()
+    {
+        return $this->hasMany(Trip::class,'car_id', 'id');
+    }
 }
