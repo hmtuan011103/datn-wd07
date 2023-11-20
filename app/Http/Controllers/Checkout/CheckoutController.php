@@ -7,6 +7,7 @@ use App\Models\Bill;
 use App\Models\Location;
 use App\Models\Seat;
 use App\Models\Ticket;
+use App\Models\Trip;
 use App\Models\User;
 use App\Services\CheckoutService\CheckoutService;
 use Illuminate\Http\Request;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class CheckoutController extends Controller
@@ -27,11 +29,52 @@ class CheckoutController extends Controller
 
     }
 
+    public function continuesCheckout(Request $request) {
+        $data = $request->except('_token');
+        $title = "Chiến thắng | Thanh toán";
+        $nameUser = $request->name;
+        $emailUser = $request->email;
+        $phoneUser = $request->phone;
+        $tripTurn = Trip::query()->find($request->trip_turn);
+        $tripReturn = null;
+        if($request->trip_return) {
+            $tripReturn = Trip::query()->find($request->trip_return);
+        }
+        $placeStart = Location::query()->find($request->place_start_turn);
+        $placeEnd = Location::query()->find($request->place_end_turn);
+        $placeStartSecond = null;
+        $placeEndSecond = null;
+        if($request->place_start_turn_0) {
+            $placeStart = Location::query()->find($request->place_start_turn_0);
+            $placeEnd = Location::query()->find($request->place_end_turn_0);
+            $placeStartSecond = Location::query()->find($request->place_start_turn_1);
+            $placeEndSecond = Location::query()->find($request->place_end_turn_1);
+        }
+        $seatsTurn = $request->seats_turn;
+        $seatsReturn = null;
+        if($request->seats_return) {
+            $seatsReturn = $request->seats_return;
+        }
+        $moneyTurn = (int) $request->money_turn;
+        $moneyReturn = null;
+        if($request->money_return) {
+            $moneyReturn = (int) $request->money_return;
+        }
+        return view('client.pages.choose-type-payment.index',
+            compact('nameUser','emailUser','phoneUser','tripTurn','tripReturn', 'title',
+                'placeStart','placeEnd','placeStartSecond','placeEndSecond','seatsTurn','seatsReturn', 'moneyTurn', 'moneyReturn'
+            )
+        );
+    }
+
     public function checkout(Request $request) {
+        $vnp_Url = $this->checkoutService->createPayment($request);
         try {
-            $vnp_Url = $this->checkoutService->createPayment($request);
-            if ($request->has('redirect')) {
+            if ($request->has('redirect-payment') && $request->type_payment === "1") {
                 return redirect($vnp_Url);
+            }
+            if ($request->has('redirect-payment') && $request->type_payment === "2") {
+                $this->checkoutService->momo_payment();
             }
         } catch (\Exception $exception) {
             Log::error('Có lỗi xảy ra', [$exception]);
@@ -138,10 +181,19 @@ class CheckoutController extends Controller
         return $allTicket;
     }
 
+    public function senMail($cacheData) {
+        $name = "Bạn đã mua vé thành công rồi" . $cacheData['name'];
+        Mail::send('client.pages.email.test', compact('name'), function ($email) {
+            $email->subject('[CHIENTHANGBUS] Hóa đơn dặt vé ');
+            $email->to('tuanhmph28448@fpt.edu.vn');
+        });
+    }
+
     public function checkoutSuccess(Request $request) {
         $cacheData = Cache::get('my_bill_cache');
         if($request->vnp_ResponseCode === "00" && $cacheData !== null){
             $this->saveDataAfterCheckoutSuccess($request, $cacheData);
+            $this->senMail($cacheData);
             return view('client.partials.checkout-success', [
                 'data' => $this->getTicketForBill(),
                 'inforUser' => Cache::get('infor_user'),

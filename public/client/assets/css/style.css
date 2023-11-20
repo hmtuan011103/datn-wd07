@@ -332,3 +332,11 @@ footer.pt-4{
     background: #fff;
     color: black;
 }
+#countdown_client_interface {
+    margin: 0 auto;
+    border-radius: 10px;
+    width: 30%;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+}

@@ -24,7 +24,7 @@
                 </div> <!-- end col -->
             </div> --}}
             <div class="row project-wrapper">
-                <div class="col-xxl-8">
+                <div class="col-xxl-12">
                     <div class="row">
                         <div class="col-xl-4">
                             <div class="card card-animate">

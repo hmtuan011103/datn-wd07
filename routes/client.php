@@ -51,6 +51,7 @@ Route::match(['get', 'post'], '/mat-khau', function () {
 })->name('mat-khau')->middleware('checklogin');
 
 Route::get('/lich-trinh', [TripController::class, 'lich_trinh'])->name('lich_trinh');
+Route::post('/phuong-thuc-thanh-toan', [CheckoutController::class, 'continuesCheckout'])->name('phuong_thuc_thanh_toan');
 Route::post('/thanh-toan', [CheckoutController::class, 'checkout'])->name('thanh_toan');
 Route::get('/trang-thai-thanh-toan', [CheckoutController::class, 'checkoutSuccess'])->name('trang_thai_thanh_toan');
 

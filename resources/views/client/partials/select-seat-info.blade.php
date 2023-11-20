@@ -1,5 +1,6 @@
 <div class="container d-flex justify-content-between mb-5">
     <div class="w-70 border border-1 rounded-3 pt-4">
+        <div id="countdown_client_interface" class="fw-medium"></div>
         <div class="border-bottom-4 pb-4">
             <div class="px-4">
                 {{-- Hiển thị tiêu đề --}}
@@ -8,7 +9,7 @@
                 </div>
             </div>
         </div>
-        <form action="{{ route('thanh_toan') }}" class="" method="POST" id="form-forward-checkout">
+        <form action="{{ route('phuong_thuc_thanh_toan') }}" class="" method="POST" id="form-forward-checkout">
             @csrf
             <div class="border-bottom-4 mx-0 py-4 row" id="info-turn-return">
                 {{-- Hiển thị thông tin điểm đón trả --}}
@@ -56,11 +57,11 @@
                 <div>
                     <button class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip px-4"
                             type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        Thông tin đang đặt
+                        Quay lại
                     </button>
                     <button class="btn btn-primary fs-14 fw-medium cl-orange rounded-pill bg-button-choose-trip-2 px-4"
                             name="redirect" type="submit">
-                        Thanh toán
+                        Tiếp tục
                     </button>
                     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
                          tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"

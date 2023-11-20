@@ -20,6 +20,36 @@ const getErrorWhenCallApi = (statusCode) => {
     }
 }
 
+const workerCode = `
+    let seconds = 600;
+    function countdown() {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+
+        if (seconds <= 0) {
+            self.postMessage({ done: true });
+        } else {
+            self.postMessage({ minutes, remainingSeconds });
+            seconds--;
+            setTimeout(countdown, 1000);
+        }
+    }
+    countdown();
+`;
+const blob = new Blob([workerCode], { type: 'application/javascript' });
+const worker = new Worker(URL.createObjectURL(blob));
+worker.onmessage = function (event) {
+    const { minutes, remainingSeconds, done } = event.data;
+    if (done) {
+        window.location.href = baseUrl;
+    } else {
+        const formattedMinutes = String(minutes).padStart(2, '0');
+        const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+        $('#countdown_client_interface').html(`Thời gian chọn ghế: <b style="color: #EF5222">${formattedMinutes}:${formattedSeconds}</b>`);
+    }
+};
+worker.postMessage('start');
+
 const dataDetailTrip = async () => {
     try {
         const urlParams = new URLSearchParams(window.location.search);

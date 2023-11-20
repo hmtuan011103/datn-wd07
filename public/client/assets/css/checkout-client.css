@@ -1,0 +1,50 @@
+#vnpayDiv,
+#momoDiv
+{
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+.discount_code{
+    border: 1px solid #ccc;
+    border-radius: 8px 0 0 8px;
+}
+.discount_code:focus {
+    box-shadow: none !important;
+    border-color: #EF5222 !important;
+}
+.form-check-input[name="type_payment"]:focus {
+    box-shadow: none !important;
+}
+.form-check-input[name="type_payment"]:checked {
+    background-color: #EF5222 !important;
+    border-color: #EF5222 !important;
+}
+#payment-final{
+    border-color: #EF5222;
+    background-color: #EF5222 !important;
+}
+#return-select-seat{
+    border: 1px solid #ccc;
+    background-color: none !important;
+}
+.cursor-payment{
+    cursor: pointer;
+}
+@media (min-width: 992px) {
+    .col-lg-7 {
+        width: 64.33333333% !important;
+    }
+}
+.d-flex.justify-content-between.align-items-center>p{
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+.btn-execute-code-discount {
+    border: 1px solid #F9821D !important;
+    border-left: none !important;
+    border-radius: 0 8px 8px 0;
+    background: #EF5222;
+    color: #ffffff;
+    font-weight: 500;
+    outline: #F9821D !important;
+}
