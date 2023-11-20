@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Banner\Admin\BannerController;
 use App\Http\Controllers\Locations\Admin\LocationController;
 use App\Http\Controllers\Role\Admin\RoleController;
 use App\Http\Controllers\Permissions\Admin\PermissionController;
@@ -134,6 +135,13 @@ Route::middleware(['guest'])->group(function () {
     Route::get('new-password/{token}', [\App\Http\Controllers\Auth\FormController::class, 'newPassword'])->name('password.reset');
     Route::post('new-password', [\App\Http\Controllers\Auth\SubmitController::class, 'newPasswordSubmit'])->name('password.update');
 });
+
+Route::prefix('banners')->controller(BannerController::class)->group(function () {
+    Route::get('/', 'index')->name('banner.index');
+    Route::match(['GET', 'POST'], 'create', 'store')->name('banner.store');
+    Route::match(['GET', 'PATCH'], 'update/{banner}', 'update')->name('banner.update');
+});
+
 
 
 // đặt cuối route
