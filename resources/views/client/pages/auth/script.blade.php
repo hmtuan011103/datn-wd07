@@ -1,3 +1,4 @@
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script>
     const loginForm = document.getElementById("login-form");
     const loginName = document.getElementById("loginName");
@@ -37,17 +38,54 @@
         registerForm.style.display = "block";
         showForm(1);
     });
-    $(document).ready(function() {
-        $("a").click(function() {
-            $("a").css("color", "black");
-            $(this).css("color", "rgba(239,82,34,.6)");
-        });
-        $("#login-link").css("color", "rgba(239,82,34,.6)");
-        $("#register-link").css("color", "black");
-    })
+    document.addEventListener("DOMContentLoaded", () => {
+        const registrationClicked = localStorage.getItem('registrationClicked');
+        if (registrationClicked === 'true') {
+            localStorage.removeItem('registrationClicked');
+            document.getElementById("register-link").click();
+            $(document).ready(function() {
+                $("a").click(function() {
+                    $("a").css("color", "black");
+                    $(this).css("color", "rgba(239,82,34,.6)");
+                });
+                $("#login-link").css("color", "black");
+                $("#register-link").css("color", "rgba(239,82,34,.6)");
+            })
+        }else {
+            $(document).ready(function() {
+                $("a").click(function() {
+                    $("a").css("color", "black");
+                    $(this).css("color", "rgba(239,82,34,.6)");
+                });
+                $("#login-link").css("color", "rgba(239,82,34,.6)");
+                $("#register-link").css("color", "black");
+            })
+        }
+    });
+
     $("#register-phone").on("input", function () {
         $(this).val($(this).val().replace(/[^0-9]/g, ""));
     });
+    const apiUrl = '/api/getAllPhone';
+
+    document.addEventListener("DOMContentLoaded", async () => {
+        try {
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+
+            if (data.status === true) {
+                const phoneNumbers = data.phone_numbers;
+                window.phoneNumbersFromAPI = phoneNumbers;
+            } else {
+                console.error("Lỗi khi lấy danh sách số điện thoại");
+            }
+        } catch (error) {
+            console.error("Lỗi kết nối đến server:", error);
+        }
+    });
+    function isPhoneNumberDuplicate(inputPhoneNumber, existingPhoneNumbers) {
+        return existingPhoneNumbers.includes(inputPhoneNumber);
+    }
     function showForm(formNumber) {
         document.querySelector('.form1').style.display = 'block';
         document.querySelector('.form2').style.display = 'none';
@@ -61,10 +99,17 @@
             var phoneRegex = /^0\d{9}$/;
             if (phone.trim() === "") {
                 telErrorContainer.textContent = "Vui lòng nhập số điện thoại.";
-            }else if(!phone.match(phoneRegex)){
+            } else if (!phone.match(phoneRegex)) {
                 telErrorContainer.textContent = "Số điện thoại không hợp lệ.";
                 return;
-            }if (name.trim() === "") {
+            }
+
+            if (isPhoneNumberDuplicate(phone.trim(), window.phoneNumbersFromAPI)) {
+                telErrorContainer.textContent = "Số điện thoại đã tồn tại. Vui lòng nhập số khác.";
+                return;
+            }
+
+            if (name.trim() === "") {
                 nameErrorContainer.textContent = "Vui lòng nhập tên của bạn.";
                 return
             }
@@ -99,7 +144,7 @@
         return isValid;
     }
 
-    const apiUrl_login = 'http://127.0.0.1:8000/api/login';
+    const apiUrl_login = 'api/login';
     loginForm.addEventListener("submit", async (event) => {
         event.preventDefault();
         var isValid = validateForm();
@@ -125,7 +170,12 @@
                 if (responseData.status === true) {
                     setCookie('token', responseData.token, 10);
                     setCookie('status', true, 10);
-                    window.location.href = responseData.redirect_url;
+
+                    // Lưu successMessage vào sessionStorage
+                    const successMessage = "Đăng nhập thành công!";
+                    sessionStorage.setItem('successMessage', successMessage);
+                    const redirectUrl = responseData.redirect_url;
+                    window.location.href = redirectUrl;
                 } else if (responseData.status === false) {
                     const errorMessage = responseData.message;
                     const errorElement = document.getElementById("error-message");
@@ -136,9 +186,12 @@
             }
         }
     });
+
     // apiUrl_register
     // http://127.0.0.1:8000/
+
     function validate_Form() {
+
         var email = document.getElementById("register-email").value;
         var password = document.getElementById("register-password").value;
         var confirmPassword = document.getElementById("register-confirm-password").value;
@@ -153,7 +206,7 @@
         const register_add = document.getElementById("register_add");
         register_add.style.display = "none";
 
-        var isValid = true; // Tạo biến để theo dõi tính hợp lệ
+        var isValid = true;
 
         if (email.trim() === '') {
             email_Error.textContent = "Vui lòng nhập địa chỉ email.";
@@ -176,7 +229,7 @@
             isValid = false;
         }
 
-        return isValid; // Trả về giá trị true nếu dữ liệu hợp lệ, false nếu có lỗi.
+        return isValid;
     }
     const apiUrl_register = 'api/register';
     registerForm.addEventListener("submit", async (event) => {
@@ -220,10 +273,11 @@
         var expires = "";
         if (minutes) {
             var date = new Date();
-            date.setTime(date.getTime() + (minutes * 60 * 1000)); // chuyển đổi phút thành mili giây
+            date.setTime(date.getTime() + (minutes * 60 * 1000));
             expires = "; expires=" + date.toUTCString();
         }
         document.cookie = name + "=" + value + expires + "; path=/";
     }
 </script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+

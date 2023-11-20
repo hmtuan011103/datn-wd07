@@ -66,7 +66,7 @@
                                         </thead>
                                         <tbody class="list form-check-all">
                                         @foreach($data as $item)
-                                            <tr>
+                                            <tr id="row{{ $item->id }}">
                                                 <th scope="row">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox" name="rowCheckbox" value="{{$item->id}}">
@@ -90,9 +90,8 @@
                                                         </div>
                                                         <div class="remove">
                                                             <button class="btn btn-sm btn-danger btn-remove"
-                                                                    data-bs-toggle="modal" data-bs-target="#modalDelete"
-                                                                    data-role-id="{{ $item->id }}"><i
-                                                                    class="bx bx-trash"></i></button>
+                                                                    onclick="confirmDelete({{$item->id}})" >
+                                                                <i class="bx bx-trash"></i></button>
                                                         </div>
 
                                                     </div>

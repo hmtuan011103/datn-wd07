@@ -57,11 +57,16 @@
             .then(data => {
 
                 if (data.status === true) {
-
+                        localStorage.setItem('message', 'success');
                         window.location.href = 'mat-khau';
+
                 } else {
+
+                    document.getElementById('old_Password').value = '';
+                    document.getElementById('new_Password').value = '';
+                    document.getElementById('confirm_PasswordS').value = '';
                     Toastify({
-                        text: "Đổi Mật Khẩu Thất Bại.",
+                        text: "Mật Khẩu Cũ Không Đúng.",
                         duration: 2000,
                         newWindow: true,
                         close: true,
@@ -69,18 +74,15 @@
                         position: "absolute",
                         stopOnFocus: true,
                         style: {
-                            "margin-top": "100px",
+                            "margin-top": "10px",
                             "right": "10px",
-                            "background": "#fadaa5",
+                            "background": "#EF5222",
                             "padding": "20px 10px",
                             "border-radius": "5px",
                             "z-index": "9999",
                             "position": "absolute",
                         }
                     }).showToast();
-                    document.getElementById('old_Password').value = '';
-                    document.getElementById('new_Password').value = '';
-                    document.getElementById('confirm_PasswordS').value = '';
 
                 }
             })
@@ -88,6 +90,60 @@
                 // console.log('Lỗi khi gửi yêu cầu:', error);
             });
     });
-
 </script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
+    const message = localStorage.getItem('message');
+
+    // Kiểm tra và hiển thị thông báo
+    if (message === 'success') {
+        Toastify({
+            text: "Đổi Mật Khẩu Thành Công.",
+            duration: 2000,
+            newWindow: true,
+            close: true,
+            gravity: "right",
+            position: "absolute",
+            stopOnFocus: true,
+            style: {
+                "margin-top": "10px",
+                "right": "10px",
+                "background": "#28a745",
+                "padding": "20px 10px",
+                "border-radius": "5px",
+                "z-index": "9999",
+                "position": "absolute",
+            }
+        }).showToast();
+
+        // Xóa giá trị thông báo từ localStorage sau khi sử dụng
+        localStorage.removeItem('message');
+    }
+</script>
+
+<script>
+    function profile() {
+        window.location.href = 'thong-tin';
+    }
+    document.getElementById("profile_menu").addEventListener("click", function () {
+        profile();
+    });
+    function discount() {
+        window.location.href = 'ma-giam-gia';
+    }
+    document.getElementById("discount_menu").addEventListener("click", function () {
+        discount();
+    });
+    function booking_history() {
+        window.location.href = 'lich-su';
+    }
+    document.getElementById("booking_history_menu").addEventListener("click", function () {
+        booking_history();
+    });
+    function passWord() {
+        window.location.href = 'mat-khau';
+    }
+    document.getElementById("password_menu").addEventListener("click", function () {
+        passWord();
+    });
+</script>

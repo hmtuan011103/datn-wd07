@@ -34,12 +34,13 @@ Route::group([
     Route::get("profile", [AuthController::class, "profile"]);
     Route::get("refresh", [AuthController::class, "refreshToken"]);
     Route::get('discounts', [AuthController::class, 'discount']);
+    Route::get('getBills', [AuthController::class, 'getBills']);
     Route::post("logout", [AuthController::class, "logout"]);
     Route::post('update_profile',  [AuthController::class, 'updateProfile']);
     Route::post('password', [AuthController::class, 'changePassword']);
 });
 
-
+Route::get('getAllPhone', [AuthController::class, 'getAllPhone']);
 Route::get('/data', [TripController::class, 'getData'])->name('getData');
 Route::get('/search_trip', [TripController::class, 'search_start_trip'])->name('search_start_trip');
 

@@ -6,6 +6,8 @@ use App\Http\Controllers\User\BaseUserController;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Requests\User\UserProfileChangePasswordRequest;
+use App\Models\TypeUser;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,8 +23,9 @@ class UserController extends BaseUserController
         $query = $this->userService->getAll();
 
         $data = $query->getData()->data;
+        $userType = TypeUser::pluck('name')->unique();
 
-        return view('admin.pages.user.index', compact('title', 'data'));
+        return view('admin.pages.user.index', compact('title', 'data','userType'));
     }
 
     /**

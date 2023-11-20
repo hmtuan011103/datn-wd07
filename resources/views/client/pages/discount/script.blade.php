@@ -69,6 +69,30 @@
         parentElement.appendChild(labelElement);
         parentElement.appendChild(valueElement);
     }
-
-
+</script>
+<script>
+    function profile() {
+        window.location.href = 'thong-tin';
+    }
+    document.getElementById("profile_menu").addEventListener("click", function () {
+        profile();
+    });
+    function discount() {
+        window.location.href = 'ma-giam-gia';
+    }
+    document.getElementById("discount_menu").addEventListener("click", function () {
+        discount();
+    });
+    function booking_history() {
+        window.location.href = 'lich-su';
+    }
+    document.getElementById("booking_history_menu").addEventListener("click", function () {
+        booking_history();
+    });
+    function passWord() {
+        window.location.href = 'mat-khau';
+    }
+    document.getElementById("password_menu").addEventListener("click", function () {
+        passWord();
+    });
 </script>

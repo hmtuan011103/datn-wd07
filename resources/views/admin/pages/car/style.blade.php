@@ -55,9 +55,7 @@
         margin: 5px 0;
     }
 
-    input[type="date"],
-    select,
-    input[type="text"] {
+    select{
         width: 14.2vw;
         padding: 5px;
         border: 1px solid #ccc;

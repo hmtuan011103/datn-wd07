@@ -19,67 +19,60 @@ function setCookie(name, value, minutes) {
     }
     document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
 }
-if (status === 'true') {
+
+$(document).ready(function () {
+    $('#logoutButton').on('click', function (e) {
+        e.preventDefault();
+        $('#logoutModal').modal('show');
+    });
+
+    $('#confirmLogout').on('click', function () {
+    $('#logoutModal').modal('hide');
+    clearTimeout(autoLogoutTimer);
+    performLogout();
+});
+
+    $('#cancelLogout').on('click', function () {
+    $('#logoutModal').modal('hide');
+});
+
+    if (status === 'true') {
     document.getElementById("button_login").style.display = "none";
     document.getElementById("button_logout").style.display = "block";
-    document.getElementById("logoutButton").addEventListener("click", function () {
-        clearTimeout(autoLogoutTimer); // Xóa bỏ timer nếu đăng xuất thủ công
-        performLogout();
-    });
 
     const autoLogoutTimeInMinutes = 5;
     const autoLogoutTimeInMillis = autoLogoutTimeInMinutes * 60 * 1000;
 
-    const autoLogoutTimer = setTimeout(function () {
-        performAutoLogout();
-    }, autoLogoutTimeInMillis);
+    autoLogoutTimer = setTimeout(function () {
+    performLogout();
+}, autoLogoutTimeInMillis);
 }
 
-function performAutoLogout() {
+    function performLogout() {
     fetch('http://127.0.0.1:8000/api/logout', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + getCookie('token'),
-        },
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status) {
-                // Xóa cookies khi đăng xuất
-                document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                document.cookie = "status=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                window.location.href = '/';
-            } else {
-                console.error(data.message);
-            }
-        })
-        .catch(error => console.error('Error:', error));
+    method: 'POST',
+    headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + getCookie('token'),
+},
+})
+    .then(response => response.json())
+    .then(data => {
+    if (data.status) {
+    // Xóa cookies khi đăng xuất
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "status=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    window.location.href = '/';
+} else {
+    console.error(data.message);
 }
+})
+    .catch(error => console.error('Error:', error));
+}
+});
 
-function performLogout() {
-    fetch('http://127.0.0.1:8000/api/logout', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + getCookie('token'),
-        },
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status) {
-                // Xóa cookies khi đăng xuất
-                document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                document.cookie = "status=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                window.location.href = '/';
-            } else {
-                console.error(data.message);
-            }
-        })
-        .catch(error => console.error('Error:', error));
-}
+
 
 function passWord() {
     window.location.href = 'mat-khau';
@@ -99,8 +92,11 @@ function discount() {
 document.getElementById("discount").addEventListener("click", function () {
     discount();
 });
-document.getElementById("logoutButton").addEventListener("click", function () {
-    performLogout();
+function booking_history() {
+    window.location.href = 'lich-su';
+}
+document.getElementById("booking_history").addEventListener("click", function () {
+    booking_history();
 });
 $(document).ready(function () {
     $('#editButton').click(function () {
@@ -135,3 +131,32 @@ if (status === 'true') {
         getProfile();
     }
 }
+$(document).ready(function() {
+    $('#register-link').on('click', function(e) {
+        e.preventDefault();
+        localStorage.setItem('registrationClicked', 'true');
+        window.location.href = "{{ route('dang-nhap') }}";
+    });
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const status = getCookie('status');
+    const successMessage = sessionStorage.getItem('successMessage');
+
+    if (status === 'true' && successMessage) {
+        Toastify({
+            text: successMessage,
+            duration: 2000,
+            newWindow: true,
+            close: true,
+            gravity: "top",
+            position: "right",
+            stopOnFocus: true,
+            style: {
+                background: "#28a745",
+                padding: "20px 10px",
+                borderRadius: '5px'
+            },
+        }).showToast();
+        sessionStorage.removeItem('successMessage');
+    }
+});

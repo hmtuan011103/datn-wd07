@@ -33,7 +33,17 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="filter-container">
+                                    <div class="filter-group-inline">
+                                        <label for="classification">Phân loại:</label>
+                                        <select id="classification" onchange="filterTable()">
+                                            <option value="">-- Phân Loại --</option>
+                                            @foreach ($userType as $userType)
+                                                <option value="{{ strtolower($userType) }}">{{ $userType }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="table-responsive table-card mt-3 mb-1">
                                     <table class="table align-middle table-nowrap" id="idTagTable">
                                         <thead class="table-light">
@@ -77,7 +87,7 @@
                                             @endif
 
                                             @foreach ($data as $item)
-                                                <tr>
+                                                <tr class="car-row" data-car-type="{{ strtolower($item->user_type) }}">
                                                     @if (!in_array('admin', $item->role_name))
                                                         <th scope="row">
                                                             <div class="form-check">
@@ -185,3 +195,21 @@
         </div>
     </div>
 </div>
+<script>
+    function filterTable() {
+        // Lấy giá trị đã chọn từ dropdown
+        var selectedUserType = $('#classification').val().toLowerCase();
+
+        // Ẩn tất cả các dòng trước khi hiển thị lại dòng phù hợp
+        $('.car-row').hide();
+
+        // Hiển thị dòng có loại người dùng tương ứng
+        $('.car-row').each(function() {
+            var userType = $(this).data('car-type').toLowerCase();
+
+            if (selectedUserType === '' || userType === selectedUserType) {
+                $(this).show();
+            }
+        });
+    }
+</script>

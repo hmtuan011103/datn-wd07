@@ -329,3 +329,12 @@ footer.pt-4{
     background: #fff;
     color: black;
 }
+.modal-header{
+    color: rgb(239, 82, 34)
+}
+.modal-title{
+    margin-left: 150px;
+}
+.modal-content{
+    text-align: center;
+}

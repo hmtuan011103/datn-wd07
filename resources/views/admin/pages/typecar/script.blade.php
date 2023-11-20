@@ -1,5 +1,5 @@
 <!-- Page level plugins -->
-
+<script src="{{ asset('client/assets/js/url-config.js') }}"></script>
 <script src="{{ asset("admin/assets/libs/gridjs/js/prism.js") }}"></script>
 <script src="{{ asset("admin/assets/libs/gridjs/js/list.min.js") }}"></script>
 
@@ -82,32 +82,44 @@
     }
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var deleteButtons = document.getElementsByClassName('btn-remove');
-
-        Array.from(deleteButtons).forEach(function(button) {
-            button.addEventListener('click', function() {
-                var roleId = this.dataset.roleId;
-                var roleIdElement = document.getElementById('role-id');
-                roleIdElement.textContent = roleId;
-            });
-        });
-        document.getElementById('delete-record').addEventListener('click', function() {
-            var roleId = document.getElementById('role-id').textContent;
-            var ajaxRequest = $.ajax({
-                url: "http://127.0.0.1:8000/manage/typecar/destroy/" + roleId,
-                method: "GET"
-            });
-            var modalElement = document.getElementById('modalDelete');
-            modalElement.style.display = 'none';
-            location.href = location.href;
-
-            ajaxRequest.done(function(response) {
-                var row = document.getElementById('row' + roleId);
-                if (row) {
-                    row.style.display = 'none';
+    function confirmDelete(itemId) {
+        Swal.fire({
+            html: '<div class="mt-3"><lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon><div class="mt-4 pt-2 fs-15 mx-5"><h4>Xác nhận xóa?</h4><p class="text-muted mx-4 mb-0">Bạn có chắc muốn xóa đi không?</p></div></div>',
+            showCancelButton: true,
+            confirmButtonText: "Đồng ý",
+            confirmButtonClass: "btn btn-primary w-xs mx-2 mb-1",
+            cancelButtonText: "Hủy",
+            cancelButtonClass: "btn btn-danger w-xs mb-1",
+            reverseButtons: true,
+            buttonsStyling: false,
+            showCloseButton: true,
+            customClass: {
+                confirmButton: "btn btn-primary w-xs mx-2 mb-1",
+                cancelButton: "btn btn-danger w-xs mb-1",
+            },
+        }).then((result) => {
+            var rowdelete = document.getElementById('row' + itemId);
+            if (result.isConfirmed) {
+                var ajaxRequest = $.ajax({
+                    url: baseUrl + "/manage/typecar/destroy/" +
+                        itemId,
+                    method: "GET"
+                });
+                if (rowdelete) {
+                    rowdelete.remove();
                 }
-            });
+                location.reload();
+                // Swal.fire({
+                //     position: "center",
+                //     icon: "success",
+                //     title: "Xóa Loại Xe thành công!",
+                //     showConfirmButton: !1,
+                //     timer: 2e3,
+                //     showCloseButton: !0,
+                // })
+
+            }
+
         });
-    });
+    }
 </script>

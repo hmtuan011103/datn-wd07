@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Auth\Client;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Bill;
 use App\Models\DiscountCode;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -164,12 +165,10 @@ class AuthController extends Controller
     {
         $userData = auth()->user();
 
-        // Lấy tổng số ghế đã đặt từ bảng "bills"
         $totalSeats = DB::table('bills')
             ->where('user_id', $userData->id)
             ->sum('total_seats');
 
-        // Lấy danh sách mã giảm giá từ bảng "discount_codes" trừ những mã đã sử dụng
         $usedDiscounts = DB::table('bills')
             ->where('user_id', $userData->id)
             ->whereNotNull('discount_code_id')
@@ -191,6 +190,34 @@ class AuthController extends Controller
             "status" => true,
             "message" => "List of discounts and total seats",
             "data" => $combinedData
+        ]);
+    }
+    public function getAllPhone()
+    {
+        $usersWithPassword = DB::table('users')
+            ->whereNotNull('password')
+            ->pluck('phone_number');
+
+        return response()->json([
+            'status' => true,
+            'phone_numbers' => $usersWithPassword,
+        ]);
+    }
+    public function getBills()
+    {
+        $user = Auth::user();
+
+        // Lấy danh sách hóa đơn và liên kết với bảng trips để lấy thông tin về chuyến xe
+        $bills = Bill::where('user_id', $user->id)
+            ->with(['trip' => function ($query) {
+                $query->select('id', 'car_id', 'start_date', 'start_location', 'end_location', 'trip_price', 'interval_trip');
+            }])
+            ->get();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Danh sách các hóa đơn của người dùng',
+            'data' => $bills
         ]);
     }
 
