@@ -67,6 +67,16 @@
                                             </thead>
                                             <tbody class="list form-check-all">
                                                 @foreach ($trips as $trip)
+                                                
+                                                    @php
+                                                        $departureDate = Carbon\Carbon::parse($trip->start_date)->format('Y-m-d'); // Chuyển start_date từ dateTime sang dạng date
+
+                                                        $departureDateTime = Carbon\Carbon::parse($departureDate . ' ' . $trip->start_time); // Kết hợp ngày và giờ khởi hành
+                                                        $currentTime = now();
+                                                        $timeDifference = $currentTime->diffInMinutes($departureDateTime, false);
+                                                        $isWithinOneHour = $timeDifference <= 120;
+
+                                                    @endphp
                                                     <tr id="row{{ $trip->id }}">
                                                         <th scope="row">
                                                             <div class="form-check">
@@ -97,17 +107,25 @@
                                                                         data-target="#show" data-toggle="modal"><i
                                                                             class="bx bx bx-show"></i></button>
                                                                 </div>
-                                                                <div class="edit">
-                                                                    <a href="{{ route('edit_trip', ['id' => $trip->id]) }}"><button
-                                                                            class="btn btn-success btn-sm edit-item-btn"><i
-                                                                                class="bx bx-edit"></i></button></a>
-                                                                </div>
-                                                                <div class="remove">
-                                                                    <button class="btn btn-sm btn-danger btn-remove"
-                                                                        data-bs-toggle="modal" data-bs-target="#modalDelete"
-                                                                        data-role-id="{{ $trip->id }}"><i
-                                                                            class="bx bx-trash"></i></button>
-                                                                </div>
+                                                                @if (!$isWithinOneHour)
+                                                                    <div class="edit">
+                                                                        <a
+                                                                            href="{{ route('edit_trip', ['id' => $trip->id]) }}"><button
+                                                                                class="btn btn-success btn-sm edit-item-btn"><i
+                                                                                    class="bx bx-edit"></i></button></a>
+                                                                    </div>
+                                                                @endif
+                                                                @if ($trip->canDelete == true)
+                                                                    <div class="remove" >
+                                                                        <button class="btn btn-sm btn-danger btn-remove"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#modalDelete"
+                                                                            data-role-id="{{ $trip->id }}"><i
+                                                                                class="bx bx-trash"></i></button>
+                                                                    </div>
+                                                                    @endif
+
+
                                                             </div>
                                                         </td>
                                                     </tr>

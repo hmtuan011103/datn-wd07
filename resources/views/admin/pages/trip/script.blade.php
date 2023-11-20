@@ -16,6 +16,8 @@
 {{-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> --}}
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.3/2.1.3/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+
 
 <!-- Laravel Javascript Validation -->
 <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
@@ -29,6 +31,10 @@
         a.value = xuli.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
     }
 </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
 
 
 <script>
@@ -193,18 +199,6 @@
     });
 </script>
 
-{{-- click time --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var timeInput = document.getElementById('time-input');
-
-        flatpickr(timeInput, {
-            enableTime: true,
-            noCalendar: true,
-            dateFormat: 'H:i',
-        });
-    });
-</script>
 
 <script>
     $("#timeInput").on("input", function() {
@@ -221,7 +215,7 @@
         let value = input.value;
         if (!pattern.test(value) && !pattern1.test(value) && !pattern2.test(value) && !pattern3.test(value) && !pattern4
             .test(value)) {
-            if (value === "0") {
+            if (value === "") {
                 input.value = "";
                 return true;
             }
@@ -283,4 +277,17 @@
         }
     }
 </script>
+
+<script>
+    $(document).ready(function() {
+        $('#repeat').on('change', function() {
+            if ($(this).is(':checked')) {
+                $('#numberOfDaysInput').show(); // Hiển thị ô số ngày lặp lại nếu checkbox được chọn
+            } else {
+                $('#numberOfDaysInput').hide(); // Ẩn ô số ngày lặp lại nếu checkbox không được chọn
+            }
+        });
+    });
+</script>
+
 
