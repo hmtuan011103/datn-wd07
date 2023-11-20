@@ -1,32 +1,79 @@
-const token = localStorage.getItem('token');
-const status = localStorage.getItem('status');
-if (status === 'true') {
+const token = getCookie('token');
+const status = getCookie('status');
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var cookies = document.cookie.split(';');
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        while (cookie.charAt(0) == ' ') cookie = cookie.substring(1, cookie.length);
+        if (cookie.indexOf(nameEQ) == 0) return decodeURIComponent(cookie.substring(nameEQ.length, cookie.length));
+    }
+    return null;
+}
+function setCookie(name, value, minutes) {
+    var expires = "";
+    if (minutes) {
+        var date = new Date();
+        date.setTime(date.getTime() + (minutes * 60 * 1000)); // chuyển đổi phút thành mili giây
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
+}
+
+$(document).ready(function () {
+    $('#logoutButton').on('click', function (e) {
+        e.preventDefault();
+        $('#logoutModal').modal('show');
+    });
+
+    $('#confirmLogout').on('click', function () {
+    $('#logoutModal').modal('hide');
+    clearTimeout(autoLogoutTimer);
+    performLogout();
+});
+
+    $('#cancelLogout').on('click', function () {
+    $('#logoutModal').modal('hide');
+});
+
+    if (status === 'true') {
     document.getElementById("button_login").style.display = "none";
     document.getElementById("button_logout").style.display = "block";
-    document.getElementById("logoutButton").addEventListener("click", function () {
-        clearTimeout(autoLogoutTimer); // Xóa bỏ timer nếu đăng xuất thủ công
-        performLogout();
-    });
 
     const autoLogoutTimeInMinutes = 5;
     const autoLogoutTimeInMillis = autoLogoutTimeInMinutes * 60 * 1000;
 
-    const autoLogoutTimer = setTimeout(function () {
-        performAutoLogout();
-    }, autoLogoutTimeInMillis);
+    autoLogoutTimer = setTimeout(function () {
+    performLogout();
+}, autoLogoutTimeInMillis);
 }
 
-function performAutoLogout() {
-    localStorage.removeItem('token');
-    localStorage.setItem('status', 'false');
+    function performLogout() {
+    fetch('http://127.0.0.1:8000/api/logout', {
+    method: 'POST',
+    headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + getCookie('token'),
+},
+})
+    .then(response => response.json())
+    .then(data => {
+    if (data.status) {
+    // Xóa cookies khi đăng xuất
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "status=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     window.location.href = '/';
+} else {
+    console.error(data.message);
 }
+})
+    .catch(error => console.error('Error:', error));
+}
+});
 
-function performLogout() {
-    localStorage.removeItem('token');
-    localStorage.setItem('status', 'false');
-    window.location.href = '/';
-}
+
+
 function passWord() {
     window.location.href = 'mat-khau';
 }
@@ -39,8 +86,17 @@ function profile() {
 document.getElementById("profile").addEventListener("click", function () {
     profile();
 });
-document.getElementById("logoutButton").addEventListener("click", function () {
-    performLogout();
+function discount() {
+    window.location.href = 'ma-giam-gia';
+}
+document.getElementById("discount").addEventListener("click", function () {
+    discount();
+});
+function booking_history() {
+    window.location.href = 'lich-su';
+}
+document.getElementById("booking_history").addEventListener("click", function () {
+    booking_history();
 });
 $(document).ready(function () {
     $('#editButton').click(function () {
@@ -53,7 +109,7 @@ if (status === 'true') {
         fetch('http://127.0.0.1:8000/api/profile ', {
             method: 'GET',
             headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'Authorization': 'Bearer ' + getCookie('token'),
                 'Content-Type': 'application/json'
             },
         })
@@ -71,5 +127,36 @@ if (status === 'true') {
             });
     }
 
-    getProfile();
+    if (status === 'true') {
+        getProfile();
+    }
 }
+$(document).ready(function() {
+    $('#register-link').on('click', function(e) {
+        e.preventDefault();
+        localStorage.setItem('registrationClicked', 'true');
+        window.location.href = "{{ route('dang-nhap') }}";
+    });
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const status = getCookie('status');
+    const successMessage = sessionStorage.getItem('successMessage');
+
+    if (status === 'true' && successMessage) {
+        Toastify({
+            text: successMessage,
+            duration: 2000,
+            newWindow: true,
+            close: true,
+            gravity: "top",
+            position: "right",
+            stopOnFocus: true,
+            style: {
+                background: "#28a745",
+                padding: "20px 10px",
+                borderRadius: '5px'
+            },
+        }).showToast();
+        sessionStorage.removeItem('successMessage');
+    }
+});

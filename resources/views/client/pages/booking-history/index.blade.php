@@ -1,0 +1,10 @@
+@extends('client.layout.main')
+@section('style')
+    @include('client.pages.booking-history.style')
+@endsection
+@section('content')
+    @include('client.pages.booking-history.main')
+@endsection
+@section('script')
+    @include('client.pages.booking-history.script')
+@endsection

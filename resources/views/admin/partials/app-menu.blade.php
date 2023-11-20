@@ -171,6 +171,14 @@
                             </li>
                         @endif
 
+                        @if (in_array('read-schedule', Auth::user()->permissions))
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{{ route('schedule') }}">
+                                    <i class="mdi mdi-sticker-text-outline"></i> <span data-key="t-maps">Lịch trình</span>
+                                </a>
+                            </li>
+                        @endif
+
                         @if (in_array('read-statistic', Auth::user()->permissions))
                             <li class="menu-title"><span data-key="t-statistic">Thống kê</span></li>
                             <li class="nav-item">

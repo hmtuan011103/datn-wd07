@@ -35,10 +35,41 @@
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
+
+                                        <div class="col-md-6">
+                                            <div class="form-group has-feedback">
+                                                <label class="control-label">Ngày đi</label>
+                                                <input class="form-control" name="start_date"
+                                                    value="{{ formatEditDateTrip($trip->start_date) }}" id="date-input"
+                                                    placeholder="dd/mm/yyyy" type="text">
+                                                <span aria-hidden="true"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group has-feedback">
+                                                <label class="control-label">Giờ đi</label>
+                                                <input class="form-control" name="start_time"
+                                                    value="{{ formatTime($trip->start_time) }}" style="cursor: pointer"
+                                                    type="time" id="start_time">
+                                                <span aria-hidden="true"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group has-feedback">
+                                                <label class="control-label">Thời gian hành trình</label>
+                                                <input class="form-control" id="timeInput" oninput="validateTime()"
+                                                    onblur="formatTime()" placeholder="Nhập thời gian" name="interval_trip"
+                                                    type="text" value="{{ formatInterval($trip->interval_trip) }}" id="timeInput" >
+
+                                                <span aria-hidden="true"></span>
+                                            </div>
+                                        </div>
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Danh sách xe</label>
-                                                <select class="form-select"   name="car_id">
+                                                <select class="form-select" name="car_id">
                                                     @foreach ($cars as $car)
                                                         {{-- <option value="{{$user->id}}" {{$user->id}} == {{$trip->user_id}} ? "selected" : "">{{$user->name}}</option> --}}
                                                         <?php $selected = $car->id == $trip->car_id ? 'selected' : ''; ?>
@@ -53,7 +84,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Tài xế</label>
-                                                <select class="form-select"   name="drive_id">
+                                                <select class="form-select" name="drive_id">
                                                     @foreach ($userDrive as $user)
                                                         {{-- <option value="{{$user->id}}" {{$user->id}} == {{$trip->user_id}} ? "selected" : "">{{$user->name}}</option> --}}
                                                         <?php $selected = $user->id == $trip->drive_id ? 'selected' : ''; ?>
@@ -68,7 +99,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Phụ xe</label>
-                                                <select class="form-select"   name="assistantCar_id">
+                                                <select class="form-select" name="assistantCar_id">
                                                     @foreach ($assistantCar as $user)
                                                         {{-- <option value="{{$user->id}}" {{$user->id}} == {{$trip->user_id}} ? "selected" : "">{{$user->name}}</option> --}}
                                                         <?php $selected = $user->id == $trip->assistantCar_id ? 'selected' : ''; ?>
@@ -83,74 +114,47 @@
 
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
-                                                <label class="control-label">Ngày đi</label>
-                                                <input class="form-control" name="start_date"
-                                                    value="{{ formatEditDateTrip($trip->start_date) }}" id="date-input" placeholder="dd/mm/yyyy" type="text">
-                                                <span aria-hidden="true"></span>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group has-feedback">
-                                                <label class="control-label">Giờ đi</label>
-                                                <input class="form-control" name="start_time"
-                                                    value="{{ formatTime($trip->start_time) }}"  style="cursor: pointer" type="time">
-                                                <span aria-hidden="true"></span>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group has-feedback">
-                                              <label class="control-label">Thời gian hành trình</label>
-                                              <input class="form-control" id="timeInput" oninput="validateTime()" onblur="formatTime()" placeholder="Nhập thời gian" name="interval_trip"  type="text" value="{{formatInterval($trip->interval_trip)}}">
-                                            
-                                              <span  aria-hidden="true"></span> </div>
-                                          </div>
-
-                                       
-
-                                        <div class="col-md-6">
-                                            <div class="form-group has-feedback">
                                                 <label class="control-label">Điểm bắt đầu</label>
                                                 {{-- <input class="form-control" name="start_location" value="{{$trip->start_location}}" placeholder="Điểm bắt đầu" type="text"> --}}
-                                                <select class="form-select"   name="start_location">
-                                                   
+                                                <select class="form-select" name="start_location">
+
                                                     @foreach ($locations as $locat)
-                                                    {{-- <option value="{{$user->id}}" {{$user->id}} == {{$trip->user_id}} ? "selected" : "">{{$user->name}}</option> --}}
-                                                    <?php $selected = $locat->name == $trip->start_location ? 'selected' : ''; ?>
-                                                    <option {{ $selected }} value="{{ $locat->name }}">
-                                                        {{ $locat->name }}</option>
-                                                @endforeach
+                                                        {{-- <option value="{{$user->id}}" {{$user->id}} == {{$trip->user_id}} ? "selected" : "">{{$user->name}}</option> --}}
+                                                        <?php $selected = $locat->name == $trip->start_location ? 'selected' : ''; ?>
+                                                        <option {{ $selected }} value="{{ $locat->name }}">
+                                                            {{ $locat->name }}</option>
+                                                    @endforeach
                                                 </select>
                                                 <span aria-hidden="true"></span>
                                             </div>
                                         </div>
 
-                                      
+
 
 
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Điểm kết thúc</label>
-                                              
-                                                <select class="form-select"   name="end_location">
-                                                   
-                                                @foreach ($locations as $locat)
-                                              
-                                                <?php $selected = $locat->name == $trip->end_location ? 'selected' : ''; ?>
-                                                <option {{ $selected }} value="{{ $locat->name }}">
-                                                    {{ $locat->name }}</option>
-                                            @endforeach
+
+                                                <select class="form-select" name="end_location">
+
+                                                    @foreach ($locations as $locat)
+                                                        <?php $selected = $locat->name == $trip->end_location ? 'selected' : ''; ?>
+                                                        <option {{ $selected }} value="{{ $locat->name }}">
+                                                            {{ $locat->name }}</option>
+                                                    @endforeach
                                                 </select>
                                                 <span aria-hidden="true"></span>
                                             </div>
-                                        </div>  
+                                        </div>
 
-                                      
+
+
+
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Giá vé</label>
-                                                <input class="form-control" value="{{ $trip->trip_price }}.000"
+                                                <input class="form-control" value="{{ fomatPrice($trip->trip_price) }}"
                                                     onChange="format_curency(this);" name="trip_price" placeholder="VND"
                                                     type="number">
                                                 <span aria-hidden="true"></span>
@@ -166,7 +170,7 @@
 
 
                                     </div>
-                                    
+
                                     <div class="hstack gap-2 justify-content-end">
                                         <a href="{{ route('list_trip') }}"><button type="button"
                                                 class="btn btn-light">Danh sách</button></a>
@@ -176,9 +180,9 @@
                                 </form>
 
 
-                                    
 
-                              
+
+
                             </div><!-- end card -->
                         </div>
                         <!-- end col -->

@@ -8,29 +8,29 @@
         <div class="container_one">
             <div class="row">
                 <div class="col-md-3">
-                    <ul class="list-group border mb-0">
+                    <ul class="list-group  mb-0">
                         <li class="list-group-item py-3">
                             <div class="d-flex align-items-center">
                                 <img src="{{ asset('client/assets/images/Profile.svg') }}" alt="" class="mr-2">
-                                <span>Thông tin tài khoản</span>
+                                <a class="dropdown-item" id="profile_menu"  href="#">Thông tin tài khoản</a>
+                            </div>
+                        </li>
+                        <li class="list-group-item py-2" style="padding-top: 0.7rem!important;padding-bottom: 0.7rem!important;">
+                            <div class="d-flex align-items-center">
+                                <img src="http://127.0.0.1:8000/client/assets/images/coutun.jpg" alt="" class="mr-2" style="margin-left: -5px;width: 40px;">
+                                <a class="dropdown-item" id="discount_menu" href="#">Mã Giảm Giá</a>
                             </div>
                         </li>
                         <li class="list-group-item py-3">
                             <div class="d-flex align-items-center">
                                 <img src="{{ asset('client/assets/images/History.svg') }}" alt="" class="mr-2">
-                                <span>Lịch sử mua vé</span>
+                                <a class="dropdown-item" id="booking_history_menu" href="#">Lịch Sử Đặt Vé</a>
                             </div>
                         </li>
                         <li class="list-group-item py-3">
                             <div class="d-flex align-items-center">
                                 <img src="{{ asset('client/assets/images/Password.svg') }}" alt="" class="mr-2">
-                                <span>Đặt lại mật khẩu</span>
-                            </div>
-                        </li>
-                        <li class="list-group-item py-3">
-                            <div class="d-flex align-items-center">
-                                <img src="{{ asset('client/assets/images/Logout.svg') }}" alt="" class="mr-2">
-                                <span>Đăng xuất</span>
+                                <a class="dropdown-item" id="password_menu" href="#">Đổi Mật Khẩu</a>
                             </div>
                         </li>
                     </ul>
@@ -42,7 +42,7 @@
                         <p class="text-gray mt-3 mb-4 text-[13px]"> Để bảo mật tài khoản, vui lòng không chia sẻ mật
                             khẩu cho người khách</p>
                     </div>
-                    <div class="mt-6 rounded-2xl border p-3">
+                    <div class="mt-6 rounded-2xl border p-3 border_main">
                         <form id="confirm_Password" method="POST">
                             @csrf
                             <div class="form-group">
@@ -75,5 +75,4 @@
 @endsection
 @section('script')
     @include('client.pages.profile.scrip_password')
-
 @endsection

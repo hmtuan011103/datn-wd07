@@ -39,4 +39,96 @@
         display: block;
         padding-bottom: 10px;
     }
+    .step-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    .step {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        flex: 1;
+    }
+
+    .step-circle {
+        width: 10px;
+        height: 10px;
+        border: 2px solid #ddd;
+        background-color: white;
+        border-radius: 50%;
+        position: relative;
+        z-index: 2;
+        margin: 0 auto;
+    }
+
+    .line {
+        position: absolute;
+        width: calc(100% - 20px);
+        height: 2px;
+        background-color: #ffc107;
+        /* Màu vàng đậm */
+        top: 50%;
+        left: 20px;
+        /* Khoảng cách từ trái */
+        z-index: 0;
+        margin-top: -13px;
+    }
+
+    .grey-line {
+        position: absolute;
+        width: calc(100% - 20px);
+        height: 2px;
+        background-color: #ddd;
+        top: 50%;
+        left: 20px;
+        /* Khoảng cách từ trái */
+        z-index: 0;
+        margin-top: -13px;
+    }
+
+    .active .step-circle {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .active .line {
+        background-color: #007bff;
+    }
+
+    .initial .step-circle {
+        background-color: red;
+        border-color: red;
+    }
+
+    .initial .line {
+        background-color: red;
+    }
+
+    .yellow .line {
+        background-color: yellow !important;
+    }
+
+    #contentContainer {
+        border: 1px solid #ddd;
+        padding: 20px;
+    }
+    .mr-2 {
+         margin-right: 0.5rem!important;
+    }
+    .border_main {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+    img, video {
+        max-width: 100%;
+        height: auto;
+    }
+    .rounded-circle {
+        width: 80%;
+        margin: 0px 30px;
+    }
 </style>
