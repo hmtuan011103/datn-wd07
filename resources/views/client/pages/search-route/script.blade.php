@@ -404,16 +404,20 @@
         var durationMinutes = parseInt(durationParts[1]);
         var durationSeconds = parseInt(durationParts[2]);
 
-        var endTime = new Date();
-        endTime.setHours(startHours + durationHours);
-        endTime.setMinutes(startMinutes + durationMinutes);
-        endTime.setSeconds(startSeconds + durationSeconds);
+        var totalStartSeconds = startHours * 3600 + startMinutes * 60 + startSeconds;
+        var totalDurationSeconds = durationHours * 3600 + durationMinutes * 60 + durationSeconds;
 
-        return endTime.toLocaleTimeString([], {
-            hour12: false,
-            hour: '2-digit',
-            minute: '2-digit'
-        });
+        var totalSeconds = (totalStartSeconds + totalDurationSeconds) % (24 * 3600);
+
+        var endHours = Math.floor(totalSeconds / 3600);
+        var endMinutes = Math.floor((totalSeconds % 3600) / 60);
+        var endSeconds = totalSeconds % 60;
+
+        return (
+            ("0" + endHours).slice(-2) +
+            ":" +
+            ("0" + endMinutes).slice(-2)
+        );
     }
     var queryString = window.location.search;
     var urlParams = new URLSearchParams(queryString);

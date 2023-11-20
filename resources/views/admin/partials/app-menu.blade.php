@@ -165,7 +165,14 @@
                                 <i class="mdi mdi-sticker-text-outline"></i> <span data-key="t-maps">Tra cứu vé</span>
                             </a>
                         </li>
-                    @endif
+                        @endif
+                        @if (in_array('read-schedule', Auth::user()->permissions))
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="{{ route('schedule') }}">
+                                <i class="mdi mdi-sticker-text-outline"></i> <span data-key="t-maps">Lịch trình</span>
+                            </a>
+                        </li>
+                        @endif
                     </ul>
                 </div>
                 <!-- Sidebar -->

@@ -146,12 +146,14 @@ Route::middleware(['guest'])->group(function () {
 });
 
 //search ticket
-
+Route::get('/export-lichtrinh', [TripController::class,'export'])->name('export_trip')->middleware('check_permission:read-schedule');
 Route::prefix('search-ticket')->group(function () {
     Route::get('/', [TicketController::class, 'form_search'])->name('form_search')->middleware('check_permission:read-search-ticket');
 
 });
-
+Route::prefix('schedule')->group(function () {
+    Route::get('/', [TripController::class, 'schedule'])->name('schedule')->middleware('check_permission:read-schedule');
+});
 // đặt cuối route
 Route::fallback(function () {
     abort(500);

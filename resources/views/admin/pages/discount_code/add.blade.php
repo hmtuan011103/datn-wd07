@@ -22,12 +22,7 @@
                     </div>
                 </div>
                 <!-- end page title -->
-                @if (Session::has('success'))
-                    <div class="alert alert-success">
-                        {{ Session::get('success') }}
-                    </div>
-                @endif
-
+                
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -41,39 +36,39 @@
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label for="customername-field" class="form-label">Tên*</label>
+                                            <label for="customername-field" class="form-label mb-3 mt-3">Tên*</label>
                                             <input type="text" class="form-control" name="name" />
 
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="customername-field" class="form-label">Loại mã*</label>
+                                            <label for="customername-field" class="form-label mb-3 mt-3">Loại mã*</label>
                                             <select class="form-select" name="id_type_discount_code">
                                                 <option value="1">Giảm theo %</option>
-                                                <option value="2">Giảm theo tiền<option>
+                                                <option value="2">Giảm theo tiền</option>
                                             </select>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="customername-field" class="form-label">Số lượng*</label>
+                                            <label for="customername-field" class="form-label mb-3 mt-3">Số lượng*</label>
                                             <input type="number" class="form-control" name="quantity" />
 
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="customername-field" class="form-label">Gía trị*</label>
+                                            <label for="customername-field" class="form-label mb-3 mt-3">Gía trị*</label>
                                             <input type="number" class="form-control" name="value" />
 
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="customername-field" class="form-label">Mã*</label>
+                                            <label for="customername-field" class="form-label mb-3 mt-3">Mã*</label>
                                             <input type="text" class="form-control" name="code" />
 
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="customername-field" class="form-label">Ngày bắt đầu*</label>
+                                            <label for="customername-field" class="form-label mb-3 mt-3">Ngày bắt đầu*</label>
                                             <input class="form-control" name="start_time" id="start-date"
                                                 placeholder="dd/mm/yyy" type="text">
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="customername-field" class="form-label">Ngày kết thúc*</label>
+                                            <label for="customername-field" class="form-label mb-3 mt-3">Ngày kết thúc*</label>
                                             <input class="form-control" name="end_time" id="end-date"
                                                 placeholder="dd/mm/yyy" type="text">
                                         </div>

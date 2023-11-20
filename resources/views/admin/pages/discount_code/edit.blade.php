@@ -49,17 +49,17 @@
                                             <label for="customername-field" class="form-label">Loại mã*</label>
                                             <select class="form-select" name="id_type_discount_code">
                                                 <option value="1" {{$discount_code->id_type_discount_code == 1 ? 'selected' : ''}}>Giảm theo %</option>
-                                                <option value="2" {{$discount_code->id_type_discount_code == 2 ? 'selected' : ''}}>Giảm theo tiền<option>
+                                                <option value="2" {{$discount_code->id_type_discount_code == 2 ? 'selected' : ''}}>Giảm theo tiền</option>
                                             </select>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="customername-field" class="form-label">Số lượng*</label>
-                                            <input type="text" class="form-control" name="quantity" value="{{$discount_code->quantity}}"/>
+                                            <input type="number" class="form-control" name="quantity" value="{{$discount_code->quantity}}"/>
 
                                         </div>
                                         <div class="col-md-6">
                                             <label for="customername-field" class="form-label">Gía trị*</label>
-                                            <input type="text" class="form-control" name="value" value="{{$discount_code->value}}"/>
+                                            <input type="number" class="form-control" name="value" value="{{$discount_code->value}}"/>
 
                                         </div>
                                         <div class="col-md-6">
