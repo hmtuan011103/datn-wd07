@@ -44,6 +44,7 @@ Route::prefix('trip')->group(function () {
     Route::post('update/{id}', [TripController::class, 'save_edit_trip'])->name('save_edit_trip')->middleware('check_permission:update-trip');
     Route::get('delete/{id}', [TripController::class, 'delete_trip'])->name('delete_trip')->middleware('check_permission:delete-trip');
     Route::get('show/{id}', [TripController::class, 'show'])->name('show')->middleware('check_permission:read-trip');
+    Route::post('import-trip',[TripController::class,'import_trip'])->name('import-trip');
 });
 Route::prefix('permission')->group(function () {
     Route::get('/', [PermissionController::class, 'index'])->name('list_permission')->middleware('check_permission:read-permission');
@@ -71,7 +72,7 @@ Route::prefix('typecar')->group(function () {
     Route::get('/edit/{id}', [TypeCarController::class, 'edit'])->name('edit_typecar')->middleware('check_permission:update-car-type');
     Route::put('/update/{id}', [TypeCarController::class, 'update'])->name('update_typecar')->middleware('check_permission:update-car-type');
     Route::get('/destroy/{id}', [TypeCarController::class, 'destroy'])->name('destroy_typecar')->middleware('check_permission:delete-car-type');
-    Route::get('/destroy_all/{id}', [TypeCarController::class, 'destroy_all'])->name('destroy_typecar')->middleware('check_permission:delete-car-type');
+    Route::get('/destroy_all/{id}', [TypeCarController::class, 'destroy_all'])->name('destroy_typecar_all')->middleware('check_permission:delete-car-type');
 });
 
 Route::prefix('car')->group(function () {
@@ -81,7 +82,7 @@ Route::prefix('car')->group(function () {
     Route::get('/edit/{id}', [CarController::class, 'edit'])->name('edit_car')->middleware('check_permission:update-car');
     Route::put('/update/{id}', [CarController::class, 'update'])->name('update_car')->middleware('check_permission:update-car');
     Route::get('/destroy/{id}', [CarController::class, 'destroy'])->name('destroy_car')->middleware('check_permission:delete-car');
-    Route::get('/destroy_all/{id}', [CarController::class, 'destroy_all'])->name('destroy_car')->middleware('check_permission:delete-car');
+    Route::get('/destroy_all/{id}', [CarController::class, 'destroy_all'])->name('destroy_car_all')->middleware('check_permission:delete-car');
 });
 
 Route::group(['prefix' => 'role_permission'], function () {

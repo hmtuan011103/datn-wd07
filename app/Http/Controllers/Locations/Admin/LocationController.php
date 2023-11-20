@@ -12,6 +12,11 @@ use Illuminate\Http\Request;
 
 class LocationController extends BaseLocationController
 {
+    public function list_filter_location()
+    {
+        $location = $this->locationService->listClient();
+        return response()->json($location);
+    }
 
     public function list_location()
     {

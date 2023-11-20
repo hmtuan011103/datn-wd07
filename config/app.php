@@ -171,6 +171,7 @@ return [
         Brian2694\Toastr\ToastrServiceProvider::class,
 
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -191,6 +192,7 @@ return [
         'Jwt' => Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ])->toArray(),
 
 ];

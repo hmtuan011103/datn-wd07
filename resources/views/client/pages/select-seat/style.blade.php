@@ -14,4 +14,7 @@
     .form-check-input:focus[type=checkbox] {
         box-shadow: none;
     }
+    .detail-select-seat{
+        display:  block !important;
+    }
 </style>

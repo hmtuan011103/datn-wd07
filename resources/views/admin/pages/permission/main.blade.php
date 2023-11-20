@@ -29,58 +29,108 @@
                             <div class="card-header">
                                 <h4 class="card-title mb-0">Danh sách quyền</h4>
                             </div><!-- end card header -->
-
                             <div class="card-body">
                                 <div class="listjs-table" id="customerList">
                                     <div class="row g-4 mb-3">
                                         <div class="col-sm-auto">
                                             <div>
-                                                <a class="btn btn-success add-btn" href="{{ route('add_permission') }}"><i class="ri-add-line align-bottom me-1"></i> Thêm
-                                                    mới </a>
+                                                <a href="{{ route('add_permission') }}"><button type="button"
+                                                        class="btn btn-success add-btn" data-bs-toggle="modal"
+                                                        id="create-btn" data-bs-target="#showModal"><i
+                                                            class="ri-add-line align-bottom me-1"></i>Thêm mới</button></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm">
+                                            <div class="d-flex justify-content-sm-end">
+                                                <div class="search-box ms-2">
+                                                    <input type="text" class="form-control search"
+                                                        placeholder="Tìm kiếm...">
+                                                    <i class="ri-search-line search-icon"></i>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <table id="flight-route" class="table table-striped pe-2  ps-2" style="width:100%; font-size:14px">
-                                        <thead class="table-light">
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Tên</th>
-                                                <th>Mô tả</th>
-                                                <th>Quyền cha</th>
-                                                <th>Hành động</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($permissions as $per)
-                                            <tr  id="row{{ $per->id }}">
-                                                <td class="phone">{{ $per->id }}</td>
-                                                <td class="date">{{ $per->name }}</td>
-                                                <td class="email">{{ $per->description }}</td>
-                                                <td>
-                                                    <?php foreach($permissions as $pers) : ?>
-                                                    <?php if($per['parent_id'] == $pers['id']) : ?>
-                                                    <?= $pers['name'] ?>
-                                                    <?php endif ?>
-                                                    <?php endforeach ?>
-                                                </td>
-
-                                                <td>
-                                                    <div class="d-flex gap-2">
-                                                        <div class="edit">
-                                                            <a href="{{ route('edit_permission', ['id' => $per->id]) }}"
-                                                                class="btn btn-warning btn-sm edit-item-btn"><i class="bx bx-edit"></i></a>
+                                    <div class="table-responsive table-card mt-3 mb-1">
+                                        <table class="table align-middle table-nowrap" id="customerTable">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col" style="width: 50px;">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="checkAll"
+                                                                value="option">
                                                         </div>
-                                                        <button class="btn btn-sm btn-danger btn-remove"
-                                                                        {{-- data-bs-toggle="modal" data-bs-target="#modalDelete" data-role-id="{{ $role->id }}" --}}
+                                                    </th>
+                                                    <th data-sort="customer_name">ID</th>
+                                                    <th data-sort="email">Tên</th>
+                                                    <th data-sort="phone">Mô tả</th>
+                                                    <th data-sort="phone">Quyền cha</th>
+                                                    <th data-sort="action">Hành động</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="list form-check-all">
+                                                @foreach ($permissions as $per)
+                                                    <tr id="row{{ $per->id }}">
+                                                        <th scope="row">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    name="rowCheckbox" value="{{ $per->id }}">
+                                                            </div>
+                                                        </th>
+                                                        <td class="id" style="display:none;"><a
+                                                                href="javascript:void(0);"
+                                                                class="fw-medium link-primary">#VZ2101</a></td>
+                                                        <td class="phone">{{ $per->id }}</td>
+                                                        <td class="date">{{ $per->name }}</td>
+                                                        <td class="email">{{ $per->description }}</td>
+                                                        <td>
+                                                            <?php foreach($permissions as $pers) : ?>
+                                                            <?php if($per['parent_id'] == $pers['id']) : ?>
+                                                            <?= $pers['name'] ?>
+                                                            <?php endif ?>
+                                                            <?php endforeach ?>
+                                                        </td>
+                                                        <td>
+                                                            <div class="d-flex gap-2">
+                                                                <div class="edit">
+                                                                    <a href="{{ route('edit_permission', ['id' => $per->id]) }}"
+                                                                        class="btn btn-warning btn-sm edit-item-btn"><i
+                                                                            class="bx bx-edit"></i></a>
+                                                                </div>
+                                                                <div class="remove">
+                                                                    <button class="btn btn-sm btn-danger btn-remove"
                                                                         onclick="confirmDelete({{$per->id}})" ><i class="bx bx-trash"></i></button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                        <div class="noresult" style="display: none">
+                                            <div class="text-center">
+                                                <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
+                                                    colors="primary:#121331,secondary:#08a88a"
+                                                    style="width:75px;height:75px">
+                                                </lord-icon>
+                                                <h5 class="mt-2">Xin lỗi! Không tìm thấy kết quả!</h5>
+                                                <p class="text-muted mb-0">Chúng tôi không tìm thấy bất kỳ kết quả nào giống
+                                                    với bạn tìm kiếm.</p>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                    </table>
+                                    <div class="d-flex justify-content-end">
+                                        <div class="pagination-wrap hstack gap-2">
+                                            <a class="page-item pagination-prev disabled" href="javascript:void(0);">
+                                                Trước
+                                            </a>
+                                            <ul class="pagination listjs-pagination mb-0"></ul>
+                                            <a class="page-item pagination-next" href="javascript:void(0);">
+                                                Sau
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div><!-- end card -->
                         </div>
@@ -88,6 +138,7 @@
                     </div>
                     <!-- end col -->
                 </div>
+                <!-- end row -->
                 <!-- end row -->
                 <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">

@@ -14,6 +14,19 @@ class UserController extends BaseUserController
     /**
      * Display a listing of the resource.
      */
+
+    //lấy user cho bên trip admin, hiển thị tài xế, phụ xe cho bộ lọc
+    public function getData()
+    {
+        $data = $this->userService->getUserFilter();
+        return $data;
+    }
+    public function getDataAssistant()
+    {
+        $data = $this->userService->getUserFilterAssistant();
+        return $data;
+    }
+
     public function index()
     {
         $title = 'Quản lý người dùng';

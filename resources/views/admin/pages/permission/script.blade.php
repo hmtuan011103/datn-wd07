@@ -18,15 +18,8 @@
     <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
     @yield('validateRequest')
 
-    <!-- Data Table  -->
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
 
     <script src="{{ asset('client/assets/js/url-config.js') }}"></script>
-    <script>
-        new DataTable('#flight-route');
-    </script>
 {{--
     <script>
         function deleteMultiples() {
@@ -160,5 +153,4 @@
             });
         }
     </script>
-
 

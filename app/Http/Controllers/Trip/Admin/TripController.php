@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Trip\Admin;
 
+use App\Imports\importDataTrip;
+use Maatwebsite\Excel\Facades\Excel;
+
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Trip\BaseTripController;
 use App\Http\Requests\Trip\StoreTripRequest;
@@ -78,5 +81,12 @@ class TripController extends BaseTripController
 
 
         return response()->json(['data'=>$trip],200); // 200 là mã lỗi
+    }
+
+    public function import_trip(Request $request){
+        $path = $request->file('file-trip-excel')->getRealPath();
+        Excel::import(new importDataTrip, $path);
+        toastr()->success('Thêm dữ liệu thành công.','Thành công');
+        return back();
     }
 }
