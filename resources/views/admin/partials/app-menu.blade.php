@@ -198,12 +198,12 @@
                                             </a>
                                         </li>
 
-                                        <li class="nav-item">
+                                        {{-- <li class="nav-item">
                                             <a class="nav-link menu-link" href="{{ route('statistics.user') }}"
                                                 role="button">
                                                 <span>Tài khoản</span>
                                             </a>
-                                        </li>
+                                        </li> --}}
                                     </ul>
                                 </div>
                             </li>
