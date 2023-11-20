@@ -1,0 +1,10 @@
+@extends('client.layout.main')
+@section('style')
+    @include('client.pages.trip.style')
+@endsection
+@section('content')
+    @include('client.pages.trip.main')
+@endsection
+@section('script')
+    @include('client.pages.trip.script')
+@endsection

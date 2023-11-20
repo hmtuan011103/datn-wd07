@@ -41,7 +41,7 @@ class RoleService
             $role->description = $request->description;
             $role->save();
             $selectedPers = $request->input('permission', []);
-            $role->permission()->sync($selectedPers);
+            $role->permissions()->sync($selectedPers);
             return $role;
         }
     }

@@ -26,7 +26,7 @@ class UpdateUserRequest extends FormRequest
             'email' => 'required|email|unique:users,email,' . $this->route('user'), // ignore the current user's email
             'phone_number' => 'required|min:10|max:16',
             'user_type_id' => 'required|exists:type_users,id',
-            'address' => 'required|max:255',
+            'address' => 'max:255',
             'description' => 'max:600',
             'roles' => 'required|array',
             'roles.*' => 'exists:roles,id',

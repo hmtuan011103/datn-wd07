@@ -83,24 +83,24 @@
 									<div class="col-md-6">
 										<div class="form-group has-feedback">
 										  <label class="control-label">Giờ đi</label>
-										  <input class="form-control" name="start_time" id="time-input" placeholder="00:00" type="text">
+										  <input class="form-control" style="cursor: pointer"  name="start_time"  type="time">
 										  <span  aria-hidden="true"></span> </div>
 									  </div>
 
 									  <div class="col-md-6">
 										<div class="form-group has-feedback">
-										  <label class="control-label">Giá vé</label>
-										  <input class="form-control" onChange="format_curency(this);"  name="trip_price" placeholder="VND" type="number">
+										  <label class="control-label">Thời gian hành trình</label>
+										  <input class="form-control" id="timeInput" oninput="validateTime()" onblur="formatTime()"  placeholder="Nhập thời gian" name="interval_trip"  type="text">
+										
 										  <span  aria-hidden="true"></span> </div>
 									  </div>
-									  
-									
 
+									 									
 									  <div class="col-md-6">
 										<div class="form-group has-feedback">
 										  <label class="control-label">Điểm bắt đầu</label>
 										  {{-- <input class="form-control" name="end_location" placeholder="Điểm kết thúc" type="text"> --}}
-										  <select class="form-select"   name="start_location">
+										  <select class="form-select" id="option1" name="start_location">
 											<option value=""></option>
 											@foreach ($locations as $location)
 											<option value="{{$location->name}}">{{$location->name}}</option>
@@ -113,12 +113,19 @@
 										<div class="form-group has-feedback">
 										  <label class="control-label">Điểm kết thúc</label>
 										  {{-- <input class="form-control" name="end_location" placeholder="Điểm kết thúc" type="text"> --}}
-										  <select class="form-select"   name="end_location">
+										  <select class="form-select" id="option2"   name="end_location">
 											<option value=""></option>
 											@foreach ($locations as $location)
 											<option value="{{$location->name}}">{{$location->name}}</option>
 											@endforeach
 										</select>
+										  <span  aria-hidden="true"></span> </div>
+									  </div>
+
+									  <div class="col-md-6">
+										<div class="form-group has-feedback">
+										  <label class="control-label">Giá vé</label>
+										  <input class="form-control"  onChange="format_curency(this);"  name="trip_price" placeholder="VND" type="number">
 										  <span  aria-hidden="true"></span> </div>
 									  </div>
 

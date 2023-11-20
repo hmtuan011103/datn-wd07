@@ -45,6 +45,7 @@
                                                     </div>
                                                 </th>
                                                 <th class="sort" data-sort="name">Tên</th>
+                                                <th class="sort" data-sort="user_type">Phân loại</th>
                                                 <th class="sort" data-sort="email">Email</th>
                                                 <th class="sort" data-sort="created_at">Ngày tạo</th>
                                                 <th class="sort" data-sort="updated_at">Chỉnh sửa lần cuối</th>
@@ -66,13 +67,8 @@
                                                                     nào
                                                                 </h5>
                                                                 <p class="text-muted mb-0">
-                                                                    Chúng tôi đã tìm kiếm cẩn thận nhưng không thấy
-                                                                    có
-                                                                    kết
-                                                                    quả
-                                                                    nào
-                                                                    cả,
-                                                                    vui lòng thử lại sau.
+                                                                    Chúng tôi đã tìm kiếm cẩn thận nhưng không thấy có
+                                                                    kết quả nào cả, vui lòng thử lại sau.
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -82,19 +78,29 @@
 
                                             @foreach ($data as $item)
                                                 <tr>
-                                                    <th scope="row">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox"
-                                                                name="chk_child" value="option{{ $item->id }}">
-                                                        </div>
-                                                    </th>
-                                                    {{-- delete multiple will catch this id --}}
-                                                    <td class="id" style="display:none;">
-                                                        <a href="javascript:void(0);" class="fw-medium link-primary">
-                                                            {{ $item->id }}
-                                                        </a>
-                                                    </td>
+                                                    @if (!in_array('admin', $item->role_name))
+                                                        <th scope="row">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    name="chk_child" value="option{{ $item->id }}">
+                                                            </div>
+                                                        </th>
+                                                        {{-- delete multiple will catch this id --}}
+                                                        <td class="id" style="display:none;">
+                                                            <a href="javascript:void(0);"
+                                                                class="fw-medium link-primary">
+                                                                {{ $item->id }}
+                                                            </a>
+                                                        </td>
+                                                    @else
+                                                        <th scope="row">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" disabled>
+                                                            </div>
+                                                        </th>
+                                                    @endif
                                                     <td class="name">{{ $item->name }}</td>
+                                                    <td class="user_type">{{ $item->user_type }}</td>
                                                     <td class="email">{{ $item->email }}</td>
                                                     <td class="created_at">
                                                         {{ helperFormatTime($item->created_at) ?? 'Trống' }}</td>
@@ -117,20 +123,22 @@
                                                                 </a>
                                                             </div>
 
-                                                            <div class="remove">
-                                                                <form
-                                                                    action="{{ route('users.destroy', ['user' => $item->id]) }}"
-                                                                    method="POST" id="deleteForm{{ $item->id }}">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="button"
-                                                                        class="btn btn-sm btn-danger btn-destroy-item"
-                                                                        onclick="confirmDelete({{ $item->id }})">
-                                                                        <i class="bx bx-trash"></i>
-                                                                    </button>
-                                                                </form>
-                                                            </div>
-
+                                                            @if (!in_array('admin', $item->role_name))
+                                                                <div class="remove">
+                                                                    <form
+                                                                        action="{{ route('users.destroy', ['user' => $item->id]) }}"
+                                                                        method="POST"
+                                                                        id="deleteForm{{ $item->id }}">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="button"
+                                                                            class="btn btn-sm btn-danger btn-destroy-item"
+                                                                            onclick="confirmDelete({{ $item->id }})">
+                                                                            <i class="bx bx-trash"></i>
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
+                                                            @endif
                                                         </div>
                                                     </td>
                                                 </tr>

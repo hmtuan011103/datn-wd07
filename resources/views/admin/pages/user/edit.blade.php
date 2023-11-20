@@ -9,48 +9,48 @@
                         </div>
 
                         <div class="card-body">
-                            <form class="row g-3 was-validated" method="POST"
+                            <form class="row g-3" method="POST"
                                 action="{{ route('users.update', ['user' => $data->id]) }}" id="form-edit-user">
                                 @csrf
                                 @method('PATCH')
 
                                 <div class="col-md-2">
-                                    <label for="validationCustom01" class="form-label">Tên người dùng</label>
+                                    <label for="validationCustom01" class="form-label">*Tên người dùng</label>
                                     <input type="text" class="form-control" name="name" id="validationCustom01"
                                         placeholder="something" value="{{ $data->name }}" required>
                                     @error('name')
-                                        <div class="invalid-feedback d-inline-block">
+                                        <div class="help-block error-help-block">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
 
                                 <div class="col-md-3">
-                                    <label for="validationCustomEmail" class="form-label">Email</label>
+                                    <label for="validationCustomEmail" class="form-label">*Email</label>
                                     <input type="email" class="form-control" name="email" id="validationCustomEmail"
                                         placeholder="something@something.something" value="{{ $data->email }}"
                                         required>
                                     @error('email')
-                                        <div class="invalid-feedback d-inline-block">
+                                        <div class="help-block error-help-block">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
 
                                 <div class="col-md-2">
-                                    <label for="validationCustomPhone" class="form-label">Số điện thoại</label>
+                                    <label for="validationCustomPhone" class="form-label">*Số điện thoại</label>
                                     <input type="text" class="form-control" name="phone_number"
                                         id="validationCustomPhone" placeholder="0342222222"
                                         value="{{ $data->phone_number }}" required>
                                     @error('phone_number')
-                                        <div class="invalid-feedback d-inline-block">
+                                        <div class="help-block error-help-block">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
 
                                 <div class="col-md-2">
-                                    <label for="validationTypeUserSelect" class="form-label">Loại người dùng</label>
+                                    <label for="validationTypeUserSelect" class="form-label">*Loại người dùng</label>
                                     <select class="form-select" id="validationTypeUserSelect" name="user_type_id"
                                         required>
                                         <option selected disabled value="">...</option>
@@ -61,7 +61,7 @@
                                         @endforeach
                                     </select>
                                     @error('user_type_id')
-                                        <div class="invalid-feedback d-inline-block">
+                                        <div class="help-block error-help-block">
                                             {{ $message }}
                                         </div>
                                     @enderror
@@ -73,7 +73,7 @@
                                         multiple="multiple" required>
                                         @foreach ($data->role_all as $item)
                                             @php
-                                                $matching = in_array($item->id, $data->role_actived);
+                                                $matching = in_array($item->id, $data->roles);
                                             @endphp
                                             <option class="text-center" value="{{ $item->id }}"
                                                 @selected($matching)>{{ $item->name }}
@@ -82,7 +82,7 @@
                                         @endforeach
                                     </select>
                                     @error('roles')
-                                        <div class="invalid-feedback d-inline-block">
+                                        <div class="help-block error-help-block">
                                             {{ $message }}
                                         </div>
                                     @enderror
@@ -93,7 +93,7 @@
                                         <label for="validationCustomDescription" class="form-label">Mô tả</label>
                                         <textarea name="description" id="validationCustomDescription" cols="30" rows="12">{{ $data->description }}</textarea>
                                         @error('description')
-                                            <div class="invalid-feedback d-inline-block">
+                                            <div class="help-block error-help-block">
                                                 {{ $message }}
                                             </div>
                                         @enderror
@@ -103,10 +103,9 @@
                                 <div class="col-md-3">
                                     <label for="validationCustomAddress" class="form-label">Địa chỉ</label>
                                     <input type="text" class="form-control" name="address"
-                                        id="validationCustomAddress" placeholder="..." value="{{ $data->address }}"
-                                        required>
+                                        id="validationCustomAddress" placeholder="..." value="{{ $data->address }}">
                                     @error('address')
-                                        <div class="invalid-feedback d-inline-block">
+                                        <div class="help-block error-help-block">
                                             {{ $message }}
                                         </div>
                                     @enderror
@@ -121,7 +120,7 @@
                                         id="validationCustomPassword" placeholder="********" minlength="8"
                                         maxlength="16">
                                     @error('password')
-                                        <div class="invalid-feedback d-inline-block">
+                                        <div class="help-block error-help-block">
                                             {{ $message }}
                                         </div>
                                     @enderror
@@ -135,7 +134,7 @@
                                         id="validationCustomPasswordRe" placeholder="********" minlength="8"
                                         maxlength="16">
                                     @error('password_confirmation')
-                                        <div class="invalid-feedback d-inline-block">
+                                        <div class="help-block error-help-block">
                                             {{ $message }}
                                         </div>
                                     @enderror

@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject, CanResetPasswordContract
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
@@ -52,6 +53,30 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    /**
+     * Get the user's permissions.
+     */
+    public function getPermissionsAttribute()
+    {
+        // Check if the user permissions are already loaded
+        if (!$this->relationLoaded('permissions')) {
+            // Load and cache user permissions
+            $this->load('roles.permissions');
+            $permissions = collect();
+            foreach ($this->roles as $role) {
+                $filteredPermissions = $role->permissions->where('parent_id', '!=', 0)->pluck('name');
+                $permissions = $permissions->merge($filteredPermissions);
+            }
+            // Use unique() to remove duplicates and reindex the keys
+            $uniquePermissions = $permissions->unique()->values()->toArray();
+
+            $this->setRelation('permissions', $uniquePermissions);
+        }
+
+        // Return the user permissions
+        return $this->getRelation('permissions');
+    }
+
     // Define the inverse one-to-many relationship with the TypeUser model
     public function typeUser()
     {
@@ -67,7 +92,13 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id')->withTimestamps();
     }
-    public function news(){
-        return $this->hasMany(NewPost::class,'user_id');
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

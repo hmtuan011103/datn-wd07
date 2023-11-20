@@ -41,7 +41,7 @@
                                                 <select class="form-select"   name="car_id">
                                                     @foreach ($cars as $car)
                                                         {{-- <option value="{{$user->id}}" {{$user->id}} == {{$trip->user_id}} ? "selected" : "">{{$user->name}}</option> --}}
-                                                        <?php $selected = $car->id == $trip->user_id ? 'selected' : ''; ?>
+                                                        <?php $selected = $car->id == $trip->car_id ? 'selected' : ''; ?>
                                                         <option {{ $selected }} value="{{ $car->id }}">
                                                             {{ $car->name }}</option>
                                                     @endforeach
@@ -94,20 +94,21 @@
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Giờ đi</label>
                                                 <input class="form-control" name="start_time"
-                                                    value="{{ $trip->start_time }}" id="time-input" placeholder="00:00" type="text">
+                                                    value="{{ formatTime($trip->start_time) }}"  style="cursor: pointer" type="time">
                                                 <span aria-hidden="true"></span>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
-                                                <label class="control-label">Giá vé</label>
-                                                <input class="form-control" value="{{ $trip->trip_price }}.000"
-                                                    onChange="format_curency(this);" name="trip_price" placeholder="VND"
-                                                    type="number">
-                                                <span aria-hidden="true"></span>
-                                            </div>
-                                        </div>
+                                              <label class="control-label">Thời gian hành trình</label>
+                                              <input class="form-control" id="timeInput" oninput="validateTime()" onblur="formatTime()" placeholder="Nhập thời gian" name="interval_trip"  type="text" value="{{formatInterval($trip->interval_trip)}}">
+                                            
+                                              <span  aria-hidden="true"></span> </div>
+                                          </div>
+
+                                       
+
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Điểm bắt đầu</label>
@@ -125,25 +126,36 @@
                                             </div>
                                         </div>
 
+                                      
+
+
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Điểm kết thúc</label>
-                                                {{-- <input class="form-control" name="end_location"
-                                                    value="{{ $trip->end_location }}" placeholder="Điểm kết thúc"
-                                                    type="text"> --}}
+                                              
                                                 <select class="form-select"   name="end_location">
                                                    
                                                 @foreach ($locations as $locat)
-                                                {{-- <option value="{{$user->id}}" {{$user->id}} == {{$trip->user_id}} ? "selected" : "">{{$user->name}}</option> --}}
+                                              
                                                 <?php $selected = $locat->name == $trip->end_location ? 'selected' : ''; ?>
                                                 <option {{ $selected }} value="{{ $locat->name }}">
                                                     {{ $locat->name }}</option>
                                             @endforeach
+                                                </select>
+                                                <span aria-hidden="true"></span>
+                                            </div>
+                                        </div>  
 
+                                      
+                                        <div class="col-md-6">
+                                            <div class="form-group has-feedback">
+                                                <label class="control-label">Giá vé</label>
+                                                <input class="form-control" value="{{ $trip->trip_price }}.000"
+                                                    onChange="format_curency(this);" name="trip_price" placeholder="VND"
+                                                    type="number">
                                                 <span aria-hidden="true"></span>
                                             </div>
                                         </div>
-
                                         {{-- <div class="col-md-6">
 										<div class="form-group has-feedback">
 										  <label class="control-label">Trạng thái</label> --}}
@@ -154,15 +166,19 @@
 
 
                                     </div>
-
+                                    
                                     <div class="hstack gap-2 justify-content-end">
                                         <a href="{{ route('list_trip') }}"><button type="button"
                                                 class="btn btn-light">Danh sách</button></a>
                                         <button type="submit" class="btn btn-success">Sửa</button>
                                         <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
                                     </div>
-
                                 </form>
+
+
+                                    
+
+                              
                             </div><!-- end card -->
                         </div>
                         <!-- end col -->

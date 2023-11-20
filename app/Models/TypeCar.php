@@ -11,7 +11,8 @@ class TypeCar extends Model
     protected $fillable = [
         'description' ,
         'name',
-        'total_seat'
+        'total_seat',
+        'type_seats',
     ];
 
 

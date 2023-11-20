@@ -20,7 +20,10 @@ class UserService
 
      public function getAll()
      {
-          $users = $this->model::orderBy('updated_at', 'desc')->get();
+          $users = $this->model::with('roles')
+               ->orderBy('updated_at', 'desc')
+               ->orderBy('name', 'desc')
+               ->get();
 
           $response['data'] = $users;
           $response['status'] = ResponseAlias::HTTP_OK;
@@ -28,6 +31,14 @@ class UserService
           if ($users->isEmpty()) {
                $response['message'] = 'No data found';
                $response['status'] = ResponseAlias::HTTP_BAD_REQUEST;
+          }
+          foreach ($users as $user) {
+               $user->user_type = $user->typeUser->name;
+               $roles = [];
+               foreach ($user->roles as $user_role) {
+                    $roles[] = $user_role->name;
+               }
+               $user->role_name = $roles;
           }
 
           return response()->json($response, $response['status']);
@@ -61,16 +72,8 @@ class UserService
           }
 
           $allRole = $this->getAllRoles();
-
           $user->role_all = $allRole;
-
-          $roles = [];
-
-          foreach ($user->roles as $role) {
-               $roles[] = $role->id;
-          }
-
-          $user->role_actived = $roles;
+          $user->user_type = $user->typeUser->name;
 
           $response['data'] = $user;
 
@@ -130,31 +133,60 @@ class UserService
           $isUpdate = false;
           $isUpdateRole = false;
 
-          // Convert user's roles and input roles to collections and compare lengths
           $user_collect = collect($user);
-          $user_role_length = count($user_collect['roles']);
-          $data_role_length = count($data['roles']);
+          $except_matching = count($user_collect['roles']);
 
-          // Check if the number of roles has changed
-          if ($user_role_length != $data_role_length) {
-               $isUpdateRole = true; // If roles count is different, an update is needed
-          }
+          if ($except_matching > 0) {
+               // kiem tra so luong role hien tai va so luong update = nhau khong
+               $adminRoleId = null;
+               if ($except_matching == count($data['roles'])) {
+                    // Check each user role against input roles
+                    foreach ($user_collect['roles'] as $user_role) {
+                         if (in_array($user_role['id'], $data['roles'])) {
+                              $except_matching--; // Decrease count for matched roles
+                         };
 
-          // If roles count is the same, compare role IDs to identify specific role changes
-          if (!$isUpdateRole) {
-               $except_matching = $user_role_length;
+                         if ($user_role['name'] == 'admin') {
+                              $adminRoleId = $user_role['id'];
+                         }
+                    }
+               }
 
-               // Check each user role against input roles
                foreach ($user_collect['roles'] as $user_role) {
-                    if (in_array($user_role['id'], $data['roles'])) {
-                         $except_matching--; // Decrease count for matched roles
-                    };
+                    if ($user_role['name'] == 'admin') {
+                         $adminRoleId = $user_role['id'];
+
+                         break;
+                    }
+               }
+
+               if ($adminRoleId) {
+                    // kiểm tra số lượng tài khoản role admin > 1 thì cho phép update role tùy ý,
+                    // nếu < 2 thì check xem có bỏ quyền admin không => nếu có thì fail update => cần ít nhất 1 account có role admin. 
+                    $currentTotalAdminAccount = $this->model::with('roles')
+                         ->whereHas('roles', function ($query) {
+                              $query->where('name', 'admin');
+                         })->count();
+
+                    if ($currentTotalAdminAccount < 2) {
+                         $checkUpdateHasAdminRole = in_array($adminRoleId, $data['roles']);
+
+                         if (!$checkUpdateHasAdminRole) {
+                              $response = [
+                                   'message' => 'Không được bỏ vai trò admin',
+                                   'status' => ResponseAlias::HTTP_BAD_GATEWAY
+                              ];
+                              return response()->json($response, $response['status']);
+                         }
+                    }
                }
 
                // If there are unmatched roles, an update is needed
                if ($except_matching > 0) {
                     $isUpdateRole = true;
                }
+          } else {
+               $isUpdateRole = true;
           }
 
           // Check if any data other than 'id', 'roles', 'created_at', 'deleted_at', and 'updated_at' has changed

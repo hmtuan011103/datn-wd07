@@ -1,66 +1,115 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Clone về setup
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+-   Copy file .env.example ra file mới đổi tên thành .env
+-   php artisan key:generate
+-   php artisan storage:link
+-   php artisan migrate
+-   composer update
+-   php artisan jwt:secret
+-   Config database trong file .env
+-   Config mail trong file .env (có thể sử dụng [mailtrap](https://mailtrap.io/) hoặc bên nào tùy ý)
+-   Done!
 
-## About Laravel
+## Cách phân quyền route bên admin bởi permission
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Các route và quyền hiện đã được config ổn định, nếu bạn muốn tạo route hoặc quyền hay vai trò mới bạn có thể tham khảo bên dưới:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Note: Nếu không tạo mới quyền và vai trò có thể skip B1, B2. 
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   B1: Bạn cần tạo quyền tại "Vai trò & phân quyền > Phân quyền" (Nếu quyền đã tồn tại thì bạn không cần tạo lại nữa, danh sách ở bên dưới)
 
-## Learning Laravel
+Note: Tên quyền sẽ được dùng để "kiểm tra quyền" sau này, hãy đặt tên quyền theo cú pháp kebab-case cụ thể action-object
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Ví dụ: create-user, read-user, update-user, delete-user, create-user-type . . .
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+-   B2: Giờ đã có quyền được tạo ở B1 rồi, bạn tạo vai trò tại "Vai trò & phân quyền > Vai trò" với các quyền bạn muốn
+-   B3: Khai báo route (bạn khai báo route như bình thường)
+-   B4: Phân quyền cho route, bạn chỉ cần thêm middleware "check_permission" cùng các quyền mong muốn là ok
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Cú pháp: 
 
-## Laravel Sponsors
+Phân 1 quyền:
+     
+     middleware('check_permission:permission-01')
+ 
+Phân nhiều quyền:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+    middleware('check_permission:permission-01,permission-02,permission-03')
 
-### Premium Partners
+Ví dụ:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+     Route::get('create', [UserController::class, 'create'])->middleware('check_permission:create-user')->name('create');
+    
+     Route::get('create', [UserController::class, 'create'])->middleware('check_permission:create-user,read-user')->name('create'); 
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Danh sách các quyền mặc định:
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+-    create-permission
+-    read-permission
+-    update-permission
+-    delete-permission
+-    create-role
+-    read-role
+-    update-role
+-    delete-role
+-    create-role-permission
+-    read-role-permission
+-    update-role-permission
+-    delete-role-permission
+-    create-user-role
+-    read-user-role
+-    update-user-role
+-    delete-user-role
+-    create-user-type
+-    read-user-type
+-    update-user-type
+-    delete-user-type
+-    create-user
+-    read-user
+-    update-user
+-    delete-user
+-    create-location
+-    read-location
+-    update-location
+-    delete-location
+-    create-car-type
+-    read-car-type
+-    update-car-type
+-    delete-car-type
+-    create-car
+-    read-car
+-    update-car
+-    delete-car
+-    create-seat
+-    read-seat
+-    update-seat
+-    delete-seat
+-    create-trip
+-    read-trip
+-    update-trip
+-    delete-trip
+-    create-bill
+-    read-bill
+-    update-bill
+-    delete-bill
+-    create-discount-code-type
+-    read-discount-code-type
+-    update-discount-code-type
+-    delete-discount-code-type
+-    create-discount-code
+-    read-discount-code
+-    update-discount-code
+-    delete-discount-code
+-    create-news
+-    read-news
+-    update-news
+-    delete-news
+-    create-comment
+-    read-comment
+-    update-comment
+-    delete-comment
+-    create-banner
+-    read-banner
+-    update-banner
+-    delete-banner

@@ -58,6 +58,7 @@
                                             </th>
                                             <th class="sort" data-sort="customer_name">Tên Loại Xe</th>
                                             <th class="sort" data-sort="customer_name">Số Lượng Ghế</th>
+                                            <th class="sort" data-sort="customer_name">Loại Ghế</th>
                                             <th class="sort" data-sort="customer_name">Mô Tả</th>
                                             <th class="sort" data-sort="action">Chức Năng</th>
                                         </tr>
@@ -72,7 +73,14 @@
                                                 </th>
                                                 <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a></td>
                                                 <td class="customer_name">{{$item->name}}</td>
-                                                <td class="email">{{$item->total_seat}}</td>
+                                                <td class="total_seat">{{$item->total_seat}}</td>
+                                                <td class="type_seats">
+                                                @if ($item->type_seats == 1)
+                                                        Ghế Ngồi
+                                                @elseif ($item->type_seats == 2)
+                                                        Ghế Giường Nằm
+                                                @endif
+                                                </td>
                                                 <td class="email">{{$item->description}}</td>
                                                 <td>
                                                     <div class="d-flex gap-2">
