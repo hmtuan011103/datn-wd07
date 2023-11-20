@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\Locations\Client\LocationController;
-use App\Http\Controllers\New\Client\NewController;
+use App\Http\Controllers\New\Admin\NewController;
+// use App\Http\Controllers\New\Client\NewController;
 use Illuminate\Support\Facades\Route;
 
 /*
