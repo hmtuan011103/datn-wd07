@@ -98,8 +98,8 @@
                                                                     {{-- <a href="{{ route('delete_role', ['id' => $role->id]) }}"
                                                                         onclick="return confirm('Bạn có chắc chắn muốn xóa Vai trò này')"> </a> --}}
                                                                     <button class="btn btn-sm btn-danger btn-remove"
-                                                                        data-bs-toggle="modal" data-bs-target="#modalDelete"
-                                                                        data-role-id="{{ $role->id }}"><i class="bx bx-trash"></i></button>
+                                                                        {{-- data-bs-toggle="modal" data-bs-target="#modalDelete" data-role-id="{{ $role->id }}" --}}
+                                                                        onclick="confirmDelete({{$role->id}})" ><i class="bx bx-trash"></i></button>
                                                                 </div>
                                                                 <div class="details">
                                                                     <button class="btn btn-sm btn-primary btn-details" onclick="showDetails({{$role->id}})"
@@ -136,6 +136,9 @@
                                             </a>
                                         </div>
                                     </div>
+                                    {{-- <div class="aiz-pagination">
+                                        {{ $roles->appends(request()->input())->links() }}
+                                    </div> --}}
                                 </div>
                             </div><!-- end card -->
                         </div>
