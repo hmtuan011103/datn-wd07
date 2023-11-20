@@ -118,8 +118,10 @@ Route::prefix('news')->group(function () {
     Route::post('/store', [\App\Http\Controllers\New\Admin\NewController::class, 'store'])->name('store_new');
     Route::get('/edit/{id}', [\App\Http\Controllers\New\Admin\NewController::class, 'edit'])->name('edit_new');
     Route::put('/update/{id}', [\App\Http\Controllers\New\Admin\NewController::class, 'update'])->name('update_new');
-    Route::delete('/destroy/{id}',
-        [\App\Http\Controllers\New\Admin\NewController::class, 'destroy'])->name('destroy_new');
+    Route::delete(
+        '/destroy/{id}',
+        [\App\Http\Controllers\New\Admin\NewController::class, 'destroy']
+    )->name('destroy_new');
 });
 
 Route::group(['prefix' => 'discount_code'], function () {
@@ -149,8 +151,14 @@ Route::middleware(['guest'])->group(function () {
 Route::get('/export-lichtrinh', [TripController::class,'export'])->name('export_trip')->middleware('check_permission:read-schedule');
 Route::prefix('search-ticket')->group(function () {
     Route::get('/', [TicketController::class, 'form_search'])->name('form_search')->middleware('check_permission:read-search-ticket');
-
 });
+
+Route::middleware('check_permission:read-statistic')->name('statistics.')->prefix('statistics_general')->group(function () {
+    Route::get('/', [\App\Http\Controllers\Statistic\Admin\StatisticController::class, 'index'])->name('car');
+    Route::get('/user', [\App\Http\Controllers\Statistic\Admin\StatisticController::class, 'user'])->name('user');
+});
+
+
 Route::prefix('schedule')->group(function () {
     Route::get('/', [TripController::class, 'schedule'])->name('schedule')->middleware('check_permission:read-schedule');
 });

@@ -37,6 +37,12 @@
                                         Tài khoản
                                     </span>
                                 </a>
+                                <a class="dropdown-item" target="_blank" href="{{ route('trang_chu') }}">
+                                    <i class="mdi mdi-arrow-right-bottom-bold text-muted fs-16 align-middle me-1"></i>
+                                    <span class="align-middle">
+                                        Tới Web khách
+                                    </span>
+                                </a>
                                 <div class="dropdown-divider"></div>
                                 <form action="{{ route('logout.submit') }}" method="POST">
                                     @csrf
