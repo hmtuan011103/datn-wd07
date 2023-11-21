@@ -14,10 +14,9 @@
 
 <!-- Javascript Requirements -->
 {{-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> --}}
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.3/2.1.3/jquery.min.js"></script>
+{{-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.3/2.1.3/jquery.min.js"></script> --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
-{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
-
 
 <!-- Laravel Javascript Validation -->
 <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
@@ -25,16 +24,12 @@
 {!! JsValidator::formRequest('App\Http\Requests\Trip\StoreTripRequest') !!}
 
 {{-- định dạng tiền tệ --}}
-<script>
+{{-- <script>
     function format_curency(a) {
         xuli = a.value.replaceAll('.', '');
         a.value = xuli.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
     }
-</script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-
+</script> --}}
 
 
 <script>
@@ -84,10 +79,11 @@
         }
     }
 </script>
-<script>
+{{-- <script>
     $(document).ready(function() {
         $('.btn-show').click(function() {
             var url = $(this).attr('data-url');
+            console.log(url);
             $.ajax({
                 type: 'get',
                 url: url,
@@ -143,9 +139,9 @@
             })
         })
     })
-</script>
+</script> --}}
 
-<script>
+{{-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         var deleteButtons = document.getElementsByClassName('btn-remove');
 
@@ -183,7 +179,7 @@
             })
         });
     });
-</script>
+</script> --}}
 
 {{-- click date --}}
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -199,6 +195,18 @@
     });
 </script>
 
+{{-- click time --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var timeInput = document.getElementById('time-input');
+
+        flatpickr(timeInput, {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: 'H:i',
+        });
+    });
+</script>
 
 <script>
     $("#timeInput").on("input", function() {
@@ -215,7 +223,7 @@
         let value = input.value;
         if (!pattern.test(value) && !pattern1.test(value) && !pattern2.test(value) && !pattern3.test(value) && !pattern4
             .test(value)) {
-            if (value === "") {
+            if (value === "0") {
                 input.value = "";
                 return true;
             }
@@ -278,16 +286,312 @@
     }
 </script>
 
+
+
+
+
+
+{{-- lấy tài xế --}}
+<script>
+    var link = 'http://127.0.0.1:8000/api/data_user';
+    fetch(link)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            data.forEach(function(item) {
+                document.getElementById('driver').innerHTML +=
+                    `<option value="${item.id}">${item.name}</option>`
+            })
+        })
+</script>
+
+{{-- lấy phụ xe  --}}
+<script>
+    var link = 'http://127.0.0.1:8000/api/data_user_assistant';
+    fetch(link)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            data.forEach(function(item) {
+                document.getElementById('assistant').innerHTML +=
+                    `<option value="${item.id}">${item.name}</option>`
+            })
+        })
+</script>
+
+{{-- lấy điểm đến  --}}
+<script>
+    var link = 'http://127.0.0.1:8000/api/location/list_filter_location';
+    fetch(link)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            data.forEach(function(item) {
+                document.getElementById('depature_point').innerHTML +=
+                    `<option value="${item.name}">${item.name}</option>`
+            })
+        })
+</script>
+<script>
+    var link = 'http://127.0.0.1:8000/api/location/list_filter_location';
+    fetch(link)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            data.forEach(function(item) {
+                document.getElementById('destination').innerHTML +=
+                    `<option value="${item.name}">${item.name}</option>`
+            })
+        })
+</script>
+
+
+
+{{-- filter  --}}
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#repeat').on('change', function() {
-            if ($(this).is(':checked')) {
-                $('#numberOfDaysInput').show(); // Hiển thị ô số ngày lặp lại nếu checkbox được chọn
-            } else {
-                $('#numberOfDaysInput').hide(); // Ẩn ô số ngày lặp lại nếu checkbox không được chọn
+        function formatTimes(time) {
+            var date = new Date(time);
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+            // Đảm bảo rằng ngày và tháng luôn có 2 chữ số
+            if (day < 10) {
+                day = '0' + day;
             }
+            if (month < 10) {
+                month = '0' + month;
+            }
+            var formattedTime = day + '/' + month + '/' + year;
+            return formattedTime;
+        }
+
+        function formatCurrency(amount) {
+            var formatter = new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND',
+                minimumFractionDigits: 0,
+            });
+
+            var formattedCurrency = formatter.format(amount);
+            return formattedCurrency;
+        }
+
+        function formatStartTime(time) {
+            var parts = time.split(':');
+            var hour = parts[0];
+            var minute = parts[1];
+
+            return hour + ':' + minute;
+        }
+
+        $("#searchInput").on("input", function() {
+            var searchKeyword = $(this).val();
+            filterData(searchKeyword);
+        });
+
+        var isFilterSelected = false; // Biến để kiểm tra xem người dùng đã chọn bất kỳ điều kiện nào hay chưa
+        var selectedDriver = [];
+        var selectedAssiant = [];
+        var selectedStartLocation = [];
+        var selectedEndLocation = [];
+        var selectedDateStart = [];
+
+        // Hàm để lọc dữ liệu
+        function filterData() {
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/api/data", // Đường dẫn tới tệp JSON chứa dữ liệu giả
+                dataType: "json",
+                success: function(data) {
+
+                    var filteredData = data.filter(function(item) {
+                        // Kiểm tra xem loại xe và loại ghế nằm trong các loại đã chọn
+                        return (
+                            (selectedDriver.length === 0 || selectedDriver.includes(item
+                                .drive_id)) &&
+                            (selectedAssiant.length === 0 || selectedAssiant.includes(
+                                item.assistantCar_id)) &&
+                            (selectedStartLocation.length === 0 || selectedStartLocation
+                                .includes(item.start_location)) &&
+                            (selectedEndLocation.length === 0 || selectedEndLocation
+                                .includes(item.end_location)) &&
+                            (selectedDateStart.length === 0 || selectedDateStart
+                                .includes(moment(item.start_date).format('YYYY-MM-DD')))
+                        );
+                    });
+
+                    // Hiển thị kết quả lọc
+                    var result = "";
+                    if (filteredData.length > 0) {
+                        filteredData.forEach(function(item) {
+                            var routeDetail =
+                                `http://127.0.0.1:8000/manage/trip/show/${item.id}`;
+                            var routeEdit =
+                                `http://127.0.0.1:8000/manage/trip/edit/${item.id}`;
+                            var routeDelete =
+                                `http://127.0.0.1:8000/manage/trip/delete/${item.id}`;
+                            result += `
+                                <tr id="row${item.id}">
+                                    <th scope="row">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox"
+                                                name="rowCheckbox" value="${item.id}">
+                                        </div>
+                                    </th>
+                                    <td class="id" style="display:none;"><a
+                                                                href="javascript:void(0);"
+                                                                class="fw-medium link-primary">#VZ2101</a></td>
+                                    <td class="customer_name">${item.start_location}</td>
+                                    <td class="email">${item.end_location}</td>
+                                    <td class="phone">${formatTimes( item.start_date)}</td>
+                                    <td class="date">${formatStartTime(item.start_time)}</td>
+                                    <td class="status">${formatCurrency(item.trip_price)}</td>
+                                    <td>
+                                    <div class="d-flex gap-2">
+                                        <div class="detail">
+                                        <button data-url="${routeDetail}" class="btn btn-primary btn-sm edit-item-btn btn-show" data-target="#show" data-toggle="modal">
+                                            <i class="bx bx bx-show"></i>
+                                        </button>
+                                        </div>
+                                        <div class="edit">
+                                        <a href="${routeEdit}">
+                                            <button class="btn btn-success btn-sm edit-item-btn">
+                                            <i class="bx bx-edit"></i>
+                                            </button>
+                                        </a>
+                                        </div>
+                                        <div class="remove">
+                                            <button class="btn btn-sm btn-danger btn-remove"
+                                                    onclick="confirmDelete(${item.id})" ><i class="bx bx-trash"></i></button>
+                                        </div>
+                                    </div>
+                                    </td>
+                                </tr>
+                                `;
+                        });
+                    } else {
+                        $(".noresult").css("display", "block");
+                    }
+                    $(".resultFilter").html(result);
+
+                }
+            });
+        }
+
+        // Sử dụng Ajax để lọc dữ liệu khi có thay đổi trong checkbox và select
+        $("select").change(function() {
+            isFilterSelected = true; // Đánh dấu là người dùng đã chọn bất kỳ điều kiện nào.
+            filterData();
+        });
+        $("#departure-date").change(function() {
+            isFilterSelected = true; // Đánh dấu là người dùng đã chọn bất kỳ điều kiện nào.
+            filterData();
+        });
+
+        // Lấy giá trị được chọn từ select và cập nhật vào mảng selectedDriver và selectedAssiant
+        function updateSelectedValues() {
+            selectedDateStart = $("#departure-date").val() || [];
+            selectedDriver = $("#driver").val() || [];
+            selectedAssiant = $("#assistant").val() || [];
+            selectedStartLocation = $("#depature_point").val() || [];
+            selectedEndLocation = $("#destination").val() || [];
+
+        }
+
+        // Kích hoạt sự kiện change trên select để cập nhật kết quả lọc
+        $("#departure-date,#driver, #assistant, #depature_point, #destination").change(function() {
+            updateSelectedValues();
+            // $("input[type='date']").change();
+        });
+
+        // Hiển thị toàn bộ dữ liệu khi người dùng chưa chọn bất kỳ điều kiện nào
+        $(window).on('load', function() {
+            if (!isFilterSelected) {
+                filterData();
+            }
+        });
+
+        // Cập nhật giá trị ban đầu cho selectedDriver và selectedAssiant
+        updateSelectedValues();
+
+
+        $(document).on('click', '.btn-show', function() {
+            var url = $(this).attr('data-url');
+            $.ajax({
+                type: 'get',
+                url: url,
+                success: function(response) {
+                    console.log(response);
+                    $('label#car_name').text(response.data[3][0].car_name)
+                    $('label#drive_name').text(response.data[1][0].drive_name)
+                    $('label#assistantCar_name').text(response.data[2][0]
+                        .assistantCar_name)
+                    $('label#start_date').text(formatTimes(response.data[2][0]
+                        .start_date))
+                    $('label#start_location').text(response.data[2][0]
+                        .start_location)
+                    $('label#end_location').text(response.data[2][0]
+                        .end_location)
+                    $('label#trip_price').text(formatCurrency(response.data[2][
+                        0
+                        ].trip_price))
+                    $('label#start_time').text(formatStartTime(response.data[2][
+                        0
+                        ].start_time))
+                    $('label#interval_trip').text(formatStartTime(response.data[
+                        2][0].interval_trip));
+
+                }
+            })
         });
     });
 </script>
 
+<script src="{{ asset('client/assets/js/url-config.js') }}"></script>
+<script>
+    function confirmDelete(itemId) {
+        Swal.fire({
+            html: '<div class="mt-3"><lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon><div class="mt-4 pt-2 fs-15 mx-5"><h4>Xác nhận xóa?</h4><p class="text-muted mx-4 mb-0">Bạn có chắc muốn xóa đi không?</p></div></div>',
+            showCancelButton: true,
+            confirmButtonText: "Đồng ý",
+            confirmButtonClass: "btn btn-primary w-xs mx-2 mb-1",
+            cancelButtonText: "Hủy",
+            cancelButtonClass: "btn btn-danger w-xs mb-1",
+            reverseButtons: true,
+            buttonsStyling: false,
+            showCloseButton: true,
+            customClass: {
+                confirmButton: "btn btn-primary w-xs mx-2 mb-1",
+                cancelButton: "btn btn-danger w-xs mb-1",
+            },
+        }).then((result) => {
+            var rowdelete = document.getElementById('row' + itemId);
+            if (result.isConfirmed) {
+                var ajaxRequest = $.ajax({
+                    url: baseUrl + "/manage/trip/delete/" +
+                        itemId,
+                    method: "GET"
+                });
+                if (rowdelete) {
+                    rowdelete.remove();
+                }
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Xóa chuyến đi thành công!",
+                    showConfirmButton: !1,
+                    timer: 2e3,
+                    showCloseButton: !0,
+                })
+            }
 
+        });
+    }
+</script>

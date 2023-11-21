@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Locations\Admin\LocationController;
+use App\Http\Controllers\User\Admin\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\Client\AuthController;
@@ -41,12 +43,15 @@ Route::group([
     Route::post('update_profile',  [AuthController::class, 'updateProfile']);
     Route::post('password', [AuthController::class, 'changePassword']);
 });
+Route::get('/data_user', [UserController::class, 'getData'])->name('getDataUser');
+Route::get('/data_user_assistant', [UserController::class, 'getDataAssistant'])->name('getDataUserAssistant');
 
 Route::get('getAllPhone', [AuthController::class, 'getAllPhone']);
 Route::get('/data', [TripController::class, 'getData'])->name('getData');
 Route::get('/search_trip', [TripController::class, 'search_start_trip'])->name('search_start_trip');
 
 Route::get('/location/list_client_location',[ClientLocationController::class, 'list_client_location'])->name('api.location.list');
+Route::get('/location/list_filter_location',[LocationController::class, 'list_filter_location']);
 Route::get('searchtrip',[TripController::class, 'searchtrip'])->name('search_trip');
 
 Route::get('searchtrip/get_type_car',[TripController::class, 'get_type_car'])->name('get_type_car');

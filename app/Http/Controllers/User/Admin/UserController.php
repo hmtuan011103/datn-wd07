@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends BaseUserController
 {
+
+    public function getData()
+    {
+        $data = $this->userService->getUserFilter();
+        return $data;
+    }
+    public function getDataAssistant()
+    {
+        $data = $this->userService->getUserFilterAssistant();
+        return $data;
+    }
+
     /**
      * Display a listing of the resource.
      */

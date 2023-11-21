@@ -2,24 +2,15 @@
 
 namespace App\Http\Controllers\Trip\Admin;
 
-use App\Exports\ScheduleExport;
-use App\Exports\UserExport;
-use App\Http\Controllers\Controller;
+use App\Imports\ImportDataTrip;
 use App\Http\Controllers\Trip\BaseTripController;
 use App\Http\Requests\Trip\StoreTripRequest;
-use App\Models\Car;
-use App\Models\Role;
 use App\Models\Trip;
 use App\Models\TypeUser;
-use App\Models\User;
-use App\Models\UserRole;
-use Barryvdh\DomPDF\Facade\Pdf;
 use DateInterval;
 use DateTime;
 use Dompdf\Dompdf;
-use Dompdf\Options;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -79,6 +70,13 @@ class TripController extends BaseTripController
         Trip::find($id)->delete();
         // toastr()->success('Xóa thành công.','Thành công');
         return redirect()->route('list_trip');
+    }
+
+    public function import_trip(Request $request){
+        $path = $request->file('file-trip-excel')->getRealPath();
+        Excel::import(new ImportDataTrip, $path);
+        toastr()->success('Thêm dữ liệu thành công.','Thành công');
+        return back();
     }
 
     public function show($id)

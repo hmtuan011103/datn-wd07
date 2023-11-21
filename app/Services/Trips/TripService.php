@@ -26,7 +26,7 @@ class TripService
     {
         return Trip::all();
     }
-    
+
     public function list_desc()
     {
         // Lấy danh sách các trip_id từ bảng bills
