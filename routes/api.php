@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Locations\Admin\LocationController;
 use App\Http\Controllers\User\Admin\UserController;
+use App\Http\Controllers\DiscountCode\Client\DiscountCodeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\Client\AuthController;
@@ -71,4 +72,10 @@ Route::delete('news/destroy-multiple', [\App\Http\Controllers\New\Admin\NewContr
 Route::get('permission/delete/{id}', [App\Http\Controllers\Permissions\Admin\PermissionController::class, 'delete']);
 
 Route::get('/search_ticket_admin', [AdminTicketController::class, 'search_ticket_admin'])->name('search_ticket_admin');
+Route::get('get-discount-ticket/{code}', [DiscountCodeController::class, 'getCodeUser'])->name('get-discount-ticket');
+
+// Api test email when checkout successful
+Route::get('/test-mail', [AdminTicketController::class, 'testMail']);
+
+
 

@@ -38,14 +38,17 @@ Route::get('/dang-nhap', function () {
     $title = "Chiến thắng | Đăng nhập/Đăng ký";
     return view('client.pages.auth.login', compact('title'));
 })->name('dang-nhap');
+
 Route::match(['get', 'post'], '/thong-tin', function () {
     $title = "Chiến thắng | Thông Tin Người Dùng";
     return view('client.pages.profile.profile', compact('title'));
 })->name('thong-tin')->middleware('checklogin');
+
 Route::match(['get', 'post'], '/ma-giam-gia', function () {
     $title = "Chiến thắng | Mã Giảm Giá";
     return view('client.pages.discount.index', compact('title'));
 })->name('ma-giam-gia')->middleware('checklogin');
+
 Route::match(['get', 'post'], '/mat-khau', function () {
     $title = "Chiến thắng | Đổi Mật Khẩu";
     return view('client.pages.profile.password', compact('title'));
@@ -55,7 +58,9 @@ Route::match(['get', 'post'], '/lich-su', function () {
     return view('client.pages.booking-history.index', compact('title'));
 })->name('lich-su')->middleware('checklogin');
 
+
 Route::get('/lich-trinh', [TripController::class, 'lich_trinh'])->name('lich_trinh');
+Route::post('/phuong-thuc-thanh-toan', [CheckoutController::class, 'continuesCheckout'])->name('phuong_thuc_thanh_toan');
 Route::post('/thanh-toan', [CheckoutController::class, 'checkout'])->name('thanh_toan');
 Route::get('/trang-thai-thanh-toan', [CheckoutController::class, 'checkoutSuccess'])->name('trang_thai_thanh_toan');
 

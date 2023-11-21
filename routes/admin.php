@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Locations\Admin\LocationController;
+use App\Http\Controllers\Order\Admin\OrderController;
 use App\Http\Controllers\Role\Admin\RoleController;
 use App\Http\Controllers\Permissions\Admin\PermissionController;
 use App\Http\Controllers\UserRoles\Admin\UserRoleController;
@@ -132,6 +133,10 @@ Route::group(['prefix' => 'discount_code'], function () {
     Route::get('/edit/{id}', [DiscountCodeController::class, 'edit'])->name('edit_discount_code')->middleware('check_permission:update-discount-code');
     Route::post('/post_edit/{id}', [DiscountCodeController::class, 'update'])->name('post_edit_discount_code')->middleware('check_permission:update-discount-code');
     Route::get('/delete/{id}', [DiscountCodeController::class, 'delete'])->name('delete_discount_code')->middleware('check_permission:delete-discount-code');
+});
+
+Route::group(['prefix' => 'order'], function () {
+    Route::get('/', [OrderController::class, 'index'])->name('list_order')->middleware('check_permission:read-bill');
 });
 
 // authen

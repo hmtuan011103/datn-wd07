@@ -86,7 +86,6 @@
                                             </li>
                                         @endif
                                     </ul>
-                                </div>
                             </li>
                         @endif
 
@@ -206,6 +205,19 @@
                                         </li> --}}
                                     </ul>
                                 </div>
+                            </li>
+                        @endif
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{{ route('form_search') }}">
+                                    <i class="mdi mdi-sticker-text-outline"></i> <span data-key="t-maps">Tra cứu vé</span>
+                                </a>
+                            </li>
+                        @endif
+                        @if (in_array('read-bill', Auth::user()->permissions))
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{{ route('list_order') }}">
+                                    <i class="fa-solid fa-cart-shopping"></i> <span data-key="t-maps">Hóa đơn</span>
+                                </a>
                             </li>
                         @endif
                     </ul>
