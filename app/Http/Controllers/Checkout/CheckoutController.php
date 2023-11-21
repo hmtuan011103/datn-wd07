@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Checkout;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendMailCheckOutSuccess;
 use App\Models\Bill;
 use App\Models\Location;
 use App\Models\Seat;
@@ -159,6 +160,7 @@ class CheckoutController extends Controller
                     ]);
                 }
             }
+            SendMailCheckOutSuccess::dispatch($cacheData);
             DB::commit();
         } catch (\Exception $exception) {
             DB::rollBack();
@@ -181,19 +183,10 @@ class CheckoutController extends Controller
         return $allTicket;
     }
 
-    public function senMail($cacheData) {
-        $name = "Bạn đã mua vé thành công rồi" . $cacheData['name'];
-        Mail::send('client.pages.email.test', compact('name'), function ($email) {
-            $email->subject('[CHIENTHANGBUS] Hóa đơn dặt vé ');
-            $email->to('tuanhmph28448@fpt.edu.vn');
-        });
-    }
-
     public function checkoutSuccess(Request $request) {
         $cacheData = Cache::get('my_bill_cache');
         if($request->vnp_ResponseCode === "00" && $cacheData !== null){
             $this->saveDataAfterCheckoutSuccess($request, $cacheData);
-            $this->senMail($cacheData);
             return view('client.partials.checkout-success', [
                 'data' => $this->getTicketForBill(),
                 'inforUser' => Cache::get('infor_user'),
