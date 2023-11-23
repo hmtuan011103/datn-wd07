@@ -193,6 +193,14 @@
                             </li>
                         @endif
 
+                        @if (in_array('read-banner', Auth::user()->permissions))
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{{ route('banner') }}">
+                                    <i class="fa-solid fa fa-sliders"></i> <span data-key="t-maps">Banner</span>
+                                </a>
+                            </li>
+                        @endif
+
                         @if (in_array('read-statistic', Auth::user()->permissions))
                             <li class="menu-title"><span data-key="t-statistic">Thống kê</span></li>
                             <li class="nav-item">

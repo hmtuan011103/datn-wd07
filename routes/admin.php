@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Banner\Admin\BannerController;
 use App\Http\Controllers\Locations\Admin\LocationController;
 use App\Http\Controllers\Order\Admin\OrderController;
 use App\Http\Controllers\Role\Admin\RoleController;
@@ -164,7 +165,15 @@ Route::middleware('check_permission:read-statistic')->name('statistics.')->prefi
     Route::get('/user', [\App\Http\Controllers\Statistic\Admin\StatisticController::class, 'user'])->name('user');
 });
 
-
+Route::prefix('banner')->group(function () {
+    Route::get('/', [BannerController::class, 'index'])->name('banner')->middleware('check_permission:read-banner');
+    Route::get('create', [BannerController::class, 'create'])->name('create_banner')->middleware('check_permission:create-banner');
+    Route::post('store', [BannerController::class, 'store'])->name('store_banner')->middleware('check_permission:create-banner');
+    Route::get('edit/{id}', [BannerController::class, 'edit'])->name('edit_banner')->middleware('check_permission:update-banner');
+    Route::post('update/{id}', [BannerController::class, 'update'])->name('update_banner')->middleware('check_permission:update-banner');
+    Route::get('delete/{id}', [BannerController::class, 'delete'])->name('delete_banner')->middleware('check_permission:delete-banner');
+    Route::post('update-status-banner/{id}', [BannerController::class, 'update_status'])->name('update_status_banner')->middleware('check_permission:update-banner');
+});
 Route::prefix('schedule')->group(function () {
     Route::get('/', [TripController::class, 'schedule'])->name('schedule')->middleware('check_permission:read-schedule');
 });
