@@ -48,6 +48,7 @@ $(document).ready(function () {
 }, autoLogoutTimeInMillis);
 }
 
+
     function performLogout() {
     fetch('http://127.0.0.1:8000/api/logout', {
     method: 'POST',
@@ -131,13 +132,7 @@ if (status === 'true') {
         getProfile();
     }
 }
-$(document).ready(function() {
-    $('#register-link').on('click', function(e) {
-        e.preventDefault();
-        localStorage.setItem('registrationClicked', 'true');
-        window.location.href = "{{ route('dang-nhap') }}";
-    });
-});
+
 document.addEventListener("DOMContentLoaded", function () {
     const status = getCookie('status');
     const successMessage = sessionStorage.getItem('successMessage');
@@ -160,3 +155,4 @@ document.addEventListener("DOMContentLoaded", function () {
         sessionStorage.removeItem('successMessage');
     }
 });
+

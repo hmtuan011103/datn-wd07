@@ -170,8 +170,7 @@
                 if (responseData.status === true) {
                     setCookie('token', responseData.token, 10);
                     setCookie('status', true, 10);
-
-                    // Lưu successMessage vào sessionStorage
+                    setCookie('is_client', true, 10);
                     const successMessage = "Đăng nhập thành công!";
                     sessionStorage.setItem('successMessage', successMessage);
                     const redirectUrl = responseData.redirect_url;
