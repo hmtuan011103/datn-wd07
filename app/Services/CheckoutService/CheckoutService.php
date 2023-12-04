@@ -22,7 +22,6 @@ class CheckoutService{
 
     private function getValuePayment($request) : array
     {
-
         $vnp_TxnRef = Str::random(8);
         $vnp_OrderInfo = "Thanh toán vé xe";
         $vnp_OrderType = "billpayment";
@@ -57,10 +56,10 @@ class CheckoutService{
             $vnp_startTurn_1 = $request->place_start_turn_1;
             $vnp_endTurn_1= $request->place_end_turn_1;
         }
-        Cache::put('my_bill_cache', [
-            'email' => $request->email,
+        Cache::put('my_bill_cache' . $vnp_TxnRef, [
+            'email' => $request->phone,
             'name' => $request->name,
-            'phone_number' => $request->phone,
+            'phone_number' => $request->email,
             'moneyTurn' => $request->money_turn,
             'moneyReturn' => $request->money_return,
             'seatsTurn' => $vnp_seatsTurn,
@@ -150,17 +149,15 @@ class CheckoutService{
         $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
 
         $orderInfo = "Thanh toán qua MoMo";
-        $amount = "10000";
-        $orderId = time() . "";
+        $amount = 10000;
+        $orderId = 'HZ-' . now()->format('Ymd') . '-' . Str::random(6);
         $redirectUrl = route('trang_thai_thanh_toan');
         $ipnUrl = route('trang_thai_thanh_toan');
         $extraData = "";
 
-        $requestId = "1642387834078id";
-        $requestType = "payWithATM";
-        $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId .
-            "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId .
-            "&requestType=" . $requestType;
+        $requestId = now()->format('YmdHis') ;
+        $requestType = "payWithMethod";
+        $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
         $signature = hash_hmac("sha256", $rawHash, $secretKey);
         $data = array(
             'partnerCode' => $partnerCode,
@@ -178,6 +175,6 @@ class CheckoutService{
             'signature' => $signature);
         $result = $this->execPostRequest($endpoint, json_encode($data));
         $jsonResult = json_decode($result, true);
-        header('Location: ' . $jsonResult['redirect-payment']);
+        return redirect()->to($jsonResult['payUrl']);
     }
 }

@@ -427,23 +427,25 @@ class TripService
 
             $tripDateTime = $tripStartDate->copy()->setTime($tripStartTime->hour, $tripStartTime->minute, $tripStartTime->second);
 
-            if ($tripDateTime->isSameDay($currentDateTime) && $tripDateTime->lessThan($currentDateTime->copy()->addHours(4))) {
-                unset($trips[$key]);
-            } else {
-                $totalBookedSeats = DB::table('bills')
-                    ->where('trip_id', $trip->id)
-                    ->sum('total_seats');
+            if($tripDateTime->greaterThan($currentDateTime)) {
+                if ($tripDateTime->isSameDay($currentDateTime) && $tripDateTime->lessThan($currentDateTime->copy()->addHours(4))) {
+                    unset($trips[$key]);
+                } else {
+                    $totalBookedSeats = DB::table('bills')
+                        ->where('trip_id', $trip->id)
+                        ->sum('total_seats');
 
 
-                $carTotalSeat = DB::table('cars')
-                    ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
-                    ->where('cars.id', $trip->car_id)
-                    ->value('type_cars.total_seat');
-                $remainingSeats = $carTotalSeat - $totalBookedSeats;
+                    $carTotalSeat = DB::table('cars')
+                        ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
+                        ->where('cars.id', $trip->car_id)
+                        ->value('type_cars.total_seat');
+                    $remainingSeats = $carTotalSeat - $totalBookedSeats;
 
-                if ($remainingSeats > 0) {
-                    $trip->remaining_seats = $remainingSeats;
-                    $availableTrips[] =  $trip;
+                    if ($remainingSeats > 0) {
+                        $trip->remaining_seats = $remainingSeats;
+                        $availableTrips[] = $trip;
+                    }
                 }
             }
         }

@@ -269,6 +269,12 @@ footer.pt-4{
 .seat-disabled{
     color: #A2ACBB;
 }
+.seat-choosing{
+    color: #FFFFFF;
+}
+.height-seat-choosing{
+    height: 33px;
+}
 .header-car{
     padding-top: 15px;
 }

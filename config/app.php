@@ -193,6 +193,7 @@ return [
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Redis' => \Illuminate\Support\Facades\Redis::class
     ])->toArray(),
 
 ];

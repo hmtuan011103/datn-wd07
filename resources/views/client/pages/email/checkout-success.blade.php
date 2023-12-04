@@ -82,23 +82,35 @@
 <body>
 <div class="container">
     <div class="header">
-        <img src="{{ asset('client/assets/images/logo_web.png') }}" alt="" style="margin-left: 20px;">
+        <img src="https://raw.githubusercontent.com/hmtuan011103/AirTicket/main/logo_web.png"
+             alt="" style="margin-left: 20px;">
     </div>
     <div class="content">
         <div class="booking-details">
-            <h2>Xin chào, {{ $data['name'] }}!</h2>
+            <h2>Xin chào, {{ $userName }}!</h2>
             <h4 class="mb-1">CHÚC MỪNG BẠN</h4>
             <p class="p-0">Việc mua vé online của bạn đã thành công. Và dưới đây là thông tin mua vé của bạn.</p>
             <div class="py-3">
-                <p class="mb-1"><strong>Mã đặt vé: </strong><b class="color-text">FB12354D</b></p>
-                <p class="mb-1"><strong>Tuyển đường: </strong><b class="color-text">Hải Phòng ⇒ Thanh Hóa</b></p>
-                <p class="mb-1"><strong>Điểm đón: </strong><b class="color-text">Đại Học Hàng Hải</b></p>
-                <p class="mb-1"><strong>Điểm trả: </strong><b class="color-text">Sầm Sơn</b></p>
-                <p class="mb-1"><strong>Vị trí ghế: </strong><b class="color-text">A34, B43, A12</b></p>
+                <p class="mb-1"><strong>Mã đặt vé: </strong><b class="color-text">{{ $codeBill }}</b></p>
+                <p class="mb-1"><strong>Tuyển đường: </strong>
+                    <b class="color-text">
+                        {{ $trip->start_location }} {{ " ⇒ " }} {{ $trip->end_location }}
+                    </b>
+                </p>
+                <p class="mb-1"><strong>Điểm đón: </strong><b class="color-text">{{ $startLocation }}</b></p>
+                <p class="mb-1"><strong>Điểm trả: </strong><b class="color-text">{{ $endLocation }}</b></p>
+                <p class="mb-1"><strong>Thời gian đi: </strong>
+                    <b class="color-text">
+                        {{ \Carbon\Carbon::parse($trip->start_time)->format('H:i') }}
+                        {{ " - " }}
+                        {{ \Carbon\Carbon::parse($trip->start_date)->format('d/m/Y') }}
+                    </b>
+                </p>
+                <p class="mb-1"><strong>Vị trí ghế: </strong><b class="color-text">{{ $seats }}</b></p>
             </div>
         </div>
         <p class="mb-1"><b>Lưu ý:</b>  Đây là thông tin cần được bảo mật, quý khách vui lòng không chia sẻ thông tin này cho bất kì ai để tránh việc mất vé. </p>
-        <a href="#" class="button">Xem chi tiết vé đặt</a>
+        <a href="{{ route('client.searching-ticket') }}" class="button">Xem chi tiết vé đặt</a>
     </div>
     <div class="footer">
         <p>&copy; 2023 Chiến Thắng Bus. All rights reserved.</p>

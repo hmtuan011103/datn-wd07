@@ -132,13 +132,6 @@ if (status === 'true') {
         getProfile();
     }
 }
-$(document).ready(function() {
-    $('#register-link').on('click', function(e) {
-        e.preventDefault();
-        localStorage.setItem('registrationClicked', 'true');
-        window.location.href = "{{ route('dang-nhap') }}";
-    });
-});
 document.addEventListener("DOMContentLoaded", function () {
     const status = getCookie('status');
     const successMessage = sessionStorage.getItem('successMessage');

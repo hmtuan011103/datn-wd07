@@ -26,7 +26,7 @@ class StoreLocationRequest extends FormRequest
             'image'=>'mimes:jpeg,jpg,png,gif|max:1000',
 
         ];
-       
+
     }
 
     public function messages()

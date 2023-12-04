@@ -83,7 +83,7 @@ Route::post('post_contact', [ContactController::class, 'store'])->name('create_c
 Route::get('/tra-cuu', function () {
     $title = "Chiến thắng | Tra Cứu Vé Xe";
     return view('client.pages.search-ticket.index', compact('title'));
-});
+})->name('client.searching-ticket');
 
 
 Route::get('tin-tuc',[NewController::class,'index'])->name('client.news');

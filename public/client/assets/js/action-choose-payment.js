@@ -9,7 +9,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
         momoDiv.style.border = '1px solid #EF5222';
     }
 });
-
 document.querySelectorAll('input[name="type_payment"]').forEach((radio) => {
     radio.addEventListener('change', function() {
         if (this.id === 'vnpay') {
@@ -22,3 +21,4 @@ document.querySelectorAll('input[name="type_payment"]').forEach((radio) => {
         }
     });
 });
+
