@@ -4,7 +4,7 @@ var customerList,
         (checkAll &&
             (checkAll.onclick = function () {
                 var e = document.querySelectorAll(
-                    '.form-check-all input[type="checkbox"]'
+                    '.form-check-all input[type="checkbox"]:not([name="status"])'
                 );
                 1 == checkAll.checked
                     ? Array.from(e).forEach(function (e) {

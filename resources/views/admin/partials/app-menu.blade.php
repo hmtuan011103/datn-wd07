@@ -48,6 +48,14 @@
                             </li>
                         @endif
 
+                        @if (in_array('read-route', Auth::user()->permissions))
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{{ route('list_route') }}">
+                                    <i class="mdi mdi-map"></i> <span data-key="t-maps">Tuyến đường</span>
+                                </a>
+                            </li>
+                        @endif
+
                         @if (in_array('read-trip', Auth::user()->permissions))
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="{{ route('list_trip') }}">

@@ -3,7 +3,7 @@
 <script src="{{ asset('admin/assets/libs/list.pagination.js/list.pagination.min.js') }}"></script>
 
 <!-- listjs init -->
-<script src="{{ asset('admin/assets/js/pages/listjs.init.js') }}"></script>
+<script src="{{ asset('admin/assets/js/pages/listjs.init_edit.js') }}"></script>
 
 <!-- Sweet Alerts js -->
 <script src="{{ asset('admin/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>

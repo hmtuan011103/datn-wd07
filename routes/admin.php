@@ -11,6 +11,7 @@ use App\Http\Controllers\TypeCar\Admin\TypeCarController;
 use App\Http\Controllers\Car\Admin\CarController;
 use App\Http\Controllers\DiscountCode\Admin\DiscountCodeController;
 use App\Http\Controllers\Home\Admin\HomeController;
+use App\Http\Controllers\Route\Admin\RouteController;
 use App\Http\Controllers\Ticket\Admin\TicketController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Trip\Admin\TripController;
@@ -176,6 +177,15 @@ Route::prefix('banner')->group(function () {
 });
 Route::prefix('schedule')->group(function () {
     Route::get('/', [TripController::class, 'schedule'])->name('schedule')->middleware('check_permission:read-schedule');
+});
+Route::prefix('route')->group(function () {
+    Route::get('/', [RouteController::class, 'index'])->name('list_route');
+    Route::get('create', [RouteController::class, 'create'])->name('create_route');
+    Route::post('post', [RouteController::class, 'store'])->name('store_route');
+    Route::get('edit/{id}', [RouteController::class, 'edit'])->name('edit_route');
+    Route::post('update/{id}', [RouteController::class, 'update'])->name('update_route');
+    Route::get('delete/{id}', [RouteController::class, 'delete'])->name('delete_route');
+    Route::get('details/{id}', [RouteController::class, 'details'])->name('details_route');
 });
 // đặt cuối route
 Route::fallback(function () {

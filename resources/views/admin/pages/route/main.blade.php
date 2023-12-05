@@ -1,4 +1,4 @@
-@extends('admin.pages.banner.index')
+@extends('admin.pages.route.index')
 @section('content')
     <div class="main-content">
         <div class="page-content">
@@ -8,12 +8,12 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                            <h4 class="mb-sm-0">Danh sách banner</h4>
+                            <h4 class="mb-sm-0">Danh sách tuyến đường</h4>
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
                                     <li class="breadcrumb-item"><a href="javascript: void(0);">Bảng</a></li>
-                                    <li class="breadcrumb-item active">Danh sách banner</li>
+                                    <li class="breadcrumb-item active">Danh sách tuyến đường</li>
                                 </ol>
                             </div>
 
@@ -26,14 +26,14 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title mb-0">Danh sách banner</h4>
+                                <h4 class="card-title mb-0">Danh sách tuyến đường</h4>
                             </div><!-- end card header -->
                             <div class="card-body">
                                 <div class="listjs-table" id="customerList">
                                     <div class="row g-4 mb-3">
                                         <div class="col-sm-auto">
                                             <div>
-                                                <a href="{{ route('create_banner') }}"><button type="button"
+                                                <a href="{{ route('create_route') }}"><button type="button"
                                                         class="btn btn-success add-btn" data-bs-toggle="modal"
                                                         id="create-btn" data-bs-target="#showModal"><i
                                                             class="ri-add-line align-bottom me-1"></i>Thêm mới</button></a>
@@ -63,52 +63,63 @@
                                                         </div>
                                                     </th>
                                                     <th class="sort" data-sort="customer_name">ID</th>
-                                                    <th class="sort" data-sort="email">Banner</th>
-                                                    <th class="sort" data-sort="phone">Trạng thái</th>
-                                                    <th class="sort" data-sort="date">Ngày tạo</th>
-                                                    <th class="sort" data-sort="status">Ngày cập nhật</th>
+                                                    <th class="sort" data-sort="email">Tên</th>
+                                                    <th class="sort" data-sort="phone">Điểm bắt đầu</th>
+                                                    <th class="sort" data-sort="date">Điểm kết thúc</th>
+                                                    <th class="sort" data-sort="status">Giờ bắt đầu</th>
+                                                    <th class="sort" data-sort="status">Giá vé</th>
+                                                    <th class="sort" data-sort="status">Trạng thái</th>
                                                     <th class="sort" data-sort="action">Thao tác</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="list form-check-all">
-                                                @foreach ($banners as $banner)
-                                                    <tr id="row{{ $banner->id }}">
+                                                @foreach ($routes as $route)
+                                                    <tr id="row{{ $route->id }}">
                                                         <th scope="row">
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="checkbox"
-                                                                    name="rowCheckbox" value="{{ $banner->id }}">
+                                                                    name="rowCheckbox" value="{{ $route->id }}">
                                                             </div>
                                                         </th>
                                                         <td class="id" style="display:none;"><a
                                                                 href="javascript:void(0);"
                                                                 class="fw-medium link-primary">#VZ2101</a></td>
-                                                        <td class="customer_name">{{ $banner->id }}</td>
-                                                        <td class="email"><img src="{{ asset( $banner->image ) }}" alt="" width="200px"> </td>
-                                                        <td>
-                                                            <label class="form-check form-switch">
-                                                                <input class="form-check-input fs-3" name="status" type="checkbox" role="switch" value="{{ $banner->status }}"
-                                                                    @if ($banner->status == 1) checked @endif
-                                                                    onchange="event.preventDefault(); document.getElementById('update-status-form-{{ $banner->id }}').submit();">
-                                                                <span></span>
-                                                            </label>
-                                                            <form id="update-status-form-{{ $banner->id }}" action="{{route('update_status_banner',['id' => $banner->id])}}" method="POST" style="display: none;">
-                                                                @csrf
-                                                                @method('POST')
-                                                                <input type="hidden" name="status" value="{{ $banner->status == 1 ? 0 : 1 }}">
-                                                            </form>
+                                                        <td class="customer_name">{{ $route->id }}</td>
+                                                        <td class="email">{{ $route->name }} </td>
+                                                        <td class="phone">
+                                                            @foreach ($locations as $location)
+                                                                @if ($route->start_location == $location->id)
+                                                                    {{$location->name}}
+                                                                @endif
+                                                            @endforeach 
+                                                            </td>
+                                                        <td class="phone">
+                                                        @foreach ($locations as $location)
+                                                            @if ($route->end_location == $location->id)
+                                                                {{$location->name}}
+                                                            @endif
+                                                        @endforeach 
                                                         </td>
-                                                        <td class="date">{{ helperFormatTime($banner->created_at) }}</td>
-                                                        <td class="status">{{ helperFormatTime($banner->updated_at) }}</td>
-
+                                                        <td class="date">{{ $route->start_time }}</td>
+                                                        <td class="date">{{$route->trip_price}}</td>
+                                                        <td class="status">{{ $route->status == 1 ? 'Hoạt động' : 'Không hoạt động' }}</td>
                                                         <td>
                                                             <div class="d-flex gap-2">
                                                                 <div class="edit">
-                                                                    <a href="{{ route('edit_banner', ['id' => $banner->id]) }}"><button
+                                                                    <a href="{{ route('edit_route', ['id' => $route->id]) }}"><button
                                                                             class="btn btn-sm btn-success edit-item-btn"><i class="bx bx-edit"></i></button></a>
                                                                 </div>
                                                                 <div class="remove">
+                                                                    {{-- <a href="{{ route('delete_role', ['id' => $role->id]) }}"
+                                                                        onclick="return confirm('Bạn có chắc chắn muốn xóa Vai trò này')"> </a> --}}
                                                                     <button class="btn btn-sm btn-danger btn-remove"
-                                                                        onclick="confirmDelete({{$banner->id}})" ><i class="bx bx-trash"></i></button>
+                                                                        {{-- data-bs-toggle="modal" data-bs-target="#modalDelete" data-role-id="{{ $role->id }}" --}}
+                                                                        onclick="confirmDelete({{$route->id}})" ><i class="bx bx-trash"></i></button>
+                                                                </div>
+                                                                <div class="details">
+                                                                    <button class="btn btn-sm btn-primary btn-details" onclick="showDetails({{$route->id}})"
+                                                                    data-bs-toggle="modal" data-bs-target="#modalRole"
+                                                                        data-role-id="{{ $route->id }}"><i class="bx bx bx-show"></i></button>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -141,7 +152,7 @@
                                         </div>
                                     </div>
                                     {{-- <div class="aiz-pagination">
-                                        {{ $banners->appends(request()->input())->links() }}
+                                        {{ $roles->appends(request()->input())->links() }}
                                     </div> --}}
                                 </div>
                             </div><!-- end card -->
@@ -151,6 +162,50 @@
                     <!-- end col -->
                 </div>
                 <!-- end row -->
+
+                {{-- <div id="roleModal" class="rolemodal">
+                    <h1>Thông tin chi tiết vai trò: <b id="modal_title"></b></h1>
+                    <p></p>
+                    <span>Vai trò:<span id="modal_role"></span></span>
+                    <span class="pb-4">Các quyền: <span id="modal_permission"></span></span>
+                    <button class="close">Đóng</button>
+                </div> --}}
+                <div class="modal fade" id="modalRole" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Thông tin tuyến đường</h4>
+                                <p type="button" class="close" data-dismiss="modal" aria-hidden="true">X</p>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <p>Tên tuyến : <label id="name_detail"></label></p>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>Tên xe : <label id="car_name_detail"></label></p>
+                                        <p>Người lái : <label id="drive_name_detail"></label></p>
+                                        <p>Phụ xe : <label id="assistantCar_name_detail"></label></p>
+                                        <p>Giá vé : <label id="trip_price_detail"></label>.000 VND</p>
+            
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>Điểm bắt đầu : <label id="start_location_detail"></label></p>
+                                        <p>Điểm kết thúc : <label id="end_location_detail"></label></p>
+                                        <p>Giờ đi : <label id="start_time_detail"></label></p>
+                                        <p>Thời gian đi : <label id="interval_trip_detail"></label></p>
+            
+            
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
@@ -167,7 +222,7 @@
                                         style="width:100px;height:100px"></lord-icon>
                                     <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
                                         <h4>Xác nhận xóa ?</h4>
-                                        <span id="banner-id" hidden></span>
+                                        <span id="role-id" hidden></span>
                                         <p class="text-muted mx-4 mb-0">Bạn có chắc chắn muốn xóa vai trò này ?</p>
                                     </div>
                                 </div>
