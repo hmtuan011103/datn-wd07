@@ -71,9 +71,9 @@ class CheckoutController extends Controller
     public function checkout(Request $request) {
         $vnp_Url = $this->checkoutService->createPayment($request);
         try {
-//            if ($request->has('redirect-payment') && $request->type_payment === "1") {
-//                return redirect($vnp_Url);
-//            }
+            if ($request->has('redirect-payment') && $request->type_payment === "1") {
+                return redirect($vnp_Url);
+            }
             if ($request->has('redirect-payment') && $request->type_payment === "2") {
                 $this->checkoutService->momo_payment();
             }

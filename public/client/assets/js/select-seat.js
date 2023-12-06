@@ -282,12 +282,25 @@ $(function () {
 
                     const isSeatSelected = arraySeatSelected.includes(seat[1]);
 
+                    let additionalClass = '';
+                    if (arraySeatsChoosing !== "") {
+                        for (const key in arraySeatsChoosing) {
+                            if (Object.hasOwnProperty.call(arraySeatsChoosing, key)) {
+                                const seatChoosing = arraySeatsChoosing[key];
+                                const dataSeatChoosing = seatChoosing.split("-");
+                                if (seat[1] === dataSeatChoosing[0] && routeNew.id === dataSeatChoosing[1]) {
+                                    additionalClass = 'seat-choosing';
+                                }
+                            }
+                        }
+                    }
+
                     const seatHtml = `
-                        <td class="position-relative ${isSeatSelected ? 'cursor-not-allowed' : 'cursor'}">
-                            <img src="${baseImageUrl}/${isSeatSelected ? 'seat_disabled' : 'seat_active'}.svg" alt="" class="w-100">
+                        <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
+                            <img src="${baseImageUrl}/${ additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
                             <span
-                                data-code="${seat[1]}"
-                                class="position-absolute fs-10 text-uppercase fw-bold code-seat ${isSeatSelected ? 'seat-disabled' : 'seat-active'}">
+                                data-code="${seat[1]}" data-trip="${routeNew.id}"
+                                class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
                                 ${seat[1]}
                             </span>
                         </td>
@@ -316,7 +329,10 @@ $(function () {
                                 codeSeatNew.push(codeSeat.data('code'));
                                 codeSeat.removeClass('seat-active').addClass('seat-selecting');
                                 imageSeat.attr('src', `${baseImageUrl}/seat_selecting.svg`);
-                                socket.emit('select_seat', codeSeat.data('code'));
+                                socket.emit('select_seat', {
+                                    code_seat: codeSeat.data('code'),
+                                    code_trip: codeSeat.data('trip'),
+                                });
                             }
                             flagNew++;
                         } else if (codeSeat.hasClass('seat-selecting')) {
@@ -327,6 +343,10 @@ $(function () {
                             codeSeatNew = codeSeatNew.filter(value => value !== codeSeat.data('code'));
                             codeSeat.removeClass('seat-selecting').addClass('seat-active');
                             imageSeat.attr('src', `${baseImageUrl}/seat_active.svg`);
+                            socket.emit('cancel_select_seat', {
+                                code_seat: codeSeat.data('code'),
+                                code_trip: codeSeat.data('trip'),
+                            });
                         }
                         if (codeSeatNew.length < 6) {
                             if (indexParent === "3") {
@@ -416,15 +436,13 @@ $(function () {
 
                     const isSeatSelected = seatSelected.includes(seat.code);
 
-                    const paramTripTurn = urlParams.get('trip_turn');
-
                     let additionalClass = '';
                     if (arraySeatsChoosing !== "") {
                         for (const key in arraySeatsChoosing) {
                             if (Object.hasOwnProperty.call(arraySeatsChoosing, key)) {
                                 const seatChoosing = arraySeatsChoosing[key];
                                 const dataSeatChoosing = seatChoosing.split("-");
-                                if (seat.code === dataSeatChoosing[0] && paramTripTurn === dataSeatChoosing[1]) {
+                                if (seat.code === dataSeatChoosing[0] && route.id === dataSeatChoosing[1]) {
                                     additionalClass = 'seat-choosing';
                                 }
                             }
@@ -435,7 +453,7 @@ $(function () {
                         <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
                             <img src="${baseImageUrl}/${ additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
                             <span
-                                data-code="${seat.code}" data-trip="${paramTripTurn}"
+                                data-code="${seat.code}" data-trip="${route.id}"
                                 class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
                                 ${seat.code}
                             </span>
@@ -599,12 +617,25 @@ $(function () {
 
                     const isSeatSelected = arraySeatSelected.includes(seat[1]);
 
+                    let additionalClass = '';
+                    if (arraySeatsChoosing !== "") {
+                        for (const key in arraySeatsChoosing) {
+                            if (Object.hasOwnProperty.call(arraySeatsChoosing, key)) {
+                                const seatChoosing = arraySeatsChoosing[key];
+                                const dataSeatChoosing = seatChoosing.split("-");
+                                if (seat[1] === dataSeatChoosing[0] && routeNew.id === dataSeatChoosing[1]) {
+                                    additionalClass = 'seat-choosing';
+                                }
+                            }
+                        }
+                    }
+
                     const seatHtml = `
-                        <td class="position-relative ${isSeatSelected ? 'cursor-not-allowed' : 'cursor'}">
-                            <img src="${baseImageUrl}/${isSeatSelected ? 'seat_disabled' : 'seat_active'}.svg" alt="" class="w-100">
+                        <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
+                            <img src="${baseImageUrl}/${ additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
                             <span
-                                data-code="${seat[1]}"
-                                class="position-absolute fs-10 text-uppercase fw-bold code-seat ${isSeatSelected ? 'seat-disabled' : 'seat-active'}">
+                                data-code="${seat[1]}" data-trip="${routeNew.id}"
+                                class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
                                 ${seat[1]}
                             </span>
                         </td>
@@ -631,7 +662,10 @@ $(function () {
                                 codeSeatNew.push(codeSeat.data('code'));
                                 codeSeat.removeClass('seat-active').addClass('seat-selecting');
                                 imageSeat.attr('src', `${baseImageUrl}/seat_selecting.svg`);
-                                socket.emit('select_seat', codeSeat.data('code'));
+                                socket.emit('select_seat', {
+                                    code_seat: codeSeat.data('code'),
+                                    code_trip: codeSeat.data('trip'),
+                                });
                             }
                             flagNew++;
                         } else if (codeSeat.hasClass('seat-selecting')) {
@@ -642,6 +676,10 @@ $(function () {
                             codeSeatNew = codeSeatNew.filter(value => value !== codeSeat.data('code'));
                             codeSeat.removeClass('seat-selecting').addClass('seat-active');
                             imageSeat.attr('src', `${baseImageUrl}/seat_active.svg`);
+                            socket.emit('cancel_select_seat', {
+                                code_seat: codeSeat.data('code'),
+                                code_trip: codeSeat.data('trip'),
+                            });
                         }
                         if (codeSeatNew.length < 6) {
                             if (indexParent === "3") {
@@ -706,12 +744,25 @@ $(function () {
 
                     const isSeatSelected = arraySeatSelected.includes(seat[1]);
 
+                    let additionalClass = '';
+                    if (arraySeatsChoosing !== "") {
+                        for (const key in arraySeatsChoosing) {
+                            if (Object.hasOwnProperty.call(arraySeatsChoosing, key)) {
+                                const seatChoosing = arraySeatsChoosing[key];
+                                const dataSeatChoosing = seatChoosing.split("-");
+                                if (seat[1] === dataSeatChoosing[0] && routeNew.id === dataSeatChoosing[1]) {
+                                    additionalClass = 'seat-choosing';
+                                }
+                            }
+                        }
+                    }
+
                     const seatHtml = `
-                        <td class="position-relative ${isSeatSelected ? 'cursor-not-allowed' : 'cursor'}">
-                            <img src="${baseImageUrl}/${isSeatSelected ? 'seat_disabled' : 'seat_active'}.svg" alt="" class="w-100">
+                        <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
+                            <img src="${baseImageUrl}/${ additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
                             <span
-                                data-code="${seat[1]}"
-                                class="position-absolute fs-10 text-uppercase fw-bold code-seat ${isSeatSelected ? 'seat-disabled' : 'seat-active'}">
+                                data-code="${seat[1]}" data-trip="${routeNew.id}"
+                                class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
                                 ${seat[1]}
                             </span>
                         </td>
@@ -738,7 +789,10 @@ $(function () {
                                 codeSeatNew.push(codeSeat.data('code'));
                                 codeSeat.removeClass('seat-active').addClass('seat-selecting');
                                 imageSeat.attr('src', `${baseImageUrl}/seat_selecting.svg`);
-                                socket.emit('select_seat', codeSeat.data('code'));
+                                socket.emit('select_seat', {
+                                    code_seat: codeSeat.data('code'),
+                                    code_trip: codeSeat.data('trip'),
+                                });
                             }
                             flagNew++;
                         } else if (codeSeat.hasClass('seat-selecting')) {
@@ -749,6 +803,10 @@ $(function () {
                             codeSeatNew = codeSeatNew.filter(value => value !== codeSeat.data('code'));
                             codeSeat.removeClass('seat-selecting').addClass('seat-active');
                             imageSeat.attr('src', `${baseImageUrl}/seat_active.svg`);
+                            socket.emit('cancel_select_seat', {
+                                code_seat: codeSeat.data('code'),
+                                code_trip: codeSeat.data('trip'),
+                            });
                         }
                         if (codeSeatNew.length < 6) {
                             if (indexParent === "3") {
@@ -835,16 +893,30 @@ $(function () {
                     }
 
                     const isSeatSelected = seatSelected.includes(seat.code);
+
+                    let additionalClass = '';
+                    if (arraySeatsChoosing !== "") {
+                        for (const key in arraySeatsChoosing) {
+                            if (Object.hasOwnProperty.call(arraySeatsChoosing, key)) {
+                                const seatChoosing = arraySeatsChoosing[key];
+                                const dataSeatChoosing = seatChoosing.split("-");
+                                if (seat.code === dataSeatChoosing[0] && route.id === dataSeatChoosing[1]) {
+                                    additionalClass = 'seat-choosing';
+                                }
+                            }
+                        }
+                    }
+
                     const seatHtml = `
-                    <td class="position-relative ${isSeatSelected ? 'cursor-not-allowed' : 'cursor'}">
-                        <img src="${baseImageUrl}/${isSeatSelected ? 'seat_disabled' : 'seat_active'}.svg" alt="" class="w-100">
-                        <span
-                            data-code="${seat.code}"
-                            class="position-absolute fs-10 text-uppercase fw-bold code-seat ${isSeatSelected ? 'seat-disabled' : 'seat-active'}">
-                            ${seat.code}
-                        </span>
-                    </td>
-                `;
+                        <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
+                            <img src="${baseImageUrl}/${ additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
+                            <span
+                                data-code="${seat.code}" data-trip="${route.id}"
+                                class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
+                                ${seat.code}
+                            </span>
+                        </td>
+                    `;
 
                     const $seat = $(seatHtml);
 
@@ -867,7 +939,10 @@ $(function () {
                                 codeSeatTurn.push(codeSeat.data('code'));
                                 codeSeat.removeClass('seat-active').addClass('seat-selecting');
                                 imageSeat.attr('src', `${baseImageUrl}/seat_selecting.svg`);
-                                socket.emit('select_seat', codeSeat.data('code'));
+                                socket.emit('select_seat', {
+                                    code_seat: codeSeat.data('code'),
+                                    code_trip: codeSeat.data('trip'),
+                                });
                             }
                             flag++;
                         } else if (codeSeat.hasClass('seat-selecting')) {
@@ -878,6 +953,10 @@ $(function () {
                             codeSeatTurn = codeSeatTurn.filter(value => value !== codeSeat.data('code'));
                             codeSeat.removeClass('seat-selecting').addClass('seat-active');
                             imageSeat.attr('src', `${baseImageUrl}/seat_active.svg`);
+                            socket.emit('cancel_select_seat', {
+                                code_seat: codeSeat.data('code'),
+                                code_trip: codeSeat.data('trip'),
+                            });
                         }
                         if (codeSeatTurn.length < 6) {
                             $('#seats_turn').val(codeSeatTurn);
@@ -934,16 +1013,29 @@ $(function () {
 
                     const isSeatSelected = seatSelected.includes(seat.code);
 
+                    let additionalClass = '';
+                    if (arraySeatsChoosing !== "") {
+                        for (const key in arraySeatsChoosing) {
+                            if (Object.hasOwnProperty.call(arraySeatsChoosing, key)) {
+                                const seatChoosing = arraySeatsChoosing[key];
+                                const dataSeatChoosing = seatChoosing.split("-");
+                                if (seat.code === dataSeatChoosing[0] && route.id === dataSeatChoosing[1]) {
+                                    additionalClass = 'seat-choosing';
+                                }
+                            }
+                        }
+                    }
+
                     const seatHtml = `
-            <td class="position-relative ${isSeatSelected ? 'cursor-not-allowed' : 'cursor'}">
-                <img src="${baseImageUrl}/${isSeatSelected ? 'seat_disabled' : 'seat_active'}.svg" alt="" class="w-100">
-                <span
-                    data-code="${seat.code}"
-                    class="position-absolute fs-10 text-uppercase fw-bold code-seat ${isSeatSelected ? 'seat-disabled' : 'seat-active'}">
-                    ${seat.code}
-                </span>
-            </td>
-        `;
+                        <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
+                            <img src="${baseImageUrl}/${ additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
+                            <span
+                                data-code="${seat.code}" data-trip="${route.id}"
+                                class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
+                                ${seat.code}
+                            </span>
+                        </td>
+                    `;
 
                     const $seat = $(seatHtml);
 
@@ -966,7 +1058,10 @@ $(function () {
                                 codeSeatTurn.push(codeSeat.data('code'));
                                 codeSeat.removeClass('seat-active').addClass('seat-selecting');
                                 imageSeat.attr('src', `${baseImageUrl}/seat_selecting.svg`);
-                                socket.emit('select_seat', codeSeat.data('code'));
+                                socket.emit('select_seat', {
+                                    code_seat: codeSeat.data('code'),
+                                    code_trip: codeSeat.data('trip'),
+                                });
                             }
                             flag++;
                         } else if (codeSeat.hasClass('seat-selecting')) {
@@ -977,6 +1072,10 @@ $(function () {
                             codeSeatTurn = codeSeatTurn.filter(value => value !== codeSeat.data('code'));
                             codeSeat.removeClass('seat-selecting').addClass('seat-active');
                             imageSeat.attr('src', `${baseImageUrl}/seat_active.svg`);
+                            socket.emit('cancel_select_seat', {
+                                code_seat: codeSeat.data('code'),
+                                code_trip: codeSeat.data('trip'),
+                            });
                         }
                         if (codeSeatTurn.length < 6) {
                             $('#seats_turn').val(codeSeatTurn);
