@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Locations\Admin\LocationController;
 use App\Http\Controllers\Order\Admin\OrderController;
+use App\Http\Controllers\OrderTicket\Admin\OrderTicketController;
 use App\Http\Controllers\Role\Admin\RoleController;
 use App\Http\Controllers\Permissions\Admin\PermissionController;
 use App\Http\Controllers\UserRoles\Admin\UserRoleController;
@@ -137,6 +138,10 @@ Route::group(['prefix' => 'discount_code'], function () {
 
 Route::group(['prefix' => 'order'], function () {
     Route::get('/', [OrderController::class, 'index'])->name('list_order')->middleware('check_permission:read-bill');
+});
+Route::group(['prefix' => 'order-ticket'], function () {
+    Route::get('/', [OrderTicketController::class, 'index'])->name('order_ticket-admin')->middleware('check_permission:order-ticket-admin');
+    Route::get('/search', [OrderTicketController::class, 'searchRouteAdmin'])->name('search_ticket-admin')->middleware('check_permission:order-ticket-admin');
 });
 
 // authen

@@ -1,4 +1,4 @@
-@extends('admin.pages.permission.index')
+@extends('admin.pages.order.index')
 @section('content')
     <div class="main-content">
 

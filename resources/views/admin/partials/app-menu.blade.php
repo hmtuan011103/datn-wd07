@@ -34,10 +34,18 @@
                     <ul class="navbar-nav" id="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="{{ route('admin.homepage') }}">
-                                <i class="mdi mdi-home"></i>
-                                <span>Trang chủ</span>
+                                <i class="mdi mdi-home fs-3"></i>
+                                <span class="ps-1">Trang chủ</span>
                             </a>
                         </li>
+                        @if (in_array('order-ticket-admin', Auth::user()->permissions))
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{{ route('order_ticket-admin') }}">
+                                    <i class="fa-solid fa-bus fs-5"></i>
+                                    <span class="ps-1">Đặt vé</span>
+                                </a>
+                            </li>
+                        @endif
                         <li class="menu-title"><span data-key="t-menu">Quản lý</span></li>
 
                         @if (in_array('read-location', Auth::user()->permissions))
@@ -147,6 +155,7 @@
                                 </div>
                             </li>
                         @endif
+
                         @if (in_array('read-discount-code', Auth::user()->permissions))
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="{{ route('list_discount_code') }}">
@@ -192,7 +201,6 @@
                                 </a>
                             </li>
                         @endif
-
                         @if (in_array('read-statistic', Auth::user()->permissions))
                             <li class="menu-title"><span data-key="t-statistic">Thống kê</span></li>
                             <li class="nav-item">

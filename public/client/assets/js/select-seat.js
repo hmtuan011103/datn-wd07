@@ -281,14 +281,13 @@ $(function () {
                     }
 
                     const isSeatSelected = arraySeatSelected.includes(seat[1]);
-
                     let additionalClass = '';
                     if (arraySeatsChoosing !== "") {
                         for (const key in arraySeatsChoosing) {
                             if (Object.hasOwnProperty.call(arraySeatsChoosing, key)) {
                                 const seatChoosing = arraySeatsChoosing[key];
                                 const dataSeatChoosing = seatChoosing.split("-");
-                                if (seat[1] === dataSeatChoosing[0] && routeNew.id === dataSeatChoosing[1]) {
+                                if (seat[1] === dataSeatChoosing[0] && routeNew.id == dataSeatChoosing[1]) {
                                     additionalClass = 'seat-choosing';
                                 }
                             }
@@ -435,14 +434,13 @@ $(function () {
                     }
 
                     const isSeatSelected = seatSelected.includes(seat.code);
-
                     let additionalClass = '';
                     if (arraySeatsChoosing !== "") {
                         for (const key in arraySeatsChoosing) {
                             if (Object.hasOwnProperty.call(arraySeatsChoosing, key)) {
                                 const seatChoosing = arraySeatsChoosing[key];
                                 const dataSeatChoosing = seatChoosing.split("-");
-                                if (seat.code === dataSeatChoosing[0] && route.id === dataSeatChoosing[1]) {
+                                if (seat.code === dataSeatChoosing[0] && route.id == dataSeatChoosing[1]) {
                                     additionalClass = 'seat-choosing';
                                 }
                             }
@@ -616,14 +614,13 @@ $(function () {
                     }
 
                     const isSeatSelected = arraySeatSelected.includes(seat[1]);
-
                     let additionalClass = '';
                     if (arraySeatsChoosing !== "") {
                         for (const key in arraySeatsChoosing) {
                             if (Object.hasOwnProperty.call(arraySeatsChoosing, key)) {
                                 const seatChoosing = arraySeatsChoosing[key];
                                 const dataSeatChoosing = seatChoosing.split("-");
-                                if (seat[1] === dataSeatChoosing[0] && routeNew.id === dataSeatChoosing[1]) {
+                                if (seat[1] === dataSeatChoosing[0] && routeNew.id == dataSeatChoosing[1]) {
                                     additionalClass = 'seat-choosing';
                                 }
                             }
@@ -743,14 +740,13 @@ $(function () {
                     }
 
                     const isSeatSelected = arraySeatSelected.includes(seat[1]);
-
                     let additionalClass = '';
                     if (arraySeatsChoosing !== "") {
                         for (const key in arraySeatsChoosing) {
                             if (Object.hasOwnProperty.call(arraySeatsChoosing, key)) {
                                 const seatChoosing = arraySeatsChoosing[key];
                                 const dataSeatChoosing = seatChoosing.split("-");
-                                if (seat[1] === dataSeatChoosing[0] && routeNew.id === dataSeatChoosing[1]) {
+                                if (seat[1] === dataSeatChoosing[0] && routeNew.id == dataSeatChoosing[1]) {
                                     additionalClass = 'seat-choosing';
                                 }
                             }
@@ -893,14 +889,13 @@ $(function () {
                     }
 
                     const isSeatSelected = seatSelected.includes(seat.code);
-
                     let additionalClass = '';
                     if (arraySeatsChoosing !== "") {
                         for (const key in arraySeatsChoosing) {
                             if (Object.hasOwnProperty.call(arraySeatsChoosing, key)) {
                                 const seatChoosing = arraySeatsChoosing[key];
                                 const dataSeatChoosing = seatChoosing.split("-");
-                                if (seat.code === dataSeatChoosing[0] && route.id === dataSeatChoosing[1]) {
+                                if (seat.code === dataSeatChoosing[0] && route.id == dataSeatChoosing[1]) {
                                     additionalClass = 'seat-choosing';
                                 }
                             }
@@ -1012,14 +1007,13 @@ $(function () {
                     }
 
                     const isSeatSelected = seatSelected.includes(seat.code);
-
                     let additionalClass = '';
                     if (arraySeatsChoosing !== "") {
                         for (const key in arraySeatsChoosing) {
                             if (Object.hasOwnProperty.call(arraySeatsChoosing, key)) {
                                 const seatChoosing = arraySeatsChoosing[key];
                                 const dataSeatChoosing = seatChoosing.split("-");
-                                if (seat.code === dataSeatChoosing[0] && route.id === dataSeatChoosing[1]) {
+                                if (seat.code === dataSeatChoosing[0] && route.id == dataSeatChoosing[1]) {
                                     additionalClass = 'seat-choosing';
                                 }
                             }

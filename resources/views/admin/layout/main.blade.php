@@ -26,7 +26,6 @@
 
 <body>
     <div id="layout-wrapper">
-
         @include('admin.partials.top-bar')
 
         @include('admin.partials.notification-modal')
