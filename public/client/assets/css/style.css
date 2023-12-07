@@ -241,6 +241,9 @@ footer.pt-4{
 .w-14 {
     width: 14% !important;
 }
+.w-20px {
+    width: 20px !important;
+}
 .w-70{
     width: 70%;
 }
@@ -265,6 +268,12 @@ footer.pt-4{
 }
 .seat-disabled{
     color: #A2ACBB;
+}
+.seat-choosing{
+    color: #FFFFFF;
+}
+.height-seat-choosing{
+    height: 33px;
 }
 .header-car{
     padding-top: 15px;
@@ -328,6 +337,14 @@ footer.pt-4{
 .dropdown-menu a:visited {
     background: #fff;
     color: black;
+}
+#countdown_client_interface {
+    margin: 0 auto;
+    border-radius: 10px;
+    width: 30%;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
 }
 .modal-header{
     color: rgb(239, 82, 34)

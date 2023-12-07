@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Locations\Admin\LocationController;
+use App\Http\Controllers\Order\Admin\OrderController;
+use App\Http\Controllers\OrderTicket\Admin\OrderTicketController;
 use App\Http\Controllers\Role\Admin\RoleController;
 use App\Http\Controllers\Permissions\Admin\PermissionController;
 use App\Http\Controllers\UserRoles\Admin\UserRoleController;
@@ -9,6 +11,7 @@ use App\Http\Controllers\TypeCar\Admin\TypeCarController;
 use App\Http\Controllers\Car\Admin\CarController;
 use App\Http\Controllers\DiscountCode\Admin\DiscountCodeController;
 use App\Http\Controllers\Home\Admin\HomeController;
+use App\Http\Controllers\Ticket\Admin\TicketController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Trip\Admin\TripController;
 use App\Models\DiscountCode;
@@ -43,6 +46,7 @@ Route::prefix('trip')->group(function () {
     Route::post('update/{id}', [TripController::class, 'save_edit_trip'])->name('save_edit_trip')->middleware('check_permission:update-trip');
     Route::get('delete/{id}', [TripController::class, 'delete_trip'])->name('delete_trip')->middleware('check_permission:delete-trip');
     Route::get('show/{id}', [TripController::class, 'show'])->name('show')->middleware('check_permission:read-trip');
+    Route::post('import-trip',[TripController::class,'import_trip'])->name('import-trip');
 });
 Route::prefix('permission')->group(function () {
     Route::get('/', [PermissionController::class, 'index'])->name('list_permission')->middleware('check_permission:read-permission');
@@ -117,8 +121,10 @@ Route::prefix('news')->group(function () {
     Route::post('/store', [\App\Http\Controllers\New\Admin\NewController::class, 'store'])->name('store_new');
     Route::get('/edit/{id}', [\App\Http\Controllers\New\Admin\NewController::class, 'edit'])->name('edit_new');
     Route::put('/update/{id}', [\App\Http\Controllers\New\Admin\NewController::class, 'update'])->name('update_new');
-    Route::delete('/destroy/{id}',
-        [\App\Http\Controllers\New\Admin\NewController::class, 'destroy'])->name('destroy_new');
+    Route::delete(
+        '/destroy/{id}',
+        [\App\Http\Controllers\New\Admin\NewController::class, 'destroy']
+    )->name('destroy_new');
 });
 
 Route::group(['prefix' => 'discount_code'], function () {
@@ -128,6 +134,14 @@ Route::group(['prefix' => 'discount_code'], function () {
     Route::get('/edit/{id}', [DiscountCodeController::class, 'edit'])->name('edit_discount_code')->middleware('check_permission:update-discount-code');
     Route::post('/post_edit/{id}', [DiscountCodeController::class, 'update'])->name('post_edit_discount_code')->middleware('check_permission:update-discount-code');
     Route::get('/delete/{id}', [DiscountCodeController::class, 'delete'])->name('delete_discount_code')->middleware('check_permission:delete-discount-code');
+});
+
+Route::group(['prefix' => 'order'], function () {
+    Route::get('/', [OrderController::class, 'index'])->name('list_order')->middleware('check_permission:read-bill');
+});
+Route::group(['prefix' => 'order-ticket'], function () {
+    Route::get('/', [OrderTicketController::class, 'index'])->name('order_ticket-admin')->middleware('check_permission:order-ticket-admin');
+    Route::get('/search', [OrderTicketController::class, 'searchRouteAdmin'])->name('search_ticket-admin')->middleware('check_permission:order-ticket-admin');
 });
 
 // authen
@@ -144,7 +158,21 @@ Route::middleware(['guest'])->group(function () {
     Route::post('new-password', [\App\Http\Controllers\Auth\SubmitController::class, 'newPasswordSubmit'])->name('password.update');
 });
 
+//search ticket
+Route::get('/export-lichtrinh', [TripController::class,'export'])->name('export_trip')->middleware('check_permission:read-schedule');
+Route::prefix('search-ticket')->group(function () {
+    Route::get('/', [TicketController::class, 'form_search'])->name('form_search')->middleware('check_permission:read-search-ticket');
+});
 
+Route::middleware('check_permission:read-statistic')->name('statistics.')->prefix('statistics_general')->group(function () {
+    Route::get('/', [\App\Http\Controllers\Statistic\Admin\StatisticController::class, 'index'])->name('car');
+    Route::get('/user', [\App\Http\Controllers\Statistic\Admin\StatisticController::class, 'user'])->name('user');
+});
+
+
+Route::prefix('schedule')->group(function () {
+    Route::get('/', [TripController::class, 'schedule'])->name('schedule')->middleware('check_permission:read-schedule');
+});
 // đặt cuối route
 Route::fallback(function () {
     abort(500);

@@ -34,4 +34,11 @@ class DiscountCodeService
             return $result;
         }
     }
+
+    public function getDiscount($code) {
+        if($code) {
+            return DiscountCode::query()->whereRaw('BINARY code = ?', [$code])->get();
+        }
+        return false;
+    }
 }

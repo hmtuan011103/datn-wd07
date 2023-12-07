@@ -9,9 +9,11 @@ use App\Models\Bills;
 use App\Models\Car;
 use App\Models\Location;
 use App\Models\NewPost;
+use App\Models\Seat;
 use App\Models\Trip;
 use App\Models\TypeCar;
 use App\Models\User;
+use App\Models\UserRole;
 use Carbon\Carbon;
 use DateInterval;
 use DateTime;
@@ -24,15 +26,29 @@ class TripService
     {
         return Trip::all();
     }
+
     public function list_desc()
     {
-        // $trips = Trip::all();
+        // Lấy danh sách các trip_id từ bảng bills
+        $tripIdsInBills = Bill::pluck('trip_id')->toArray();
+
         $trips = Trip::select('trips.id', 'trips.assistantCar_id', 'trips.car_id', 'trips.drive_id', 'trips.start_date', 'trips.start_time', 'trips.start_location', 'trips.status', 'trips.trip_price', 'trips.end_location', 'trips.created_at', 'trips.updated_at', 'cars.name as car_name', 'users.name as user_name')
             ->join('cars', 'cars.id', '=', 'trips.car_id')
             ->join('users', 'users.id', '=', 'trips.drive_id')
             ->orderBy('updated_at', 'DESC')->get();
+
+        // Thêm điều kiện kiểm tra và ẩn nút xóa nếu trip_id đã có trong bảng bills
+        foreach ($trips as $trip) {
+            if (in_array($trip->id, $tripIdsInBills)) {
+                $trip->canDelete = false; // Thêm thuộc tính canDelete để xác định có thể xóa hay không
+            } else {
+                $trip->canDelete = true;
+            }
+        }
+
         return $trips;
     }
+
     public function get_parent_id()
     {
         return Location::select('locations.name', 'locations.id')->where('locations.parent_id', Null)->get();
@@ -41,7 +57,10 @@ class TripService
     public function create(StoreTripRequest $request)
     {
         if ($request->isMethod('POST')) {
-            $params = $request->all();
+            $repeat = $request->has('repeat');
+
+            $startDate = Carbon::parse($request->start_date);
+
             $timeFloat = $request->interval_trip;
             $hourMinute = str_replace(['giờ', 'phút'], '', $timeFloat);
             $hourMinuteArray = explode(' ', $hourMinute);
@@ -49,9 +68,41 @@ class TripService
             $minute = $hourMinuteArray[1];
             $time = sprintf("%02d:%02d:00", $hour, $minute);
 
-            $params['interval_trip'] = $time;
-            unset($params['_token']);
-            return Trip::create($params);
+            $trip_price = $request->trip_price;
+            $fomatPrice = str_replace(".", "", $trip_price);
+
+            Trip::create([
+                'start_date' => $startDate,
+                'start_time' => $request->start_time,
+                'interval_trip' => $time,
+                'car_id' => $request->car_id,
+                'drive_id' => $request->drive_id,
+                'assistantCar_id' => $request->assistantCar_id,
+                'trip_price' => $fomatPrice,
+                'start_location' => $request->start_location,
+                'end_location' => $request->end_location,
+                'status' => $request->status,
+            ]);
+
+            if ($repeat) {
+                $numberOfDays = $request->input('number_of_days', 0); // Số ngày lặp lại, có thể lấy từ form
+                for ($i = 1; $i <= $numberOfDays; $i++) {
+                    $nextDate = $startDate->copy()->addDays($i); // Tăng ngày lên
+
+                    Trip::create([
+                        'start_date' => $nextDate,
+                        'start_time' => $request->start_time,
+                        'interval_trip' => $time,
+                        'car_id' => $request->car_id,
+                        'drive_id' => $request->drive_id,
+                        'assistantCar_id' => $request->assistantCar_id,
+                        'trip_price' => $fomatPrice,
+                        'start_location' => $request->start_location,
+                        'end_location' => $request->end_location,
+                        'status' => $request->status,
+                    ]);
+                }
+            }
         }
     }
 
@@ -68,7 +119,11 @@ class TripService
             $minute = $hourMinuteArray[1];
             $time = sprintf("%02d:%02d:00", $hour, $minute);
 
+            $trip_price = $request->trip_price;
+            $fomatPrice = str_replace(".", "", $trip_price);
+
             $params['interval_trip'] = $time;
+            $params['trip_price'] = $fomatPrice;
             unset($params['_token']);
             return Trip::where('id', $id)->update($params);
         }
@@ -248,19 +303,29 @@ class TripService
                         continue;
                     }
                 }
-                $total_seat_trip = $trips[$i]->car->typeCar->total_seat;
-                $seat_bill = Bills::select('total_seats')->where(['trip_id' => $trips[$i]->id])->get();
-                $total_seat_bill = 0;
+                $seat_bill = Bills::select('total_seats', 'seat_id')->where(['trip_id' => $trips[$i]->id])->get();
+                $seat_id = [];
                 foreach ($seat_bill as $value) {
-                    $total_seat_bill += intval($value->total_seats);
+                    $seat_id = array_merge($seat_id, json_decode($value->seat_id, true));
                 }
-                $seats = intval($total_seat_trip) - intval($total_seat_bill);
+                $seat_code = Seat::select('code_seat')->whereIn('code_seat', $seat_id)->get();
+                $seat_code_car = Seat::select('code_seat')->where('car_id', $trips[$i]->car->id)->get();
+                $seat_code_array_car = [];
+                foreach ($seat_code_car as $value) {
+                    $seat_code_array_car[] = $value->code_seat;
+                }
+                $seat_code_array = [];
+                foreach ($seat_code as $value) {
+                    $seat_code_array[] = $value->code_seat;
+                }
+                $seat_code_empty = array_diff($seat_code_array_car, $seat_code_array);
+                $trips[$i]['seat_code'] = $seat_code_empty;
+                $seats = count($seat_code_empty);
                 if ($seats < intval($request->ticket)) {
                     unset($trips[$i]);
-                }else{
+                } else {
                     $trips[$i]['seat_empty'] = $seats;
                 }
-
             }
             if ($trips->isEmpty()) {
                 return null;
@@ -279,16 +344,27 @@ class TripService
                         continue;
                     }
                 }
-                $total_seat_trip = $tripstart[$i]->car->typeCar->total_seat;
-                $seat_bill = Bills::select('total_seats')->where(['trip_id' => $tripstart[$i]->id])->get();
-                $total_seat_bill = 0;
+                $seat_bill = Bills::select('total_seats', 'seat_id')->where(['trip_id' => $tripstart[$i]->id])->get();
+                $seat_id = [];
                 foreach ($seat_bill as $value) {
-                    $total_seat_bill += intval($value->total_seats);
+                    $seat_id = array_merge($seat_id, json_decode($value->seat_id, true));
                 }
-                $seats = intval($total_seat_trip) - intval($total_seat_bill);
+                $seat_code = Seat::select('code_seat')->whereIn('code_seat', $seat_id)->get();
+                $seat_code_car = Seat::select('code_seat')->where('car_id', $tripstart[$i]->car->id)->get();
+                $seat_code_array_car = [];
+                foreach ($seat_code_car as $value) {
+                    $seat_code_array_car[] = $value->code_seat;
+                }
+                $seat_code_array = [];
+                foreach ($seat_code as $value) {
+                    $seat_code_array[] = $value->code_seat;
+                }
+                $seat_code_empty = array_diff($seat_code_array_car, $seat_code_array);
+                $tripstart[$i]['seat_code'] = $seat_code_empty;
+                $seats = count($seat_code_empty);
                 if ($seats < intval($request->ticket)) {
                     unset($tripstart[$i]);
-                }else{
+                } else {
                     $tripstart[$i]['seat_empty'] = $seats;
                 }
             }
@@ -300,18 +376,28 @@ class TripService
                         continue;
                     }
                 }
-                $total_seat_trip = $tripend[$i]->car->typeCar->total_seat;
-                $seat_bill = Bills::select('total_seats')->where(['trip_id' => $tripend[$i]->id])->get();
-                $total_seat_bill = 0;
+                $seat_bill = Bills::select('total_seats', 'seat_id')->where(['trip_id' => $tripend[$i]->id])->get();
+                $seat_id = [];
                 foreach ($seat_bill as $value) {
-                    $total_seat_bill += intval($value->total_seats);
+                    $seat_id = array_merge($seat_id, json_decode($value->seat_id, true));
                 }
-
-                $seats = intval($total_seat_trip) - intval($total_seat_bill);
+                $seat_code = Seat::select('code_seat')->whereIn('code_seat', $seat_id)->get();
+                $seat_code_car = Seat::select('code_seat')->where('car_id', $tripend[$i]->car->id)->get();
+                $seat_code_array_car = [];
+                foreach ($seat_code_car as $value) {
+                    $seat_code_array_car[] = $value->code_seat;
+                }
+                $seat_code_array = [];
+                foreach ($seat_code as $value) {
+                    $seat_code_array[] = $value->code_seat;
+                }
+                $seat_code_empty = array_diff($seat_code_array_car, $seat_code_array);
+                $tripend[$i]['seat_code'] = $seat_code_empty;
+                $seats = count($seat_code_empty);
 
                 if ($seats < intval($request->ticket)) {
                     unset($tripend[$i]);
-                }else{
+                } else {
                     $tripend[$i]['seat_empty'] = $seats;
                 }
             }
@@ -325,7 +411,7 @@ class TripService
 
     public function getData()
     {
-        $currentDateTime = Carbon::now()->addHours(4);
+        $currentDateTime = Carbon::now();
 
         $trips = DB::table('trips')
             ->join('cars', 'trips.car_id', '=', 'cars.id')
@@ -335,34 +421,35 @@ class TripService
             ->get();
 
         $availableTrips = [];
-
-        foreach ($trips as $trip) {
+        foreach ($trips as $key => $trip) {
             $tripStartDate = Carbon::parse($trip->start_date);
             $tripStartTime = Carbon::parse($trip->start_time);
 
             $tripDateTime = $tripStartDate->copy()->setTime($tripStartTime->hour, $tripStartTime->minute, $tripStartTime->second);
 
-            if ($tripDateTime->isSameDay($currentDateTime) && $tripDateTime->greaterThanOrEqualTo($currentDateTime)) {
-                $totalBookedSeats = DB::table('bills')
-                    ->where('trip_id', $trip->id)
-                    ->sum('total_seats');
+            if($tripDateTime->greaterThan($currentDateTime)) {
+                if ($tripDateTime->isSameDay($currentDateTime) && $tripDateTime->lessThan($currentDateTime->copy()->addHours(4))) {
+                    unset($trips[$key]);
+                } else {
+                    $totalBookedSeats = DB::table('bills')
+                        ->where('trip_id', $trip->id)
+                        ->sum('total_seats');
 
-                $carTotalSeat = DB::table('cars')
-                    ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
-                    ->where('cars.id', $trip->car_id)
-                    ->value('type_cars.total_seat');
 
-                $remainingSeats = $carTotalSeat - $totalBookedSeats;
+                    $carTotalSeat = DB::table('cars')
+                        ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
+                        ->where('cars.id', $trip->car_id)
+                        ->value('type_cars.total_seat');
+                    $remainingSeats = $carTotalSeat - $totalBookedSeats;
 
-                if ($remainingSeats > 0) {
-                    $trip->remaining_seats = $remainingSeats;
-                    $availableTrips[] = $trip;
+                    if ($remainingSeats > 0) {
+                        $trip->remaining_seats = $remainingSeats;
+                        $availableTrips[] = $trip;
+                    }
                 }
             }
         }
-
         $availableTripDetails = [];
-
         foreach ($availableTrips as $availableTrip) {
             $tripDetails = DB::table('trips')
                 ->join('cars', 'trips.car_id', '=', 'cars.id')
@@ -371,7 +458,6 @@ class TripService
                 ->orderBy('start_location', 'asc')
                 ->select('trips.*', 'type_cars.name as car_type_name')
                 ->first();
-
             $availableTripDetails[] = (array) $tripDetails;
         }
 
@@ -395,38 +481,40 @@ class TripService
             ->orderBy('start_location', 'asc')
             ->get();
 
-            $availableTrips = [];
+        $availableTrips = [];
 
-            foreach ($trips as $trip) {
-                $tripStartDate = Carbon::parse($trip->start_date);
-                $tripStartTime = Carbon::parse($trip->start_time);
+        foreach ($trips as $key => $trip) {
+            $tripStartDate = Carbon::parse($trip->start_date);
+            $tripStartTime = Carbon::parse($trip->start_time);
 
-                $tripDateTime = $tripStartDate->copy()->setTime($tripStartTime->hour, $tripStartTime->minute, $tripStartTime->second);
+            $tripDateTime = $tripStartDate->copy()->setTime($tripStartTime->hour, $tripStartTime->minute, $tripStartTime->second);
 
-                if ($tripDateTime->isSameDay($currentDateTime) && $tripDateTime->greaterThanOrEqualTo($currentDateTime)) {
-                    $totalBookedSeats = DB::table('bills')
-                        ->where('trip_id', $trip->id)
-                        ->sum('total_seats');
+            if ($tripDateTime->isSameDay($currentDateTime) && $tripDateTime->lessThan($currentDateTime->copy()->addHours(4))) {
+                unset($trips[$key]);
+            } else {
+                $totalBookedSeats = DB::table('bills')
+                    ->where('trip_id', $trip->id)
+                    ->sum('total_seats');
 
-                    $carTotalSeat = DB::table('cars')
-                        ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
-                        ->where('cars.id', $trip->car_id)
-                        ->value('type_cars.total_seat');
 
-                    $remainingSeats = $carTotalSeat - $totalBookedSeats;
+                $carTotalSeat = DB::table('cars')
+                    ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
+                    ->where('cars.id', $trip->car_id)
+                    ->value('type_cars.total_seat');
+                $remainingSeats = $carTotalSeat - $totalBookedSeats;
 
-                    if ($remainingSeats > 0) {
-                        $trip->remaining_seats = $remainingSeats;
-                        $availableTrips[] = $trip;
-                    }
+                if ($remainingSeats > 0) {
+                    $trip->remaining_seats = $remainingSeats;
+                    $availableTrips[] =  $trip;
                 }
             }
+        }
 
         return $availableTrips;
     }
     public function get_all_type_car()
     {
-        $type_car = TypeCar::select('type_seats')->get();
+        $type_car = TypeCar::select('type_seats')->distinct()->get();
         return $type_car;
     }
     public function get_total_seat_empty($request)
@@ -479,4 +567,23 @@ class TripService
 
         return collect($recentNews)->toArray();
     }
+
+    public function getDrive()
+    {
+        return User::query()->where('user_type_id', 4)->get();
+    }
+
+    public function assistantCar()
+    {
+        return User::query()->where('user_type_id', 5)->get();
+    }
+
+    public function getCar()
+    {
+        $car = DB::table('cars')
+            ->where('status', 0)
+            ->get();
+        return $car;
+    }
+
 }

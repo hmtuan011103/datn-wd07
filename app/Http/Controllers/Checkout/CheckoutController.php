@@ -3,16 +3,20 @@
 namespace App\Http\Controllers\Checkout;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendMailCheckOutSuccess;
 use App\Models\Bill;
 use App\Models\Location;
 use App\Models\Seat;
 use App\Models\Ticket;
+use App\Models\Trip;
 use App\Models\User;
 use App\Services\CheckoutService\CheckoutService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class CheckoutController extends Controller
@@ -26,11 +30,52 @@ class CheckoutController extends Controller
 
     }
 
+    public function continuesCheckout(Request $request) {
+        $data = $request->except('_token');
+        $title = "Chiến thắng | Thanh toán";
+        $nameUser = $request->name;
+        $emailUser = $request->email;
+        $phoneUser = $request->phone;
+        $tripTurn = Trip::query()->find($request->trip_turn);
+        $tripReturn = null;
+        if($request->trip_return) {
+            $tripReturn = Trip::query()->find($request->trip_return);
+        }
+        $placeStart = Location::query()->find($request->place_start_turn);
+        $placeEnd = Location::query()->find($request->place_end_turn);
+        $placeStartSecond = null;
+        $placeEndSecond = null;
+        if($request->place_start_turn_0) {
+            $placeStart = Location::query()->find($request->place_start_turn_0);
+            $placeEnd = Location::query()->find($request->place_end_turn_0);
+            $placeStartSecond = Location::query()->find($request->place_start_turn_1);
+            $placeEndSecond = Location::query()->find($request->place_end_turn_1);
+        }
+        $seatsTurn = $request->seats_turn;
+        $seatsReturn = null;
+        if($request->seats_return) {
+            $seatsReturn = $request->seats_return;
+        }
+        $moneyTurn = (int) $request->money_turn;
+        $moneyReturn = null;
+        if($request->money_return) {
+            $moneyReturn = (int) $request->money_return;
+        }
+        return view('client.pages.choose-type-payment.index',
+            compact('nameUser','emailUser','phoneUser','tripTurn','tripReturn', 'title',
+                'placeStart','placeEnd','placeStartSecond','placeEndSecond','seatsTurn','seatsReturn', 'moneyTurn', 'moneyReturn'
+            )
+        );
+    }
+
     public function checkout(Request $request) {
+        $vnp_Url = $this->checkoutService->createPayment($request);
         try {
-            $vnp_Url = $this->checkoutService->createPayment($request);
-            if ($request->has('redirect')) {
+            if ($request->has('redirect-payment') && $request->type_payment === "1") {
                 return redirect($vnp_Url);
+            }
+            if ($request->has('redirect-payment') && $request->type_payment === "2") {
+                $this->checkoutService->momo_payment();
             }
         } catch (\Exception $exception) {
             Log::error('Có lỗi xảy ra', [$exception]);
@@ -48,6 +93,9 @@ class CheckoutController extends Controller
                 'name' => $cacheData['name'],
                 'phone_number' => $cacheData['phone_number'],
             ]);
+            if ($request->hasCookie('is_client')) {
+                $user = Auth::id();
+            }
             Cache::put('infor_user', $user, 1500);
             // Save to Bill Order
 
@@ -82,6 +130,7 @@ class CheckoutController extends Controller
                     'pay_location' => $endLocation->name,
                 ]);
             }
+            SendMailCheckOutSuccess::dispatch($user->name, $bill->code_bill, $bill->trip_id, $startLocation->name, $endLocation->name, implode(', ', $seatsTurnArray), $user->email);
             // Bill Return
             if ($cacheData['seatsReturn'] !== null && $cacheData['tripReturn'] !== null) {
                 $seatsCodeReturn = explode(',', $cacheData['seatsReturn']);
@@ -114,11 +163,14 @@ class CheckoutController extends Controller
                         'pay_location' => $endLocation->name,
                     ]);
                 }
+                SendMailCheckOutSuccess::dispatch($user->name, $billReturn->code_bill, $billReturn->trip_id, $startLocation->name, $endLocation->name, implode(', ', $seatsReturnArray), $user->email);
             }
             DB::commit();
+            return true;
         } catch (\Exception $exception) {
             DB::rollBack();
             Log::error('Có lỗi xảy ra', [$exception]);
+            return false;
         }
     }
 
@@ -128,19 +180,21 @@ class CheckoutController extends Controller
         $idReturn = Cache::get('bill_return');
         $ticketTurn = Ticket::query()->with('bill.trip')
             ->where('bill_id', $idTurn)->get();
+        Cache::forget('bill_turn');
         $allTicket['turn'] = $ticketTurn;
+
         if($idReturn !== null){
             $ticketReturn = Ticket::query()->with('bill.trip')
                 ->where('bill_id', $idReturn)->get();
+            Cache::forget('bill_return');
             $allTicket['return'] = $ticketReturn;
         }
         return $allTicket;
     }
 
     public function checkoutSuccess(Request $request) {
-        $cacheData = Cache::get('my_bill_cache');
-        if($request->vnp_ResponseCode === "00" && $cacheData !== null){
-            $this->saveDataAfterCheckoutSuccess($request, $cacheData);
+        $cacheData = Cache::get('my_bill_cache'. $request->vnp_TxnRef);
+        if($request->vnp_ResponseCode === "00" && $cacheData !== null && $this->saveDataAfterCheckoutSuccess($request, $cacheData)){
             return view('client.partials.checkout-success', [
                 'data' => $this->getTicketForBill(),
                 'inforUser' => Cache::get('infor_user'),

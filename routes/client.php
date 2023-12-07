@@ -6,6 +6,7 @@ use App\Http\Controllers\Trip\Client\TripController;
 use App\Http\Controllers\Contact\Client\ContactController;
 
 use App\Http\Controllers\New\Client\NewController;
+use App\Http\Controllers\Review\client\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,14 +38,17 @@ Route::get('/dang-nhap', function () {
     $title = "Chiến thắng | Đăng nhập/Đăng ký";
     return view('client.pages.auth.login', compact('title'));
 })->name('dang-nhap');
+
 Route::match(['get', 'post'], '/thong-tin', function () {
     $title = "Chiến thắng | Thông Tin Người Dùng";
     return view('client.pages.profile.profile', compact('title'));
 })->name('thong-tin')->middleware('checklogin');
+
 Route::match(['get', 'post'], '/ma-giam-gia', function () {
     $title = "Chiến thắng | Mã Giảm Giá";
     return view('client.pages.discount.index', compact('title'));
 })->name('ma-giam-gia')->middleware('checklogin');
+
 Route::match(['get', 'post'], '/mat-khau', function () {
     $title = "Chiến thắng | Đổi Mật Khẩu";
     return view('client.pages.profile.password', compact('title'));
@@ -54,7 +58,9 @@ Route::match(['get', 'post'], '/lich-su', function () {
     return view('client.pages.booking-history.index', compact('title'));
 })->name('lich-su')->middleware('checklogin');
 
+
 Route::get('/lich-trinh', [TripController::class, 'lich_trinh'])->name('lich_trinh');
+Route::post('/phuong-thuc-thanh-toan', [CheckoutController::class, 'continuesCheckout'])->name('phuong_thuc_thanh_toan');
 Route::post('/thanh-toan', [CheckoutController::class, 'checkout'])->name('thanh_toan');
 Route::get('/trang-thai-thanh-toan', [CheckoutController::class, 'checkoutSuccess'])->name('trang_thai_thanh_toan');
 
@@ -77,8 +83,12 @@ Route::post('post_contact', [ContactController::class, 'store'])->name('create_c
 Route::get('/tra-cuu', function () {
     $title = "Chiến thắng | Tra Cứu Vé Xe";
     return view('client.pages.search-ticket.index', compact('title'));
-});
+})->name('client.searching-ticket');
 
 
 Route::get('tin-tuc',[NewController::class,'index'])->name('client.news');
 Route::get('tin-tuc/{slug?}',[NewController::class,'detail'])->name('client.news.detail');
+
+
+Route::get('danh-gia',[ReviewController::class, 'create'])->name('review');
+Route::post('create_review',[ReviewController::class, 'store'])->name('create_review');

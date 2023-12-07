@@ -34,10 +34,18 @@
                     <ul class="navbar-nav" id="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link menu-link" href="{{ route('admin.homepage') }}">
-                                <i class="mdi mdi-home"></i>
-                                <span>Trang chủ</span>
+                                <i class="mdi mdi-home fs-3"></i>
+                                <span class="ps-1">Trang chủ</span>
                             </a>
                         </li>
+                        @if (in_array('order-ticket-admin', Auth::user()->permissions))
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{{ route('order_ticket-admin') }}">
+                                    <i class="fa-solid fa-bus fs-5"></i>
+                                    <span class="ps-1">Đặt vé</span>
+                                </a>
+                            </li>
+                        @endif
                         <li class="menu-title"><span data-key="t-menu">Quản lý</span></li>
 
                         @if (in_array('read-location', Auth::user()->permissions))
@@ -51,7 +59,8 @@
                         @if (in_array('read-trip', Auth::user()->permissions))
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="{{ route('list_trip') }}">
-                                    <i class="fa-solid fa-road" style="font-size: 15px"></i> <span data-key="t-maps">Chuyến đi</span>
+                                    <i class="fa-solid fa-road" style="font-size: 15px"></i> <span data-key="t-maps">Chuyến
+                                        đi</span>
                                 </a>
                             </li>
                         @endif
@@ -60,7 +69,8 @@
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="#sidebarUsers" data-bs-toggle="collapse" role="button"
                                     aria-expanded="false" aria-controls="sidebarUsers">
-                                    <i class="mdi mdi-account"></i> <span>
+                                    <i class="mdi mdi-account"></i>
+                                    <span>
                                         Người dùng
                                     </span>
                                 </a>
@@ -84,6 +94,7 @@
                                             </li>
                                         @endif
                                     </ul>
+                                </div>
                             </li>
                         @endif
 
@@ -144,10 +155,12 @@
                                 </div>
                             </li>
                         @endif
+
                         @if (in_array('read-discount-code', Auth::user()->permissions))
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="{{ route('list_discount_code') }}">
-                                    <i class="fa-solid fa-ticket" style="font-size: 15px"></i> <span data-key="t-maps">Mã giảm giá</span>
+                                    <i class="fa-solid fa-ticket" style="font-size: 15px"></i> <span data-key="t-maps">Mã
+                                        giảm giá</span>
                                 </a>
                             </li>
                         @endif
@@ -159,6 +172,64 @@
                             </li>
                         @endif
 
+                        @if (in_array('read-search-ticket', Auth::user()->permissions))
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{{ route('form_search') }}">
+                                    <i class="mdi mdi-sticker-text-outline"></i> <span data-key="t-maps">Tra cứu vé</span>
+                                </a>
+                            </li>
+                        @endif
+
+                        @if (in_array('read-schedule', Auth::user()->permissions))
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{{ route('schedule') }}">
+                                    <i class="mdi mdi-sticker-text-outline"></i> <span data-key="t-maps">Lịch trình</span>
+                                </a>
+                            </li>
+                        @endif
+                        @if (in_array('read-search-ticket', Auth::user()->permissions))
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{{ route('form_search') }}">
+                                    <i class="mdi mdi-sticker-text-outline"></i> <span data-key="t-maps">Tra cứu vé</span>
+                                </a>
+                            </li>
+                        @endif
+                        @if (in_array('read-bill', Auth::user()->permissions))
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{{ route('list_order') }}">
+                                    <i class="fa-solid fa-cart-shopping"></i> <span data-key="t-maps">Hóa đơn</span>
+                                </a>
+                            </li>
+                        @endif
+                        @if (in_array('read-statistic', Auth::user()->permissions))
+                            <li class="menu-title"><span data-key="t-statistic">Thống kê</span></li>
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="#sidebarStatistic" data-bs-toggle="collapse"
+                                    role="button" aria-expanded="false" aria-controls="sidebarStatistic">
+                                    <i class="mdi mdi-google-analytics"></i>
+                                    <span>
+                                        Thống kê
+                                    </span>
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarStatistic">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link menu-link" href="{{ route('statistics.car') }}"
+                                                role="button">
+                                                <span>Xe</span>
+                                            </a>
+                                        </li>
+
+                                        {{-- <li class="nav-item">
+                                            <a class="nav-link menu-link" href="{{ route('statistics.user') }}"
+                                                role="button">
+                                                <span>Tài khoản</span>
+                                            </a>
+                                        </li> --}}
+                                    </ul>
+                                </div>
+                            </li>
+                        @endif
                     </ul>
                 </div>
                 <!-- Sidebar -->

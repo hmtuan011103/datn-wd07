@@ -1,5 +1,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("searchButton").addEventListener('click', function(event) {

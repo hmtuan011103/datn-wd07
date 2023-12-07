@@ -48,7 +48,6 @@ $(document).ready(function () {
 }, autoLogoutTimeInMillis);
 }
 
-
     function performLogout() {
     fetch('http://127.0.0.1:8000/api/logout', {
     method: 'POST',
@@ -64,6 +63,7 @@ $(document).ready(function () {
     // Xóa cookies khi đăng xuất
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie = "status=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "is_client=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     window.location.href = '/';
 } else {
     console.error(data.message);
@@ -132,7 +132,6 @@ if (status === 'true') {
         getProfile();
     }
 }
-
 document.addEventListener("DOMContentLoaded", function () {
     const status = getCookie('status');
     const successMessage = sessionStorage.getItem('successMessage');
@@ -155,4 +154,3 @@ document.addEventListener("DOMContentLoaded", function () {
         sessionStorage.removeItem('successMessage');
     }
 });
-

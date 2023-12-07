@@ -24,7 +24,7 @@
                                 <p class="text-muted">Đăng nhập để quản trị website.</p>
                             </div>
                             <div class="p-2 mt-4">
-                                <form class="was-validated" action="{{ route('login.submit') }}" method="POST"
+                                <form class="novalidate" action="{{ route('login.submit') }}" method="POST"
                                     id="form-login">
                                     @csrf
                                     @method('POST')

@@ -3,6 +3,7 @@
 namespace App\Services\User;
 
 use App\Models\Role;
+use App\Models\User;
 use App\Models\User as UserModel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +18,19 @@ class UserService
      {
           $this->model = $userModel;
      }
+
+    public function getUserFilter()
+    {
+        $users = User::where('user_type_id', 4)->get();
+
+        return $users;
+    }
+    public function getUserFilterAssistant()
+    {
+        $users = User::where('user_type_id', 5)->get();
+
+        return $users;
+    }
 
      public function getAll()
      {
@@ -162,7 +176,7 @@ class UserService
 
                if ($adminRoleId) {
                     // kiểm tra số lượng tài khoản role admin > 1 thì cho phép update role tùy ý,
-                    // nếu < 2 thì check xem có bỏ quyền admin không => nếu có thì fail update => cần ít nhất 1 account có role admin. 
+                    // nếu < 2 thì check xem có bỏ quyền admin không => nếu có thì fail update => cần ít nhất 1 account có role admin.
                     $currentTotalAdminAccount = $this->model::with('roles')
                          ->whereHas('roles', function ($query) {
                               $query->where('name', 'admin');

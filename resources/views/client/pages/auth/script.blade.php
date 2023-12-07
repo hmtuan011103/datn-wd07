@@ -1,4 +1,3 @@
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script>
     const loginForm = document.getElementById("login-form");
     const loginName = document.getElementById("loginName");
@@ -171,6 +170,7 @@
                     setCookie('token', responseData.token, 10);
                     setCookie('status', true, 10);
                     setCookie('is_client', true, 10);
+                    // Lưu successMessage vào sessionStorage
                     const successMessage = "Đăng nhập thành công!";
                     sessionStorage.setItem('successMessage', successMessage);
                     const redirectUrl = responseData.redirect_url;

@@ -102,8 +102,8 @@
                                                                 </div>
                                                                 <div class="remove">
                                                                     <button class="btn btn-sm btn-danger btn-remove"
-                                                                        data-bs-toggle="modal" data-bs-target="#modalDelete"
-                                                                        data-role-id="{{ $dc->id }}"><i class="bx bx-trash"></i></button>
+                                                                        {{-- data-bs-toggle="modal" data-bs-target="#modalDelete" data-role-id="{{ $dc->id }}" --}}
+                                                                        onclick="confirmDelete({{$dc->id}})" ><i class="bx bx-trash"></i></button>
                                                                 </div>
                                                                 
                                                             </div>

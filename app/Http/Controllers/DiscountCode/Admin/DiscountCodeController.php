@@ -13,7 +13,7 @@ class DiscountCodeController extends BaseDiscountCodeController
 {
     //
     public function index(){
-        $title = 'Quản trị vai trò';
+        $title = 'Quản trị mã giảm giá';
         $discount_code = $this->discountcodeService->index();
         return view('admin.pages.discount_code.main', compact('discount_code', 'title'));
     }

@@ -63,11 +63,11 @@
                                                 </div>
                                                 <div class="ant-col ant-col-2">${item.car_type_name}</div>
                                                 <div class="ant-col ant-col-4">${convertTime(item.interval_trip)}</div>
-                                                <div class="ant-col ant-col-2">${item.trip_price}.000 VNĐ</div>
+                                                <div class="ant-col ant-col-2">${item.trip_price.toLocaleString("vi-VN")}đ</div>
                                                 <!-- <div class="ant-col ant-col-2"></div> -->
                                                 <div class="ant-col flex justify-end" style="flex: 1 1 auto;">
                                                     <button type="button"
-                                                        class="ant-btn ant-btn-round ant-btn-default button-default mr-2" data-turn="${item.id}">
+                                                        class="ant-btn ant-btn-round ant-btn-default button-default mr-2"  onclick="redirectToSelectSeat(this)" data-turn="${item.id}">
                                                         <span>Chọn chuyến</span>
                                                     </button>
                                                 </div>
@@ -177,9 +177,9 @@
                                             </div>
                                             <div class="ant-col ant-col-2">${item.car_type_name}</div>
                                             <div class="ant-col ant-col-4">11 giờ 30 phút</div>
-                                            <div class="ant-col ant-col-2">${item.trip_price}.000 VNĐ</div>
+                                            <div class="ant-col ant-col-2">${item.trip_price.toLocaleString("vi-VN")}đ</div>
                                             <div class="ant-col flex justify-end" style="flex: 1 1 auto;">
-                                                <button type="button" class="ant-btn ant-btn-round ant-btn-default button-default mr-2" data-turn="${item.id}">
+                                                <button type="button" class="ant-btn ant-btn-round ant-btn-default button-default mr-2"  onclick="redirectToSelectSeat(this)" data-turn="${item.id}">
                                                     <span>Chọn chuyến</span>
                                                 </button>
                                             </div>
@@ -200,5 +200,12 @@
 
         }, 300);
 
+    }
+
+</script>
+<script>
+        function redirectToSelectSeat(button) {
+        const tripTurn = button.getAttribute('data-turn');
+        window.location.href = `/chon-ghe?trip_turn=${tripTurn}`;
     }
 </script>

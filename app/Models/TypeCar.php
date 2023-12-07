@@ -9,14 +9,15 @@ class TypeCar extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'description' ,
+        'description',
         'name',
         'total_seat',
         'type_seats',
     ];
 
 
-    public function cars(){
-        return $this->hasMany(Car::class);
+    public function cars()
+    {
+        return $this->hasMany(Car::class, 'id_type_car', 'id');
     }
 }

@@ -21,11 +21,14 @@ class Bill extends Model
         'total_money_after_discount',
         'total_seats',
         'type_pay',
-        'total_seats',
         'code_bill'
     ];
 
     public function trip() : BelongsTo{
         return $this->belongsTo(Trip::class);
+    }
+
+    public function user() : BelongsTo {
+        return $this->belongsTo(User::class);
     }
 }

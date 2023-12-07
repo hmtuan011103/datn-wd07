@@ -21,6 +21,8 @@ class AuthController extends Controller
             return back()->withErrors(['wrong-info' => $message]);
         }
 
+
+
         // tài khoản không có quyền truy cập
         if (count(Auth::user()->permissions) < 1) {
             $message = "Tài khoản không có quyền truy cập";

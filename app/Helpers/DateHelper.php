@@ -51,3 +51,10 @@ function formatInterval($parameter)
 
      return $output;
 }
+
+function fomatPrice($parameter) {
+     $formattedPrice = number_format($parameter, 0, ",", ".");
+
+     return $formattedPrice;
+
+}

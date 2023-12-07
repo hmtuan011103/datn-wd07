@@ -49,9 +49,9 @@
                 <p class="mb-0 pb-2 fw-medium">Hàng ghế</p>
             </div>
             <div class="d-flex">
-                <button type="button" class="btn btn-light bg-white border border-1 me-2 fs-14">Hàng đầu</button>
-                <button type="button" class="btn btn-light bg-white border border-1 me-2 fs-14">Hàng giữa</button>
-                <button type="button" class="btn btn-light bg-white border border-1 me-2 fs-14">Hàng cuối</button>
+                <button  class="btn btn-light bg-white border border-1 me-2 fs-14 rowseat" data-type="top">Hàng đầu</button>
+                <button  class="btn btn-light bg-white border border-1 me-2 fs-14 rowseat" data-type="mid">Hàng giữa</button>
+                <button  class="btn btn-light bg-white border border-1 me-2 fs-14 rowseat" data-type="end">Hàng cuối</button>
             </div>
         </div>
         <div class="type-car py-4 px-2">
@@ -59,8 +59,8 @@
                 <p class="mb-0 pb-2 fw-medium">Tầng</p>
             </div>
             <div class="d-flex">
-                <button type="button" class="btn btn-light bg-white border border-1 me-2 fs-14">Tầng trên</button>
-                <button type="button" class="btn btn-light bg-white border border-1 me-2 fs-14">Tầng dưới</button>
+                <button  class="btn btn-light bg-white border border-1 me-2 fs-14 floor" data-type="up">Tầng trên</button>
+                <button  class="btn btn-light bg-white border border-1 me-2 fs-14 floor" data-type="down">Tầng dưới</button>
             </div>
         </div>
     </div>
