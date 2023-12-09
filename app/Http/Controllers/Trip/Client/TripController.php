@@ -56,6 +56,13 @@ class TripController extends BaseTripController
         // return view('client.pages.trip.main', compact('trips'));
     }
 
+    public function getDataFilter()
+    {
+        $data = $this->tripService->getDataFilter();
+        return response()->json($data);
+        // return view('client.pages.trip.main', compact('trips'));
+    }
+
     public function search_start_trip(Request $request)
     {
 
@@ -111,3 +118,62 @@ class TripController extends BaseTripController
         return response()->json($data, 200);
     }
 }
+
+
+// public function create(StoreTripRequest $request )
+// {
+//     if ($request->isMethod('POST')) {
+//         dd($request->all());
+//         $repeat = $request->has('repeat');
+
+//         $startDate = Carbon::parse($request->start_date);
+
+
+//         $route = Route::find($request->route_id);
+//         dd($request->route_id);
+
+//         // $timeFloat = $request->interval_trip;
+//         // $hourMinute = str_replace(['giờ', 'phút'], '', $timeFloat);
+//         // $hourMinuteArray = explode(' ', $hourMinute);
+//         // $hour = $hourMinuteArray[0];
+//         // $minute = $hourMinuteArray[1];
+//         // $time = sprintf("%02d:%02d:00", $hour, $minute);
+
+//         // $trip_price = $request->trip_price;
+//         // $fomatPrice = str_replace(".", "", $trip_price);
+
+//         Trip::create([
+//             'start_date' => $startDate,
+//             'start_time' => $route->start_time,
+//             'interval_trip' => $route->interval_trip,
+//             'car_id' => $route->car_id,
+//             'drive_id' => $route->drive_id,
+//             'assistantCar_id' => $route->assistantCar_id,
+//             'trip_price' => $route->trip_price,
+//             'start_location' => $route->start_location,
+//             'end_location' => $route->end_location,
+//             'status' => $route->status,
+//         ]);
+
+//         if ($repeat) {
+//             $numberOfDays = $request->input('number_of_days', 0); // Số ngày lặp lại, có thể lấy từ form
+//             for ($i = 1; $i <= $numberOfDays; $i++) {
+//                 $nextDate = $startDate->copy()->addDays($i); // Tăng ngày lên
+
+//                 Trip::create([
+//                     'start_date' => $nextDate,
+//                     'start_time' => $route->start_time,
+//                     'interval_trip' => $route->interval_trip,
+//                     'car_id' => $route->car_id,
+//                     'drive_id' => $route->drive_id,
+//                     'assistantCar_id' => $route->assistantCar_id,
+//                     'trip_price' => $route->trip_price,
+//                     'start_location' => $route->start_location,
+//                     'end_location' => $route->end_location,
+//                     'status' => $route->status,
+//                 ]);
+//             }
+//         }
+//     }
+// }
+// $routes = $this->tripService->getRoute();

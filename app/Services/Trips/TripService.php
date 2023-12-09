@@ -9,6 +9,7 @@ use App\Models\Bills;
 use App\Models\Car;
 use App\Models\Location;
 use App\Models\NewPost;
+use App\Models\Route;
 use App\Models\Seat;
 use App\Models\Trip;
 use App\Models\TypeCar;
@@ -27,107 +28,225 @@ class TripService
         return Trip::all();
     }
 
-    public function list_desc()
+    // public function list_desc()
+    // {
+    //     // Lấy danh sách các trip_id từ bảng bills
+    //     $tripIdsInBills = Bill::pluck('trip_id')->toArray();
+
+    //     $trips = Trip::select('trips.id', 'trips.assistantCar_id', 'trips.car_id', 'trips.drive_id', 'trips.start_date', 'trips.start_time', 'trips.start_location', 'trips.status', 'trips.trip_price', 'trips.end_location', 'trips.created_at', 'trips.updated_at', 'cars.name as car_name', 'users.name as user_name')
+    //         ->join('cars', 'cars.id', '=', 'trips.car_id')
+    //         ->join('users', 'users.id', '=', 'trips.drive_id')
+    //         ->orderBy('updated_at', 'DESC')->get();
+
+    //     // Thêm điều kiện kiểm tra và ẩn nút xóa nếu trip_id đã có trong bảng bills
+    //     foreach ($trips as $trip) {
+    //         if (in_array($trip->id, $tripIdsInBills)) {
+    //             $trip->canDelete = false; // Thêm thuộc tính canDelete để xác định có thể xóa hay không
+    //         } else {
+    //             $trip->canDelete = true;
+    //         }
+    //     }
+
+    //     return $trips;
+    // }
+
+    public function list_desc($request)
     {
+        $tripQuery = Trip::select(
+            'trips.id',
+            'trips.assistantCar_id',
+            'trips.car_id',
+            'trips.drive_id',
+            'trips.start_date',
+            'trips.start_time',
+            'trips.start_location',
+            'trips.status',
+            'trips.trip_price',
+            'trips.end_location',
+            'trips.created_at',
+            'trips.updated_at',
+            'cars.name as car_name',
+            'users.name as user_name'
+        )
+            ->join('cars', 'cars.id', '=', 'trips.car_id')
+            ->join('users', 'users.id', '=', 'trips.drive_id')
+            ->orderBy('updated_at', 'DESC');
+
+        if ($request->isMethod('GET')) {
+            $startDate = $request->input('departure-date');
+            $driver = $request->input('driver');
+            $assistant = $request->input('assistant');
+            $startLocation = $request->input('start_location');
+            $endLocation = $request->input('end_location');
+
+            if ($startDate) {
+                $tripQuery->whereDate('start_date', $startDate);
+            }
+            if ($driver) {
+                $tripQuery->where('drive_id', $driver);
+            }
+            if ($assistant) {
+                $tripQuery->where('assistantCar_id', $assistant);
+            }
+            if ($startLocation) {
+                $tripQuery->where('start_location', $startLocation);
+            }
+            if ($endLocation) {
+                $tripQuery->where('end_location', $endLocation);
+            }
+
+            // dd($trips);
+        }
+        $trips = $tripQuery->get();
+
+
         // Lấy danh sách các trip_id từ bảng bills
         $tripIdsInBills = Bill::pluck('trip_id')->toArray();
 
-        $trips = Trip::select('trips.id', 'trips.assistantCar_id', 'trips.car_id', 'trips.drive_id', 'trips.start_date', 'trips.start_time', 'trips.start_location', 'trips.status', 'trips.trip_price', 'trips.end_location', 'trips.created_at', 'trips.updated_at', 'cars.name as car_name', 'users.name as user_name')
-            ->join('cars', 'cars.id', '=', 'trips.car_id')
-            ->join('users', 'users.id', '=', 'trips.drive_id')
-            ->orderBy('updated_at', 'DESC')->get();
-
         // Thêm điều kiện kiểm tra và ẩn nút xóa nếu trip_id đã có trong bảng bills
         foreach ($trips as $trip) {
-            if (in_array($trip->id, $tripIdsInBills)) {
-                $trip->canDelete = false; // Thêm thuộc tính canDelete để xác định có thể xóa hay không
-            } else {
-                $trip->canDelete = true;
-            }
+            $trip->canDelete = !in_array($trip->id, $tripIdsInBills);
         }
 
         return $trips;
     }
+
 
     public function get_parent_id()
     {
         return Location::select('locations.name', 'locations.id')->where('locations.parent_id', Null)->get();
     }
 
+
+
+    // public function create(StoreTripRequest $request)
+    // {
+    //     if ($request->isMethod('POST')) {
+
+    //         $repeat = $request->has('repeat');
+
+    //         $startDate = Carbon::parse($request->start_date);
+
+
+    //         $route = Route::find($request->route_id);
+
+    //         Trip::create([
+    //             'start_date' => $startDate,
+    //             'start_time' => $route->start_time,
+    //             'interval_trip' => $route->interval_trip,
+    //             'car_id' => $request->car_id,
+    //             'drive_id' => $request->drive_id,
+    //             'assistantCar_id' => $request->assistantCar_id,
+    //             'trip_price' => $route->trip_price,
+    //             'start_location' => $route->start_location,
+    //             'end_location' => $route->end_location,
+    //             'status' => $route->status,
+    //             'route_id' => $route->id,
+
+    //         ]);
+
+    //         if ($repeat) {
+    //             $numberOfDays = $request->input('number_of_days', 0); // Số ngày lặp lại, có thể lấy từ form
+    //             for ($i = 1; $i <= $numberOfDays; $i++) {
+    //                 $nextDate = $startDate->copy()->addDays($i); // Tăng ngày lên
+
+    //                 Trip::create([
+    //                     'start_date' => $nextDate,
+    //                     'start_time' => $route->start_time,
+    //                     'interval_trip' => $route->interval_trip,
+    //                     'car_id' => $request->car_id,
+    //                     'drive_id' => $request->drive_id,
+    //                     'assistantCar_id' => $request->assistantCar_id,
+    //                     'trip_price' => $route->trip_price,
+    //                     'start_location' => $route->start_location,
+    //                     'end_location' => $route->end_location,
+    //                     'status' => $route->status,
+    //                     'route_id' => $route->id,
+    //                 ]);
+    //             }
+    //         }
+    //     }
+    // }
+
     public function create(StoreTripRequest $request)
     {
         if ($request->isMethod('POST')) {
             $repeat = $request->has('repeat');
-
             $startDate = Carbon::parse($request->start_date);
-
-            $timeFloat = $request->interval_trip;
-            $hourMinute = str_replace(['giờ', 'phút'], '', $timeFloat);
-            $hourMinuteArray = explode(' ', $hourMinute);
-            $hour = $hourMinuteArray[0];
-            $minute = $hourMinuteArray[1];
-            $time = sprintf("%02d:%02d:00", $hour, $minute);
-
-            $trip_price = $request->trip_price;
-            $fomatPrice = str_replace(".", "", $trip_price);
+            $route = Route::find($request->route_id);
 
             Trip::create([
                 'start_date' => $startDate,
-                'start_time' => $request->start_time,
-                'interval_trip' => $time,
+                'start_time' => $route->start_time,
+                'interval_trip' => $route->interval_trip,
                 'car_id' => $request->car_id,
                 'drive_id' => $request->drive_id,
                 'assistantCar_id' => $request->assistantCar_id,
-                'trip_price' => $fomatPrice,
-                'start_location' => $request->start_location,
-                'end_location' => $request->end_location,
-                'status' => $request->status,
+                'trip_price' => $route->trip_price,
+                'start_location' => $route->start_location,
+                'end_location' => $route->end_location,
+                'status' => $route->status,
+                'route_id' => $route->id,
+
             ]);
 
             if ($repeat) {
                 $numberOfDays = $request->input('number_of_days', 0); // Số ngày lặp lại, có thể lấy từ form
-                for ($i = 1; $i <= $numberOfDays; $i++) {
+                for ($i = 0; $i < $numberOfDays; $i++) {
                     $nextDate = $startDate->copy()->addDays($i); // Tăng ngày lên
 
-                    Trip::create([
-                        'start_date' => $nextDate,
-                        'start_time' => $request->start_time,
-                        'interval_trip' => $time,
-                        'car_id' => $request->car_id,
-                        'drive_id' => $request->drive_id,
-                        'assistantCar_id' => $request->assistantCar_id,
-                        'trip_price' => $fomatPrice,
-                        'start_location' => $request->start_location,
-                        'end_location' => $request->end_location,
-                        'status' => $request->status,
-                    ]);
+                    // Kiểm tra xem đã có chuyến đi trùng hay không
+                    $existingTrip = Trip::where('start_date', $nextDate)
+
+                        ->where('route_id', $route->id)
+                        ->exists();
+
+                    if (!$existingTrip) {
+                        Trip::create([
+                            'start_date' => $nextDate,
+                            'start_time' => $route->start_time,
+                            'interval_trip' => $route->interval_trip,
+                            'car_id' => $request->car_id,
+                            'drive_id' => $request->drive_id,
+                            'assistantCar_id' => $request->assistantCar_id,
+                            'trip_price' => $route->trip_price,
+                            'start_location' => $route->start_location,
+                            'end_location' => $route->end_location,
+                            'status' => $route->status,
+                            'route_id' => $route->id,
+                        ]);
+                    }
                 }
             }
         }
     }
 
 
+
     public function edit_trip(StoreTripRequest $request, $id)
     {
-        Trip::find($id);
+        $trip = Trip::find($id);
+
         if ($request->isMethod('POST')) {
-            $params = $request->except('proengsoft_jsvalidation', '_token');
-            $timeFloat = $request->interval_trip;
-            $hourMinute = str_replace(['giờ', 'phút'], '', $timeFloat);
-            $hourMinuteArray = explode(' ', $hourMinute);
-            $hour = $hourMinuteArray[0];
-            $minute = $hourMinuteArray[1];
-            $time = sprintf("%02d:%02d:00", $hour, $minute);
+            $route = Route::find($request->route_id);
+            $startDate = Carbon::parse($request->start_date);
 
-            $trip_price = $request->trip_price;
-            $fomatPrice = str_replace(".", "", $trip_price);
+            $trip->start_date = $startDate;
+            $trip->start_time = $route->start_time;
+            $trip->interval_trip = $route->interval_trip;
+            $trip->car_id = $request->car_id;
+            $trip->drive_id = $request->drive_id;
+            $trip->assistantCar_id = $request->assistantCar_id;
+            $trip->trip_price = $route->trip_price;
+            $trip->start_location = $route->start_location;
+            $trip->end_location = $route->end_location;
+            $trip->status = $route->status;
+            $trip->route_id = $route->id;
 
-            $params['interval_trip'] = $time;
-            $params['trip_price'] = $fomatPrice;
-            unset($params['_token']);
-            return Trip::where('id', $id)->update($params);
+            $trip->save();
         }
     }
+
 
     public function delete_trip($id)
     {
@@ -427,23 +546,25 @@ class TripService
 
             $tripDateTime = $tripStartDate->copy()->setTime($tripStartTime->hour, $tripStartTime->minute, $tripStartTime->second);
 
-            if ($tripDateTime->isSameDay($currentDateTime) && $tripDateTime->lessThan($currentDateTime->copy()->addHours(4))) {
-                unset($trips[$key]);
-            } else {
-                $totalBookedSeats = DB::table('bills')
-                    ->where('trip_id', $trip->id)
-                    ->sum('total_seats');
+            if ($tripDateTime->greaterThan($currentDateTime)) {
+                if ($tripDateTime->isSameDay($currentDateTime) && $tripDateTime->lessThan($currentDateTime->copy()->addHours(4))) {
+                    unset($trips[$key]);
+                } else {
+                    $totalBookedSeats = DB::table('bills')
+                        ->where('trip_id', $trip->id)
+                        ->sum('total_seats');
 
 
-                $carTotalSeat = DB::table('cars')
-                    ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
-                    ->where('cars.id', $trip->car_id)
-                    ->value('type_cars.total_seat');
-                $remainingSeats = $carTotalSeat - $totalBookedSeats;
+                    $carTotalSeat = DB::table('cars')
+                        ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
+                        ->where('cars.id', $trip->car_id)
+                        ->value('type_cars.total_seat');
+                    $remainingSeats = $carTotalSeat - $totalBookedSeats;
 
-                if ($remainingSeats > 0) {
-                    $trip->remaining_seats = $remainingSeats;
-                    $availableTrips[] =  $trip;
+                    if ($remainingSeats > 0) {
+                        $trip->remaining_seats = $remainingSeats;
+                        $availableTrips[] =  $trip;
+                    }
                 }
             }
         }
@@ -462,6 +583,60 @@ class TripService
         return $availableTripDetails;
     }
 
+    public function getDataFilter()
+    {
+        $currentDateTime = Carbon::now();
+
+        $trips = DB::table('trips')
+            ->join('cars', 'trips.car_id', '=', 'cars.id')
+            ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
+            ->select('trips.*', 'type_cars.name as car_type_name')
+            ->orderBy('start_location', 'asc')
+            ->get();
+
+        $availableTrips = [];
+        foreach ($trips as $key => $trip) {
+            $tripStartDate = Carbon::parse($trip->start_date);
+            $tripStartTime = Carbon::parse($trip->start_time);
+
+            $tripDateTime = $tripStartDate->copy()->setTime($tripStartTime->hour, $tripStartTime->minute, $tripStartTime->second);
+
+            if ($tripDateTime->greaterThan($currentDateTime)) {
+                if ($tripDateTime->isSameDay($currentDateTime) && $tripDateTime->lessThan($currentDateTime->copy()->addHours(4))) {
+                    unset($trips[$key]);
+                } else {
+                    $totalBookedSeats = DB::table('bills')
+                        ->where('trip_id', $trip->id)
+                        ->sum('total_seats');
+
+
+                    $carTotalSeat = DB::table('cars')
+                        ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
+                        ->where('cars.id', $trip->car_id)
+                        ->value('type_cars.total_seat');
+                    $remainingSeats = $carTotalSeat - $totalBookedSeats;
+
+                    if ($remainingSeats > 0) {
+                        $trip->remaining_seats = $remainingSeats;
+                        $availableTrips[] =  $trip;
+                    }
+                }
+            }
+        }
+        $availableTripDetails = [];
+        foreach ($availableTrips as $availableTrip) {
+            $tripDetails = DB::table('trips')
+                ->join('cars', 'trips.car_id', '=', 'cars.id')
+                ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
+                ->where('trips.id', $availableTrip->id)
+                ->orderBy('start_location', 'asc')
+                ->select('trips.*', 'type_cars.name as car_type_name')
+                ->first();
+            $availableTripDetails[] = (array) $tripDetails;
+        }
+
+        return $availableTripDetails;
+    }
 
     public function search($request)
     {
@@ -487,23 +662,25 @@ class TripService
 
             $tripDateTime = $tripStartDate->copy()->setTime($tripStartTime->hour, $tripStartTime->minute, $tripStartTime->second);
 
-            if ($tripDateTime->isSameDay($currentDateTime) && $tripDateTime->lessThan($currentDateTime->copy()->addHours(4))) {
-                unset($trips[$key]);
-            } else {
-                $totalBookedSeats = DB::table('bills')
-                    ->where('trip_id', $trip->id)
-                    ->sum('total_seats');
+            if ($tripDateTime->greaterThan($currentDateTime)) {
+                if ($tripDateTime->isSameDay($currentDateTime) && $tripDateTime->lessThan($currentDateTime->copy()->addHours(4))) {
+                    unset($trips[$key]);
+                } else {
+                    $totalBookedSeats = DB::table('bills')
+                        ->where('trip_id', $trip->id)
+                        ->sum('total_seats');
 
 
-                $carTotalSeat = DB::table('cars')
-                    ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
-                    ->where('cars.id', $trip->car_id)
-                    ->value('type_cars.total_seat');
-                $remainingSeats = $carTotalSeat - $totalBookedSeats;
+                    $carTotalSeat = DB::table('cars')
+                        ->join('type_cars', 'cars.id_type_car', '=', 'type_cars.id')
+                        ->where('cars.id', $trip->car_id)
+                        ->value('type_cars.total_seat');
+                    $remainingSeats = $carTotalSeat - $totalBookedSeats;
 
-                if ($remainingSeats > 0) {
-                    $trip->remaining_seats = $remainingSeats;
-                    $availableTrips[] =  $trip;
+                    if ($remainingSeats > 0) {
+                        $trip->remaining_seats = $remainingSeats;
+                        $availableTrips[] =  $trip;
+                    }
                 }
             }
         }
@@ -566,22 +743,138 @@ class TripService
         return collect($recentNews)->toArray();
     }
 
-    public function getDrive()
+    public function getDrive($id)
     {
-        return User::query()->where('user_type_id', 4)->get();
+        $trip = Trip::find($id);
+        if ($trip) {
+            $driver = User::query()->where('user_type_id', 4)
+                ->where('id', $trip->drive_id)
+                ->first();
+
+            return $driver;
+        }
+        return null;
     }
 
-    public function assistantCar()
+    public function assistantCar($id)
     {
-        return User::query()->where('user_type_id', 5)->get();
+        $trip = Trip::find($id);
+        if ($trip) {
+            $assistant =  User::query()->where('user_type_id', 5)
+                ->where('id', $trip->assistantCar_id)
+                ->first();
+
+            return $assistant;
+        }
+        return null;
     }
 
-    public function getCar()
+    public function getCar($id)
     {
-        $car = DB::table('cars')
-            ->where('status', 0)
-            ->get();
-        return $car;
+        $trip = Trip::find($id);
+
+        if ($trip) {
+            $car = Car::query()
+                ->where('status', 0)
+                ->where('id', $trip->car_id) // Điều kiện thứ hai
+                ->first();
+            // dd($car);
+            return $car;
+        }
+
+        return null;
     }
 
+
+
+    public function getRoute()
+    {
+        $route = Route::all();
+        return $route;
+    }
+
+    // public function getcarDriveAssistant($request)
+    // {
+    //     $route = Route::first();
+
+    //     $driverIds = json_decode($route->driver_id, true);
+    //     $carIds = json_decode($route->car_id, true);
+    //     $assistantIds = json_decode($route->assistantCar_id, true);
+
+    //     $drivers = User::whereIn('id', $driverIds)->get(['id', 'name']);
+    //     $cars = Car::whereIn('id', $carIds)->get(['id', 'name']); // Thay 'car_name' bằng tên cột chứa tên xe
+    //     $assistants = User::whereIn('id', $assistantIds)->get(['id', 'name']);
+
+    //     $driverData = $drivers->toArray();
+    //     // dd($driverData);
+
+    //     $carData = $cars->toArray();
+    //     $assistantData = $assistants->toArray();
+
+    //     return [
+    //         'drivers' => $driverData,
+    //         'cars' => $carData,
+    //         'assistants' => $assistantData,
+    //     ];
+    // }
+
+    public function getcarDriveAssistant($request)
+    {
+        $inputDate = $request->input('inputDate');
+        $routeId = $request->input('routeId');
+
+
+        $route = Route::where('id', $routeId)->first();
+        $driverIds = json_decode($route->driver_id, true) ?? [];
+        $carIds = json_decode($route->car_id, true) ?? [];
+        $assistantIds = json_decode($route->assistantCar_id, true) ?? [];
+
+        $drivers = User::whereIn('id', $driverIds)->get(['id', 'name']);
+        $cars = Car::whereIn('id', $carIds)->get(['id', 'name']);
+        $assistants = User::whereIn('id', $assistantIds)->get(['id', 'name']);
+
+        $driverData = $drivers->toArray();
+        $carData = $cars->toArray();
+        $assistantData = $assistants->toArray();
+
+        $trips = Trip::where('route_id', $routeId)->get();
+
+
+        foreach ($trips as $trip) {
+            $dateString = $trip->start_date; // Assume $trip->start_date là chuỗi DateTime
+            $dateTime = new DateTime($dateString);
+            $fulldate = $dateTime->format('Y-m-d');
+            if ($fulldate == $inputDate) {
+                $driverIdToRemove = $trip->drive_id;
+                $carIdToRemove = $trip->car_id;
+                $assistantIdToRemove = $trip->assistantCar_id;
+
+
+                // Loại bỏ tài xế có driver_id tương ứng ra khỏi danh sách tài xế
+                foreach ($driverData as $key => $driver) {
+                    if ($driver['id'] == $driverIdToRemove) {
+                        unset($driverData[$key]);
+                    }
+                }
+
+                foreach ($carData as $key => $car) {
+                    if ($car['id'] == $carIdToRemove) {
+                        unset($carData[$key]);
+                    }
+                }
+
+                foreach ($assistantData as $key => $assistant) {
+                    if ($assistant['id'] == $assistantIdToRemove) {
+                        unset($assistantData[$key]);
+                    }
+                }
+            }
+        }
+
+        return [
+            'drivers' => array_values($driverData), // Reindex lại mảng sau khi unset để tránh các khoảng trắng trong index
+            'cars' => array_values($carData),
+            'assistants' => array_values($assistantData),
+        ];
+    }
 }

@@ -14,7 +14,7 @@
                             <p>Tên xe : <label id="car_name"></label></p>
                             <p>Người lái : <label id="drive_name"></label></p>
                             <p>Phụ xe : <label id="assistantCar_name"></label></p>
-                            <p>Giá vé : <label id="trip_price"></label>.000 VND</p>
+                            <p>Giá vé : <label id="trip_price"></label></p>
                             <p>Ngày đi : <label id="start_date"></label></p>
 
                         </div>

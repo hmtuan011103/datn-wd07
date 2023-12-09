@@ -9,15 +9,15 @@ use Illuminate\Support\Facades\Mail;
 
 class TicketController extends BaseTicketController
 {
-    public function form_search() {
-        return view('admin.pages.search-ticket.main', [
+    public function form_search_bill() {
+        return view('admin.pages.search-bill.main', [
             'title' => 'TRA CỨU THÔNG TIN ĐẶT VÉ',
         ]);
     }
-    public function search_ticket_admin(Request $request)
+    public function search_bill_admin(Request $request)
     {
-        $ticket_admin = $this->ticketService->search_ticket($request);
-        return response()->json($ticket_admin);
+        $bill_admin = $this->ticketService->search_bill($request);
+        return response()->json($bill_admin);
     }
 
     public function testMail() {
@@ -26,5 +26,18 @@ class TicketController extends BaseTicketController
             $email->subject('Test Mail Chiến Thắng Bus');
             $email->to('tuanhmph28448@fpt.edu.vn');
         });
+    }
+
+    // search bill
+
+    public function form_search_ticket() {
+        return view('admin.pages.search-ticket.main', [
+            'title' => 'TRA CỨU THÔNG TIN ĐẶT VÉ',
+        ]);
+    }
+    public function search_ticket_admin(Request $request)
+    {
+        $ticket_admin = $this->ticketService->search_ticket($request);
+        return response()->json($ticket_admin);
     }
 }

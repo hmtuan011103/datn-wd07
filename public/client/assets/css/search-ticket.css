@@ -245,3 +245,6 @@ p {
 .modal-header-ticket .close{
   padding: 8px;
 }
+input[type="text"] {
+  width: 100%;
+}

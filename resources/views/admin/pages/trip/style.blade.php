@@ -1,6 +1,7 @@
 <link href="{{ asset("admin/assets/libs/sweetalert2/sweetalert2.min.css") }}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="dist/css/font-awesome/css/font-awesome.min.css">
 
+
 {{-- click date --}}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <style>
@@ -31,14 +32,18 @@
         font-weight: bold;
         margin: 5px 0;
     }
-    input[type="date"],
-    select,
-    input[type="text"] {
-        width: 14.2vw;
+    .styleCss {
+        width: 12.2vw;
         padding: 5px;
         border: 1px solid #ccc;
         border-radius: 5px;
         margin-right: 0.5vw;
+    }
+    .button {
+        margin-top: 2%;     
+    }
+    .click-button {
+        font-size: 12px
     }
 </style>
 
