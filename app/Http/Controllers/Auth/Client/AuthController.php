@@ -8,6 +8,7 @@ use App\Models\DiscountCode;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -72,10 +73,15 @@ class AuthController extends Controller
         ]);
     }
     public function register(Request $request){
-
         $request->validate([
             "name" => "required",
-            "email" => "required|email|unique:users",
+            "email" => [
+                "required",
+                "email",
+                Rule::unique('users')->where(function ($query) {
+                    return $query->where('user_type_id', 1);
+                }),
+            ],
             "password" => "required|confirmed",
             "phone_number" => "required",
         ]);
@@ -85,7 +91,7 @@ class AuthController extends Controller
             "email" => $request->email,
             "password" => Hash::make($request->password),
             "phone_number" => $request->phone_number,
-            "user_type_id" => $request->user_type_id ?? 1,
+            "user_type_id" => 1,
         ]);
 
         // Response
@@ -103,7 +109,7 @@ class AuthController extends Controller
             "password" => "required",
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->where('user_type_id', 1)->first();
 
         if ($user) {
             if (password_verify($request->password, $user->password)) {
@@ -196,6 +202,7 @@ class AuthController extends Controller
     {
         $usersWithPassword = DB::table('users')
             ->whereNotNull('password')
+            ->where('user_type_id',1)
             ->pluck('phone_number');
 
         return response()->json([
