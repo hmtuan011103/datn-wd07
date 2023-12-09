@@ -1,12 +1,17 @@
 <main>
-        <div class="container_one">
+        <div class="container">
+            <div class="profile_pading">
             <div class="row">
                 <div class="col-md-3">
-                    <ul class="list-group  mb-0">
-                        <li class="list-group-item py-3">
+
+                    <ul class="list-group  mb-0" style="
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+">
+
+                    <li class="list-group-item py-3">
                             <div class="d-flex align-items-center">
                                 <img src="{{ asset('client/assets/images/Profile.svg') }}" alt="" class="mr-2">
-                                <a class="dropdown-item" id="profile_menu"  href="#">Thông tin tài khoản</a>
+                                <a class="dropdown-item" id="profile_menu"  href="#">Thông Tin Tài Khoản</a>
                             </div>
                         </li>
                         <li class="list-group-item py-2" style="padding-top: 0.7rem!important;padding-bottom: 0.7rem!important;">
@@ -29,14 +34,12 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-8">
-                    <h2>Danh Sách Mã Giảm Giá</h2>
-
+                <div class="col-md-9 pading_left">
                     <div class="discount-container">
 
                     </div>
                 </div>
+            </div>
             </div>
         </div>
 </main>

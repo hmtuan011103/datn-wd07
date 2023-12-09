@@ -88,7 +88,6 @@ class AuthController extends Controller
             "user_type_id" => $request->user_type_id ?? 1,
         ]);
 
-        // Response
         return response()->json([
             "status" => true,
             "message" => "User created successfully",

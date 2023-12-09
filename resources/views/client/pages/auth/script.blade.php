@@ -65,6 +65,7 @@
     $("#register-phone").on("input", function () {
         $(this).val($(this).val().replace(/[^0-9]/g, ""));
     });
+    // check sdt
     const apiUrl = '/api/getAllPhone';
 
     document.addEventListener("DOMContentLoaded", async () => {
@@ -167,8 +168,8 @@
 
                 const responseData = await response.json();
                 if (responseData.status === true) {
-                    setCookie('token', responseData.token, 10);
-                    setCookie('status', true, 10);
+                    setCookie('token', responseData.token, 60);
+                    setCookie('status', true, 60);
                     setCookie('is_client', true, 10);
                     // Lưu successMessage vào sessionStorage
                     const successMessage = "Đăng nhập thành công!";

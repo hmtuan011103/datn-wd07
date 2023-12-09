@@ -1,7 +1,4 @@
 <style>
-    .container_one {
-        margin: 40px 10%;
-    }
     .row {
         display: flex;
     }
@@ -120,7 +117,7 @@
          margin-right: 0.5rem!important;
     }
     .border_main {
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         border-radius: 10px;
     }
     img, video {
@@ -130,5 +127,17 @@
     .rounded-circle {
         width: 80%;
         margin: 0px 30px;
+    }
+    .profile_pading{
+        padding: 70px 0px;
+    }
+    .pading_left{
+        padding-left: 50px;
+    }
+    .highlighted-text {
+        color: #F9821D; /* Màu chữ trắng */
+        text-decoration: none; /* Loại bỏ gạch chân */
+        transition: background-color 0.3s ease, color 0.3s ease; /* Hiệu ứng chuyển động */
+        display: inline-block; /* Cho phép đặt kích thước và padding */
     }
 </style>
