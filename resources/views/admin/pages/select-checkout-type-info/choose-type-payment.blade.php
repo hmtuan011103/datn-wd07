@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row px-0 justify-content-between">
-        <div class="col-lg-7 pt-3">
+        <div class="col-lg-7 bg-white rounded">
             <div class="row">
                 <div class="col-lg-12 border border-1 rounded-3 pb-3">
                     <h6 class="pt-3"><b>Thông người đặt</b></h6>
@@ -86,31 +86,31 @@
                         <div class="col-12">
                             <table class="table border w-100" style="border-radius: 10px;">
                                 <thead>
-                                    <tr>
-                                        <th scope="col">Chuyến</th>
-                                        <th scope="col">Ghế</th>
-                                        <th scope="col">Số lượng</th>
-                                        <th scope="col">Giá vé</th>
-                                        <th scope="col">Tổng tiền</th>
-                                    </tr>
+                                <tr>
+                                    <th scope="col">Chuyến</th>
+                                    <th scope="col">Ghế</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col">Giá vé</th>
+                                    <th scope="col">Tổng tiền</th>
+                                </tr>
                                 </thead>
                                 <tbody>
+                                <tr>
+                                    <td class="fw-medium">Đi</td>
+                                    <td class="fw-medium">{{ $seatsTurn[0] }}</td>
+                                    <td class="fw-medium">{{ count(explode(',', $seatsTurn[0])) }}</td>
+                                    <td class="fw-medium">{{ number_format($moneyTurn / count(explode(',', $seatsTurn[0])), 0, ',', '.') }}đ</td>
+                                    <td class="fw-medium">{{ number_format($moneyTurn, 0, ',', '.') }}đ</td>
+                                </tr>
+                                @if($seatsReturn !== null)
                                     <tr>
-                                        <td class="fw-medium">Đi</td>
-                                        <td class="fw-medium">{{ $seatsTurn[0] }}</td>
-                                        <td class="fw-medium">{{ count(explode(',', $seatsTurn[0])) }}</td>
-                                        <td class="fw-medium">{{ number_format($moneyTurn / count(explode(',', $seatsTurn[0])), 0, ',', '.') }}đ</td>
-                                        <td class="fw-medium">{{ number_format($moneyTurn, 0, ',', '.') }}đ</td>
+                                        <td class="fw-medium">Về</td>
+                                        <td class="fw-medium">{{ $seatsReturn[0] }}</td>
+                                        <td class="fw-medium">{{ count(explode(',', $seatsReturn[0])) }}</td>
+                                        <td class="fw-medium">{{ number_format($moneyReturn / count(explode(',', $seatsReturn[0])), 0, ',', '.') }}đ</td>
+                                        <td class="fw-medium">{{ number_format($moneyReturn, 0, ',', '.') }}đ</td>
                                     </tr>
-                                    @if($seatsReturn !== null)
-                                        <tr>
-                                            <td class="fw-medium">Về</td>
-                                            <td class="fw-medium">{{ $seatsReturn[0] }}</td>
-                                            <td class="fw-medium">{{ count(explode(',', $seatsReturn[0])) }}</td>
-                                            <td class="fw-medium">{{ number_format($moneyReturn / count(explode(',', $seatsReturn[0])), 0, ',', '.') }}đ</td>
-                                            <td class="fw-medium">{{ number_format($moneyReturn, 0, ',', '.') }}đ</td>
-                                        </tr>
-                                    @endif
+                                @endif
                                 </tbody>
                             </table>
                         </div>
@@ -118,9 +118,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 pt-3">
-            <form class="row" action="{{ route('thanh_toan') }}" method="post">
-                @method('post')
+        <div class="col-lg-4 bg-white rounded">
+            <form class="row" action="{{ route('thanh_toan') }}" method="POST">
                 @csrf
                 <input type="hidden" hidden value="{{ $nameUser }}" name="name">
                 <input type="hidden" hidden value="{{ $phoneUser }}" name="email">
@@ -196,10 +195,7 @@
                                 <button class="btn btn-primary w-100 rounded-pill" type="submit" name="redirect-payment" id="payment-final"><b>Thanh toán</b></button>
                             </div>
                             <div class="w-100 py-3">
-                                <button class="btn w-100 rounded-pill" type="button" type="button" id="return-select-seat"><b>Quay lại</b></button>
-                            </div>
-                            <div class="w-100">
-                                <b>Lưu ý: </b> Sau khi thanh toán thành công thông tin đơn vé sẽ được gửi về email và số điện thoại bạn đã điền vào Form trước đó.
+                                <button class="btn w-100 rounded-pill" type="button" id="return-select-seat"><b>Quay lại</b></button>
                             </div>
                         </div>
                     </div>

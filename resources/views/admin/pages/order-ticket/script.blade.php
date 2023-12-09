@@ -961,7 +961,7 @@
 
     function redirectToSelectSeat(button) {
         const tripTurn = button.getAttribute('data-turn');
-        window.location.href = `/chon-ghe?trip_turn=${tripTurn}`;
+        window.location.href = `select-seat?trip_turn=${tripTurn}`;
     }
 
     function handleClick(button, event) {
@@ -998,7 +998,7 @@
                 selectedButtons[1].setAttribute('data-turn', b1);
                 selectedButtons[1].setAttribute('data-return', b2);
                 localStorage.removeItem("buttontrip")
-                window.location.href = `/chon-ghe?trip_turn=${b1}&trip_return=${b2}`;
+                window.location.href = `/select-seat?trip_turn=${b1}&trip_return=${b2}`;
             } else {
                 buttonselected = document.querySelector(
                     `.buttontrip[data-id="${localStorage.getItem('buttontrip')}"]`

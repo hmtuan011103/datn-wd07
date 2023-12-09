@@ -142,6 +142,8 @@ Route::group(['prefix' => 'order'], function () {
 Route::group(['prefix' => 'order-ticket'], function () {
     Route::get('/', [OrderTicketController::class, 'index'])->name('order_ticket-admin')->middleware('check_permission:order-ticket-admin');
     Route::get('/search', [OrderTicketController::class, 'searchRouteAdmin'])->name('search_ticket-admin')->middleware('check_permission:order-ticket-admin');
+    Route::get('/select-seat', [OrderTicketController::class, 'selectSeatAdmin'])->name('select_seat-admin')->middleware('check_permission:order-ticket-admin');
+    Route::post('/detail-select-seat', [OrderTicketController::class, 'detailSelectSeatAdmin'])->name('detail_select_seat-admin')->middleware('check_permission:order-ticket-admin');
 });
 
 // authen

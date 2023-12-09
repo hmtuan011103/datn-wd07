@@ -49,7 +49,7 @@
                 </div>
                 <div class="detail-user-two">
                     <p class="label-user">{{ number_format($totalMoney, 0, '.', '.') }}đ</p>
-                    <p class="label-user">VNPAY</p>
+                    <p class="label-user">{{ $type_pay == 1 ? "VNPAY" : ( $type_pay == 2 ? "MOMO" : "Thanh toán trực tiếp") }}</p>
                     <p class="label-user pttt">Đã thanh toán</p>
                 </div>
             </div>
