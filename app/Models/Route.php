@@ -9,6 +9,5 @@ class Route extends Model
 {
     use HasFactory;
     protected $table = 'routes';
-
-    protected $fillable = ['name','car_id','driver_id','assistantCar_id','start_time','start_location','status','trip_price','end_location','interval_trip','description'];
+    protected $fillable = ['name', 'start_location', 'end_location', 'start_time', 'interval_trip','driver_id','assistantCar_id','car_id','trip_price','status','description'];
 }

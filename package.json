@@ -11,6 +11,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "select-picker": "^0.3.2",
         "sweetalert2": "^11.7.32"
     }
 }

@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('routes', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->string('start_location');
-            $table->string('end_location');
+            $table->integer('start_location');
+            $table->integer('end_location');
             $table->time('start_time');
             $table->time('interval_trip');
             $table->string('driver_id')->nullable();

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Banner\Admin\BannerController;
 use App\Http\Controllers\Locations\Admin\LocationController;
 use App\Http\Controllers\Order\Admin\OrderController;
 use App\Http\Controllers\Role\Admin\RoleController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\TypeCar\Admin\TypeCarController;
 use App\Http\Controllers\Car\Admin\CarController;
 use App\Http\Controllers\DiscountCode\Admin\DiscountCodeController;
 use App\Http\Controllers\Home\Admin\HomeController;
+use App\Http\Controllers\Route\Admin\RouteController;
 use App\Http\Controllers\Ticket\Admin\TicketController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Trip\Admin\TripController;
@@ -167,9 +169,26 @@ Route::middleware('check_permission:read-statistic')->name('statistics.')->prefi
     Route::get('/user', [\App\Http\Controllers\Statistic\Admin\StatisticController::class, 'user'])->name('user');
 });
 
-
+Route::prefix('banner')->group(function () {
+    Route::get('/', [BannerController::class, 'index'])->name('banner')->middleware('check_permission:read-banner');
+    Route::get('create', [BannerController::class, 'create'])->name('create_banner')->middleware('check_permission:create-banner');
+    Route::post('store', [BannerController::class, 'store'])->name('store_banner')->middleware('check_permission:create-banner');
+    Route::get('edit/{id}', [BannerController::class, 'edit'])->name('edit_banner')->middleware('check_permission:update-banner');
+    Route::post('update/{id}', [BannerController::class, 'update'])->name('update_banner')->middleware('check_permission:update-banner');
+    Route::get('delete/{id}', [BannerController::class, 'delete'])->name('delete_banner')->middleware('check_permission:delete-banner');
+    Route::post('update-status-banner/{id}', [BannerController::class, 'update_status'])->name('update_status_banner')->middleware('check_permission:update-banner');
+});
 Route::prefix('schedule')->group(function () {
     Route::get('/', [TripController::class, 'schedule'])->name('schedule')->middleware('check_permission:read-schedule');
+});
+Route::prefix('route')->group(function () {
+    Route::get('/', [RouteController::class, 'index'])->name('list_route');
+    Route::get('create', [RouteController::class, 'create'])->name('create_route');
+    Route::post('post', [RouteController::class, 'store'])->name('store_route');
+    Route::get('edit/{id}', [RouteController::class, 'edit'])->name('edit_route');
+    Route::post('update/{id}', [RouteController::class, 'update'])->name('update_route');
+    Route::get('delete/{id}', [RouteController::class, 'delete'])->name('delete_route');
+    Route::get('details/{id}', [RouteController::class, 'details'])->name('details_route');
 });
 // đặt cuối route
 Route::fallback(function () {

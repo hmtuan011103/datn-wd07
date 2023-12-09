@@ -48,6 +48,14 @@
                             </li>
                         @endif
 
+                        @if (in_array('read-route', Auth::user()->permissions))
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{{ route('list_route') }}">
+                                    <i class="mdi mdi-map"></i> <span data-key="t-maps">Tuyến đường</span>
+                                </a>
+                            </li>
+                        @endif
+
                         @if (in_array('read-trip', Auth::user()->permissions))
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="{{ route('list_trip') }}">
@@ -197,6 +205,14 @@
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="{{ route('list_order') }}">
                                     <i class="fa-solid fa-cart-shopping"></i> <span data-key="t-maps">Hóa đơn</span>
+                                </a>
+                            </li>
+                        @endif
+
+                        @if (in_array('read-banner', Auth::user()->permissions))
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{{ route('banner') }}">
+                                    <i class="fa-solid fa fa-sliders"></i> <span data-key="t-maps">Banner</span>
                                 </a>
                             </li>
                         @endif
