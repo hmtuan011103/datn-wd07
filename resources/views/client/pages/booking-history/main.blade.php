@@ -1,40 +1,39 @@
 <main>
-    <div class="container_one">
-        <div class="row">
-            <div class="col-md-3">
-                <ul class="list-group  mb-0">
+    <div class="container">
+        <div class="profile_pading">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-group  mb-0" style="
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+">
+
                     <li class="list-group-item py-3">
-                        <div class="d-flex align-items-center">
-                            <img src="{{ asset('client/assets/images/Profile.svg') }}" alt="" class="mr-2">
-                            <a class="dropdown-item" id="profile_menu"  href="#">Thông tin tài khoản</a>
-                        </div>
-                    </li>
-                    <li class="list-group-item py-2" style="padding-top: 0.7rem!important;padding-bottom: 0.7rem!important;">
-                        <div class="d-flex align-items-center">
-                            <img src="http://127.0.0.1:8000/client/assets/images/coutun.jpg" alt="" class="mr-2" style="margin-left: -5px;width: 40px;">
-                            <a class="dropdown-item" id="discount_menu" href="#">Mã Giảm Giá</a>
-                        </div>
-                    </li>
-                    <li class="list-group-item py-3">
-                        <div class="d-flex align-items-center">
-                            <img src="{{ asset('client/assets/images/History.svg') }}" alt="" class="mr-2">
-                            <a class="dropdown-item" id="booking_history_menu" href="#">Lịch Sử Đặt Vé</a>
-                        </div>
-                    </li>
-                    <li class="list-group-item py-3">
-                        <div class="d-flex align-items-center">
-                            <img src="{{ asset('client/assets/images/Password.svg') }}" alt="" class="mr-2">
-                            <a class="dropdown-item" id="password_menu" href="#">Đổi Mật Khẩu</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-8">
-                <div class="text-center text-md-left">
-                    <h2 class="text-xl font-medium text-[#111111]"> Lịch sử mua vé</h2>
-                    <p class="text-gray mt-3 mb-4 text-[13px]"> Theo dõi và quản lý quá trình lịch sử mua vé của bạn</p>
+                            <div class="d-flex align-items-center">
+                                <img src="{{ asset('client/assets/images/Profile.svg') }}" alt="" class="mr-2">
+                                <a class="dropdown-item" id="profile_menu"  href="#">Thông Tin Tài Khoản</a>
+                            </div>
+                        </li>
+                        <li class="list-group-item py-2" style="padding-top: 0.7rem!important;padding-bottom: 0.7rem!important;">
+                            <div class="d-flex align-items-center">
+                                <img src="http://127.0.0.1:8000/client/assets/images/coutun.jpg" alt="" class="mr-2" style="margin-left: -5px;width: 40px;">
+                                <a class="dropdown-item" id="discount_menu" href="#">Mã Giảm Giá</a>
+                            </div>
+                        </li>
+                        <li class="list-group-item py-3">
+                            <div class="d-flex align-items-center">
+                                <img src="{{ asset('client/assets/images/History.svg') }}" alt="" class="mr-2">
+                                <a class="dropdown-item" id="booking_history_menu" href="#">Lịch Sử Đặt Vé</a>
+                            </div>
+                        </li>
+                        <li class="list-group-item py-3">
+                            <div class="d-flex align-items-center">
+                                <img src="{{ asset('client/assets/images/Password.svg') }}" alt="" class="mr-2">
+                                <a class="dropdown-item" id="password_menu" href="#">Đổi Mật Khẩu</a>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
+                <div class="col-md-9 pading_left">
                 <div class="discount-container">
                             <div class="container-fluid">
                                 <div class="row">
@@ -77,19 +76,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                    <div class="d-flex justify-content-end">
-                                                        <div class="pagination-wrap hstack gap-2">
-                                                            <a class="page-item pagination-prev disabled"
-                                                               href="javascript:void(0);">
-                                                                Trước
-                                                            </a>
-                                                            <ul class="pagination listjs-pagination mb-0"></ul>
-                                                            <a class="page-item pagination-next" href="javascript:void(0);">
-                                                                Sau
-                                                            </a>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -99,6 +85,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </main>
 

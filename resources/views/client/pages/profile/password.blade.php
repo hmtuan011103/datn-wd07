@@ -5,14 +5,16 @@
 @endsection
 @section('content')
     <main>
-        <div class="container_one">
+        <div class="container">
+            <div class="profile_pading">
             <div class="row">
                 <div class="col-md-3">
-                    <ul class="list-group  mb-0">
-                        <li class="list-group-item py-3">
+                    <ul class="list-group  mb-0" style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
+
+                    <li class="list-group-item py-3">
                             <div class="d-flex align-items-center">
                                 <img src="{{ asset('client/assets/images/Profile.svg') }}" alt="" class="mr-2">
-                                <a class="dropdown-item" id="profile_menu"  href="#">Thông tin tài khoản</a>
+                                <a class="dropdown-item" id="profile_menu"  href="#">Thông Tin Tài Khoản</a>
                             </div>
                         </li>
                         <li class="list-group-item py-2" style="padding-top: 0.7rem!important;padding-bottom: 0.7rem!important;">
@@ -35,14 +37,8 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-8">
-                    <div class="text-center text-md-left">
-                        <h2 class="text-xl font-medium text-[#111111]"> Đặt lại mật khẩu</h2>
-                        <p class="text-gray mt-3 mb-4 text-[13px]"> Để bảo mật tài khoản, vui lòng không chia sẻ mật
-                            khẩu cho người khách</p>
-                    </div>
-                    <div class="mt-6 rounded-2xl border p-3 border_main">
+                <div class="col-9 ml-5" style="padding-left: 50px;">
+                    <div class="rounded-2xl border p-4 border_main">
                         <form id="confirm_Password" method="POST">
                             @csrf
                             <div class="form-group">
@@ -70,6 +66,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </main>
 @endsection

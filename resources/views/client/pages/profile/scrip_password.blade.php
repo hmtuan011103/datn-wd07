@@ -122,6 +122,12 @@
 </script>
 
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var currentPath = window.location.pathname.split('/').pop();
+        if (currentPath === 'mat-khau') {
+            document.getElementById("password_menu").classList.add("highlighted-text");
+        }
+    });
     function profile() {
         window.location.href = 'thong-tin';
     }
