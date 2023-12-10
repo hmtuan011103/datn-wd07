@@ -3,11 +3,11 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        document.getElementById("searchButton").addEventListener('click', function(event) {
+        document.getElementById("search-Button").addEventListener('click', function(event) {
             event.preventDefault();
 
             // hiệu ứng box-shadow
-            var myButton = document.getElementById("searchButton");
+            var myButton = document.getElementById("search-Button");
 
             myButton.addEventListener("mouseleave", function() {
                 myButton.classList.remove("btn-search");
@@ -99,9 +99,9 @@
             // start logic
             var link = 'http://127.0.0.1:8000/';
             var phone_number = phoneNumberInput.value;
-            var code_bill = ticketCodeInput.value;
+            var code_ticket = ticketCodeInput.value;
 
-            fetch(link + 'api/search_ticket_admin?phone_number=' + phone_number + '&code_bill=' + code_bill)
+            fetch(link + 'api/search_ticket_admin?phone_number=' + phone_number + '&code_ticket=' + code_ticket)
                 .then(function(response) {
                     if (!response.ok) {
                         throw new Error('Response status: ' + response.status);
