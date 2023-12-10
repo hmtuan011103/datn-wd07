@@ -26,7 +26,7 @@
     input[type="date"],
     select,
     input[type="text"] {
-        width: 14.2vw;
+        width: 100%;
         /* padding: 5px; */
         border: 1px solid #ccc;
         border-radius: 5px;
