@@ -99,9 +99,9 @@
             // start logic
             var link = 'http://127.0.0.1:8000/';
             var phone_number = phoneNumberInput.value;
-            var code_ticket = ticketCodeInput.value;
+            var code_bill = ticketCodeInput.value;
 
-            fetch(link + 'api/search_bill_admin?phone_number=' + phone_number + '&code_bill=' + code_ticket)
+            fetch(link + 'api/search_ticket?phone_number=' + phone_number + '&code_bill=' + code_bill)
                 .then(function(response) {
                     if (!response.ok) {
                         throw new Error('Response status: ' + response.status);

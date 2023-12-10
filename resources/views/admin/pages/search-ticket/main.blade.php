@@ -40,7 +40,7 @@
                                                     <label for="ticketCode" class="form-label">Mã vé</label>
                                                 </div>
                                                 <div class="button">
-                                                    <button type="submit" id="searchButton" class=" btn-search">Tra
+                                                    <button type="submit" id="search-Button" class=" btn-search">Tra
                                                         cứu</button>
 
                                                 </div>

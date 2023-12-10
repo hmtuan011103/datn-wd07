@@ -12,7 +12,7 @@ class TicketController extends BaseTicketController
 
     public function search_ticket(Request $request)
     {
-        $ticket = $this->ticketService->search_ticket($request);
+        $ticket = $this->ticketService->search_bill($request);
         return response()->json($ticket);   
      }
 }

@@ -1,4 +1,4 @@
-@extends('admin.pages.search-ticket.index')
+@extends('admin.pages.search-bill.index')
 @section('content')
 
 
