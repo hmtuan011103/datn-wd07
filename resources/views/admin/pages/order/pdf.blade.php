@@ -78,7 +78,7 @@
             float: left;
             margin-right: 60px
         }
-    
+
     </style>
 </head>
 
@@ -105,9 +105,13 @@
         <div class="invoice-header">
             <div class="title-invoice">
                 <h2>Hóa đơn mua vé</h2>
-                <p>Ngày ... Tháng ... Năm</p>
+                @php
+                    $createdBill = explode(", ", $time_create);
+                    $detailDate = explode("/", $createdBill[1]);
+                @endphp
+                <p>Ngày {{ $detailDate[0] }} Tháng {{ $detailDate[1] }} Năm {{ $detailDate[2] }}</p>
             </div>
-            
+
             <div class="tt">
                 <div class="ttleft">
                     <p><b>Mã hóa đơn:</b> {{ $data[0]->code_bill }}</p>

@@ -787,7 +787,6 @@
                                     <p class="fs-14 mb-0 cl-orange fw-medium">${type_seat}</p>
                                     <p class="mx-2 mb-0 circle-menu-style rounded-pill"></p>
                                     <p class="fs-14 mb-0 cl-orange fw-medium">${item.seat_empty} chỗ trống</p>
-                                    <p class="ps-2 fs-14 cl-blue-light text-decoration-underline cursor mb-0 fw-medium">Chọn ghế</p>
                                 </div>
                                 <div>
                                     <button
@@ -883,7 +882,6 @@
                                         <p class="fs-14 mb-0 cl-orange fw-medium">${type_seat}</p>
                                         <p class="mx-2 mb-0 circle-menu-style rounded-pill"></p>
                                         <p class="fs-14 mb-0 cl-orange fw-medium">${item.seat_empty} chỗ trống</p>
-                                        <p class="ps-2 fs-14 cl-blue-light text-decoration-underline cursor mb-0 fw-medium">Chọn ghế</p>
                                     </div>
                                     <div>
                                         <button

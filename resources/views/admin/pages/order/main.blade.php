@@ -49,6 +49,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="list form-check-all">
+
                                                 @foreach ($data as $item)
                                                     <tr id="row{{ $item->id }}">
                                                         <td class="code_bill">{{ $item->code_bill }}</td>
@@ -56,7 +57,7 @@
                                                         <td class="trip_id">
                                                             {{ number_format($item->total_money_after_discount, 0, ',', '.') }}đ
                                                         </td>
-                                                        <td class="trip_id">{{ $item->type_pay === 1 ? 'VNPAY' : '' }}</td>
+                                                        <td class="trip_id">{{ $item->type_pay === 1 ? 'VNPAY' : ( $item->type_pay === 2 ? "MOMOPAY" : "Tại quầy" ) }}</td>
                                                         <td class="trip_id">
                                                             {{ $item->status_pay === 1 ? 'Đã thanh toán' : '' }}</td>
                                                         <td class="trip_id">{{ helperFormatTime($item->created_at) }}</td>
