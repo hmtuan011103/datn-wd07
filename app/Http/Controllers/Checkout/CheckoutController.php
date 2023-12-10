@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CheckoutController extends Controller
 {
@@ -31,6 +32,10 @@ class CheckoutController extends Controller
     }
 
     public function continuesCheckout(Request $request) {
+//        $token = auth()->user();
+//        dd($token);
+//        $user = JWTAuth::parseToken()->authenticate();
+//        dd($user);
         $data = $request->except('_token');
         $title = "Chiến thắng | Thanh toán";
         $nameUser = $request->name;
