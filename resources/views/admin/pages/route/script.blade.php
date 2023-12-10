@@ -94,7 +94,7 @@
                     timer: 2e3,
                     showCloseButton: !0,
                 })
-                
+
             }
 
         });
@@ -111,7 +111,55 @@
                 roleId,
             method: "GET",
             success: function(response) {
-                const name = document.getElementById('name')
+                const name_detail = document.getElementById('name_detail');
+                const start_location_detail = document.getElementById('start_location_detail');
+                const end_location_detail = document.getElementById('end_location_detail');
+                const start_time_detail = document.getElementById('start_time_detail');
+                const price_detail = document.getElementById('price_detail');
+                const interval_detail = document.getElementById('interval_detail');
+                const driver_detail = document.getElementById('driver_detail');
+                const assistant_detail = document.getElementById('assistant_detail');
+                const car_detail = document.getElementById('car_detail');
+                const status_detail = document.getElementById('status_detail');
+                const drivers = JSON.parse(response[0].driver_id);
+                const assistants = JSON.parse(response[0].assistantCar_id);
+                const cars = JSON.parse(response[0].car_id);
+
+                const driver_name = [];
+                for (let i = 0; i < drivers.length; i++) {
+                    const dr = response[1].find(item => item.id == drivers[i]);
+                    if (dr) {
+                        driver_name.push(dr.name);
+                    }
+                }
+
+                const assistant_name = [];
+                for (let i = 0; i < assistants.length; i++) {
+                    const dr = response[2].find(item => item.id == assistants[i]);
+                    if (dr) {
+                        assistant_name.push(dr.name);
+                    }
+                }
+
+                const car_name = [];
+                for (let i = 0; i < cars.length; i++) {
+                    const dr = response[3].find(item => item.id == cars[i]);
+                    if (dr) {
+                        car_name.push(dr.name);
+                    }
+                }
+                
+
+                name_detail.innerHTML = response[0].name;
+                start_location_detail.innerHTML = response[0].start_location;
+                end_location_detail.innerHTML = response[0].end_location;
+                start_time_detail.innerHTML = response[0].start_time;
+                price_detail.innerHTML = formatCurrency(response[0].trip_price);
+                interval_detail.innerHTML = response[0].interval_trip;
+                driver_detail.innerHTML = driver_name;
+                assistant_detail.innerHTML = assistant_name;
+                car_detail.innerHTML = car_name;
+                status_detail.innerHTML = response[0].status;
             },
             error: function(xhr, status, error) {
                 console.error(error);
@@ -149,10 +197,10 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/i18n/defaults-*.min.js"></script>
-  <script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/i18n/defaults-*.min.js"></script>
+<script>
     $('#carSelect').selectpicker();
-  </script>
+</script>
 
 <script>
     $("#timeInput").on("input", function() {
@@ -230,16 +278,17 @@
             previousValue = value;
         }
     }
-    function formatCurrency(amount) {
-            var formatter = new Intl.NumberFormat('vi-VN', {
-                style: 'currency',
-                currency: 'VND',
-                minimumFractionDigits: 0,
-            });
 
-            var formattedCurrency = formatter.format(amount);
-            return formattedCurrency;
-        }
+    function formatCurrency(amount) {
+        var formatter = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+            minimumFractionDigits: 0,
+        });
+
+        var formattedCurrency = formatter.format(amount);
+        return formattedCurrency;
+    }
 </script>
 {{-- <!-- Javascript Requirements -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

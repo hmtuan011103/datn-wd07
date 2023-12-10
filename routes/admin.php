@@ -89,9 +89,9 @@ Route::prefix('car')->group(function () {
 });
 
 Route::group(['prefix' => 'role_permission'], function () {
-    Route::get('/list_role_permission', [RoleController::class, 'index'])->name('list_role_permission')->middleware('check_permission:create-user,read-user,update-user,delete-user');
-    Route::get('/api/details/{id}', [RoleController::class, 'details'])->name('role_permission_details')->middleware('check_permission:create-user,read-user,update-user,delete-user');
-    Route::get('/api/get_permission', [RoleController::class, 'getPermission'])->name('get_permission_api')->middleware('check_permission:create-user,read-user,update-user,delete-user');
+    Route::get('/list_role_permission', [RoleController::class, 'index'])->name('list_role_permission');
+    Route::get('/api/details/{id}', [RoleController::class, 'details'])->name('role_permission_details');
+    Route::get('/api/get_permission', [RoleController::class, 'getPermission'])->name('get_permission_api');
 });
 
 Route::resource('type_cars', \App\Http\Controllers\TypeCar\Admin\TypeCarController::class)->middleware('check_permission:create-car-type,read-car-type,update-car-type,delete-car-type');
@@ -139,6 +139,8 @@ Route::group(['prefix' => 'discount_code'], function () {
 
 Route::group(['prefix' => 'order'], function () {
     Route::get('/', [OrderController::class, 'index'])->name('list_order')->middleware('check_permission:read-bill');
+    Route::get('details/{id}', [OrderController::class, 'details'])->name('details_order');
+    Route::get('export/{id}', [OrderController::class, 'export'])->name('export_order');
 });
 
 // authen

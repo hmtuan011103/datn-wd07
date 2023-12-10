@@ -15,10 +15,14 @@ class Trip extends Model
     protected $fillable = ['car_id','drive_id','assistantCar_id','start_date','start_time','start_location','status','trip_price','end_location','interval_trip'];
 
     public function bills(): HasMany {
-        return $this->hasMany(Bill::class, 'trip_id', 'id');
+        return $this->hasMany(Bill::class);
     }
 
     public function car(): BelongsTo {
         return $this->belongsTo(Car::class, 'car_id', 'id');
+    }
+
+    public function route(): BelongsTo {
+        return $this->belongsTo(Route::class);;
     }
 }

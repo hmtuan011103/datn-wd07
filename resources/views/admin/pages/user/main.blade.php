@@ -36,7 +36,7 @@
                                 <div class="filter-container">
                                     <div class="filter-group-inline">
                                         <label for="classification">Phân loại:</label>
-                                        <select id="classification" onchange="filterTable()">
+                                        <select class="form-control" id="classification" onchange="filterTable()">
                                             <option value="">-- Phân Loại --</option>
                                             @foreach ($userType as $userType)
                                                 <option value="{{ strtolower($userType) }}">{{ $userType }}</option>

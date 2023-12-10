@@ -108,7 +108,7 @@
                 roleId,
             method: "GET",
             success: function(response) {
-
+                console.log(response);
                 var permissionIds = [];
                 for (var i = 0; i < response[1].length; i++) {
                     permissionIds.push(response[1][i].permission_id);
@@ -123,6 +123,7 @@
                         queryString += '&';
                     }
                 }
+                console.log(queryString);
                 var ajaxRequest = $.ajax({
                     url: "http://127.0.0.1:8000/manage/role_permission/api/get_permission?" +
                         queryString,

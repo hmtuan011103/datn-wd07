@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Permissions\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Permissions\BasePermissionController;
 use App\Http\Requests\Permission\AddPermissionRequest;
+use App\Http\Requests\Permission\UpdatePermissionRequest;
 use Illuminate\Http\Request;
 use App\Models\Permission;
 use Yoeunes\Toastr\Facades\Toastr;
@@ -26,7 +27,7 @@ class PermissionController extends BasePermissionController
     public function store(AddPermissionRequest $request)
     {
         $this->permissionService->add($request);
-
+        toastr()->success('Thêm dữ liệu thành công!', 'Thành Công');
         return redirect()->route('list_permission');
 
     }
@@ -37,10 +38,11 @@ class PermissionController extends BasePermissionController
         $permissions = Permission::where(['parent_id' => 0])->get();
         return view('admin.pages.permission.edit', compact('permission', 'title', 'permissions'));
     }
-    public function update(Request $request, $id)
+    public function update(UpdatePermissionRequest $request, $id)
     {
         $detail = $this->permissionService->save_edit($request, $id);
         if ($detail) {
+            toastr()->success('Sửa dữ liệu thành công!', 'Thành Công');
             return redirect()->route('list_permission');
         }
     }

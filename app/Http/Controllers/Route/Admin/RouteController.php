@@ -66,6 +66,9 @@ class RouteController extends BaseRouteController
 
     public function details($id){
         $route = Route::find($id);
-        return response()->json([$route],200);
+        $drivers = User::where('user_type_id',4)->get();
+        $assistants = User::where('user_type_id',5)->get();
+        $cars = Car::all();
+        return response()->json([$route,$drivers,$assistants,$cars],200);
     }
 }

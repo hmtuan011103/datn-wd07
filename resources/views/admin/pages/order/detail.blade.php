@@ -1,37 +1,53 @@
 <div class="modal fade" id="show">
-   <div class="container">
-       <div class="modal-dialog">
-           <div class="modal-content">
-               <div class="modal-header">
-                   <h4 class="modal-title">Thông tin chuyến đi</h4>
-                   <p type="button" class="close" data-dismiss="modal" aria-hidden="true">X</p>
-               </div>
-               <div class="modal-body">
-
-                   <div class="row">
-                       <div class="col-md-6">
-                           <p>Tên xe : <label id="car_name"></label></p>
-                           <p>Người lái : <label id="drive_name"></label></p>
-                           <p>Phụ xe : <label id="assistantCar_name"></label></p>
-                           <p>Giá vé : <label id="trip_price"></label>.000 VND</p>
-                           <p>Ngày đi : <label id="start_date"></label></p>
-
-                       </div>
-                       <div class="col-md-6">
-                           <p>Điểm bắt đầu : <label id="start_location"></label></p>
-                           <p>Điểm kết thúc : <label id="end_location"></label></p>
-                           <p>Giờ đi : <label id="start_time"></label></p>
-                           <p>Thời gian đi : <label id="interval_trip"></label></p>
-
-
-                       </div>
-                   </div>
-               </div>
-               <div class="modal-footer">
-                   <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-               </div>
-           </div>
-       </div>
-   </div>
+    <div class="container">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <h2>Thông tin hóa đơn</h2>
+                    </h4>
+                    <p type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">X</p>
+                </div>
+                <div class="modal-body p-5">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="fs-6 fw-semibold">Mã hóa đơn : <label id="code_order"></label></p>
+                            <p class="fs-6 fw-semibold">Thời gian mua: <label id="time"></label></p>
+                            <p class="fs-6 fw-semibold">Tên khách hàng: <label id="user"></label></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="fs-6 fw-semibold">Số vé : <label id="number_ticket"></label></p>
+                            <p class="fs-6 fw-semibold">Loại thanh toán : <label id="type_pay"></label></p>
+                            <p class="fs-6 fw-semibold">Trạng thái: <label id="status_pay"></label></p>
+                            {{-- <p class="fs-6 fw-semibold"><label id="user"></label></p> --}}
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <p class="fs-5 fw-semibold">Chi tiết đơn hàng : <label id="car_name"></label></p>
+                    </div>
+                    <div class="row">
+                        <table class="table">
+                            <thead class="table-light">
+                                <tr>
+                                    <th >STT</th>
+                                    <th >Tuyến xe</th>
+                                    <th >Mã ghế</th>
+                                    <th >Giá vé</th>
+                                    <th >Số lượng</th>
+                                    <th >Thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody class="list form-check-all" id="details_bill">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-

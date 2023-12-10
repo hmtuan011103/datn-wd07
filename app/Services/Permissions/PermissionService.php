@@ -55,7 +55,6 @@ class PermissionService
     {
         if ($request->isMethod('POST')) {
             $params = $request->all();
-            toastr()->success('Thêm dữ liệu thành công!', 'Thành Công');
             return Permission::create($params);
         }
     }
@@ -65,7 +64,6 @@ class PermissionService
         if ($request->isMethod('POST')) {
             $params = $request->all();
             $detail->update($params);
-            toastr()->success('Sửa dữ liệu thành công!', 'Thành Công');
             return $detail;
         }
     }

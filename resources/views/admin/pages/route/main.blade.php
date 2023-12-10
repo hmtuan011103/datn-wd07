@@ -176,7 +176,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h4 class="modal-title">Thông tin tuyến đường</h4>
-                                <p type="button" class="close" data-dismiss="modal" aria-hidden="true">X</p>
+                                <p type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">X</p>
                             </div>
                             <div class="modal-body">
                                 <div class="row">
@@ -184,24 +184,23 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <p>Tên xe : <label id="car_name_detail"></label></p>
-                                        <p>Người lái : <label id="drive_name_detail"></label></p>
-                                        <p>Phụ xe : <label id="assistantCar_name_detail"></label></p>
-                                        <p>Giá vé : <label id="trip_price_detail"></label>.000 VND</p>
-            
+                                        <p>Điểm bắt đầu : <label id="start_location_detail"></label></p>
+                                        <p>Giờ đi : <label id="start_time_detail"></label></p>
+                                        <p>Giá vé : <label id="price_detail"></label></p>
+                                        <p>Các tài xế: <label id="driver_detail"></label></p>
+                                        <p>Các Xe: <label id="car_detail"></label></p>
                                     </div>
                                     <div class="col-md-6">
-                                        <p>Điểm bắt đầu : <label id="start_location_detail"></label></p>
                                         <p>Điểm kết thúc : <label id="end_location_detail"></label></p>
-                                        <p>Giờ đi : <label id="start_time_detail"></label></p>
-                                        <p>Thời gian đi : <label id="interval_trip_detail"></label></p>
-            
+                                        <p>Thời gian đi : <label id="interval_detail"></label></p>
+                                        <p>Trạng thái : <label id="status_detail"></label></p>
+                                        <p>Các phụ xe : <label id="assistant_detail"></label></p>
             
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                                <button type="button" class="btn btn-default" data-bs-dismiss="modal">Đóng</button>
                             </div>
                         </div>
                     </div>

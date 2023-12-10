@@ -27,7 +27,7 @@
     select,
     input[type="text"] {
         width: 14.2vw;
-        padding: 5px;
+        /* padding: 5px; */
         border: 1px solid #ccc;
         border-radius: 5px;
         margin-right: 0.5vw;
