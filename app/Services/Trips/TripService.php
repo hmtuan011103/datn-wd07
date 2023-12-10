@@ -175,6 +175,12 @@ class TripService
             $startDate = Carbon::parse($request->start_date);
             $route = Route::find($request->route_id);
 
+            $startLocation = Location::find($route->start_location);
+            $start_Location = $startLocation->name;
+
+            $endLocation = Location::find($route->end_location);
+            $end_Location = $endLocation->name;
+
             Trip::create([
                 'start_date' => $startDate,
                 'start_time' => $route->start_time,
@@ -183,8 +189,8 @@ class TripService
                 'drive_id' => $request->drive_id,
                 'assistantCar_id' => $request->assistantCar_id,
                 'trip_price' => $route->trip_price,
-                'start_location' => $route->start_location,
-                'end_location' => $route->end_location,
+                'start_location' => $start_Location,
+                'end_location' => $end_Location,
                 'status' => $route->status,
                 'route_id' => $route->id,
 
@@ -210,8 +216,8 @@ class TripService
                             'drive_id' => $request->drive_id,
                             'assistantCar_id' => $request->assistantCar_id,
                             'trip_price' => $route->trip_price,
-                            'start_location' => $route->start_location,
-                            'end_location' => $route->end_location,
+                            'start_location' => $start_Location,
+                            'end_location' => $end_Location,
                             'status' => $route->status,
                             'route_id' => $route->id,
                         ]);
@@ -230,6 +236,12 @@ class TripService
         if ($request->isMethod('POST')) {
             $route = Route::find($request->route_id);
             $startDate = Carbon::parse($request->start_date);
+            $startLocation = Location::find($route->start_location);
+            $start_Location = $startLocation->name;
+
+            $endLocation = Location::find($route->end_location);
+            $end_Location = $endLocation->name;
+
 
             $trip->start_date = $startDate;
             $trip->start_time = $route->start_time;
@@ -238,8 +250,8 @@ class TripService
             $trip->drive_id = $request->drive_id;
             $trip->assistantCar_id = $request->assistantCar_id;
             $trip->trip_price = $route->trip_price;
-            $trip->start_location = $route->start_location;
-            $trip->end_location = $route->end_location;
+            $trip->start_location = $start_Location;
+            $trip->end_location = $end_Location;
             $trip->status = $route->status;
             $trip->route_id = $route->id;
 

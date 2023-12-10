@@ -20,7 +20,7 @@
  
   
   .button button:hover {
-    background-color: #151529;
+    background-color: #403098;
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 500;
