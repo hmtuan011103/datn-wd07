@@ -1,6 +1,7 @@
 <style>
     #vnpayDiv,
-    #momoDiv
+    #momoDiv,
+    #directDiv
     {
         border: 1px solid #ccc;
         border-radius: 8px;

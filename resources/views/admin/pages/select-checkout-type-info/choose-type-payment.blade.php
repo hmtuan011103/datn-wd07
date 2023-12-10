@@ -154,6 +154,13 @@
                                     <span class="ps-2">MOMO</span>
                                 </label>
                             </div>
+                            <div class="form-check py-3 mt-2 d-flex align-items-center cursor-payment" id="directDiv">
+                                <input class="form-check-input ms-1 cursor-payment" type="radio" name="type_payment" id="direct" value="3">
+                                <label class="form-check-label ps-2 fw-medium w-100 cursor-payment" for="direct">
+                                    <img src="{{ asset('client/assets/images/choose-type-checkout/direct-checkout.png') }}" alt="" height="35px" width="35px">
+                                    <span class="ps-2">THANH TOÁN TRỰC TIẾP</span>
+                                </label>
+                            </div>
                             <div class="pt-3 pb-1 d-flex">
                                 <input type="text" class="form-control discount_code discount_code_value py-3 w-70" name="discount_code" id="discount_code" placeholder="Mã giảm giá">
                                 <button class="w-30 btn-execute-code-discount" type="button">Áp dụng</button>
