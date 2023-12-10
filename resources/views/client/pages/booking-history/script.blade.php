@@ -75,6 +75,12 @@
     });
 </script>
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var currentPath = window.location.pathname.split('/').pop();
+        if (currentPath === 'lich-su') {
+            document.getElementById("booking_history_menu").classList.add("highlighted-text");
+        }
+    });
     function profile() {
         window.location.href = 'thong-tin';
     }

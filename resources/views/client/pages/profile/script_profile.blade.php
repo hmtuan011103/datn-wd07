@@ -182,6 +182,16 @@ document.getElementById('editButton').addEventListener('click', function (event)
     }
 </script>
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy tên trang hiện tại (ví dụ: "thong-tin")
+        var currentPath = window.location.pathname.split('/').pop();
+
+        // Kiểm tra nếu trang hiện tại là "thong-tin"
+        if (currentPath === 'thong-tin') {
+            // Thêm lớp "highlighted-text" cho phần tử có id là "profile_menu"
+            document.getElementById("profile_menu").classList.add("highlighted-text");
+        }
+    });
     function profile() {
         window.location.href = 'thong-tin';
     }

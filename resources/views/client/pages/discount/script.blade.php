@@ -71,6 +71,12 @@
     }
 </script>
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var currentPath = window.location.pathname.split('/').pop();
+        if (currentPath === 'ma-giam-gia') {
+            document.getElementById("discount_menu").classList.add("highlighted-text");
+        }
+    });
     function profile() {
         window.location.href = 'thong-tin';
     }

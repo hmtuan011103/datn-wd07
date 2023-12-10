@@ -51,7 +51,7 @@
                                         <li class="list-group-item py-3" id="profile">
                                             <div class="d-flex align-items-center">
                                                 <img src="{{ asset('client/assets/images/Profile.svg') }}" alt="" class="mr-2">
-                                                <a class="dropdown-item" href="#">Thông tin tài khoản</a>
+                                                <a class="dropdown-item" href="#">Thông Tin Tài Khoản</a>
                                             </div>
                                         </li>
                                         <li class="list-group-item py-2" id="discount" style="padding-top: 0.7rem!important;padding-bottom: 0.7rem!important;">
@@ -129,6 +129,15 @@
     </header>
 
 </header>
-
+<script>
+    $(document).ready(function() {
+        $('#register-link').on('click', function(e) {
+            e.preventDefault();
+            localStorage.setItem('registrationClicked', 'true');
+            window.location.href = "{{ route('dang-nhap') }}";
+        });
+    });
+</script>
 <script src="{{ asset('client/assets/js/login.js') }}"></script>
+
 

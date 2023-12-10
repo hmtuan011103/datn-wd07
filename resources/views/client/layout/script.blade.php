@@ -1,7 +1,6 @@
 <script>
     // Lấy đường dẫn của trang hiện tại
 var currentURL = window.location.href;
-console.log(currentURL);
 
 // Lấy tất cả các thẻ <a> trong menu
 var menuItems = document.querySelectorAll('.nav a');

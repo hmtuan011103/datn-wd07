@@ -1,7 +1,4 @@
 <style>
-    .container_one {
-        margin: 40px 10%;
-    }
     .row {
         display: flex;
     }
@@ -96,10 +93,9 @@
         display: flex;
         flex-wrap: wrap;
         max-width: 800px;
-        margin: 50px auto;
         padding: 20px;
         border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
 
     .discount-item {
@@ -124,5 +120,17 @@
         width: 100%;
         text-align: center;
         margin-bottom: 20px;
+    }
+    .profile_pading{
+        padding: 70px 0px;
+    }
+    .pading_left{
+        padding-left: 50px;
+    }
+    .highlighted-text {
+        color: #F9821D; /* Màu chữ trắng */
+        text-decoration: none; /* Loại bỏ gạch chân */
+        transition: background-color 0.3s ease, color 0.3s ease; /* Hiệu ứng chuyển động */
+        display: inline-block; /* Cho phép đặt kích thước và padding */
     }
 </style>

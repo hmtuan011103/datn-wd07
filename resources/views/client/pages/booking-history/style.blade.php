@@ -48,7 +48,7 @@
         max-width: 800px;
         padding: 20px;
         border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
 
     .discount-item {
@@ -115,6 +115,18 @@
         color: #6c757d;
         border-color: #6c757d;
         background-color: #e9ecef;
+    }
+    .profile_pading{
+        padding: 70px 0px;
+    }
+    .pading_left{
+        padding-left: 50px;
+    }
+    .highlighted-text {
+        color: #F9821D; /* Màu chữ trắng */
+        text-decoration: none; /* Loại bỏ gạch chân */
+        transition: background-color 0.3s ease, color 0.3s ease; /* Hiệu ứng chuyển động */
+        display: inline-block; /* Cho phép đặt kích thước và padding */
     }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />

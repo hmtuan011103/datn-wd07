@@ -119,7 +119,8 @@
             </div>
         </div>
         <div class="col-lg-4 pt-3">
-            <form class="row" action="{{ route('thanh_toan') }}" method="POST">
+            <form class="row" action="{{ route('thanh_toan') }}" method="post">
+                @method('post')
                 @csrf
                 <input type="hidden" hidden value="{{ $nameUser }}" name="name">
                 <input type="hidden" hidden value="{{ $phoneUser }}" name="email">
@@ -195,7 +196,7 @@
                                 <button class="btn btn-primary w-100 rounded-pill" type="submit" name="redirect-payment" id="payment-final"><b>Thanh toán</b></button>
                             </div>
                             <div class="w-100 py-3">
-                                <button class="btn w-100 rounded-pill" type="button" id="return-select-seat"><b>Quay lại</b></button>
+                                <button class="btn w-100 rounded-pill" type="button" type="button" id="return-select-seat"><b>Quay lại</b></button>
                             </div>
                             <div class="w-100">
                                 <b>Lưu ý: </b> Sau khi thanh toán thành công thông tin đơn vé sẽ được gửi về email và số điện thoại bạn đã điền vào Form trước đó.

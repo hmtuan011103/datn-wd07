@@ -40,7 +40,7 @@ $(document).ready(function () {
     document.getElementById("button_login").style.display = "none";
     document.getElementById("button_logout").style.display = "block";
 
-    const autoLogoutTimeInMinutes = 5;
+    const autoLogoutTimeInMinutes = 10;
     const autoLogoutTimeInMillis = autoLogoutTimeInMinutes * 60 * 1000;
 
     autoLogoutTimer = setTimeout(function () {
@@ -132,13 +132,6 @@ if (status === 'true') {
         getProfile();
     }
 }
-$(document).ready(function() {
-    $('#register-link').on('click', function(e) {
-        e.preventDefault();
-        localStorage.setItem('registrationClicked', 'true');
-        window.location.href = "{{ route('dang-nhap') }}";
-    });
-});
 document.addEventListener("DOMContentLoaded", function () {
     const status = getCookie('status');
     const successMessage = sessionStorage.getItem('successMessage');
@@ -148,7 +141,6 @@ document.addEventListener("DOMContentLoaded", function () {
             text: successMessage,
             duration: 2000,
             newWindow: true,
-            close: true,
             gravity: "top",
             position: "right",
             stopOnFocus: true,

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Locations\Admin\LocationController;
+use App\Http\Controllers\RedisWork\RedisController;
 use App\Http\Controllers\User\Admin\UserController;
 use App\Http\Controllers\DiscountCode\Client\DiscountCodeController;
 use Illuminate\Http\Request;
@@ -78,7 +79,8 @@ Route::get('/search_ticket_admin', [AdminTicketController::class, 'search_ticket
 Route::get('get-discount-ticket/{code}', [DiscountCodeController::class, 'getCodeUser'])->name('get-discount-ticket');
 
 // Api test email when checkout successful
-Route::get('/test-mail', [AdminTicketController::class, 'testMail']);
+//Route::get('/test-mail', [AdminTicketController::class, 'testMail']);
+Route::get('/get-data-from-redis', [RedisController::class, 'getDataFromRedis'])->name('get-data-from-redis');
 
 Route::get('/filter', [TripController::class, 'getDataFilter'])->name('getDataFilter');
 
