@@ -142,7 +142,7 @@
     })
 </script> --}}
 
-<script>
+{{-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         var deleteButtons = document.getElementsByClassName('btn-remove');
 
@@ -180,6 +180,47 @@
             })
         });
     });
+</script> --}}
+<script>
+    function confirmDelete(itemId) {
+        Swal.fire({
+            html: '<div class="mt-3"><lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon><div class="mt-4 pt-2 fs-15 mx-5"><h4>Xác nhận xóa?</h4><p class="text-muted mx-4 mb-0">Bạn có chắc muốn xóa đi không?</p></div></div>',
+            showCancelButton: true,
+            confirmButtonText: "Đồng ý",
+            confirmButtonClass: "btn btn-primary w-xs mx-2 mb-1",
+            cancelButtonText: "Hủy",
+            cancelButtonClass: "btn btn-danger w-xs mb-1",
+            reverseButtons: true,
+            buttonsStyling: false,
+            showCloseButton: true,
+            customClass: {
+                confirmButton: "btn btn-primary w-xs mx-2 mb-1",
+                cancelButton: "btn btn-danger w-xs mb-1",
+            },
+        }).then((result) => {
+            var rowdelete = document.getElementById('row' + itemId);
+            if (result.isConfirmed) {
+                var ajaxRequest = $.ajax({
+                    url: "http://127.0.0.1:8000/manage/trip/delete/" +
+                        itemId,
+                    method: "GET"
+                });
+                if (rowdelete) {
+                    rowdelete.remove();
+                }
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Xóa vai trò thành công!",
+                    showConfirmButton: !1,
+                    timer: 2e3,
+                    showCloseButton: !0,
+                })
+                
+            }
+
+        });
+    }
 </script>
 
 {{-- click date --}}
@@ -490,7 +531,7 @@
         //                 $(".noresult").css("display", "block");
         //             }
         //             $(".form-check-all").html(result);
-                    
+
 
         //         }
         //     });
@@ -662,11 +703,11 @@
         var routeIdEntered = false;
 
         // Hàm kiểm tra xem đã nhập đủ thông tin chưa
-        function checkInputsAndSendRequest() {
-            if (inputDateEntered && routeIdEntered) {
-                sendAjaxRequest(); // Gửi yêu cầu khi đã nhập đủ thông tin
-            }
-        }
+        // function checkInputsAndSendRequest() {
+        //     if (inputDateEntered && routeIdEntered) {
+        //         sendAjaxRequest(); // Gửi yêu cầu khi đã nhập đủ thông tin
+        //     }
+        // }
 
         // Gửi yêu cầu khi đã nhập đủ cả inputDate và routeId
         function sendAjaxRequest() {
@@ -719,14 +760,14 @@
 
         // Kiểm tra khi có sự thay đổi trong trường input inputDate
         $('#date-input').on('input', function() {
-            inputDateEntered = !!$(this).val(); // Cập nhật biến kiểm tra khi nhập inputDate
-            checkInputsAndSendRequest(); // Kiểm tra và gửi yêu cầu khi đã nhập đủ thông tin
+            inputDate = $(this).val(); // Cập nhật giá trị inputDate
+            sendAjaxRequest(); // Gọi hàm để kiểm tra và gửi yêu cầu
         });
 
-        // Kiểm tra khi có sự thay đổi trong trường input routeSelect
-        $('#routeSelect').on('input', function() {
-            routeIdEntered = !!$(this).val(); // Cập nhật biến kiểm tra khi nhập routeId
-            checkInputsAndSendRequest(); // Kiểm tra và gửi yêu cầu khi đã nhập đủ thông tin
+        // Xử lý sự kiện khi có thay đổi ở routeSelect
+        $('#routeSelect').on('change', function() {
+            routeId = $(this).val(); // Cập nhật giá trị routeId
+            sendAjaxRequest(); // Gọi hàm để kiểm tra và gửi yêu cầu
         });
     });
 </script>
@@ -734,48 +775,47 @@
 
 <script>
     $(document).ready(function() {
-    var inputDate = $('#inputDate').val();
-    var routeId = $('#inputRoute').val();
+        var inputDate = $('#inputDate').val();
+        var routeId = $('#inputRoute').val();
 
-    // Gửi dữ liệu thông qua API ngay khi trang được tải
-    sendData(inputDate, routeId);
-});
-
-// Hàm gửi dữ liệu thông qua API
-function sendData(inputDate, routeId) {
-    $.ajax({
-        url: '/api/get_available_drivers',
-        type: 'POST',
-        data: {
-            inputDate: inputDate,
-            routeId: routeId,
-        },
-        success: function(data) {
-            console.log(data);
-            var $searchCarResults = $('#carEdit');
-            var $searchDriveResults = $('#driverEdit');
-            var $searchAssistantResults = $('#assistantEdit');
-
-            // Thêm dữ liệu từ API vào cuối dropdown
-            data.car.forEach(function(car) {
-                var output = `<option value="${car.id}">${car.name}</option>`;
-                $searchCarResults.append(output);
-            });
-
-            data.userDriver.forEach(function(drive) {
-                var output = `<option value="${drive.id}">${drive.name}</option>`;
-                $searchDriveResults.append(output);
-            });
-
-            data.assistantCars.forEach(function(assistant) {
-                var output = `<option value="${assistant.id}">${assistant.name}</option>`;
-                $searchAssistantResults.append(output);
-            });
-        },
-        error: function() {
-            // Xử lý lỗi nếu có
-        }
+        // Gửi dữ liệu thông qua API ngay khi trang được tải
+        sendData(inputDate, routeId);
     });
-}
 
+    // Hàm gửi dữ liệu thông qua API
+    function sendData(inputDate, routeId) {
+        $.ajax({
+            url: '/api/get_available_drivers',
+            type: 'POST',
+            data: {
+                inputDate: inputDate,
+                routeId: routeId,
+            },
+            success: function(data) {
+                console.log(data);
+                var $searchCarResults = $('#carEdit');
+                var $searchDriveResults = $('#driverEdit');
+                var $searchAssistantResults = $('#assistantEdit');
+
+                // Thêm dữ liệu từ API vào cuối dropdown
+                data.car.forEach(function(car) {
+                    var output = `<option value="${car.id}">${car.name}</option>`;
+                    $searchCarResults.append(output);
+                });
+
+                data.userDriver.forEach(function(drive) {
+                    var output = `<option value="${drive.id}">${drive.name}</option>`;
+                    $searchDriveResults.append(output);
+                });
+
+                data.assistantCars.forEach(function(assistant) {
+                    var output = `<option value="${assistant.id}">${assistant.name}</option>`;
+                    $searchAssistantResults.append(output);
+                });
+            },
+            error: function() {
+                // Xử lý lỗi nếu có
+            }
+        });
+    }
 </script>
