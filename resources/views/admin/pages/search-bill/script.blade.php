@@ -99,9 +99,9 @@
             // start logic
             var link = 'http://127.0.0.1:8000/';
             var phone_number = phoneNumberInput.value;
-            var code_bill = ticketCodeInput.value;
+            var code_ticket = ticketCodeInput.value;
 
-            fetch(link + 'api/search_ticket_admin?phone_number=' + phone_number + '&code_bill=' + code_bill)
+            fetch(link + 'api/search_bill_admin?phone_number=' + phone_number + '&code_bill=' + code_ticket)
                 .then(function(response) {
                     if (!response.ok) {
                         throw new Error('Response status: ' + response.status);
@@ -144,7 +144,7 @@
                   <p>Trạng thái : </p>
                 </div>
                 <div class="detail-user-two">
-                  <p class="label-user">${data[0].trip_price.toLocaleString("vi-VN")}đ</p>
+                  <p class="label-user">${data[0].total_money.toLocaleString("vi-VN")}đ</p>
                   <p class="label-user pttt">${data[0].status_pay === 0 ? "Chưa thanh toán" : "Đã thanh toán"}</p>
                 </div>
               </div>
@@ -156,6 +156,7 @@
                         var ticketContainer = document.createElement("div");
                         ticketContainer.className = "ticket";
                         data.forEach(function(ticket) {
+                            var pricePerTicket = ticket.total_money / data.length;
                             var startDate = new Date(ticket.start_date);
 
                             // Định dạng ngày tháng năm
@@ -185,7 +186,7 @@
                       <p>${ticket.code_seat}</p>
                       <p>${ticket.pickup_location}</p>
                       <p>${ticket.pay_location}</p>
-                      <p>${ticket.trip_price.toLocaleString("vi-VN")}đ</p>
+                      <p>${pricePerTicket.toLocaleString("vi-VN")}đ</p>
                     </div>
                   </div>
                 </div>

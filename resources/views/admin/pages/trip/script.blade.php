@@ -20,16 +20,17 @@
 
 <!-- Laravel Javascript Validation -->
 <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 {!! JsValidator::formRequest('App\Http\Requests\Trip\StoreTripRequest') !!}
 
 {{-- định dạng tiền tệ --}}
-{{-- <script>
+<script>
     function format_curency(a) {
         xuli = a.value.replaceAll('.', '');
         a.value = xuli.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
     }
-</script> --}}
+</script>
 
 
 <script>
@@ -141,7 +142,7 @@
     })
 </script> --}}
 
-{{-- <script>
+<script>
     document.addEventListener('DOMContentLoaded', function() {
         var deleteButtons = document.getElementsByClassName('btn-remove');
 
@@ -163,7 +164,7 @@
             });
             var modalElement = document.getElementById('modalDelete');
             modalElement.style.display = 'none';
-            location.href = location.href;
+            window.location.reload();
 
             var row = document.getElementById('row' + roleId);
             if (row) {
@@ -179,7 +180,7 @@
             })
         });
     });
-</script> --}}
+</script>
 
 {{-- click date --}}
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -391,109 +392,119 @@
             return hour + ':' + minute;
         }
 
-        $("#searchInput").on("input", function() {
-            var searchKeyword = $(this).val();
-            filterData(searchKeyword);
-        });
+        // $("#searchInput").on("input", function() {
+        //     var searchKeyword = $(this).val();
+        //     filterData(searchKeyword);
+        // });
 
-        var isFilterSelected = false; // Biến để kiểm tra xem người dùng đã chọn bất kỳ điều kiện nào hay chưa
-        var selectedDriver = [];
-        var selectedAssiant = [];
-        var selectedStartLocation = [];
-        var selectedEndLocation = [];
-        var selectedDateStart = [];
+        // var`isFilterSelected = false; // Biến để kiểm tra xem người dùng đã chọn bất kỳ điều kiện nào hay chưa
+        // var selectedDriver = [];
+        // var selectedAssiant = [];
+        // var selectedStartLocation = [];
+        // var selectedEndLocation = [];
+        // var selectedDateStart = [];
 
-        // Hàm để lọc dữ liệu
-        function filterData() {
-            $.ajax({
-                type: "GET",
-                url: "http://127.0.0.1:8000/api/data", // Đường dẫn tới tệp JSON chứa dữ liệu giả
-                dataType: "json",
-                success: function(data) {
+        // //Hàm để lọc dữ liệu
+        // function filterData() {
+        //     $.ajax({
+        //         type: "GET",
+        //         url: "http://127.0.0.1:8000/api/filter", // Đường dẫn tới tệp JSON chứa dữ liệu giả
+        //         dataType: "json",
+        //         success: function(data) {
 
-                    var filteredData = data.filter(function(item) {
-                        // Kiểm tra xem loại xe và loại ghế nằm trong các loại đã chọn
-                        return (
-                            (selectedDriver.length === 0 || selectedDriver.includes(item
-                                .drive_id)) &&
-                            (selectedAssiant.length === 0 || selectedAssiant.includes(
-                                item.assistantCar_id)) &&
-                            (selectedStartLocation.length === 0 || selectedStartLocation
-                                .includes(item.start_location)) &&
-                            (selectedEndLocation.length === 0 || selectedEndLocation
-                                .includes(item.end_location)) &&
-                            (selectedDateStart.length === 0 || selectedDateStart
-                                .includes(moment(item.start_date).format('YYYY-MM-DD')))
-                        );
-                    });
+        //             var filteredData = data.filter(function(item) {
+        //                 // Kiểm tra xem loại xe và loại ghế nằm trong các loại đã chọn
+        //                 return (
+        //                     (selectedDriver.length === 0 || selectedDriver.includes(item
+        //                         .drive_id)) &&
+        //                     (selectedAssiant.length === 0 || selectedAssiant.includes(
+        //                         item.assistantCar_id)) &&
+        //                     (selectedStartLocation.length === 0 || selectedStartLocation
+        //                         .includes(item.start_location)) &&
+        //                     (selectedEndLocation.length === 0 || selectedEndLocation
+        //                         .includes(item.end_location)) &&
+        //                     (selectedDateStart.length === 0 || selectedDateStart
+        //                         .includes(moment(item.start_date).format('YYYY-MM-DD')))
+        //                 );
+        //             });
 
-                    // Hiển thị kết quả lọc
-                    var result = "";
-                    if (filteredData.length > 0) {
-                        filteredData.forEach(function(item) {
-                            var routeDetail =
-                                `http://127.0.0.1:8000/manage/trip/show/${item.id}`;
-                            var routeEdit =
-                                `http://127.0.0.1:8000/manage/trip/edit/${item.id}`;
-                            var routeDelete =
-                                `http://127.0.0.1:8000/manage/trip/delete/${item.id}`;
-                            result += `
-                                <tr id="row${item.id}">
-                                    <th scope="row">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox"
-                                                name="rowCheckbox" value="${item.id}">
-                                        </div>
-                                    </th>
-                                    <td class="id" style="display:none;"><a
-                                                                href="javascript:void(0);"
-                                                                class="fw-medium link-primary">#VZ2101</a></td>
-                                    <td class="customer_name">${item.start_location}</td>
-                                    <td class="email">${item.end_location}</td>
-                                    <td class="phone">${formatTimes( item.start_date)}</td>
-                                    <td class="date">${formatStartTime(item.start_time)}</td>
-                                    <td class="status">${formatCurrency(item.trip_price)}</td>
-                                    <td>
-                                    <div class="d-flex gap-2">
-                                        <div class="detail">
-                                        <button data-url="${routeDetail}" class="btn btn-primary btn-sm edit-item-btn btn-show" data-target="#show" data-toggle="modal">
-                                            <i class="bx bx bx-show"></i>
-                                        </button>
-                                        </div>
-                                        <div class="edit">
-                                        <a href="${routeEdit}">
-                                            <button class="btn btn-success btn-sm edit-item-btn">
-                                            <i class="bx bx-edit"></i>
-                                            </button>
-                                        </a>
-                                        </div>
-                                        <div class="remove">
-                                            <button class="btn btn-sm btn-danger btn-remove"
-                                                    onclick="confirmDelete(${item.id})" ><i class="bx bx-trash"></i></button>
-                                        </div>
-                                    </div>
-                                    </td>
-                                </tr>
-                                `;
-                        });
-                    } else {
-                        $(".noresult").css("display", "block");
-                    }
-                    $(".resultFilter").html(result);
+        //             // Hiển thị kết quả lọc
+        //             var result = "";
+        //             if (filteredData.length > 0) {
+        //                 filteredData.forEach(function(item) {
+        //                     var formattedDate = moment(item.start_date).format('YYYY-MM-DD');
+        //                     console.log(formattedDate); 
+        //                     var departureDateTime = moment(formattedDate + ' ' +
+        //                         item.start_time); // Kết hợp ngày và giờ khởi hành
+        //                     var currentTime = moment(); // Lấy thời gian hiện tại
+        //                     var timeDifference = currentTime.diff(departureDateTime,
+        //                         'minutes'); // Tính khoảng thời gian chênh lệch trong phút
+        //                     var isWithinOneHour = timeDifference <= 120;
 
-                }
-            });
-        }
+        //                     var routeDetail =
+        //                         `http://127.0.0.1:8000/manage/trip/show/${item.id}`;
+        //                     var routeEdit =
+        //                         `http://127.0.0.1:8000/manage/trip/edit/${item.id}`;
+        //                     var routeDelete =
+        //                         `http://127.0.0.1:8000/manage/trip/delete/${item.id}`;
+        //                     result += `
+        //                         <tr id="row${item.id}">
+        //                             <th scope="row">
+        //                                 <div class="form-check">
+        //                                     <input class="form-check-input" type="checkbox"
+        //                                         name="rowCheckbox" value="${item.id}">
+        //                                 </div>
+        //                             </th>
+        //                             <td class="id" style="display:none;"><a
+        //                                                         href="javascript:void(0);"
+        //                                                         class="fw-medium link-primary">#VZ2101</a></td>
+        //                             <td class="customer_name">${item.start_location}</td>
+        //                             <td class="email">${item.end_location}</td>
+        //                             <td class="phone">${formatTimes( item.start_date)}</td>
+        //                             <td class="date">${formatStartTime(item.start_time)}</td>
+        //                             <td class="status">${formatCurrency(item.trip_price)}</td>
+        //                             <td>
+        //                             <div class="d-flex gap-2">
+        //                                 <div class="detail">
+        //                                 <button data-url="${routeDetail}" class="btn btn-primary btn-sm edit-item-btn btn-show" data-target="#show" data-toggle="modal">
+        //                                     <i class="bx bx bx-show"></i>
+        //                                 </button>
+        //                                 </div>
+        //                                 <div class="edit">
+        //                                 <a href="${routeEdit}">
+        //                                     <button class="btn btn-success btn-sm edit-item-btn">
+        //                                     <i class="bx bx-edit"></i>
+        //                                     </button>
+        //                                 </a>
+        //                                 </div>
+        //                                 <div class="remove">
+        //                                     <button class="btn btn-sm btn-danger btn-remove"
+        //                                             onclick="confirmDelete(${item.id})" ><i class="bx bx-trash"></i></button>
+        //                                 </div>
+        //                             </div>
+        //                             </td>
+        //                         </tr>
+        //                         `;
+        //                 });
+        //             } else {
+        //                 $(".noresult").css("display", "block");
+        //             }
+        //             $(".form-check-all").html(result);
+                    
 
-        // Sử dụng Ajax để lọc dữ liệu khi có thay đổi trong checkbox và select
-        $("select").change(function() {
-            isFilterSelected = true; // Đánh dấu là người dùng đã chọn bất kỳ điều kiện nào.
-            filterData();
-        });
-        $("#departure-date").change(function() {
-            isFilterSelected = true; // Đánh dấu là người dùng đã chọn bất kỳ điều kiện nào.
-            filterData();
-        });
+        //         }
+        //     });
+        // }
+
+        // // Sử dụng Ajax để lọc dữ liệu khi có thay đổi trong checkbox và select
+        // $("select").change(function() {
+        //     isFilterSelected = true; // Đánh dấu là người dùng đã chọn bất kỳ điều kiện nào.
+        //     filterData();
+        // });
+        // $("#departure-date").change(function() {
+        //     isFilterSelected = true; // Đánh dấu là người dùng đã chọn bất kỳ điều kiện nào.
+        //     filterData();
+        // });
 
         // Lấy giá trị được chọn từ select và cập nhật vào mảng selectedDriver và selectedAssiant
         function updateSelectedValues() {
@@ -541,10 +552,10 @@
                         .end_location)
                     $('label#trip_price').text(formatCurrency(response.data[2][
                         0
-                        ].trip_price))
+                    ].trip_price))
                     $('label#start_time').text(formatStartTime(response.data[2][
                         0
-                        ].start_time))
+                    ].start_time))
                     $('label#interval_trip').text(formatStartTime(response.data[
                         2][0].interval_trip));
 
@@ -594,4 +605,177 @@
 
         });
     }
+</script>
+
+<script>
+    document.getElementById('flexSwitchCheckDefault').addEventListener('change', function() {
+        var numberOfDaysInput = document.getElementById('numberOfDaysInput');
+
+        // Nếu checkbox được chọn, hiển thị ô số ngày lặp lại; ngược lại ẩn nó
+        if (this.checked) {
+            numberOfDaysInput.style.display = 'block';
+        } else {
+            numberOfDaysInput.style.display = 'none';
+        }
+    });
+</script>
+
+{{-- <script>
+    // Gọi hàm này khi có sự thay đổi trong start_date hoặc route_id
+    function handleInputChange() {
+        // Lấy giá trị của start_date và route_id từ form
+        const inputDate = document.getElementById('inputDate').value;
+        const routeId = document.getElementById('routeSelect').value;
+
+        // Tạo object chứa dữ liệu cần gửi đi
+        const requestData = {
+            start_date: inputDate,
+            route_id: routeId
+        };
+
+        // Gửi yêu cầu bằng AJAX
+        // Sử dụng fetch hoặc XMLHttpRequest để gửi yêu cầu tới API
+        fetch('/api/getCarDriver', {
+            method: 'POST', // Hoặc 'GET' tùy vào cách bạn xử lý ở phía server
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData),
+        })
+        .then(response => {
+            // Xử lý response từ server (nếu cần)
+        })
+        .catch(error => {
+            // Xử lý lỗi (nếu có)
+        });
+    }
+
+    // Gọi hàm handleInputChange khi có sự thay đổi trong start_date hoặc route_id
+    document.getElementById('inputDate').addEventListener('change', handleInputChange);
+    document.getElementById('routeSelect').addEventListener('change', handleInputChange);
+</script> --}}
+
+<script>
+    $(document).ready(function() {
+        // Tạo biến để kiểm tra xem đã nhập đủ thông tin hay chưa
+        var inputDateEntered = false;
+        var routeIdEntered = false;
+
+        // Hàm kiểm tra xem đã nhập đủ thông tin chưa
+        function checkInputsAndSendRequest() {
+            if (inputDateEntered && routeIdEntered) {
+                sendAjaxRequest(); // Gửi yêu cầu khi đã nhập đủ thông tin
+            }
+        }
+
+        // Gửi yêu cầu khi đã nhập đủ cả inputDate và routeId
+        function sendAjaxRequest() {
+            var inputDate = $('#date-input').val();
+            var routeId = $('#routeSelect').val();
+
+            $.ajax({
+                url: '/api/getCarDriver',
+                type: 'POST',
+                data: {
+                    inputDate: inputDate,
+                    routeId: routeId,
+                },
+                success: function(data) {
+                    var $searchCarResults = $('#carSelect');
+                    var $searchDriveResults = $('#driveSelect');
+                    var $searchAssistantResults = $('#assistantSelect');
+
+                    $searchCarResults.empty().prepend('<option value="">Chọn xe</option>');
+                    $searchDriveResults.empty().prepend('<option value="">Chọn tài xế</option>');
+                    $searchAssistantResults.empty().prepend(
+                        '<option value="">Chọn phụ xe</option>');
+
+                    data.cars.forEach(function(car) {
+                        var output = `
+                    <option value="${car.id}">${car.name}</option>
+                `;
+                        $searchCarResults.append(output);
+                    });
+
+                    data.userDrive.forEach(function(drive) {
+                        var output = `
+                    <option value="${drive.id}">${drive.name}</option>
+                `;
+                        $searchDriveResults.append(output);
+                    });
+
+                    data.assistantCar.forEach(function(assistant) {
+                        var output = `
+                    <option value="${assistant.id}">${assistant.name}</option>
+                `;
+                        $searchAssistantResults.append(output);
+                    });
+                },
+                error: function() {
+                    // Xử lý lỗi nếu có
+                }
+            });
+        }
+
+        // Kiểm tra khi có sự thay đổi trong trường input inputDate
+        $('#date-input').on('input', function() {
+            inputDateEntered = !!$(this).val(); // Cập nhật biến kiểm tra khi nhập inputDate
+            checkInputsAndSendRequest(); // Kiểm tra và gửi yêu cầu khi đã nhập đủ thông tin
+        });
+
+        // Kiểm tra khi có sự thay đổi trong trường input routeSelect
+        $('#routeSelect').on('input', function() {
+            routeIdEntered = !!$(this).val(); // Cập nhật biến kiểm tra khi nhập routeId
+            checkInputsAndSendRequest(); // Kiểm tra và gửi yêu cầu khi đã nhập đủ thông tin
+        });
+    });
+</script>
+
+
+<script>
+    $(document).ready(function() {
+    var inputDate = $('#inputDate').val();
+    var routeId = $('#inputRoute').val();
+
+    // Gửi dữ liệu thông qua API ngay khi trang được tải
+    sendData(inputDate, routeId);
+});
+
+// Hàm gửi dữ liệu thông qua API
+function sendData(inputDate, routeId) {
+    $.ajax({
+        url: '/api/get_available_drivers',
+        type: 'POST',
+        data: {
+            inputDate: inputDate,
+            routeId: routeId,
+        },
+        success: function(data) {
+            console.log(data);
+            var $searchCarResults = $('#carEdit');
+            var $searchDriveResults = $('#driverEdit');
+            var $searchAssistantResults = $('#assistantEdit');
+
+            // Thêm dữ liệu từ API vào cuối dropdown
+            data.car.forEach(function(car) {
+                var output = `<option value="${car.id}">${car.name}</option>`;
+                $searchCarResults.append(output);
+            });
+
+            data.userDriver.forEach(function(drive) {
+                var output = `<option value="${drive.id}">${drive.name}</option>`;
+                $searchDriveResults.append(output);
+            });
+
+            data.assistantCars.forEach(function(assistant) {
+                var output = `<option value="${assistant.id}">${assistant.name}</option>`;
+                $searchAssistantResults.append(output);
+            });
+        },
+        error: function() {
+            // Xử lý lỗi nếu có
+        }
+    });
+}
+
 </script>

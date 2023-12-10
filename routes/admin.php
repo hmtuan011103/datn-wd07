@@ -159,8 +159,11 @@ Route::middleware(['guest'])->group(function () {
 
 //search ticket
 Route::get('/export-lichtrinh', [TripController::class,'export'])->name('export_trip')->middleware('check_permission:read-schedule');
+Route::prefix('search-bill')->group(function () {
+    Route::get('/', [TicketController::class, 'form_search_bill'])->name('form_search_bill')->middleware('check_permission:read-search-bill');
+});
 Route::prefix('search-ticket')->group(function () {
-    Route::get('/', [TicketController::class, 'form_search'])->name('form_search')->middleware('check_permission:read-search-ticket');
+    Route::get('/', [TicketController::class, 'form_search_ticket'])->name('form_search_ticket')->middleware('check_permission:read-search-bill');
 });
 
 Route::middleware('check_permission:read-statistic')->name('statistics.')->prefix('statistics_general')->group(function () {

@@ -171,9 +171,17 @@
                             </li>
                         @endif
 
+                        @if (in_array('read-search-bill', Auth::user()->permissions))
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{{ route('form_search_bill') }}">
+                                    <i class="mdi mdi-sticker-text-outline"></i> <span data-key="t-maps">Tra cứu hóa đơn</span>
+                                </a>
+                            </li>
+                        @endif
+
                         @if (in_array('read-search-ticket', Auth::user()->permissions))
                             <li class="nav-item">
-                                <a class="nav-link menu-link" href="{{ route('form_search') }}">
+                                <a class="nav-link menu-link" href="{{ route('form_search_ticket') }}">
                                     <i class="mdi mdi-sticker-text-outline"></i> <span data-key="t-maps">Tra cứu vé</span>
                                 </a>
                             </li>
@@ -186,13 +194,13 @@
                                 </a>
                             </li>
                         @endif
-                        @if (in_array('read-search-ticket', Auth::user()->permissions))
+                        {{-- @if (in_array('read-search-ticket', Auth::user()->permissions))
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="{{ route('form_search') }}">
                                     <i class="mdi mdi-sticker-text-outline"></i> <span data-key="t-maps">Tra cứu vé</span>
                                 </a>
                             </li>
-                        @endif
+                        @endif --}}
                         @if (in_array('read-bill', Auth::user()->permissions))
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="{{ route('list_order') }}">

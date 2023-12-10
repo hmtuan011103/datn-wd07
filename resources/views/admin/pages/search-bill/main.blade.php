@@ -28,7 +28,7 @@
                               <div class="container ">
                                 <div class="form-ticket">
                                     <div class="title-search">
-                                        <p style="color: #151529">TRA CỨU THÔNG TIN VÉ</p>
+                                        <p style="color: #151529">TRA CỨU THÔNG TIN HÓA ĐƠN</p>
                                     </div>
                                     <form >
                                       <div class="form-group">
@@ -37,7 +37,7 @@
                                       </div>
                                       <div class="form-group">
                                         <input type="text" class="form-control" id="ticketCode" name="ticketCode" placeholder="Vui lòng nhập mã hóa đơn">
-                                        <label for="ticketCode" class="form-label">Mã vé</label>
+                                        <label for="ticketCode" class="form-label">Mã hóa đơn</label>
                                       </div>
                                       <div class="button">
                                         <button type="submit"  id="searchButton" class="btn-search">Tra cứu</button>
@@ -68,5 +68,5 @@
 
 </div>
 
-  @include('admin.pages.search-ticket.detail-ticket')
+  @include('admin.pages.search-bill.detail-bill')
 @endsection

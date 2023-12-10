@@ -24,8 +24,8 @@
                                         <div class="col-sm-auto">
                                             <div>
                                                 <a href="{{ route('form_create_trip') }}"><button type="button"
-                                                        class="btn btn-success add-btn" data-bs-toggle="modal"
-                                                        id="create-btn" data-bs-target="#showModal"><i
+                                                                                                  class="btn btn-success add-btn" data-bs-toggle="modal"
+                                                                                                  id="create-btn" data-bs-target="#showModal"><i
                                                             class="ri-add-line align-bottom me-1"></i> Thêm</button></a>
                                                 <button class="btn btn-soft-danger" onClick="deleteMultiples()"><i
                                                         class="ri-delete-bin-2-line"></i></button>
@@ -35,92 +35,73 @@
                                         <div class="col-sm-auto">
                                             <div>
                                                 <button class="btn btn-primary submit-data-trip" data-bs-toggle="modal"
-                                                    data-bs-target="#modalImportTrip">Nhập dữ liệu</button>
+                                                        data-bs-target="#modalImportTrip">Nhập dữ liệu</button>
                                             </div>
                                         </div>
                                         <div class="col-sm">
                                             <div class="d-flex justify-content-sm-end">
                                                 <div class="search-box ms-2">
                                                     <input type="text" class="form-control search"
-                                                        placeholder="Tìm kiếm...">
+                                                           placeholder="Tìm kiếm...">
                                                     <i class="ri-search-line search-icon"></i>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <form action="{{ route('list_trip') }}" method="GET">
-                                        @csrf
-                                        <div class="filter-container">
-                                            <div class="filter-group-inline">
-                                                <label for="departure-date">Ngày đi:</label>
-                                                <input type="date" name="departure-date" class="styleCss"
-                                                    id="departure-date">
-                                            </div>
-
-                                            <div class="filter-group-inline">
-                                                <label for="driver">Tài xế:</label>
-                                                <select id="driver" name="driver" class="styleCss">
-                                                    <option value="">-- Chọn tài xế --</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="filter-group-inline">
-                                                <label for="assistant">Phụ xe:</label>
-                                                <select id="assistant" name="assistant" class="styleCss">
-                                                    <option value="">-- Chọn phụ xe --</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="filter-group-inline">
-                                                <label for="destination">Điểm đi:</label>
-                                                <select id="depature_point" name="start_location" class="styleCss">
-                                                    <option value="">-- Chọn địa điểm--</option>
-                                                </select>
-                                            </div>
-                                            <div class="filter-group-inline">
-                                                <label for="destination">Điểm đến:</label>
-                                                <select id="destination" name="end_location" class="styleCss">
-                                                    <option value="">-- Chọn địa điểm--</option>
-                                                </select>
-                                            </div>
-                                            {{-- <div class="filter-group-inline">
-
-                                            </div>
-                                             --}}
-                                             <div class="filter-group-inline button">
-                                                <label for="destination"></label>
-                                                <button type="submit" class="btn btn-success click-button" id="searchButton">Tìm kiếm</button>
-                                            </div>
-                                            <div class="filter-group-inline button">
-                                                <label for="destination"></label>
-                                                <a href="{{ route('list_trip') }}">
-                                                    <button type="submit" class="btn btn-warning click-button">Tất cả</button>
-                                                </a>
-                                            </div>
+                                    <div class="filter-container">
+                                        <div class="filter-group-inline">
+                                            <label for="departure-date">Ngày đi:</label>
+                                            <input type="date" class="date" id="departure-date">
                                         </div>
-                                    </form>
 
+                                        <div class="filter-group-inline">
+                                            <label for="driver">Tài xế:</label>
+                                            <select id="driver">
+                                                <option value="">-- Chọn tài xế --</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="filter-group-inline">
+                                            <label for="assistant">Phụ xe:</label>
+                                            <select id="assistant">
+                                                <option value="">-- Chọn phụ xe --</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="filter-group-inline">
+                                            <label for="destination">Điểm đi:</label>
+                                            <select id="depature_point">
+                                                <option value="">-- Chọn địa điểm--</option>
+                                            </select>
+                                        </div>
+                                        <div class="filter-group-inline">
+                                            <label for="destination">Điểm đến:</label>
+                                            <select id="destination">
+                                                <option value="">-- Chọn địa điểm--</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="table-responsive table-card mt-3 mb-1">
                                         <table class="table align-middle table-nowrap" id="customerTable">
                                             <thead class="table-light">
-                                                <tr>
-                                                    <th scope="col" style="width: 50px;">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" id="checkAll"
-                                                                value="option">
-                                                        </div>
-                                                    </th>
-                                                    <th class="sort" data-sort="customer_name">Điểm bắt đầu</th>
-                                                    <th class="sort" data-sort="email">Điểm kết thúc</th>
-                                                    <th class="sort" data-sort="phone">Ngày đi</th>
-                                                    <th class="sort" data-sort="date">Giờ đi</th>
-                                                    <th class="sort" data-sort="status">Giá vé</th>
-                                                    <th class="sort" data-sort="action">Chức năng</th>
-                                                </tr>
+                                            <tr>
+                                                <th scope="col" style="width: 50px;">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="checkAll"
+                                                               value="option">
+                                                    </div>
+                                                </th>
+                                                <th class="sort" data-sort="customer_name">Điểm bắt đầu</th>
+                                                <th class="sort" data-sort="email">Điểm kết thúc</th>
+                                                <th class="sort" data-sort="phone">Ngày đi</th>
+                                                <th class="sort" data-sort="date">Giờ đi</th>
+                                                <th class="sort" data-sort="status">Giá vé</th>
+                                                <th class="sort" data-sort="action">Chức năng</th>
+                                            </tr>
                                             </thead>
                                             <tbody class="list form-check-all">
                                                 @foreach ($trips as $trip)
+                                                
                                                     @php
                                                         $departureDate = Carbon\Carbon::parse($trip->start_date)->format('Y-m-d'); // Chuyển start_date từ dateTime sang dạng date
 
@@ -160,7 +141,7 @@
                                                                         data-target="#show" data-toggle="modal"><i
                                                                             class="bx bx bx-show"></i></button>
                                                                 </div>
-                                                                @if (!$isWithinOneHour || $trip->canDelete == true)
+                                                                @if (!$isWithinOneHour)
                                                                     <div class="edit">
                                                                         <a
                                                                             href="{{ route('edit_trip', ['id' => $trip->id]) }}"><button
@@ -169,14 +150,14 @@
                                                                     </div>
                                                                 @endif
                                                                 @if ($trip->canDelete == true)
-                                                                    <div class="remove">
+                                                                    <div class="remove" >
                                                                         <button class="btn btn-sm btn-danger btn-remove"
                                                                             data-bs-toggle="modal"
                                                                             data-bs-target="#modalDelete"
                                                                             data-role-id="{{ $trip->id }}"><i
                                                                                 class="bx bx-trash"></i></button>
                                                                     </div>
-                                                                @endif
+                                                                    @endif
 
 
                                                             </div>
@@ -188,8 +169,8 @@
                                         <div class="noresult" style="display: none">
                                             <div class="text-center">
                                                 <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
-                                                    colors="primary:#121331,secondary:#08a88a"
-                                                    style="width:75px;height:75px">
+                                                           colors="primary:#121331,secondary:#08a88a"
+                                                           style="width:75px;height:75px">
                                                 </lord-icon>
                                                 <h5 class="mt-2">Xin lỗi! Không có kết quả nào</h5>
 
@@ -226,12 +207,12 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                        id="btn-close"></button>
+                            id="btn-close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="mt-2 text-center">
                         <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
-                            colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                                   colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
                         <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
                             <h4>Xác nhận xóa ?</h4>
                             <span id="role-id" hidden></span>
@@ -253,7 +234,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                        id="btn-close"></button>
+                            id="btn-close"></button>
                 </div>
                 <form action="{{ route('import-trip') }}" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -261,12 +242,12 @@
                         <div class="mt-2 text-center">
                             <h5>Nhập dữ liệu chuyến đi từ Excel</h5>
                             <lord-icon src="https://cdn.lordicon.com/muxyivho.json" trigger="loop"
-                                colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px">
+                                       colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px">
                             </lord-icon><br>
                             <label for="file" class="btn btn-success"><i class="fa-solid fa-file-arrow-up"></i> Chọn
                                 file excel</label>
                             <input type="file" id="file" class="inputfile" name="file-trip-excel"
-                                accept=".xlsx">
+                                   accept=".xlsx">
                         </div>
                         <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
                             <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal"><i

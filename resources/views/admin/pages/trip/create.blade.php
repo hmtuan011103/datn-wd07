@@ -33,106 +33,54 @@
                                 <form action="{{ route('create_trip') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
-                                        <div class="form-group" style="text-align: right">
-                                            <label for="repeat">Lặp lại</label>
-                                            <input type="checkbox" id="repeat" name="repeat">
+
+                                        {{-- <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" name="repeat" id="repeat flexSwitchCheckDefault">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Lặp lại</label>
+
+                                        </div> --}}
+
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" name="repeat"
+                                                id="flexSwitchCheckDefault">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Lặp lại</label>
                                         </div>
-                                        <div class="form-group" id="numberOfDaysInput"
-                                            style="text-align: right; display:none ">
-                                            <label for="number_of_days">Số ngày lặp lại</label>
-                                            <input type="number" style="width:30px" id="number_of_days"
-                                                name="number_of_days" min="1">
-                                        </div>
-                                      
+
+
+
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Ngày đi</label>
                                                 <input class="form-control" name="start_date" id="date-input"
                                                     placeholder="dd/mm/yyy" type="text">
 
-                                                <span id="date" style="color: red ;  font-weight:500"></span>
+                                                <span aria-hidden="true"></span>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
-                                                <label class="control-label">Giờ đi</label>
-                                                <input class="form-control" style="cursor: pointer" id="start_time"
-                                                    name="start_time" type="time">
-                                                <span id="time" style="color: red; font-weight:500"></span>
+                                                <label class="control-label">Tuyến</label>
+                                                <select class="form-select" name="route_id" id="routeSelect">
+                                                    <option value="">Chọn tuyến</option>
+                                                    @foreach ($routes as $route)
+                                                        <option value="{{ $route->id }}">{{ $route->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <span aria-hidden="true"></span>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
-                                            <div class="form-group has-feedback">
-                                                <label class="control-label">Thời gian hành trình</label>
-                                                <input class="form-control" id="timeInput" oninput="validateTime()"
-                                                    onblur="formatTime()" placeholder="Nhập thời gian" name="interval_trip"
-                                                    type="text">
-
-                                                <span id="interval" style="color: red ; font-weight:500"></span>
-                                            </div>
-                                        </div>
-
-                                    
-                                    
-                                            <div class="col-md-6">
                                           
-                                                <div class="form-group has-feedback">
-                                                    <label class="control-label">Danh sách xe</label>
-                                                    <select class="form-select" name="car_id" id="carSelect"
-                                                        onchange="showHideDateTimeInput()">
-                                                        <option value="">Chọn xe</option>
-                                                        @foreach ($cars as $car)
-                                                            <option value="{{ $car->id }}">{{ $car->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <span aria-hidden="true"></span>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="form-group has-feedback">
-                                                    <label class="control-label">Tài xế</label>
-                                                    <select class="form-select" name="drive_id" id="driveSelect"
-                                                        onchange="showHideDateTimeInput()">
-                                                        <option value="">Chọn tài xé</option>
-                                                        @foreach ($userDrive as $user)
-                                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <span aria-hidden="true"></span>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="form-group has-feedback">
-                                                    <label class="control-label">Phụ xe</label>
-                                                    <select class="form-select" name="assistantCar_id" id="assistantSelect"
-                                                        onchange="showHideDateTimeInput()">
-                                                        <option value="">Chọn phụ xe</option>
-                                                        @foreach ($assistantCar as $user)
-                                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <span aria-hidden="true"></span>
-                                                </div>
-                                            </div>
-
-                                   
-
-
-
-                                        <div class="col-md-6">
                                             <div class="form-group has-feedback">
-                                                <label class="control-label">Điểm bắt đầu</label>
-                                                {{-- <input class="form-control" name="end_location" placeholder="Điểm kết thúc" type="text"> --}}
-                                                <select class="form-select" id="option1" name="start_location">
-                                                    <option value=""></option>
-                                                    @foreach ($locations as $location)
-                                                        <option value="{{ $location->name }}">{{ $location->name }}
-                                                        </option>
-                                                    @endforeach
+                                                <label class="control-label">Danh sách xe</label>
+                                                <select class="form-select" name="car_id" id="carSelect"
+                                                    onchange="showHideDateTimeInput()">
+                                                    <option value="">Chọn xe</option>
+                                                    {{-- @foreach ($cars as $car)
+                                                        <option value="{{ $car['id'] }}">{{ $car['name'] }}</option>
+                                                    @endforeach --}}
                                                 </select>
                                                 <span aria-hidden="true"></span>
                                             </div>
@@ -140,14 +88,13 @@
 
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
-                                                <label class="control-label">Điểm kết thúc</label>
-                                                {{-- <input class="form-control" name="end_location" placeholder="Điểm kết thúc" type="text"> --}}
-                                                <select class="form-select" id="option2" name="end_location">
-                                                    <option value=""></option>
-                                                    @foreach ($locations as $location)
-                                                        <option value="{{ $location->name }}">{{ $location->name }}
-                                                        </option>
-                                                    @endforeach
+                                                <label class="control-label">Tài xế</label>
+                                                <select class="form-select" name="drive_id" id="driveSelect"
+                                                    onchange="showHideDateTimeInput()">
+                                                    <option value="">Chọn tài xé</option>
+                                                    {{-- @foreach ($userDrive as $user)
+                                                        <option value="{{ $user['id'] }}">{{ $user['name'] }}</option>
+                                                    @endforeach --}}
                                                 </select>
                                                 <span aria-hidden="true"></span>
                                             </div>
@@ -155,18 +102,32 @@
 
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
-                                                <label class="control-label">Giá vé</label>
-                                                <input class="form-control" onChange="format_curency(this);"
-                                                    name="trip_price" placeholder="VND" type="number">
+                                                <label class="control-label">Phụ xe</label>
+                                                <select class="form-select" name="assistantCar_id" id="assistantSelect"
+                                                    onchange="showHideDateTimeInput()">
+                                                    <option value="">Chọn phụ xe</option>
+                                                    {{-- @foreach ($assistantCar as $user)
+                                                        <option value="{{ $user['id'] }}">{{ $user['name'] }}</option>
+                                                    @endforeach --}}
+                                                </select>
+                                                <span aria-hidden="true"></span>
+                                            </div>
+                                        </div> 
+
+                                      
+
+                                        <div class="col-md-6" id="numberOfDaysInput" style="display: none;">
+                                            <div class="form-group has-feedback">
+                                                <label for="number_of_days" class="control-label">Số ngày lặp lại</label>
+                                                <input class="form-control" name="number_of_days" min="1"
+                                                    type="number">
                                                 <span aria-hidden="true"></span>
                                             </div>
                                         </div>
-
                                         {{-- <div class="col-md-6">
 										<div class="form-group has-feedback">
 										  <label class="control-label">Trạng thái</label> --}}
-                                        <input class="form-control" name="status" placeholder="Mô tả" value="1"
-                                            type="hidden">
+                                     
                                         {{-- <span  aria-hidden="true"></span> </div>
 									  </div> --}}
 

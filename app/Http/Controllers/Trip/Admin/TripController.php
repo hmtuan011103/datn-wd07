@@ -16,31 +16,33 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class TripController extends BaseTripController
 {
-    public function list_trip()
+    public function list_trip(Request $request)
     {
         // $trips = Trip::all();
-        $trips = $this->tripService->list_desc();
+        $trips = $this->tripService->list_desc($request);
         return view('admin.pages.trip.main',  compact('trips'), [
+
             'title' => 'Danh sách chuyến đi'
         ]);
     }
 
-    public function form_create_trip()
+    public function form_create_trip(Request $request)
     {
-        $cars = $this->tripService->getCar();
-        $userDrive = $this->tripService->getDrive();
-        $assistantCar = $this->tripService->assistantCar();
-        $locations = $this->tripService->get_parent_id();
-        return view('admin.pages.trip.create', compact('cars', 'userDrive', 'assistantCar', 'locations'), [
-            'title' => 'Thêm chuyến đi '
+        $routes = $this->tripService->getRoute();
+        // $data = $this->tripService->getcarDriveAssistant($request);
+        // dd($data);  
+        return view('admin.pages.trip.create', [
+            'routes' => $routes, // Bạn cần đưa biến $routes vào trong mảng này
+            'userDrive' => [],
+            'cars' => [],
+            'assistantCar' => [],
+            'title' => 'Thêm chuyến đi'
         ]);
     }
 
     public function create_trip(StoreTripRequest $request)
     {
-
         $this->tripService->create($request);
-        // dd($trip);
         toastr()->success('Thêm thành công.', 'Thành công');
         return redirect()->route('form_create_trip');
     }
@@ -49,11 +51,14 @@ class TripController extends BaseTripController
     {
 
         $trip = Trip::find($id);
-        $cars = $this->tripService->getCar();
-        $userDrive = $this->tripService->getDrive();
-        $assistantCar = $this->tripService->assistantCar();
+        $cars = $this->tripService->getCar($id);
+        // dd($cars);
+        $userDrive = $this->tripService->getDrive($id);
+        $assistantCar = $this->tripService->assistantCar($id);
+        $routes = $this->tripService->getRoute();
+
         $locations = $this->tripService->get_parent_id();
-        return view('admin.pages.trip.edit', compact('trip', 'userDrive', 'assistantCar', 'cars', 'locations'), [
+        return view('admin.pages.trip.edit', compact('trip', 'routes', 'cars', 'userDrive', 'assistantCar'), [
             'title' => 'Sửa chuyến đi'
         ]);
     }
@@ -72,10 +77,11 @@ class TripController extends BaseTripController
         return redirect()->route('list_trip');
     }
 
-    public function import_trip(Request $request){
+    public function import_trip(Request $request)
+    {
         $path = $request->file('file-trip-excel')->getRealPath();
         Excel::import(new ImportDataTrip, $path);
-        toastr()->success('Thêm dữ liệu thành công.','Thành công');
+        toastr()->success('Thêm dữ liệu thành công.', 'Thành công');
         return back();
     }
 
@@ -136,9 +142,30 @@ class TripController extends BaseTripController
         }
         // return view('admin.pages.schedule.excel', compact('trip'));
         $dompdf = new Dompdf();
-        $html = view('admin.pages.schedule.excel', compact('title','trip','type_user'))->render();
+        $html = view('admin.pages.schedule.excel', compact('title', 'trip', 'type_user'))->render();
         $dompdf->loadHtml($html);
         $dompdf->render();
         $dompdf->stream('example.pdf');
     }
+
+    public function getCarDriver(Request $request)
+    {
+        $data = $this->tripService->getcarDriveAssistant($request);
+        return response()->json([
+            'cars' => $data['cars'],
+            'userDrive' => $data['drivers'],
+            'assistantCar' => $data['assistants'],
+        ]);
+    }
+
+    public function get_available_drivers(Request $request)
+    {
+        $data = $this->tripService->getcarDriveAssistant($request);
+        return response()->json([
+            'car' => $data['cars'],
+            'userDriver' => $data['drivers'],
+            'assistantCars' => $data['assistants'],
+        ]);
+    }
+
 }

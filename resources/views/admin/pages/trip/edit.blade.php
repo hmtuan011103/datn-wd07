@@ -40,42 +40,38 @@
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Ngày đi</label>
                                                 <input class="form-control" name="start_date"
-                                                    value="{{ formatEditDateTrip($trip->start_date) }}" id="date-input"
+                                                    value="{{ formatEditDateTrip($trip->start_date) }}" id="inputDate"
                                                     placeholder="dd/mm/yyyy" type="text">
                                                 <span aria-hidden="true"></span>
                                             </div>
                                         </div>
 
+
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
-                                                <label class="control-label">Giờ đi</label>
-                                                <input class="form-control" name="start_time"
-                                                    value="{{ formatTime($trip->start_time) }}" style="cursor: pointer"
-                                                    type="time" id="start_time">
+                                                <label class="control-label">Tuyến</label>
+                                                <select class="form-select" name="route_id" id="inputRoute">
+                                                    <option value="">Chọn tuyến</option>
+                                                    @foreach ($routes as $route)
+                                                        <?php $selected = $route->id == $trip->route_id ? 'selected' : ''; ?>
+                                                        <option {{ $selected }} value="{{ $route->id }}">
+                                                            {{ $route->name }}</option>
+                                                    @endforeach
+                                                </select>
                                                 <span aria-hidden="true"></span>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6">
-                                            <div class="form-group has-feedback">
-                                                <label class="control-label">Thời gian hành trình</label>
-                                                <input class="form-control" id="timeInput" oninput="validateTime()"
-                                                    onblur="formatTime()" placeholder="Nhập thời gian" name="interval_trip"
-                                                    type="text" value="{{ formatInterval($trip->interval_trip) }}" id="timeInput" >
 
-                                                <span aria-hidden="true"></span>
-                                            </div>
-                                        </div>
+
+
+
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Danh sách xe</label>
-                                                <select class="form-select" name="car_id">
-                                                    @foreach ($cars as $car)
-                                                        {{-- <option value="{{$user->id}}" {{$user->id}} == {{$trip->user_id}} ? "selected" : "">{{$user->name}}</option> --}}
-                                                        <?php $selected = $car->id == $trip->car_id ? 'selected' : ''; ?>
-                                                        <option {{ $selected }} value="{{ $car->id }}">
-                                                            {{ $car->name }}</option>
-                                                    @endforeach
+                                                <select class="form-select" name="car_id" id="carEdit">                                             
+                                                        <option selected  value="{{ $cars->id }}">
+                                                            {{ $cars->name }}</option>
                                                 </select>
                                                 <span aria-hidden="true"></span>
                                             </div>
@@ -84,13 +80,9 @@
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Tài xế</label>
-                                                <select class="form-select" name="drive_id">
-                                                    @foreach ($userDrive as $user)
-                                                        {{-- <option value="{{$user->id}}" {{$user->id}} == {{$trip->user_id}} ? "selected" : "">{{$user->name}}</option> --}}
-                                                        <?php $selected = $user->id == $trip->drive_id ? 'selected' : ''; ?>
-                                                        <option {{ $selected }} value="{{ $user->id }}">
-                                                            {{ $user->name }}</option>
-                                                    @endforeach
+                                                <select class="form-select" name="drive_id" id="driverEdit">
+                                                    <option selected  value="{{ $userDrive->id }}">
+                                                        {{ $userDrive->name }}</option>
                                                 </select>
                                                 <span aria-hidden="true"></span>
                                             </div>
@@ -99,67 +91,27 @@
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Phụ xe</label>
-                                                <select class="form-select" name="assistantCar_id">
-                                                    @foreach ($assistantCar as $user)
-                                                        {{-- <option value="{{$user->id}}" {{$user->id}} == {{$trip->user_id}} ? "selected" : "">{{$user->name}}</option> --}}
-                                                        <?php $selected = $user->id == $trip->assistantCar_id ? 'selected' : ''; ?>
-                                                        <option {{ $selected }} value="{{ $user->id }}">
-                                                            {{ $user->name }}</option>
-                                                    @endforeach
+                                                <select class="form-select" name="assistantCar_id" id="assistantEdit">
+                                                    <option selected  value="{{ $assistantCar->id }}">
+                                                        {{ $assistantCar->name }}</option>
                                                 </select>
                                                 <span aria-hidden="true"></span>
                                             </div>
                                         </div>
 
-
-                                        <div class="col-md-6">
-                                            <div class="form-group has-feedback">
-                                                <label class="control-label">Điểm bắt đầu</label>
-                                                {{-- <input class="form-control" name="start_location" value="{{$trip->start_location}}" placeholder="Điểm bắt đầu" type="text"> --}}
-                                                <select class="form-select" name="start_location">
-
-                                                    @foreach ($locations as $locat)
-                                                        {{-- <option value="{{$user->id}}" {{$user->id}} == {{$trip->user_id}} ? "selected" : "">{{$user->name}}</option> --}}
-                                                        <?php $selected = $locat->name == $trip->start_location ? 'selected' : ''; ?>
-                                                        <option {{ $selected }} value="{{ $locat->name }}">
-                                                            {{ $locat->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <span aria-hidden="true"></span>
-                                            </div>
-                                        </div>
+                                        <input id="tripId" type="hidden" value="{{ $trip->id }}">
 
 
 
 
-                                        <div class="col-md-6">
-                                            <div class="form-group has-feedback">
-                                                <label class="control-label">Điểm kết thúc</label>
-
-                                                <select class="form-select" name="end_location">
-
-                                                    @foreach ($locations as $locat)
-                                                        <?php $selected = $locat->name == $trip->end_location ? 'selected' : ''; ?>
-                                                        <option {{ $selected }} value="{{ $locat->name }}">
-                                                            {{ $locat->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <span aria-hidden="true"></span>
-                                            </div>
-                                        </div>
 
 
 
 
-                                        <div class="col-md-6">
-                                            <div class="form-group has-feedback">
-                                                <label class="control-label">Giá vé</label>
-                                                <input class="form-control" value="{{ fomatPrice($trip->trip_price) }}"
-                                                    onChange="format_curency(this);" name="trip_price" placeholder="VND"
-                                                    type="number">
-                                                <span aria-hidden="true"></span>
-                                            </div>
-                                        </div>
+
+
+
+
                                         {{-- <div class="col-md-6">
 										<div class="form-group has-feedback">
 										  <label class="control-label">Trạng thái</label> --}}

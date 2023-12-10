@@ -27,24 +27,7 @@
     border: #FB6400;
 
   }
-  .ticket {
-    display: grid;
-    grid-template-columns: 1fr ;
-    justify-content: space-around;
-    align-items: center;
-    padding: 0 0 12px 12px ;
-    margin-left: 38%;
-    
-}
 
-.grid-ticket{
-   width: 250px
-}
-.detail-ticket .logo {
-    width: 150px;
-    /* margin-bottom: 20px; */
-    margin-left: 17%;
-    margin-top: -23px
-}
+ 
 
 </style>
