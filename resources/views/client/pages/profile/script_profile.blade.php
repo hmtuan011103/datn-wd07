@@ -39,7 +39,7 @@
                     initialValue = data.data.total_seats || initialValue;
 
                     // Cập nhật thanh tiến trình
-                    const maxValue = 20;
+                    const maxValue = 38;
                     let clampedInitialValue = Math.min(initialValue, maxValue);
                     let previousColor = 'red';
 

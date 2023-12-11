@@ -18,6 +18,7 @@
                 if (data.status === true) {
                     const discounts = data.data.discounts;
                     const totalSeats = parseInt(data.data.total_seats);
+                    // console.log(totalSeats);
 
                     // Kiểm tra nếu có các mã giảm giá và là một đối tượng
                     if (typeof discounts === 'object' && discounts !== null) {
@@ -34,13 +35,13 @@
                             displayField(discountItem, "Giá Trị Giảm Giá", discount.value + '%');
 
                             // Kiểm tra số ghế và id của mã giảm giá
-                            if (totalSeats >= 1 && totalSeats < 6 && discount.name === 'Khách Hàng Vip 1') {
+                            if (totalSeats >= 1 && totalSeats < 10 && discount.name === 'Khách Hàng Vip 1') {
                                 discountContainer.appendChild(discountItem);
-                            } else if (totalSeats >= 6 && totalSeats < 11 && (discount.name === 'Khách Hàng Vip 1' || discount.name === 'Khách Hàng Vip 2')) {
+                            } else if (totalSeats >= 10 && totalSeats < 20 && (discount.name === 'Khách Hàng Vip 1' || discount.name === 'Khách Hàng Vip 2')) {
                                 discountContainer.appendChild(discountItem);
-                            } else if (totalSeats >= 11 && totalSeats < 16 && (discount.name === 'Khách Hàng Vip 1' || discount.name === 'Khách Hàng Vip 2' || discount.name === 'Khách Hàng Vip 3')) {
+                            } else if (totalSeats >= 20 && totalSeats < 30 && (discount.name === 'Khách Hàng Vip 1' || discount.name === 'Khách Hàng Vip 2' || discount.name === 'Khách Hàng Vip 3')) {
                                 discountContainer.appendChild(discountItem);
-                            }else if (totalSeats >= 16 && totalSeats < 20 && (discount.name === 'Khách Hàng Vip 1' || discount.name === 'Khách Hàng Vip 2' || discount.name === 'Khách Hàng Vip 3' || discount.name === 'Khách Hàng Vip 4')) {
+                            }else if (totalSeats >= 30 && totalSeats < 39 && (discount.name === 'Khách Hàng Vip 1' || discount.name === 'Khách Hàng Vip 2' || discount.name === 'Khách Hàng Vip 3' || discount.name === 'Khách Hàng Vip 4')) {
                                 discountContainer.appendChild(discountItem);
                             }
                         });

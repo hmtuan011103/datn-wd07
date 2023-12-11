@@ -60,6 +60,33 @@
         position: relative;
         z-index: 2;
         margin: 0 auto;
+        transition: background-color 0.3s ease;
+        /* Thêm transition */
+    }
+
+    /* Thêm phần tooltip */
+    .step-tooltip {
+        width: 200px;
+        position: absolute;
+        bottom: 120%;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        pointer-events: none;
+        background-color: #F9821D;
+        color: white;
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    .step:hover .step-circle {
+        background-color: #F9821D;
+    }
+
+    .step:hover .step-tooltip {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-5px);
     }
 
     .line {
@@ -67,10 +94,8 @@
         width: calc(100% - 20px);
         height: 2px;
         background-color: #ffc107;
-        /* Màu vàng đậm */
         top: 50%;
         left: 20px;
-        /* Khoảng cách từ trái */
         z-index: 0;
         margin-top: -13px;
     }
@@ -82,14 +107,12 @@
         background-color: #ddd;
         top: 50%;
         left: 20px;
-        /* Khoảng cách từ trái */
         z-index: 0;
         margin-top: -13px;
     }
 
     .active .step-circle {
         background-color: #007bff;
-        border-color: #007bff;
     }
 
     .active .line {
@@ -98,7 +121,6 @@
 
     .initial .step-circle {
         background-color: red;
-        border-color: red;
     }
 
     .initial .line {

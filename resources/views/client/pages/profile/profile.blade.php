@@ -51,19 +51,23 @@
                                     <div id="paymentSteps" class="step-container mt-4">
                                         <div class="step">
                                             <div class="step-circle"></div>
-                                            <div data-step="1">V1</div>
+                                            <div data-step="3">V1</div>
+                                            <div class="step-tooltip" data-step="V1">Để Đặt Được Mức Này Bạn Cần Mua 1 Vé</div>
                                         </div>
                                         <div class="step">
                                             <div class="step-circle"></div>
-                                            <div data-step="2">V2</div>
+                                            <div data-step="3">V2</div>
+                                            <div class="step-tooltip" data-step="V2">Để Đặt Được Mức Này Bạn Cần Mua 10 Vé</div>
                                         </div>
                                         <div class="step">
                                             <div class="step-circle"></div>
                                             <div data-step="3">V3</div>
+                                            <div class="step-tooltip" data-step="V3">Để Đặt Được Mức Này Bạn Cần Mua 20 Vé</div>
                                         </div>
                                         <div class="step">
                                             <div class="step-circle"></div>
-                                            <div data-step="4">V4</div>
+                                            <div data-step="3">V4</div>
+                                            <div class="step-tooltip" data-step="V4">Để Đặt Được Mức Này Bạn Cần Mua 30 Vé</div>
                                         </div>
                                         <div class="grey-line"></div>
                                         <div class="line"></div>
