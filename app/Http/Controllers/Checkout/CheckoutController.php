@@ -12,13 +12,10 @@ use App\Models\Trip;
 use App\Models\User;
 use App\Services\CheckoutService\CheckoutService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CheckoutController extends Controller
 {
@@ -32,11 +29,8 @@ class CheckoutController extends Controller
     }
 
     public function continuesCheckout(Request $request) {
-//        $token = auth()->user();
-//        dd($token);
-//        $user = JWTAuth::parseToken()->authenticate();
-//        dd($user);
         $data = $request->except('_token');
+        $userId = $request->client_verify;
         $title = "Chiến thắng | Thanh toán";
         $nameUser = $request->name;
         $emailUser = $request->email;
@@ -67,7 +61,7 @@ class CheckoutController extends Controller
             $moneyReturn = (int) $request->money_return;
         }
         return view('client.pages.choose-type-payment.index',
-            compact('nameUser','emailUser','phoneUser','tripTurn','tripReturn', 'title',
+            compact('nameUser','emailUser','phoneUser','tripTurn','tripReturn', 'title', 'userId',
                 'placeStart','placeEnd','placeStartSecond','placeEndSecond','seatsTurn','seatsReturn', 'moneyTurn', 'moneyReturn'
             )
         );
@@ -92,18 +86,18 @@ class CheckoutController extends Controller
     private function saveDataAfterCheckoutSuccess($request, $cacheData) {
         DB::beginTransaction();
         try {
-            // Save User
-            $user = User::query()->create([
-                'user_type_id' => 6,
-                'email' => $cacheData['email'],
-                'name' => $cacheData['name'],
-                'phone_number' => $cacheData['phone_number'],
-            ]);
-            if ($request->hasCookie('is_client')) {
-                $userInfor = Auth::user();
-                if ($userInfor && $userInfor->user_type_id === 1) {
-                    $user = User::query()->find($userInfor->id)->get();
-                }
+            $dataUserLogin = $cacheData['clientLogin'];
+
+            if($dataUserLogin) {
+                $user = User::query()->find($dataUserLogin);
+            } else {
+                // Save User
+                $user = User::query()->create([
+                    'user_type_id' => 6,
+                    'email' => $cacheData['email'],
+                    'name' => $cacheData['name'],
+                    'phone_number' => $cacheData['phone_number'],
+                ]);
             }
             Cache::put('infor_user', $user, 1500);
             // Save to Bill Order

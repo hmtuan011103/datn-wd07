@@ -192,9 +192,9 @@ select.w-100.cursor:focus
 .pa-t-90{
     top: -70px;
 }
-.pa-t-215 {
-    top: 215px;
-}
+/*.pa-t-215 {*/
+/*    top: 215px;*/
+/*}*/
 
 .btn-seact-trip{
     border: 1px solid #EF5222;
@@ -202,7 +202,8 @@ select.w-100.cursor:focus
     transform: translateY(20px);
 }
 .spacing-form-search{
-    margin-bottom: 230px;
+    margin-top: -60px;
+    margin-bottom: 30px;
 }
 
 .border-top{

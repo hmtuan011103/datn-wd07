@@ -38,6 +38,35 @@ socket.on("cancel_select_seat_for_others", (info) => {
     seatCodeSpan.removeClass('seat-choosing').addClass('seat-active');
     seatCodeImage.attr('src', `${baseImageUrl}/seat_active.svg`);
 });
+
+
+const getUserLogin = () => {
+    fetch(`${baseApiUrl}/profile`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getCookie('token')}`,
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        const idUser = data.data.id ?? "";
+        const name = data.data.name ?? "";
+        const email = data.data.email ?? "";
+        const phoneNumber = data.data.phone_number ?? "";
+        $("input[name='client_verify']").val(idUser);
+        $("input[name='name']").val(name);
+        $("input[name='email']").val(email);
+        $("input[name='phone']").val(phoneNumber);
+    })
+};
+if(getCookie('token')){
+    getUserLogin();
+}
+
+
+
 const getErrorWhenCallApi = (statusCode) => {
     switch (statusCode) {
         case 400:
@@ -1215,8 +1244,10 @@ $(function () {
                     }
                 },
                 submitHandler: function (form) {
+                    $("#overlay").fadeIn(300);
                     const seatsTurn = $("#seats_turn").val();
                     if (seatsTurn === "") {
+                        $("#overlay").fadeOut(300);
                         Toastify({
                             text: "Bạn phải chọn ít nhất 1 chỗ ngồi lượt đi",
                             duration: 2000,
@@ -1234,6 +1265,7 @@ $(function () {
                         return false;
                     }
                     if ($("#seats_return") && $("#seats_return").val() === "") {
+                        $("#overlay").fadeOut(300);
                         Toastify({
                             text: "Bạn phải chọn ít nhất 1 chỗ ngồi lượt về",
                             duration: 2000,
@@ -1251,6 +1283,9 @@ $(function () {
                         return false;
                     }
                     form.submit();
+                    window.onload = function() {
+                        $("#overlay").fadeOut(300);
+                    };
                 }
             });
 

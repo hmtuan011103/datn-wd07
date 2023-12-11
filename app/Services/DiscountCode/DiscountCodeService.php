@@ -6,6 +6,7 @@ use App\Http\Requests\DiscountCode\StoreDiscountCodeRequest;
 use App\Http\Requests\DiscountCode\UpdateDiscountCodeRequest;
 use App\Models\DiscountCode;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class DiscountCodeService
 {
@@ -37,7 +38,13 @@ class DiscountCodeService
 
     public function getDiscount($code) {
         if($code) {
-            return DiscountCode::query()->whereRaw('BINARY code = ?', [$code])->get();
+            $currentDateTime = Carbon::now();
+            $discount = DiscountCode::query()
+                ->whereRaw('BINARY code = ?', [$code])
+                ->where('start_time', '<=', $currentDateTime)
+                ->where('end_time', '>=', $currentDateTime)
+                ->get();
+            return $discount;
         }
         return false;
     }

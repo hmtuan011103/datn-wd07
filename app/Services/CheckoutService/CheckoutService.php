@@ -61,6 +61,7 @@ class CheckoutService
             $vnp_endTurn_1 = $request->place_end_turn_1;
         }
         Cache::put('my_bill_cache' . $vnp_TxnRef, [
+            'clientLogin' => $request->client_login,
             'email' => $request->phone,
             'name' => $request->name,
             'phone_number' => $request->email,
@@ -196,6 +197,7 @@ class CheckoutService
             $momo_endTurn_1 = $request->place_end_turn_1;
         }
         Cache::put('my_bill_cache' . $orderId, [
+            'clientLogin' => $request->client_login,
             'email' => $request->phone,
             'name' => $request->name,
             'phone_number' => $request->email,

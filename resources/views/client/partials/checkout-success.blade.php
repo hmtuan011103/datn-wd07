@@ -179,7 +179,6 @@
                 autoplay: true,
                 autoplaySpeed: 2000,
                 arrows: false,
-                slidesToScroll: 1
             });
         });
     </script>

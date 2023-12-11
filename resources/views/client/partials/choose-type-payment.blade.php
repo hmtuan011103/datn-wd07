@@ -119,9 +119,10 @@
             </div>
         </div>
         <div class="col-lg-4 pt-3">
-            <form class="row" action="{{ route('thanh_toan') }}" method="post">
+            <form class="row" action="{{ route('thanh_toan') }}" method="post" id="checkout_for_by_step">
                 @method('post')
                 @csrf
+                <input type="hidden" hidden value="{{ $userId }}" name="client_login">
                 <input type="hidden" hidden value="{{ $nameUser }}" name="name">
                 <input type="hidden" hidden value="{{ $phoneUser }}" name="email">
                 <input type="hidden" hidden value="{{ $emailUser }}" name="phone">
@@ -142,7 +143,7 @@
                         <div class="col-lg-12">
                             <h6 class="py-3"><b>Phương thức thanh toán</b></h6>
                             <div class="form-check py-3 d-flex align-items-center cursor-payment" id="vnpayDiv">
-                                <input class="form-check-input ms-1 cursor-payment" type="radio" name="type_payment" id="vnpay" value="1" checked>
+                                <input class="form-check-input ms-1 cursor-payment" type="radio" name="type_payment" id="vnpay" value="1">
                                 <label class="form-check-label ps-2 fw-medium w-100 cursor-payment" for="vnpay">
                                     <img src="{{ asset('client/assets/images/choose-type-checkout/vnpay_checkout.jpg') }}" alt=""  height="35px" width="35px">
                                     <span class="ps-2">VNPAY</span>

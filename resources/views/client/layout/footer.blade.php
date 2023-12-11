@@ -75,6 +75,19 @@
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 <script>
+
+    $(document).ready(function() {
+        $('#banner-to-home').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 5000,
+            arrows: true,
+            prevArrow: '<span class="prevArrow" id="prevArrowLimited"><i class="fa-solid fa-chevron-left"></i></span>',
+            nextArrow: '<span class="nextArrow" id="nextArrowLimited"><i class="fa-solid fa-chevron-right"></i></span',
+        });
+    });
+
     if ($('#popular-trip-container') && $('#popular-trip-container').length > 0) {
         $('#popular-trip-container').slick({
             infinite: true,

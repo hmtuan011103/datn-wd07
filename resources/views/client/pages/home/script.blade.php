@@ -116,7 +116,7 @@
             }).showToast();
             // error_start_location.textContent = "Vui lòng chọn điểm đi";
             return;
-        } 
+        }
         // else {
         //     error_start_location.textContent = "";
         // }
@@ -158,7 +158,7 @@
             }).showToast();
             // error_end_location.textContent = "Điểm đến phải khác điểm đi";
             return;
-        } 
+        }
         // else {
         //     error_end_location.textContent = "";
         // }
@@ -179,7 +179,7 @@
             }).showToast();
             // error_start_time.textContent = "Vui lòng chọn ngày đi"
             return;
-        } 
+        }
         // else {
         //     error_start_time.textContent = ""
         // }
@@ -327,7 +327,11 @@
         }
         addDataToCookieArray(jsonData)
         var queryString = Object.keys(jsonData).map(key => key + '=' + encodeURIComponent(jsonData[key])).join('&');
+        $("#overlay").fadeIn(300);
         window.location.href = link + 'tim-kiem?' + queryString;
+        window.onload = function() {
+            $("#overlay").fadeOut(300);
+        };
     }
 
     function getDataFromCookieArray() {
@@ -389,7 +393,7 @@
                     </form>`
 
             }
-        }); 
+        });
     function submitFormCookie(formId) {
         var form = document.getElementById("myFormCookie" + formId);
         form.submit();
