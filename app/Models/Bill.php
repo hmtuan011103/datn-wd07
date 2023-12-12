@@ -21,7 +21,10 @@ class Bill extends Model
         'total_money_after_discount',
         'total_seats',
         'type_pay',
-        'code_bill'
+        'code_bill',
+        'user_email',
+        'user_name',
+        'user_phone',
     ];
 
     public function trip() : BelongsTo{

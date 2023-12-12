@@ -91,6 +91,10 @@ class CheckoutController extends Controller
 
             if($dataUserLogin) {
                 $user = User::query()->find($dataUserLogin);
+                $userLogin['email'] = $cacheData['email'];
+                $userLogin['name'] = $cacheData['name'];
+                $userLogin['phone_number'] = $cacheData['phone_number'];
+                Cache::put('infor_user', $userLogin, 1500);
             } else {
                 // Save User
                 $user = User::query()->create([
@@ -99,8 +103,8 @@ class CheckoutController extends Controller
                     'name' => $cacheData['name'],
                     'phone_number' => $cacheData['phone_number'],
                 ]);
+                Cache::put('infor_user', $user, 1500);
             }
-            Cache::put('infor_user', $user, 1500);
             // Save to Bill Order
 
             // Bill Turn
@@ -121,7 +125,10 @@ class CheckoutController extends Controller
                 'total_money_after_discount' => $cacheData['moneyTurn'],
                 'type_pay' => $cacheData['type_payment'],
                 'total_seats' => $total_seats_turn,
-                'code_bill' => Str::random(8)
+                'code_bill' => Str::random(8),
+                'user_email' => $cacheData['email'],
+                'user_name' => $cacheData['name'],
+                'user_phone' => $cacheData['phone_number'],
             ]);
             Cache::put('bill_turn', $bill->id, 1500);
             $startLocation = Location::query()->find($cacheData['startTurn_0']);
@@ -141,7 +148,7 @@ class CheckoutController extends Controller
                 $valueDiscount->quantity--;
                 $valueDiscount->save();
             }
-            SendMailCheckOutSuccess::dispatch($user->name, $bill->code_bill, $bill->trip_id, $startLocation->name, $endLocation->name, implode(', ', $seatsTurnArray), $user->email);
+            SendMailCheckOutSuccess::dispatch($bill->user_name, $bill->code_bill, $bill->trip_id, $startLocation->name, $endLocation->name, implode(', ', $seatsTurnArray), $bill->user_email);
             // Bill Return
             if ($cacheData['seatsReturn'] !== null && $cacheData['tripReturn'] !== null) {
                 $seatsCodeReturn = explode(',', $cacheData['seatsReturn']);
@@ -161,7 +168,10 @@ class CheckoutController extends Controller
                     'total_money_after_discount' => $cacheData['moneyReturn'],
                     'type_pay' => $cacheData['type_payment'],
                     'total_seats' => $total_seats_return,
-                    'code_bill' => Str::random(8)
+                    'code_bill' => Str::random(8),
+                     'user_email' => $cacheData['email'],
+                    'user_name' => $cacheData['name'],
+                    'user_phone' => $cacheData['phone_number'],
                 ]);
                 Cache::put('bill_return', $billReturn->id, 1500);
                 $startLocation = Location::query()->find($cacheData['startTurn_1']);
@@ -175,7 +185,7 @@ class CheckoutController extends Controller
                         'pay_location' => $endLocation->name,
                     ]);
                 }
-                SendMailCheckOutSuccess::dispatch($user->name, $billReturn->code_bill, $billReturn->trip_id, $startLocation->name, $endLocation->name, implode(', ', $seatsReturnArray), $user->email);
+                SendMailCheckOutSuccess::dispatch($billReturn->user_name, $billReturn->code_bill, $billReturn->trip_id, $startLocation->name, $endLocation->name, implode(', ', $seatsReturnArray), $billReturn->user_email);
             }
             DB::commit();
             return true;
