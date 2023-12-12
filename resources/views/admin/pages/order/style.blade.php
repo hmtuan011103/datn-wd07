@@ -9,4 +9,23 @@
     th{
         font-size: 13px;
     }
+    .filter-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        /* border-top: 1px solid #ccc; */
+    }
+
+    .filter-group-inline {
+        display: inline-block;
+        vertical-align: top;
+    }
+    select{
+        width: 14.2vw;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-right: 0.5vw;
+    }
 </style>

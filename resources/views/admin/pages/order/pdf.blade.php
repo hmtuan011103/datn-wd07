@@ -116,13 +116,15 @@
                 <div class="ttleft">
                     <p><b>Mã hóa đơn:</b> {{ $data[0]->code_bill }}</p>
                     <p><b>Ngày mua:</b> {{ $time_create }}</p>
-                    <p><b>Người mua:</b> {{ $data[0]->user->name }}</p>
+                    <p><b>Người mua:</b> {{ $data[0]->user_name }}</p>
+                    <p><b>Email:</b> {{ $data[0]->user_email }}</p>
                 </div>
                 <div>
                     <p><b>Số vé:</b> {{ $data[0]->total_seats }}</p>
                     <p><b>Hình thức thanh toán:</b> {{ $data[0]->type_pay == 1 ? 'VNPAY' : '' }}</p>
                     <p><b>Trạng thái thanh toán:</b>
                         {{ $data[0]->status_pay == 1 ? 'Đã thanh toán' : 'Chưa thanh toán' }}</p>
+                    <p><b>SĐT:</b> {{ $data[0]->user_phone }}</p>
                 </div>
             </div>
         </div>
@@ -142,9 +144,11 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php($stt = 0)
                     @foreach ($seats as $seat)
+                    @php($stt++)
                         <tr>
-                            <td>1</td>
+                            <td>{{$stt}}</td>
                             <td>{{ $data[0]->trip->route->name }}</td>
                             <td>{{ $seat }}</td>
                             <td>{{ number_format($data[0]->trip->route->trip_price, 0, ',', '.') }}</td>

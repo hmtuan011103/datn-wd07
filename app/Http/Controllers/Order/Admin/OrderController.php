@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Order\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Route;
 use App\Services\Order\OrderService;
 use Dompdf\Dompdf;
 use DateTime;
@@ -21,7 +22,8 @@ class OrderController extends Controller
     public function index(Request $request){
         $title = "Danh sách hóa đơn";
         $data = $this->orderService->index($request);
-        return view('admin.pages.order.main', compact('data','title'));
+        $routes = Route::all();
+        return view('admin.pages.order.main', compact('data','title','routes'));
     }
 
     public function details($id){
