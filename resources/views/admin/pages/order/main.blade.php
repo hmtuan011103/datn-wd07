@@ -26,40 +26,86 @@
                                 <div class="listjs-table" id="customerList">
                                     <div class="row g-4 mb-3">
                                         <div class="col-sm">
-                                            <div class="d-flex justify-content-sm-end">
+                                            {{-- <div class="d-flex justify-content-sm-end">
                                                 <div class="search-box ms-2">
                                                     <input type="text" class="form-control search"
                                                         placeholder="Search...">
                                                     <i class="ri-search-line search-icon"></i>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
+                                    </div>
+                                    <div class="filter-container pt-3 pb-3">
+                                        <div class="filter-group-inline">
+                                            <input class="form-control" id="code_bill" type="text" placeholder="Nhập mã hóa đơn">
+                                        </div>
+                                        <div class="filter-group-inline">
+                                            <input class="form-control" id="user_phone" type="text" placeholder="Nhập số điện thoại người mua">
+                                        </div>
+                                        <div class="filter-group-inline">
+                                            <select class="form-control" id="route" >
+                                                <option value="">-- Chọn tuyến đường --</option>
+                                                @foreach ($routes as $route)
+                                                    <option value="{{ strtolower($route->name) }}">{{ $route->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="filter-group-inline">
+                                            <select class="form-control" id="type_pay">
+                                                <option value="">-- Loại thanh toán --</option>
+                                                <option value="VNPAY">VNPAY</option>
+                                                <option value="MOMOPAY">MOMOPAY</option>
+                                                <option value="Tại quầy">Tại quầy</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="filter-group-inline">
+                                            <select class="form-control" id="status_pay">
+                                                <option value="">-- Trạng thái thanh toán --</option>
+                                                <option value="Đã thanh toán">Đã thanh toán</option>
+                                                <option value="Chưa thanh toán">Chưa thanh toán</option>
+                                            </select>
+                                        </div>
+                                        {{-- <div class="filter-group-inline">
+                                            <select class="form-control" id="date">
+                                                <option value="">-- Ngày mua --</option>                                             
+                                                <option value="{{ strtolower($carTypeName) }}">Hôm nay</option>
+                                                <option value="{{ strtolower($carTypeName) }}">Hôm qua</option>
+                                                <option value="{{ strtolower($carTypeName) }}">Tuần này</option>
+                                                <option value="{{ strtolower($carTypeName) }}">Tháng này</option>
+                                                <option value="{{ strtolower($carTypeName) }}">Hôm nay</option>
+                                            </select>
+                                        </div> --}}
+                                        
                                     </div>
                                     <div class="table-responsive table-card mt-3 mb-1">
                                         <table class="table align-middle table-nowrap" id="customerTable">
                                             <thead class="table-light">
                                                 <tr>
                                                     <th >Mã hóa đơn</th>
-                                                    <th class="sort" data-sort="trip_id">Chuyến</th>
-                                                    <th class="sort" data-sort="phone">Giá trị hóa đơn</th>
-                                                    <th class="sort" data-sort="phone">Loại thanh toán</th>
-                                                    <th class="sort" data-sort="phone">Trạng thái</th>
-                                                    <th class="sort" data-sort="phone">Ngày tạo</th>
-                                                    <th class="sort" data-sort="action">Hành động</th>
+                                                    <th >Chuyến</th>
+                                                    <th >Người mua</th>
+                                                    <th >Số điện thoại</th>
+                                                    <th >Giá trị hóa đơn</th>
+                                                    <th >Loại thanh toán</th>
+                                                    <th >Trạng thái</th>
+                                                    <th >Ngày tạo</th>
+                                                    <th >Hành động</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="list form-check-all">
 
                                                 @foreach ($data as $item)
-                                                    <tr id="row{{ $item->id }}">
-                                                        <td class="code_bill">{{ $item->code_bill }}</td>
+                                                    <tr id="row{{ $item->id }}" class="bill-row">
+                                                        <td >{{ $item->code_bill }}</td>
                                                         <td class="trip_id">{{ $item->trip->route->name }}</td>
+                                                        <td class="trip_id">{{ $item->user_name }}</td>
+                                                        <td class="trip_id">{{ $item->user_phone }}</td>
                                                         <td class="trip_id">
                                                             {{ number_format($item->total_money_after_discount, 0, ',', '.') }}đ
                                                         </td>
                                                         <td class="trip_id">{{ $item->type_pay === 1 ? 'VNPAY' : ( $item->type_pay === 2 ? "MOMOPAY" : "Tại quầy" ) }}</td>
-                                                        <td class="trip_id">
-                                                            {{ $item->status_pay === 1 ? 'Đã thanh toán' : '' }}</td>
+                                                        <td class="trip_id">{{ $item->status_pay === 1 ? 'Đã thanh toán' : 'Chưa thanh toán' }}</td>
                                                         <td class="trip_id">{{ helperFormatTime($item->created_at) }}</td>
                                                         <td>
                                                             <div class="d-flex gap-2">

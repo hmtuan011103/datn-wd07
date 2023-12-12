@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 class OrderService
 {
     public function index($request) {
-        $data = Bill::with('trip.route')->get();
+        $data = Bill::with('trip.route','user')->get();
         return $data;
     }
     public function details($id) {

@@ -14,11 +14,13 @@
                             <p class="fs-6 fw-semibold">Mã hóa đơn : <label id="code_order"></label></p>
                             <p class="fs-6 fw-semibold">Thời gian mua: <label id="time"></label></p>
                             <p class="fs-6 fw-semibold">Tên khách hàng: <label id="user"></label></p>
+                            <p class="fs-6 fw-semibold">Email: <label id="email"></label></p>
                         </div>
                         <div class="col-md-6">
                             <p class="fs-6 fw-semibold">Số vé : <label id="number_ticket"></label></p>
                             <p class="fs-6 fw-semibold">Loại thanh toán : <label id="type_pay"></label></p>
                             <p class="fs-6 fw-semibold">Trạng thái: <label id="status_pay"></label></p>
+                            <p class="fs-6 fw-semibold">SĐT: <label id="phone"></label></p>
                             {{-- <p class="fs-6 fw-semibold"><label id="user"></label></p> --}}
                         </div>
                         

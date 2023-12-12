@@ -101,7 +101,7 @@
                                                         @endforeach 
                                                         </td>
                                                         <td class="date">{{ $route->start_time }}</td>
-                                                        <td class="date">{{$route->trip_price}}</td>
+                                                        <td class="date">{{number_format($route->trip_price, 0, ',', '.')}}đ</td>
                                                         <td class="status">{{ $route->status == 1 ? 'Hoạt động' : 'Không hoạt động' }}</td>
                                                         <td>
                                                             <div class="d-flex gap-2">

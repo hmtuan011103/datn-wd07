@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Ticket\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Ticket\BaseTicketController;
+use App\Models\Ticket;
+use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -39,5 +41,36 @@ class TicketController extends BaseTicketController
     {
         $ticket_admin = $this->ticketService->search_ticket($request);
         return response()->json($ticket_admin);
+    }
+
+    public function export($codes){
+        $codeArray = explode(',', $codes);
+        $tickets = Ticket::whereIn('code_ticket',$codeArray)->with('bill.trip.route')->get();
+        foreach ($tickets as $key => $value) {
+            $dateTime = $value->bill->trip->start_date;
+            $time = $value->bill->trip->start_time;
+            $dateFormatted = date("d/m/Y", strtotime($dateTime));
+            $timeFormatted = date("H:i:s", strtotime($time));
+            $dateTimeFormatted = $timeFormatted . " " . $dateFormatted;
+            $tickets[$key]['time_start'] = $dateTimeFormatted;
+            $ticket_ud = Ticket::find($value->id);
+            if ($value->status != 1) {
+                unset($tickets[$key]);
+            }
+            if ($ticket_ud->status == 1) {
+                $ticket_ud->status = 0;
+                $ticket_ud->save();
+            }
+        }
+        $number_ticket = count($tickets);
+        $length = $number_ticket*490;
+        $dompdf = new Dompdf();
+        // return view('admin.pages.search-bill.pdf',compact('tickets'));
+        $html = view('admin.pages.search-bill.pdf', compact('tickets','number_ticket'))->render();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper([0, 0, 300, $length]);
+        $dompdf->render();
+        $dompdf->stream('vexe.pdf');
+
     }
 }
