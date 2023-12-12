@@ -133,4 +133,12 @@
         transition: background-color 0.3s ease, color 0.3s ease; /* Hiệu ứng chuyển động */
         display: inline-block; /* Cho phép đặt kích thước và padding */
     }
+    .no-discount-message {
+        margin-left: 36%;
+        font-size: 18px;
+        color: #555;
+        font-weight: bold;
+        margin-top: 10px;
+        display: inline-block; /* Để lồng vào bên trong discountContainer */
+    }
 </style>

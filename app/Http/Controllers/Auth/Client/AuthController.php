@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Auth\Client;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Jobs\SendDiscountEmail;
 use App\Models\Bill;
 use App\Models\DiscountCode;
 use App\Models\User;
@@ -13,6 +14,11 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\DiscountNotification;
+use Illuminate\Support\Facades\Cache;
+use Carbon\Carbon;
+
 
 class AuthController extends Controller
 {
@@ -148,8 +154,38 @@ class AuthController extends Controller
         $totalSeats = DB::table('bills')
             ->where('user_id', $userData->id)
             ->sum('total_seats');
-
         $userData->total_seats = $totalSeats;
+        // Nếu chưa gửi và số ghế lớn hơn 1, gửi email và đặt trạng thái đã gửi
+
+        if ($totalSeats >= 1 && $userData->email_sent_count === 0) {
+
+            $discount = DiscountCode::where('code', 'CHIENTHANGVIP1')->first();
+            $vip = 'VIP 1';
+            SendDiscountEmail::dispatch($userData, $totalSeats,$discount,$vip);
+            // Cập nhật cờ trạng thái đã gửi trong bảng người dùng
+            $userData->increment('email_sent_count');
+        }
+        if ($totalSeats >= 10 && $userData->email_sent_count === 1) {
+            $discount = DiscountCode::where('code', 'CHIENTHANGVIP2')->first();
+            $vip = 'VIP 2';
+            SendDiscountEmail::dispatch($userData, $totalSeats,$discount,$vip);
+            // Cập nhật cờ trạng thái đã gửi trong bảng người dùng
+            $userData->increment('email_sent_count');
+        }
+        if ($totalSeats >= 20 && $userData->email_sent_count === 2) {
+            $discount = DiscountCode::where('code', 'CHIENTHANGVIP3')->first();
+            $vip = 'VIP 3';
+            SendDiscountEmail::dispatch($userData, $totalSeats,$discount,$vip);
+            // Cập nhật cờ trạng thái đã gửi trong bảng người dùng
+            $userData->increment('email_sent_count');
+        }
+        if ($totalSeats >= 30 && $userData->email_sent_count === 3) {
+            $discount = DiscountCode::where('code', 'CHIENTHANGVIP4')->first();
+            $vip = 'VIP 4';
+            SendDiscountEmail::dispatch($userData, $totalSeats,$discount,$vip);
+            // Cập nhật cờ trạng thái đã gửi trong bảng người dùng
+            $userData->increment('email_sent_count');
+        }
 
         return response()->json([
             "status" => true,
@@ -169,34 +205,49 @@ class AuthController extends Controller
 
     public function discount()
     {
-        $userData = auth()->user();
+        try {
+            $userData = auth()->user();
+            $totalSeats = DB::table('bills')
+                ->where('user_id', $userData->id)
+                ->sum('total_seats');
 
-        $totalSeats = DB::table('bills')
-            ->where('user_id', $userData->id)
-            ->sum('total_seats');
+            $usedDiscounts = DB::table('bills')
+                ->where('user_id', $userData->id)
+                ->whereNotNull('discount_code_id')
+                ->pluck('discount_code_id');
 
-        $usedDiscounts = DB::table('bills')
-            ->where('user_id', $userData->id)
-            ->whereNotNull('discount_code_id')
-            ->pluck('discount_code_id');
+            $currentDateTime = Carbon::now();
 
-        $allDiscounts = DiscountCode::all();
+            $allDiscounts = DiscountCode::query()
+                ->where('start_time', '<=', $currentDateTime)
+                ->where('end_time', '>=', $currentDateTime)
+                ->where('quantity', '>', 0)
+                ->get();
 
-        // Chuyển đổi collection thành mảng
-        $unusedDiscounts = $allDiscounts->reject(function ($discount) use ($usedDiscounts) {
-            return in_array($discount->id, $usedDiscounts->toArray());
-        })->toArray();
+            // Chuyển đổi collection thành mảng
+            $unusedDiscounts = $allDiscounts->reject(function ($discount) use ($usedDiscounts) {
+                return in_array($discount->id, $usedDiscounts->toArray());
+            })->toArray();
 
-        $combinedData = [
-            'total_seats' => $totalSeats,
-            'discounts' => $unusedDiscounts,
-        ];
+            $combinedData = [
+                'total_seats' => $totalSeats,
+                'discounts' => $unusedDiscounts,
+            ];
 
-        return response()->json([
-            "status" => true,
-            "message" => "List of discounts and total seats",
-            "data" => $combinedData
-        ]);
+
+            return response()->json([
+                "status" => true,
+                "message" => "List of discounts and total seats",
+                "data" => $combinedData
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Error sending email: ' . $e->getMessage());
+            return response()->json([
+                "status" => false,
+                "message" => "An error occurred but the process continued: " . $e->getMessage(),
+                "data" => null
+            ]);
+        }
     }
     public function getAllPhone()
     {

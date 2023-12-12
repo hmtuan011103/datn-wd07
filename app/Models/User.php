@@ -32,7 +32,8 @@ class User extends Authenticatable implements JWTSubject, CanResetPasswordContra
         'description',
         'created_at',
         'updated_at',
-        'location'
+        'location',
+        'email_sent_flag',
     ];
 
     /**

@@ -149,7 +149,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="email_Profile" class="text-gray">Email</label>
-                                    <input class="form-control" id="email_Profile" type="text" value="" readonly>
+
+                                    <input class="form-control" id="email_Profile" type="text" value="" readonly="true" style="background-color: #cbc7c7;">
                                 </div>
                                 <div class="form-group">
                                     <label for="location_Profile" class="text-gray">Địa chỉ</label>
