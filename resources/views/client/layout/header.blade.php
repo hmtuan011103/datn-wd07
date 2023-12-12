@@ -22,12 +22,14 @@
             padding: 0 20px;
             border-radius: 50%;
             transition: all 0.3s;
+            color: #ffffff;
         }
         #prevArrowLimited:hover{
             color: #ffffff;
             background-color: rgba(0,0,0,0.3);
         }
         #nextArrowLimited{
+            color: #ffffff;
             position: absolute;
             z-index: 999;
             right: 40px;

@@ -40,22 +40,24 @@ $('.btn-execute-code-discount').on('click', async (e) => {
                     const moneyAfterReduce = (totalBeforeFirst * informationCode.value) / 100;
                     const value = totalBeforeFirst - moneyAfterReduce;
                     const moneyTurn = $('input[name="money_turn"]');
-                    const moneyReturn = $('input[name="money_return"]').val();
-                    if(moneyReturn === ""){
+                    const moneyReturn = $('input[name="money_return"]');
+                    if(moneyReturn.val() === ""){
                         moneyTurn.val(value);
                     }
                     $('.value_discount_fill').text(`-${informationCode.value}%`);
                     $('.total_money_final').text(value.toLocaleString("vi-VN"));
+                    $('input[name="discount_code_id"]').val(informationCode.id);
                 }
                 if (informationCode.id_type_discount_code === 2) {
                     const value = totalBeforeFirst - informationCode.value;
                     const moneyTurn = $('input[name="money_turn"]');
-                    const moneyReturn = $('input[name="money_return"]').val();
-                    if(moneyReturn === ""){
+                    const moneyReturn = $('input[name="money_return"]');
+                    if(moneyReturn.val() === ""){
                         moneyTurn.val(value);
                     }
                     $('.value_discount_fill').text(`-${(informationCode.value).toLocaleString("vi-VN")}đ`);
                     $('.total_money_final').text(value.toLocaleString("vi-VN"));
+                    $('input[name="discount_code_id"]').val(informationCode.id);
                 }
             }
         } catch (error) {
@@ -83,12 +85,13 @@ $('.discount_code_value').on('input', function (){
         const discountCode = $(this).val().trim();
         if (discountCode === "") {
             const moneyTurn = $('input[name="money_turn"]');
-            const moneyReturn = $('input[name="money_return"]').val();
-            if(moneyReturn === ""){
+            const moneyReturn = $('input[name="money_return"]');
+            if(moneyReturn.val() === ""){
                 moneyTurn.val(totalBeforeFirst);
             }
             $('.value_discount_fill').text('0');
             $('.total_money_final').text(`${totalBeforeFirst.toLocaleString("vi-VN")}`);
+            $('input[name="discount_code_id"]').val("");
             $("#overlay").fadeOut(300);
             return;
         }
@@ -103,12 +106,13 @@ $('.discount_code_value').on('input', function (){
             const { data } = result;
             if (data.length === 0 || data.length === 1) {
                 const moneyTurn = $('input[name="money_turn"]');
-                const moneyReturn = $('input[name="money_return"]').val();
-                if(moneyReturn === ""){
+                const moneyReturn = $('input[name="money_return"]');
+                if(moneyReturn.val() === ""){
                     moneyTurn.val(totalBeforeFirst);
                 }
                 $('.value_discount_fill').text('0');
                 $('.total_money_final').text(`${totalBeforeFirst.toLocaleString("vi-VN")}`);
+                $('input[name="discount_code_id"]').val("");
             }
         } catch (error) {
             console.error('Lỗi khi gọi API:', error);

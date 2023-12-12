@@ -41,6 +41,7 @@ class DiscountCodeService
             $currentDateTime = Carbon::now();
             $discount = DiscountCode::query()
                 ->whereRaw('BINARY code = ?', [$code])
+                ->where('quantity', '>', 0)
                 ->where('start_time', '<=', $currentDateTime)
                 ->where('end_time', '>=', $currentDateTime)
                 ->get();

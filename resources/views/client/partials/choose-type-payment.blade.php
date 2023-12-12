@@ -123,6 +123,9 @@
                 @method('post')
                 @csrf
                 <input type="hidden" hidden value="{{ $userId }}" name="client_login">
+                <input type="hidden" hidden value="" name="discount_code_id">
+                <input type="hidden" hidden value="{{ $moneyTurn }}" name="total_turn_not_reduce">
+                <input type="hidden" hidden value="{{ $moneyReturn }}" name="total_return_not_reduce">
                 <input type="hidden" hidden value="{{ $nameUser }}" name="name">
                 <input type="hidden" hidden value="{{ $phoneUser }}" name="email">
                 <input type="hidden" hidden value="{{ $emailUser }}" name="phone">

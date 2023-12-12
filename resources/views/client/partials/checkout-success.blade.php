@@ -43,12 +43,30 @@
             </div>
             <div class="col-md-6 text-user">
                 <div class="detail-user-one">
+                    @php
+                        use \App\Models\DiscountCode;
+                        $valueDiscount = DiscountCode::query()->where('id', $data['discount_code_id'])->first();
+                    @endphp
+                    @if($valueDiscount)
+                        <p class="label-infor">Tổng tiền giá vé : </p>
+                    @endif
                     <p class="label-infor">Tổng tiền đã thanh toán : </p>
                     <p class="label-infor">PTTT : </p>
                     <p class="label-infor">Trạng thái : </p>
                 </div>
                 <div class="detail-user-two">
-                    <p class="label-user">{{ number_format($totalMoney, 0, '.', '.') }}đ</p>
+                        @if($valueDiscount)
+                            <p class="label-user">{{ number_format($data['total_money'], 0, '.', '.') ."đ" }}</p>
+                        @endif
+                        <p class="label-user">
+                        {{ number_format($totalMoney, 0, '.', '.') }}đ
+                        {{ $valueDiscount ? " ( Đã giảm giá " : "" }}
+                        {{
+                            $valueDiscount ? ( $valueDiscount->value > 100 ?
+                            number_format($valueDiscount->value, 0, '.', '.') . "đ )" :
+                            $valueDiscount->value . "% )" ) : ""
+                        }}
+                    </p>
                     <p class="label-user">{{ $type_pay == 1 ? "VNPAY" : ( $type_pay == 2 ? "MOMO" : "Thanh toán trực tiếp") }}</p>
                     <p class="label-user pttt">Đã thanh toán</p>
                 </div>

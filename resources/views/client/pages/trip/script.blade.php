@@ -204,8 +204,12 @@
 
 </script>
 <script>
-        function redirectToSelectSeat(button) {
+    function redirectToSelectSeat(button) {
+        $("#overlay").fadeIn(300);
         const tripTurn = button.getAttribute('data-turn');
         window.location.href = `/chon-ghe?trip_turn=${tripTurn}`;
+        window.onload = function() {
+            $("#overlay").fadeOut(300);
+        };
     }
 </script>
