@@ -1,11 +1,11 @@
 <div class="content-container-right ps-4 w-70"  style="display:none" id="searchresulttrue">
     <p class="title-trip-found fs-20 fw-medium bg-white ps-4 py-3" id="start_end"><span id="total_trip"></span></p>
 
-    <div id="type_ticket_two">
+    <div id="type_ticket_two" style="background-color: #ffffff; box-shadow: 0 3px 3px rgba(56,65,74,.1);">
 
     </div>
 
-    <div id="searchresults">
+    <div id="searchresults" style="background-color: #ffffff; box-shadow: 0 3px 3px rgba(56,65,74,.1)">
 
     </div>
 </div>

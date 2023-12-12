@@ -102,11 +102,11 @@ class TripController extends BaseTripController
         $id_user = Auth::user()->id;
         $id_type_user = Auth::user()->user_type_id;
         $type_user = TypeUser::where('id', $id_type_user)->first();
-        if ($type_user->name == 'Tài xế') {
+        if ($type_user->id === 4) {
             $title = 'Lịch trình dành cho ' . $type_user->name;
             $trip = Trip::select('id', 'start_date', 'start_time', 'start_location', 'end_location', 'interval_trip')->where('drive_id', '=', $id_user)->get();
         }
-        if ($type_user->name == 'Phụ xe') {
+        if ($type_user->id === 5) {
             $title = 'Lịch trình dành cho ' . $type_user->name;
             $trip = Trip::select('id', 'start_date', 'start_time', 'start_location', 'end_location', 'interval_trip')->where('assistantCar_id', '=', $id_user)->get();
         }
@@ -121,11 +121,11 @@ class TripController extends BaseTripController
             $type_user = TypeUser::where('id', $id_type_user)->first();
             // $trip = Trip::select('id', 'start_date', 'start_time', 'start_location', 'end_location', 'interval_trip')->where('drive_id', '=', $id_user)->get();
             // $title = 'Lịch trình dành cho ' . $type_user->name;
-            if ($type_user->name == 'Tài xế') {
+            if ($type_user->id === 4) {
                 $title = 'Lịch trình dành cho ' . $type_user->name;
                 $trip = Trip::select('id', 'start_date', 'start_time', 'start_location', 'end_location', 'interval_trip')->where('drive_id', '=', $id_user)->get();
             }
-            if ($type_user->name == 'Phụ xe') {
+            if ($type_user->id === 5) {
                 $title = 'Lịch trình dành cho ' . $type_user->name;
                 $trip = Trip::select('id', 'start_date', 'start_time', 'start_location', 'end_location', 'interval_trip')->where('assistantCar_id', '=', $id_user)->get();
             }

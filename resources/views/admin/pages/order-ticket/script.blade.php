@@ -340,7 +340,7 @@
         }
         addDataToCookieArray(jsonData)
         var queryString = Object.keys(jsonData).map(key => key + '=' + encodeURIComponent(jsonData[key])).join('&');
-        window.location.href = link + 'manage/order-ticket/' + 'search' + queryString;
+        window.location.href = link + 'manage/order-ticket/' + 'search?' + queryString;
     }
 
     function getDataFromCookieArray() {
@@ -725,8 +725,8 @@
 
                 tripstart.addEventListener('click', function() {
                     currentpagetrip = 'start';
-                    tripstart.style.borderBottom = '3px solid red';
-                    tripstart.style.color = 'red';
+                    tripstart.style.borderBottom = '3px solid #4B38B3';
+                    tripstart.style.color = '#4B38B3';
                     tripend.style.borderBottom = '1px solid rgba(130, 122, 122, 0.823)';
                     tripend.style.color = 'black';
                     document.getElementById('searchresults').innerHTML = '';
@@ -767,12 +767,12 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <p class="mb-0 pe-3 fw-medium">${item.start_time.slice(0, -3)}</p>
                                 <img src="{{ asset('client/assets/images/start_place.svg') }}" alt="">
-                                <span class="border-dotted"></span>
+                                <span class="border-dotted-search"></span>
                                 <div class="ta-center show-time-run">
                                     <p class="fw-medium mb-0">${parseInt(item.interval_trip.substring(0, 2))} giờ</p>
                                     <p class="fs-13 fw-medium">(Asian/Ho Chi Minh)</p>
                                 </div>
-                                <span class="border-dotted"></span>
+                                <span class="border-dotted-search"></span>
                                 <img src="{{ asset('client/assets/images/end_place.svg') }}" alt="">
                                 <p class="mb-0 ps-3 fw-medium">${calculateEndTime(item.start_time,item.interval_trip)}</p>
                             </div>
@@ -813,8 +813,8 @@
                 tripend.addEventListener('click', function() {
 
                     currentpagetrip = 'end';
-                    tripend.style.borderBottom = '3px solid red';
-                    tripend.style.color = 'red';
+                    tripend.style.borderBottom = '3px solid #4B38B3';
+                    tripend.style.color = '#4B38B3';
                     tripstart.style.borderBottom = '1px solid rgba(130, 122, 122, 0.823)';
                     tripstart.style.color = 'black';
                     var count0006 = datafilter[1].filter(item => item.start_time > '00:00:00' && item
@@ -862,12 +862,12 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <p class="mb-0 pe-3 fw-medium">${item.start_time.slice(0, -3)}</p>
                                     <img src="{{ asset('client/assets/images/start_place.svg') }}" alt="">
-                                    <span class="border-dotted"></span>
+                                    <span class="border-dotted-search"></span>
                                     <div class="ta-center show-time-run">
                                         <p class="fw-medium mb-0">${parseInt(item.interval_trip.substring(0, 2))} giờ</p>
                                         <p class="fs-13 fw-medium">(Asian/Ho Chi Minh)</p>
                                     </div>
-                                    <span class="border-dotted"></span>
+                                    <span class="border-dotted-search"></span>
                                     <img src="{{ asset('client/assets/images/end_place.svg') }}" alt="">
                                     <p class="mb-0 ps-3 fw-medium">${calculateEndTime(item.start_time,item.interval_trip)}</p>
                                 </div>
@@ -959,7 +959,7 @@
 
     function redirectToSelectSeat(button) {
         const tripTurn = button.getAttribute('data-turn');
-        window.location.href = `select-seat?trip_turn=${tripTurn}`;
+        window.location.href =  `${link}manage/order-ticket/select-seat?trip_turn=${tripTurn}`;
     }
 
     function handleClick(button, event) {
@@ -996,7 +996,7 @@
                 selectedButtons[1].setAttribute('data-turn', b1);
                 selectedButtons[1].setAttribute('data-return', b2);
                 localStorage.removeItem("buttontrip")
-                window.location.href = `/select-seat?trip_turn=${b1}&trip_return=${b2}`;
+                window.location.href = `${link}manage/order-ticket/select-seat?trip_turn=${b1}&trip_return=${b2}`;
             } else {
                 buttonselected = document.querySelector(
                     `.buttontrip[data-id="${localStorage.getItem('buttontrip')}"]`

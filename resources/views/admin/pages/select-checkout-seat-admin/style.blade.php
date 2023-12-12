@@ -4,6 +4,28 @@
         color: #ff4d4f;
         font-size: 14px;
     }
+    .justify-content-between {
+        margin-bottom: 10px;
+    }
+    .border-bottom-4 {
+        border-bottom: 4px solid #E5E5E5;
+    }
+    .place-turning-returning {
+        margin-top: 20px;
+        border-top: 1px solid #ccc;
+        padding-top: 20px;
+    }
+    .border-bottom-1-seats {
+        padding-top: 20px;
+        border-top: 1px solid #CCD;
+        margin-top: 30px;
+    }
+    .border-top-1 {
+        border-top: 1px solid #ccc;
+    }
+    .border-right-2 {
+        border-right: 2px solid #ccc;
+    }
     .form-check-input:checked {
         border-color: #ff4d4f;
     }

@@ -5,7 +5,7 @@
     <div class="banner-index d-flex position-relative align-items-center rounded-4" id="banner-to-home">
         @foreach($banners as $banner)
             <div>
-                <img src="{{ asset($banner->image) }}" alt="" class="w-100 rounded-4 d-block">
+                <img src="{{ asset($banner->image) }}" alt="" height="250px" style="object-fit: cover" class="w-100 rounded-4 d-block">
             </div>
         @endforeach
     </div>

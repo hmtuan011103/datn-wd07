@@ -3,8 +3,8 @@
 <style>
     #showtripstart{
         cursor: pointer;
-        border-bottom: 3px solid red;
-        color: red;
+        border-bottom: 3px solid #4B38B3;
+        color: #4B38B3;
     }
     #showtripend{
         cursor: pointer;

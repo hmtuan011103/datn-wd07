@@ -4,7 +4,7 @@
 
 @include('client.partials.form-search')
 
-@include('client.partials.sale-outstanding')
+{{--@include('client.partials.sale-outstanding')--}}
 
 @include('client.partials.route-poplular')
 

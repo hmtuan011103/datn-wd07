@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div class="p-4 pt-0 d-flex justify-content-between align-items-center">
+            <div class="p-4 pt-0 d-flex justify-content-between align-items-center mt-4">
                 <div id="total-detail-price-trip-checkout">
                     {{-- In ra tổng tiền cần thanh toán --}}
                 </div>
