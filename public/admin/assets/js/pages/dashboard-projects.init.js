@@ -16,7 +16,6 @@ function dataChart(data) {
     return value / 1000;
   });
   
-  console.log(datarevenue)
   function getChartColorsArray(e) {
     if (null !== document.getElementById(e)) {
       var t = document.getElementById(e).getAttribute("data-colors");

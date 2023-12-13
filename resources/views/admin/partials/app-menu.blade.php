@@ -243,6 +243,12 @@
                                                 <span>Xe</span>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link menu-link" href="{{ route('statistics.revenue') }}"
+                                                role="button">
+                                                <span>Doanh thu - Số chuyến</span>
+                                            </a>
+                                        </li>
 
                                         {{-- <li class="nav-item">
                                             <a class="nav-link menu-link" href="{{ route('statistics.user') }}"

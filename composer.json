@@ -11,6 +11,7 @@
         "php": "^8.1",
         "barryvdh/laravel-dompdf": "^2.0",
         "brian2694/laravel-toastr": "^5.57",
+        "consoletvs/charts": "^6.6",
         "dompdf/dompdf": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",

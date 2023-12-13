@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\Client\AuthController;
 use App\Http\Controllers\Home\Admin\HomeController;
 use App\Http\Controllers\Locations\Client\LocationController as ClientLocationController;
+use App\Http\Controllers\Statistic\Admin\StatisticController;
 use App\Http\Controllers\Ticket\Admin\TicketController as AdminTicketController;
 use App\Http\Controllers\Ticket\Client\TicketController;
 use App\Http\Controllers\Trip\Admin\TripController as AdminTripController;
@@ -89,4 +90,6 @@ Route::post('/getCarDriver', [AdminTripController::class, 'getCarDriver'])->name
 
 Route::post('/get_available_drivers', [AdminTripController::class, 'get_available_drivers'])->name('get_available_drivers');
 
+Route::post('/getFilter', [StatisticController::class, 'getRevenue'])->name('getRevenue');
 
+Route::get('/getRevenueData', [StatisticController::class, 'getRevenueData'])->name('getRevenueData');
