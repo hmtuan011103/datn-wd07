@@ -88,20 +88,22 @@
 
                                             </div>
                                              --}}
-                                             <div class="filter-group-inline button">
+                                            <div class="filter-group-inline button">
                                                 <label for="destination"></label>
-                                                <button type="submit" class="btn btn-success click-button" id="searchButton">Tìm kiếm</button>
+                                                <button type="submit" class="btn btn-success click-button"
+                                                    id="searchButton">Tìm kiếm</button>
                                             </div>
-                                          
-                                        <div class="filter-group-inline button">
-                                            <label for="destination"></label>
-                                            <a href="{{ route('list_trip') }}">
-                                                <button type="button" class="btn btn-warning click-button">Tất cả</button>
-                                            </a>
-                                        </div>
+
+                                            <div class="filter-group-inline button">
+                                                <label for="destination"></label>
+                                                <a href="{{ route('list_trip') }}">
+                                                    <button type="button" class="btn btn-warning click-button">Tất
+                                                        cả</button>
+                                                </a>
+                                            </div>
                                         </div>
                                     </form>
-                                   
+
 
                                     <div class="table-responsive table-card mt-3 mb-1">
                                         <table class="table align-middle table-nowrap" id="customerTable">
@@ -171,13 +173,13 @@
                                                                     </div>
                                                                 @endif
                                                                 @if ($trip->canDelete == true)
-                                                                  
                                                                     <div class="remove">
                                                                         {{-- <a href="{{ route('delete_role', ['id' => $role->id]) }}"
                                                                             onclick="return confirm('Bạn có chắc chắn muốn xóa Vai trò này')"> </a> --}}
                                                                         <button class="btn btn-sm btn-danger btn-remove"
                                                                             {{-- data-bs-toggle="modal" data-bs-target="#modalDelete" data-role-id="{{ $role->id }}" --}}
-                                                                            onclick="confirmDelete({{$trip->id}})" ><i class="bx bx-trash"></i></button>
+                                                                            onclick="confirmDelete({{ $trip->id }})"><i
+                                                                                class="bx bx-trash"></i></button>
                                                                     </div>
                                                                 @endif
 

@@ -1,3 +1,5 @@
+@extends('admin.pages.statistic.index')
+@section('content')
 <div class="main-content">
     <div class="page-content">
         <div class="container-fluid">
@@ -51,7 +53,7 @@
             </div>
 
             <div class="row mx-auto">
-                <div class="col-xl-4 col-lg-6 p-0">
+                {{-- <div class="col-xl-4 col-lg-6 p-0">
                     <div class="card">
                         <div class="row p-3">
                             <div class="card-height-100">
@@ -67,7 +69,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="col p-0 px-lg-4">
                     <div class="card card-height-100">
@@ -105,3 +107,4 @@
             </div>
         </div>
     </div>
+    @endsection

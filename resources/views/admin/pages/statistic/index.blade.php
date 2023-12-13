@@ -4,13 +4,13 @@
     @include('admin.pages.statistic.style')
 @endsection
 
-@section('content')
+{{-- @section('content')
     @if (isset($pageViewInfo))
         @include($pageViewInfo)
     @else
         @include('admin.pages.statistic.main')
     @endif
-@endsection
+@endsection --}}
 
 @section('script')
     @include('admin.pages.statistic.script')
