@@ -168,7 +168,7 @@ yaxis: {
         var filter = document.getElementById('filter').value;
         var label = valueToNameMap[filter];
 
-    
+
 
 
         fetch('/api/getFilter', {
@@ -179,7 +179,7 @@ yaxis: {
                 },
                 body: JSON.stringify({
                     filter: filter,
-                  
+
                 })
             })
             .then(response => response.json())
@@ -251,7 +251,7 @@ yaxis: {
             '365_days': '365 ngày'
         };
 
-       
+
 
         var startDate = document.getElementById('start_date').value;
         var endDate = document.getElementById('end_date').value;
@@ -711,7 +711,7 @@ yaxis: {
                 data.forEach(item => {
                     revenueData[item.month - 1] = item.total;
                     tripData[item.month - 1] = item.total_trips;
-                    
+
                 });
 
                 // Gọi hàm để cập nhật hoặc vẽ biểu đồ mới
@@ -770,7 +770,6 @@ yaxis: {
 
             myChart.update();
         } else {
-            console.log("Tuấn "+revenueData);
             myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -828,7 +827,7 @@ yaxis: {
         var startDate = document.getElementById('start_date').value;
         var endDate = document.getElementById('end_date').value;
 
-        if (startDate !== '' && endDate !== '') {
+        if (startDate !== '' && endDate !== '' && startDate <= endDate ) {
             fetch('/api/getFilter', {
                     method: 'POST',
                     headers: {
@@ -848,6 +847,32 @@ yaxis: {
 
                     updateChart(labels, revenueData, tripData, false); // Gọi hàm để vẽ biểu đồ cột ghép
 
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        } else {
+            var currentYear = document.querySelector('#yearSelect').value;
+            fetch('/api/getRevenueData?year=' + currentYear)
+                .then(response => response.json())
+                .then(data => {
+                    var labels = Array.from({
+                        length: 12
+                    }, (_, index) => 'Tháng ' + (index + 1));
+
+                    var revenueData = Array(12).fill(0);
+
+                    var tripsData = Array(12).fill(0);
+
+
+                    data.forEach(item => {
+
+                        revenueData[item.month - 1] = item.total;
+                        tripsData[item.month - 1] = item.total_trips;
+                    });
+
+                    // Gọi hàm để tạo biểu đồ ban đầu khi trang được tải
+                    updateChart(labels, revenueData, tripsData, false);
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -882,14 +907,12 @@ yaxis: {
             });
     });
 
-    
+
     window.onload = function() {
         var currentYear = document.querySelector('#yearSelect').value;
-        console.log(currentYear);
         fetch('/api/getRevenueData?year=' + currentYear)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 var labels = Array.from({
                     length: 12
                 }, (_, index) => 'Tháng ' + (index + 1));
@@ -904,9 +927,6 @@ yaxis: {
                     revenueData[item.month - 1] = item.total;
                     tripsData[item.month - 1] = item.total_trips;
                 });
-                console.log(revenueData);
-                console.log(tripsData);
-
 
                 // Gọi hàm để tạo biểu đồ ban đầu khi trang được tải
                 updateChart(labels, revenueData, tripsData, false);

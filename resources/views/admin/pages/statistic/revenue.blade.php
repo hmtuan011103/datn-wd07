@@ -37,13 +37,13 @@
                     </div><!-- end row -->
 
                     <div class="row rowData">
-                        
+
                         <div class="col-xl-12">
                             <div class="text-center pb-2 pt-3" >
                                 <h3>Doanh thu - Số chuyến</h3>
                             </div>
                             <div class="form mb-3" >
-                               
+
                                 <div class="form-data">
                                     {{-- <div class="filter">
                                         <label for="">Lọc:</label>
@@ -55,7 +55,7 @@
                                             <option value="365_days">365 ngày</option>
                                         </select>
                                     </div> --}}
-                                
+
 
 
                                     <div class="filter">
@@ -87,13 +87,12 @@
                                     </div>
 
                                 </div>
-                                
+
                                 <div class="form-bottom">
 
                                 </div>
                             </div><!-- end card -->
-                            <canvas id="revenueChart"></canvas>
-                            <canvas id="revenueDay"></canvas>
+                            <canvas id="revenueChart" height="100"></canvas>
 
 
 
