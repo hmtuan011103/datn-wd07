@@ -146,6 +146,7 @@ class CheckoutController extends Controller
                 $valueDiscount = DiscountCode::query()
                     ->where('id', $cacheData['discount_code_id'])->first();
                 $valueDiscount->quantity--;
+                $valueDiscount->quantity_used++;
                 $valueDiscount->save();
             }
             SendMailCheckOutSuccess::dispatch($bill->user_name, $bill->code_bill, $bill->trip_id, $startLocation->name, $endLocation->name, implode(', ', $seatsTurnArray), $bill->user_email);

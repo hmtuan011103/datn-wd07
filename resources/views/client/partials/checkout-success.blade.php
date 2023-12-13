@@ -78,8 +78,8 @@
                     <div class="col-xl-3 col-lg-4 col-md-6 col-xs-12 mb-3">
                         <div class="detail-ticket">
                             <p class="text-center fw-bold">Mã vé: {{ $item->code_ticket }}</p>
-                            <div class="logo-qr-turn d-flex justify-content-center mb-3" data-code="{{ $item->code_ticket }}">
-                            </div>
+{{--                            <div class="logo-qr-turn d-flex justify-content-center mb-3" data-code="{{ $item->code_ticket }}">--}}
+{{--                            </div>--}}
                             <div class=" order-ticket">
                                 <div class="column-ticket text ps-2">
                                     <p>Tên tuyến</p>
@@ -186,7 +186,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('client/assets/js/url-config.js') }}"></script>
-    <script src="{{ asset('client/assets/js/qr-code.js') }}"></script>
+{{--    <script src="{{ asset('client/assets/js/qr-code.js') }}"></script>--}}
     <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script type="text/javascript">

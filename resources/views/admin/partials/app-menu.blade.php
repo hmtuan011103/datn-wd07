@@ -17,7 +17,7 @@
                         <img src={{ asset('admin/assets/images/logo-sm.png') }} alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src={{ asset('admin/assets/images/logo-light.png') }} alt="" height="17">
+                        <img src={{ asset('client/assets/images/logo_web.png') }} alt="" height="17">
                     </span>
                 </a>
                 <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"

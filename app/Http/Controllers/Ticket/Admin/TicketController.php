@@ -62,6 +62,10 @@ class TicketController extends BaseTicketController
                 $ticket_ud->save();
             }
         }
+        if(count($tickets) == 0) {
+            toastr('error', "Vé đã được checkin");
+            return redirect()->back();
+        }
         $number_ticket = count($tickets);
         $length = $number_ticket*490;
         $dompdf = new Dompdf();
@@ -71,6 +75,5 @@ class TicketController extends BaseTicketController
         $dompdf->setPaper([0, 0, 300, $length]);
         $dompdf->render();
         $dompdf->stream('vexe.pdf');
-
     }
 }
