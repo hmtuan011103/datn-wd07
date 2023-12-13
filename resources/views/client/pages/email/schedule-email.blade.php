@@ -92,13 +92,13 @@
     <div class="content">
         <div class="booking-details">
             <h2>Xin chào, {{ $name }}!</h2>
-            <p class="p-0">Chúc mừng bạn!
-                Chúng tôi trân trọng thông báo rằng bạn vừa nhận được một mã Ưu đãi giảm giá Đặc biệt từ chúng tôi,
-                Hãy nhanh tay sử dụng mã giảm giá đặc biệt này khi thanh toán để có thể có cho mình một mức giá hợp ưu đãi nhất khi đặt vé.
-                Đừng bỏ lỡ cơ hội, vì mã giảm giá chỉ có giá trị trong thời gian ngắn.
-                Cảm ơn bạn đã ủng hộ chúng tôi và chúc bạn có một trải nghiệm vui vẻ cùng với Chiến Thắng!
-                Trân trọng,
-                [CHIẾN THẮNG BUS]
+            <p class="p-0">Xin chúc mừng! Bạn vừa nhận được một mã ưu đãi đặc biệt từ chúng tôi.
+                Đừng bỏ lỡ cơ hội để sử dụng mã giảm giá này khi thanh toán và tận hưởng mức giá ưu đãi đặc biệt cho hành trình của mình.
+                Hãy nhanh tay, vì mã giảm giá chỉ có hiệu lực trong thời gian ngắn.
+            </p>
+            <p class="p-0">  Cảm ơn bạn đã lựa chọn Chiến Thắng Bus và chúc bạn có một chuyến đi thú vị!
+            </p>
+            <p class="p-0">    Trân trọng, [CHIẾN THẮNG BUS]"
             </p>
         </div>
     </div>

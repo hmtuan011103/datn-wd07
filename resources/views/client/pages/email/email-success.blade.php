@@ -95,9 +95,11 @@
                 Với đặc quyền {{$Vip}}, bạn sẽ nhận được ưu đãi đặc biệt là một mã giảm giá {{$valuediscount}}{{$type_discount}}
 
                 Hãy tiếp tục đồng hành cùng chúng tôi, và chúng tôi hy vọng rằng đặc quyền {{$Vip}} sẽ làm cho mọi trải nghiệm của bạn trở nên đặc biệt và không quên được.
-
+            </p>
+            <p class="p-0">
                 Cảm ơn bạn một lần nữa và chúc mừng vì đã đạt được mốc quan trọng này!
-
+            </p>
+            <p class="p-0">
                 Trân trọng,
                 [CHIẾN THẮNG BUS]
             </p>

@@ -36,7 +36,7 @@
                     email_Profile.setAttribute('readonly', 'true');
 
                     // Gán giá trị "total_seats" vào biến initialValue
-                    initialValue = data.data.total_seats || initialValue;
+                    initialValue = data.totalSeats || initialValue;
 
                     // Cập nhật thanh tiến trình
                     const maxValue = 38;

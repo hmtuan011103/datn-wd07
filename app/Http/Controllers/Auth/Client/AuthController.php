@@ -154,43 +154,118 @@ class AuthController extends Controller
         $totalSeats = DB::table('bills')
             ->where('user_id', $userData->id)
             ->sum('total_seats');
-        $userData->total_seats = $totalSeats;
+//        $userData->total_seats = $totalSeats;
         // Nếu chưa gửi và số ghế lớn hơn 1, gửi email và đặt trạng thái đã gửi
 
         if ($totalSeats >= 1 && $userData->email_sent_count === 0) {
-
+            // Tìm mã giảm giá theo mã
             $discount = DiscountCode::where('code', 'CHIENTHANGVIP1')->first();
-            $vip = 'VIP 1';
-            SendDiscountEmail::dispatch($userData, $totalSeats,$discount,$vip);
-            // Cập nhật cờ trạng thái đã gửi trong bảng người dùng
-            $userData->increment('email_sent_count');
+
+            // Kiểm tra nếu tồn tại mã giảm giá
+            if ($discount) {
+                // Lấy danh sách mã giảm giá hiện tại của người dùng
+                $currentDiscounts = $userData->discount_codes ?? [];
+
+                // Kiểm tra xem mã giảm giá đã tồn tại trong danh sách chưa
+                if (!in_array($discount->code, $currentDiscounts)) {
+                    // Thêm mã giảm giá mới vào danh sách
+                    $currentDiscounts[] = $discount->id;
+
+                    // Lưu trữ danh sách mã giảm giá mới vào cột discount_codes của bảng users
+                    $userData->discount_codes = $currentDiscounts;
+                    $userData->save();
+
+                    // Gửi email hoặc thực hiện các công việc cần thiết khác
+                    $vip = 'VIP 1';
+                    SendDiscountEmail::dispatch($userData, $totalSeats, $discount, $vip);
+
+                    // Cập nhật cờ trạng thái đã gửi trong bảng người dùng
+                    $userData->increment('email_sent_count');
+                }
+            }
         }
         if ($totalSeats >= 10 && $userData->email_sent_count === 1) {
+
             $discount = DiscountCode::where('code', 'CHIENTHANGVIP2')->first();
-            $vip = 'VIP 2';
-            SendDiscountEmail::dispatch($userData, $totalSeats,$discount,$vip);
-            // Cập nhật cờ trạng thái đã gửi trong bảng người dùng
-            $userData->increment('email_sent_count');
+
+
+            if ($discount) {
+                // Lấy danh sách mã giảm giá hiện tại của người dùng
+                $currentDiscounts = json_decode($userData->discount_codes, true) ?? [];
+
+                // Kiểm tra xem mã giảm giá đã tồn tại trong danh sách chưa
+                if (!in_array($discount->code, $currentDiscounts)) {
+                    // Thêm mã giảm giá mới vào danh sách
+                    $currentDiscounts[] = $discount->id;
+
+                    // Lưu trữ danh sách mã giảm giá mới vào cột discount_codes của bảng users
+                    $userData->discount_codes = json_encode($currentDiscounts);
+                    $userData->save();
+
+                    // Gửi email hoặc thực hiện các công việc cần thiết khác
+                    $vip = 'VIP 2';
+                    SendDiscountEmail::dispatch($userData, $totalSeats, $discount, $vip);
+
+                    // Cập nhật cờ trạng thái đã gửi trong bảng người dùng
+                    $userData->increment('email_sent_count');
+                }
+            }
+
         }
         if ($totalSeats >= 20 && $userData->email_sent_count === 2) {
             $discount = DiscountCode::where('code', 'CHIENTHANGVIP3')->first();
-            $vip = 'VIP 3';
-            SendDiscountEmail::dispatch($userData, $totalSeats,$discount,$vip);
-            // Cập nhật cờ trạng thái đã gửi trong bảng người dùng
-            $userData->increment('email_sent_count');
+            if ($discount) {
+                // Lấy danh sách mã giảm giá hiện tại của người dùng
+                $currentDiscounts = json_decode($userData->discount_codes, true) ?? [];
+
+                // Kiểm tra xem mã giảm giá đã tồn tại trong danh sách chưa
+                if (!in_array($discount->code, $currentDiscounts)) {
+                    // Thêm mã giảm giá mới vào danh sách
+                    $currentDiscounts[] = $discount->id;
+
+                    // Lưu trữ danh sách mã giảm giá mới vào cột discount_codes của bảng users
+                    $userData->discount_codes = json_encode($currentDiscounts);
+                    $userData->save();
+
+                    // Gửi email hoặc thực hiện các công việc cần thiết khác
+                    $vip = 'VIP 3';
+                    SendDiscountEmail::dispatch($userData, $totalSeats,$discount,$vip);
+                    // Cập nhật cờ trạng thái đã gửi trong bảng người dùng
+                    $userData->increment('email_sent_count');
+                }
+            }
+
         }
         if ($totalSeats >= 30 && $userData->email_sent_count === 3) {
             $discount = DiscountCode::where('code', 'CHIENTHANGVIP4')->first();
-            $vip = 'VIP 4';
-            SendDiscountEmail::dispatch($userData, $totalSeats,$discount,$vip);
-            // Cập nhật cờ trạng thái đã gửi trong bảng người dùng
-            $userData->increment('email_sent_count');
+            if ($discount) {
+                // Lấy danh sách mã giảm giá hiện tại của người dùng
+                $currentDiscounts = json_decode($userData->discount_codes, true) ?? [];
+
+                // Kiểm tra xem mã giảm giá đã tồn tại trong danh sách chưa
+                if (!in_array($discount->code, $currentDiscounts)) {
+                    // Thêm mã giảm giá mới vào danh sách
+                    $currentDiscounts[] = $discount->id;
+
+                    // Lưu trữ danh sách mã giảm giá mới vào cột discount_codes của bảng users
+                    $userData->discount_codes = json_encode($currentDiscounts);
+                    $userData->save();
+
+                    // Gửi email hoặc thực hiện các công việc cần thiết khác
+                    $vip = 'VIP 4';
+                    SendDiscountEmail::dispatch($userData, $totalSeats,$discount,$vip);
+                    // Cập nhật cờ trạng thái đã gửi trong bảng người dùng
+                    $userData->increment('email_sent_count');
+                }
+            }
+
         }
 
         return response()->json([
             "status" => true,
             "message" => "Profile data",
-            "data" => $userData
+            "data" => $userData,
+            "totalSeats" => $totalSeats,
         ]);
     }
     public function logout(Request $request){
@@ -207,37 +282,47 @@ class AuthController extends Controller
     {
         try {
             $userData = auth()->user();
-            $totalSeats = DB::table('bills')
-                ->where('user_id', $userData->id)
-                ->sum('total_seats');
 
-            $usedDiscounts = DB::table('bills')
+            // Lấy danh sách ID mã giảm giá từ cột discount_codes
+            $discountIds = json_decode($userData->discount_codes, true) ?? [];
+
+            // Lấy danh sách ID mã giảm giá đã được sử dụng trong bảng bills
+            $usedDiscountIds = DB::table('bills')
                 ->where('user_id', $userData->id)
                 ->whereNotNull('discount_code_id')
-                ->pluck('discount_code_id');
+                ->pluck('discount_code_id')
+                ->toArray();
 
-            $currentDateTime = Carbon::now();
+            // Loại bỏ các ID đã được sử dụng khỏi danh sách ID chưa sử dụng
+            $unusedDiscountIds = array_diff($discountIds, $usedDiscountIds);
 
-            $allDiscounts = DiscountCode::query()
+            // Xóa các ID mã giảm giá đã hết hạn sử dụng khỏi danh sách chưa sử dụng
+            $currentDateTime = now();  // Lấy ngày và giờ hiện tại
+            $expiredDiscountIds = DiscountCode::whereNotIn('id', $usedDiscountIds)
+                ->where('end_time', '<', $currentDateTime)
+                ->pluck('id')
+                ->toArray();
+
+            $unusedDiscountIds = array_diff($unusedDiscountIds, $expiredDiscountIds);
+
+            // Lưu danh sách ID mã giảm giá đã được lọc vào cột discount_codes trong bảng users
+            $userData->discount_codes = json_encode(array_values($unusedDiscountIds)); // Sắp xếp lại mảng và chuyển thành JSON
+            $userData->save();
+
+            // Truy vấn danh sách mã giảm giá chưa sử dụng và còn hạn sử dụng
+            $userDiscounts = DiscountCode::whereIn('id', $unusedDiscountIds)
                 ->where('start_time', '<=', $currentDateTime)
                 ->where('end_time', '>=', $currentDateTime)
                 ->where('quantity', '>', 0)
                 ->get();
 
-            // Chuyển đổi collection thành mảng
-            $unusedDiscounts = $allDiscounts->reject(function ($discount) use ($usedDiscounts) {
-                return in_array($discount->id, $usedDiscounts->toArray());
-            })->toArray();
-
             $combinedData = [
-                'total_seats' => $totalSeats,
-                'discounts' => $unusedDiscounts,
+                'discounts' => $userDiscounts,
             ];
-
 
             return response()->json([
                 "status" => true,
-                "message" => "List of discounts and total seats",
+                "message" => "List of user discounts",
                 "data" => $combinedData
             ]);
         } catch (\Exception $e) {

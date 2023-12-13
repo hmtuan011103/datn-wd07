@@ -17,8 +17,6 @@
             .then(data => {
                 if (data.status === true) {
                     const discounts = data.data.discounts;
-                    const totalSeats = parseInt(data.data.total_seats);
-                    // console.log(totalSeats);
 
                     // Kiểm tra nếu có các mã giảm giá và là một đối tượng
                     if (typeof discounts === 'object' && discounts !== null) {
@@ -36,20 +34,12 @@
                             displayField(discountItem, "Giá Trị Giảm Giá", discount.value + '%');
 
                             // Kiểm tra số ghế và id của mã giảm giá
-                            if (totalSeats >= 1 && totalSeats < 10 && discount.code === 'CHIENTHANGVIP1') {
-                                discountContainer.appendChild(discountItem);
-                                anyDiscountDisplayed = true;
-                            } else if (totalSeats >= 10 && totalSeats < 20 && (discount.code === 'CHIENTHANGVIP1' || discount.code === 'CHIENTHANGVIP2')) {
-                                discountContainer.appendChild(discountItem);
-                                anyDiscountDisplayed = true;
-                            } else if (totalSeats >= 20 && totalSeats < 30 && (discount.code === 'CHIENTHANGVIP1' || discount.code === 'CHIENTHANGVIP2' || discount.code === 'CHIENTHANGVIP3')) {
-                                discountContainer.appendChild(discountItem);
-                                anyDiscountDisplayed = true;
-                            }else if (totalSeats >= 30 && totalSeats < 39 && (discount.code === 'CHIENTHANGVIP1' || discount.code === 'CHIENTHANGVIP2' || discount.code === 'CHIENTHANGVIP3' || discount.code === 'CHIENTHANGVIP4')) {
-                                discountContainer.appendChild(discountItem);
-                                anyDiscountDisplayed = true;
-                            }
+
+                            // Append each discountItem to discountContainer
+                            discountContainer.appendChild(discountItem);
+                            anyDiscountDisplayed = true;
                         });
+
                         if (!anyDiscountDisplayed) {
                             const noDiscountMessage = document.createElement('div');
                             noDiscountMessage.textContent = 'Kho Mã Giảm Giá Trống';
@@ -82,6 +72,7 @@
         parentElement.appendChild(labelElement);
         parentElement.appendChild(valueElement);
     }
+
 </script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
