@@ -20,7 +20,7 @@
                 $('label#code_order').text(response.data[0].code_bill)
                 $('label#time').text(formatDateTime(response.data[0].created_at))
                 $('label#user').text(response.data[0].user_name)
-                $('label#type_pay').text(response.data[0].type_pay == 1 ? 'VNPAY' : '')
+                $('label#type_pay').text(response.data[0].type_pay == 1 ? 'VNPAY' : ( response.data[0].type_pay === 2 ? "MOMOPAY" : "Tại quầy" ))
                 $('label#status_pay').text(response.data[0].status_pay == 1 ? 'Đã thanh toán' : 'Chưa thanh toán')
                 $('label#number_ticket').text(response.data[0].total_seats)
                 $('label#email').text(response.data[0].user_email)

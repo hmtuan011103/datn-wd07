@@ -68,7 +68,7 @@
                                         </div>
                                         {{-- <div class="filter-group-inline">
                                             <select class="form-control" id="date">
-                                                <option value="">-- Ngày mua --</option>                                             
+                                                <option value="">-- Ngày mua --</option>
                                                 <option value="{{ strtolower($carTypeName) }}">Hôm nay</option>
                                                 <option value="{{ strtolower($carTypeName) }}">Hôm qua</option>
                                                 <option value="{{ strtolower($carTypeName) }}">Tuần này</option>
@@ -76,7 +76,7 @@
                                                 <option value="{{ strtolower($carTypeName) }}">Hôm nay</option>
                                             </select>
                                         </div> --}}
-                                        
+
                                     </div>
                                     <div class="table-responsive table-card mt-3 mb-1">
                                         <table class="table align-middle table-nowrap" id="customerTable">
