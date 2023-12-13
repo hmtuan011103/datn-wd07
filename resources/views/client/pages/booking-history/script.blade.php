@@ -32,14 +32,14 @@
                 return response.json();
             })
             .then(data => {
-                if (data.status === true) {
-                    // Lấy tbody của bảng để chèn dữ liệu
-                    let tableBody = document.getElementById('customerTableBody');
+                // Lấy tbody của bảng để chèn dữ liệu
+                let tableBody = document.getElementById('customerTableBody');
 
-                    // Xóa bất kỳ dữ liệu cũ nào trong tbody
-                    tableBody.innerHTML = '';
+                // Xóa bất kỳ dữ liệu cũ nào trong tbody
+                tableBody.innerHTML = '';
 
-                    // Duyệt qua mỗi hóa đơn và thêm vào tbody
+                if (data.status === true && data.data.length > 0) {
+                    // Nếu có dữ liệu, duyệt qua mỗi hóa đơn và thêm vào tbody
                     data.data.forEach(bill => {
                         let row = tableBody.insertRow();
 
@@ -61,12 +61,16 @@
                         let totalMoney = parseFloat(bill.total_money_after_discount);
                         let formattedTotalMoney = totalMoney.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
-                        cell4.textContent = formattedTotalMoney + " Đ";
-
-
+                        cell4.textContent = formattedTotalMoney + "VNĐ";
                     });
                 } else {
-                    console.error("Lỗi: " + data.message);
+                    // Nếu không có dữ liệu, hiển thị thông điệp "Trống"
+                    let row = tableBody.insertRow();
+                    let cell = row.insertCell(0);
+                    cell.colSpan = 4;
+                    cell.textContent = "Vé Hiện Tại Chưa Được Đặt";
+                    cell.style.textAlign = "center";
+                    cell.style.fontWeight = "bold";
                 }
             })
             .catch(error => {
