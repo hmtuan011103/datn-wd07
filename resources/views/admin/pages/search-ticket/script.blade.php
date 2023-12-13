@@ -155,10 +155,14 @@
                         // Thêm các thông tin vé vào container-ticket
                         var ticketContainer = document.createElement("div");
                         ticketContainer.className = "ticket";
+                        var ticket_status = 0;
                         var id_ticket = [];
                         data.forEach(function(ticket) {
                             var startDate = new Date(ticket.start_date);
                             id_ticket.push(ticket.code_ticket);
+                            if (ticket.ticket_status == 1) {
+                                ticket_status++;
+                            }
                             // Định dạng ngày tháng năm
                             var formattedStartDate = startDate.toLocaleDateString();
                             var startTime = ticket.start_time;
@@ -206,7 +210,7 @@
                         <div class="row text-center pt-3 pb-3" >
                           <div class="col-md-5"></div>
                           <div class="col-md-1">
-                            <a href="${export_bill}"><button class="btn btn-secondary" type="submit"  id="searchButton" class="btn-search">In vé</button></a>
+                            ${ticket_status != 0 ? `<a href="${export_bill}"><button class="btn btn-secondary" type="submit"  id="searchButton" class="btn-search">In vé</button></a>` : ''}
                           </div>
                           <div class="col-md-1">
                             <button class="btn btn-secondary" class="close" data-bs-dismiss="modal" aria-label="Close">Đóng</button>
