@@ -13,6 +13,7 @@ class TypeCar extends Model
         'name',
         'total_seat',
         'type_seats',
+        'number_floors'
     ];
 
 

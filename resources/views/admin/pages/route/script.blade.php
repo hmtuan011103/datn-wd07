@@ -145,11 +145,10 @@
                 for (let i = 0; i < cars.length; i++) {
                     const dr = response[3].find(item => item.id == cars[i]);
                     if (dr) {
-                        car_name.push(dr.name);
+                        car_name.push(`<p>+ ${dr.name}</p>`);
                     }
                 }
-                
-
+                const arrayCar = car_name.join(', ');
                 name_detail.innerHTML = response[0].name;
                 start_location_detail.innerHTML = response[0].start_location;
                 end_location_detail.innerHTML = response[0].end_location;
@@ -158,8 +157,8 @@
                 interval_detail.innerHTML = response[0].interval_trip;
                 driver_detail.innerHTML = driver_name;
                 assistant_detail.innerHTML = assistant_name;
-                car_detail.innerHTML = car_name;
-                status_detail.innerHTML = response[0].status;
+                car_detail.innerHTML = arrayCar.replace(/, /g, '');;
+                status_detail.innerHTML = response[0].status == 1 ? "Hoạt động" : "Không hoạt động";
             },
             error: function(xhr, status, error) {
                 console.error(error);

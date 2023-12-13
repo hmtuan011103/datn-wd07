@@ -401,15 +401,15 @@ class TripService
     {
         if (is_array($id)) {
             if ($id[0] > $id[1]) {
-                $route = Trip::query()->whereIn('id', $id)
-                    ->orderBy('id', 'desc')
+                $route = Trip::query()->with('car.typeCar')->whereIn('id', $id)
+                    ->orderBy('id', 'desc.typeCar')
                     ->get();
             }
             if ($id[0] < $id[1]) {
-                $route = Trip::query()->whereIn('id', $id)->get();
+                $route = Trip::query()->with('car.typeCar')->whereIn('id', $id)->get();
             }
         } else {
-            $route = Trip::query()->find($id);
+            $route = Trip::query()->with('car.typeCar')->find($id);
         }
         return $route;
     }

@@ -192,7 +192,6 @@ $(function () {
         const route = res.route;
         const seatSelected = res.seatSelected;
         const locationRouteTrip = res.locationRouteTrip;
-
         let amountSeatTurn = 0;
         let amountSeatReturn = 0;
         let codeSeatTurn = [];
@@ -205,8 +204,10 @@ $(function () {
         let flagReturn = 0;
 
         // Hiển thị ghế và click để chọn ghế
-        const maxSeatsPerLayer = 24;
+        const maxSeatsPerLayer = seats.length;
         if (route.length === 2) {
+            const numberFloorsTurn = res.route[0].car?.type_car.number_floors;
+            const numberFloorsReturn = res.route[1].car?.type_car.number_floors;
             const getSeatTurn = seats
                 .filter(item => item.key === 'turn')
                 .map(item => [item.id, item.code]);
@@ -214,22 +215,20 @@ $(function () {
             const getSeatReturn = seats
                 .filter(item => item.key === 'return')
                 .map(item => [item.id, item.code]);
-            const totalSeatsTurn = getSeatTurn.length;
-            const totalSeatsReturn = getSeatReturn.length;
 
-            if (totalSeatsTurn <= maxSeatsPerLayer) {
+            if (numberFloorsTurn === 1) {
                 showSingleLayer(getSeatTurn, "3");
             } else {
                 showDoubleLayer(getSeatTurn, "3");
             }
-            if (totalSeatsReturn <= maxSeatsPerLayer) {
+            if (numberFloorsReturn === 1) {
                 showSingleLayer(getSeatReturn, "4");
             } else {
                 showDoubleLayer(getSeatReturn, "4");
             }
         } else {
-            const totalSeats = seats.length;
-            if (totalSeats <= maxSeatsPerLayer) {
+            const numberFloors = res.route.car?.type_car.number_floors;
+            if (numberFloors === 1) {
                 showSingleLayer(seats);
             } else {
                 showDoubleLayer(seats);
@@ -299,14 +298,23 @@ $(function () {
                     .filter(item => item[0] === nameKeySelectedSeats)
                     .map(item => item[1]);
                 seats.forEach((seat, index) => {
-
                     const sttSeat = index + 1;
-                    if (sttSeat % 4 === 1) {
-                        $(`#show-seat-${indexParent}`).append(`
+                    if( seats.length - sttSeat <= 5 ){
+                        if (sttSeat % 5 === 1) {
+                            $(`#show-seat-${indexParent}`).append(`
                             <tr class="d-flex align-items-center justify-content-center">
 
                             </tr>
                         `);
+                        }
+                    } else {
+                        if (sttSeat % 4 === 1) {
+                            $(`#show-seat-${indexParent}`).append(`
+                                <tr class="d-flex align-items-center justify-content-center">
+
+                                </tr>
+                            `);
+                        }
                     }
 
                     const isSeatSelected = arraySeatSelected.includes(seat[1]);
@@ -338,10 +346,12 @@ $(function () {
 
                     const lastRow = $(`#show-seat-${indexParent}`).find("tr:last-child");
                     lastRow.append($seat);
-                    if (sttSeat % 4 === 0) {
-                        const secondTd = lastRow.find("td:eq(1)");
-                        const spacingTd = $('<td class="gap-1 w-32 h-32"></td>');
-                        secondTd.after(spacingTd);
+                    if( seats.length - sttSeat >=5 ) {
+                        if (sttSeat % 4 === 0) {
+                            const secondTd = lastRow.find("td:eq(1)");
+                            const spacingTd = $('<td class="gap-1 w-32 h-32"></td>');
+                            secondTd.after(spacingTd);
+                        }
                     }
 
 
@@ -454,12 +464,22 @@ $(function () {
 
                 seats.forEach((seat, index) => {
                     const sttSeat = index + 1;
-                    if (sttSeat % 4 === 1) {
-                        $('#show-seat-0').append(`
-                    <tr class="d-flex align-items-center justify-content-center">
+                    if( seats.length - sttSeat <= 5 ){
+                        if (sttSeat % 5 === 1) {
+                            $('#show-seat-0').append(`
+                                <tr class="d-flex align-items-center justify-content-center">
 
-                    </tr>
-                `);
+                                </tr>
+                            `);
+                        }
+                    } else {
+                        if (sttSeat % 4 === 1) {
+                            $('#show-seat-0').append(`
+                                <tr class="d-flex align-items-center justify-content-center">
+
+                                </tr>
+                            `);
+                        }
                     }
 
                     const isSeatSelected = seatSelected.includes(seat.code);
@@ -491,10 +511,12 @@ $(function () {
 
                     const lastRow = $('#show-seat-0').find("tr:last-child");
                     lastRow.append($seat);
-                    if (sttSeat % 4 === 0) {
-                        const secondTd = lastRow.find("td:eq(1)");
-                        const spacingTd = $('<td class="gap-1 w-32 h-32"></td>');
-                        secondTd.after(spacingTd);
+                    if( seats.length - sttSeat >=5 ){
+                        if (sttSeat % 4 === 0) {
+                            const secondTd = lastRow.find("td:eq(1)");
+                            const spacingTd = $('<td class="gap-1 w-32 h-32"></td>');
+                            secondTd.after(spacingTd);
+                        }
                     }
 
                     $seat.on('click', function () {
@@ -629,12 +651,12 @@ $(function () {
                     <p class="fs-14 fw-medium">${nameRoute} ${startDate}</p>
                 `)
                 const showSeatForTripLayer1 = $(`<table class="col-6"><tbody id="show-seat-1-${indexParent}"></tbody></table>`);
-                showSeatForTripLayer1.prepend('<p class="layer-name fs-13 fw-medium ta-center">Tầng 1</p>');
+                showSeatForTripLayer1.prepend('<p class="layer-name fs-13 fw-medium ta-center" style="transform: translateX(-15px);">Tầng 1</p>');
                 $('#show-seat-for-trip').append(showSeatForTripLayer1);
-                seats.slice(0, maxSeatsPerLayer).forEach((seat, index) => {
+                seats.slice(0, seats.length/2).forEach((seat, index) => {
 
                     const sttSeat = index + 1;
-                    if (sttSeat % 4 === 1) {
+                    if (sttSeat % 3 === 1) {
                         $(`#show-seat-1-${indexParent}`).append(`
                             <tr class="d-flex align-items-center justify-content-center">
 
@@ -665,17 +687,13 @@ $(function () {
                                 ${seat[1]}
                             </span>
                         </td>
+                        <td class="gap-1 w-32 h-32"></td>
                     `;
 
                     const $seat = $(seatHtml);
 
                     const lastRow = $(`#show-seat-1-${indexParent}`).find("tr:last-child");
                     lastRow.append($seat);
-                    if (sttSeat % 4 === 0) {
-                        const secondTd = lastRow.find("td:eq(1)");
-                        const spacingTd = $('<td class="gap-1 w-32 h-32"></td>');
-                        secondTd.after(spacingTd);
-                    }
 
                     $seat.on('click', function () {
                         const codeSeat = $(this).find('span');
@@ -756,11 +774,11 @@ $(function () {
 
 
                 const showSeatForTripLayer2 = $(`<table class="col-6 spacing-floor-second"><tbody id="show-seat-2-${indexParent}"></tbody></table>`);
-                showSeatForTripLayer2.prepend('<p class="layer-name spacing-floor-second-title ta-center fs-13 fw-medium">Tầng 2</p>');
+                showSeatForTripLayer2.prepend('<p class="layer-name spacing-floor-second-title ta-center fs-13 fw-medium" style="transform: translateX(-15px);">Tầng 2</p>');
                 $('#show-seat-for-trip').append(showSeatForTripLayer2);
-                seats.slice(maxSeatsPerLayer, maxSeatsPerLayer * 2).forEach((seat, index) => {
+                seats.slice(seats.length / 2, seats.length).forEach((seat, index) => {
                     const sttSeat = index + 1;
-                    if (sttSeat % 4 === 1) {
+                    if (sttSeat % 3 === 1) {
                         $(`#show-seat-2-${indexParent}`).append(`
                             <tr class="d-flex align-items-center justify-content-center">
 
@@ -791,17 +809,13 @@ $(function () {
                                 ${seat[1]}
                             </span>
                         </td>
+                        <td class="gap-1 w-32 h-32"></td>
                     `;
 
                     const $seat = $(seatHtml);
 
                     const lastRow = $(`#show-seat-2-${indexParent}`).find("tr:last-child");
                     lastRow.append($seat);
-                    if (sttSeat % 4 === 0) {
-                        const secondTd = lastRow.find("td:eq(1)");
-                        const spacingTd = $('<td class="gap-1 w-32 h-32"></td>');
-                        secondTd.after(spacingTd);
-                    }
 
                     $seat.on('click', function () {
                         const codeSeat = $(this).find('span');
@@ -904,17 +918,28 @@ $(function () {
                     </div>
                 `)
                 const showSeatForTripLayer1 = $('<table class="col-6"><tbody id="show-seat-1"></tbody></table>');
-                showSeatForTripLayer1.prepend('<p class="layer-name fs-13 fw-medium ta-center">Tầng 1</p>');
+                showSeatForTripLayer1.prepend('<p class="layer-name fs-13 fw-medium ta-center" style="transform: translateX(-15px);">Tầng 1</p>');
                 $('#show-seat-for-trip').append(showSeatForTripLayer1);
 
-                seats.slice(0, maxSeatsPerLayer).forEach((seat, index) => {
+                seats.slice(0, seats.length / 2).forEach((seat, index) => {
                     const sttSeat = index + 1;
-                    if (sttSeat % 4 === 1) {
-                        $('#show-seat-1').append(`
-                        <tr class="d-flex align-items-center justify-content-center">
+                    if(seats.length === 36) {
+                        if (sttSeat % 3 === 1) {
+                            $('#show-seat-1').append(`
+                                <tr class="d-flex align-items-center justify-content-center">
 
-                        </tr>
-                    `);
+                                </tr>
+                            `);
+                        }
+                    }
+                    if(seats.length === 40) {
+                        if (sttSeat % 3 === 1) {
+                            $('#show-seat-1').append(`
+                                <tr class="d-flex align-items-center justify-content-center">
+
+                                </tr>
+                            `);
+                        }
                     }
 
                     const isSeatSelected = seatSelected.includes(seat.code);
@@ -931,26 +956,39 @@ $(function () {
                         }
                     }
 
-                    const seatHtml = `
-                        <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
-                            <img src="${baseImageUrl}/${ additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
-                            <span
-                                data-code="${seat.code}" data-trip="${route.id}"
-                                class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
-                                ${seat.code}
-                            </span>
-                        </td>
-                    `;
+                    let seatHtml;
+                    if(seats.length === 36) {
+                        seatHtml = `
+                            <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
+                                <img src="${baseImageUrl}/${ additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
+                                <span
+                                    data-code="${seat.code}" data-trip="${route.id}"
+                                    class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
+                                    ${seat.code}
+                                </span>
+                            </td>
+                            <td class="gap-1 w-32 h-32"></td>
+                        `;
+                    }
+                    if(seats.length === 40) {
+                        seatHtml = `
+                            <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
+                                <img src="${baseImageUrl}/${ additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
+                                <span
+                                    data-code="${seat.code}" data-trip="${route.id}"
+                                    class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
+                                    ${seat.code}
+                                </span>
+                            </td>
+                             <td class="gap-1 w-32 h-32"></td>
+                        `;
+                    }
+
 
                     const $seat = $(seatHtml);
 
                     const lastRow = $('#show-seat-1').find("tr:last-child");
                     lastRow.append($seat);
-                    if (sttSeat % 4 === 0) {
-                        const secondTd = lastRow.find("td:eq(1)");
-                        const spacingTd = $('<td class="gap-1 w-32 h-32"></td>');
-                        secondTd.after(spacingTd);
-                    }
 
                     $seat.on('click', function () {
                         const codeSeat = $(this).find('span');
@@ -1022,17 +1060,28 @@ $(function () {
 
 
                 const showSeatForTripLayer2 = $('<table class="col-6 spacing-floor-second"><tbody id="show-seat-2"></tbody></table>');
-                showSeatForTripLayer2.prepend('<p class="layer-name spacing-floor-second-title ta-center fs-13 fw-medium">Tầng 2</p>');
+                showSeatForTripLayer2.prepend('<p class="layer-name spacing-floor-second-title ta-center fs-13 fw-medium" style="transform: translateX(-15px);">Tầng 2</p>');
                 $('#show-seat-for-trip').append(showSeatForTripLayer2);
 
-                seats.slice(maxSeatsPerLayer, maxSeatsPerLayer * 2).forEach((seat, index) => {
+                seats.slice(seats.length / 2, seats.length).forEach((seat, index) => {
                     const sttSeat = index + 1;
-                    if (sttSeat % 4 === 1) {
-                        $('#show-seat-2').append(`
-                <tr class="d-flex align-items-center justify-content-center">
+                    if(seats.length === 36) {
+                        if (sttSeat % 3 === 1) {
+                            $('#show-seat-2').append(`
+                            <tr class="d-flex align-items-center justify-content-center">
 
-                </tr>
-            `);
+                            </tr>
+                        `);
+                        }
+                    }
+                    if(seats.length === 40) {
+                        if (sttSeat % 3 === 1) {
+                            $('#show-seat-2').append(`
+                            <tr class="d-flex align-items-center justify-content-center">
+
+                            </tr>
+                        `);
+                        }
                     }
 
                     const isSeatSelected = seatSelected.includes(seat.code);
@@ -1049,26 +1098,40 @@ $(function () {
                         }
                     }
 
-                    const seatHtml = `
-                        <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
-                            <img src="${baseImageUrl}/${ additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
-                            <span
-                                data-code="${seat.code}" data-trip="${route.id}"
-                                class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
-                                ${seat.code}
-                            </span>
-                        </td>
-                    `;
+                    let seatHtml;
+                    if(seats.length === 36) {
+                        seatHtml = `
+                            <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
+                                <img src="${baseImageUrl}/${ additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
+                                <span
+                                    data-code="${seat.code}" data-trip="${route.id}"
+                                    class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
+                                    ${seat.code}
+                                </span>
+                            </td>
+                            <td class="gap-1 w-32 h-32"></td>
+                        `;
+                    }
+                    if(seats.length === 40) {
+                        seatHtml = `
+                            <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
+                                <img src="${baseImageUrl}/${ additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
+                                <span
+                                    data-code="${seat.code}" data-trip="${route.id}"
+                                    class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
+                                    ${seat.code}
+                                </span>
+                            </td>
+                        `;
+                    }
+
+
 
                     const $seat = $(seatHtml);
 
                     const lastRow = $('#show-seat-2').find("tr:last-child");
                     lastRow.append($seat);
-                    if (sttSeat % 4 === 0) {
-                        const secondTd = lastRow.find("td:eq(1)");
-                        const spacingTd = $('<td class="gap-1 w-32 h-32"></td>');
-                        secondTd.after(spacingTd);
-                    }
+
 
                     $seat.on('click', function () {
                         const codeSeat = $(this).find('span');

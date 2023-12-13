@@ -123,13 +123,13 @@
                                                 <td class="customer_name">{{$item->license_plate}}</td>
                                                 <td>
                                                     <div class="d-flex gap-2">
-                                                        <div >
-                                                            <button type="button" class="btn btn-sm btn-secondary"
-                                                                    data-bs-toggle="modal" id="create-btn"
-                                                                    data-bs-target="#modal{{$item->id}}">
-                                                                <i class="bx bx bx-show"></i>
-                                                            </button>
-                                                        </div>
+{{--                                                        <div >--}}
+{{--                                                            <button type="button" class="btn btn-sm btn-secondary"--}}
+{{--                                                                    data-bs-toggle="modal" id="create-btn"--}}
+{{--                                                                    data-bs-target="#modal{{$item->id}}">--}}
+{{--                                                                <i class="bx bx bx-show"></i>--}}
+{{--                                                            </button>--}}
+{{--                                                        </div>--}}
                                                         <div class="edit">
                                                             <a href="{{route('edit_car',['id'=>$item->id])}}"
                                                                class="btn btn-success btn-sm edit-item-btn" >
@@ -212,49 +212,67 @@
                  aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
-                        <div class="modal-header bg-light p-3">
-                            <h5 class="modal-title" id="exampleModalLabel"></h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                    id="close-modal"></button>
-                        </div>
+                        <!-- Các phần khác của modal -->
                         <div class="boldbold">
                             Danh Sách Ghế Ngồi Của Xe
+                            @php
+                                $typeCar = \App\Models\TypeCar::query()->find($item->id_type_car);
+                            @endphp
                         </div>
                         <div class="seating-chart">
                             <div class="row mx-auto">
                                 @if($item->typecar_total_seat > 0)
-                                    <div class="col">
-                                        @if ($item->typecar_total_seat > 24)
-                                            <div class="custom-style">Tầng 1</div>
-                                        @endif
-
-                                        <div class="row row1">
-                                            @foreach ($item->seats as $index => $pe)
-                                            @if ($index < 24)
-                                                <div class="col-6 ">
-                                                    {{ $pe->code_seat }}
-                                                </div>
-                                            @endif
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                @endif
-                          @if($item->typecar_total_seat >24)
-                                        <div class="col">
-                                            <div class="custom-style">Tầng 2</div>
+                                    @if ($typeCar->number_floors === 1)
+                                        <div class="col text-center">
                                             <div class="row">
+                                                @php
+                                                    $flag = 0;
+                                                @endphp
                                                 @foreach ($item->seats as $index => $pe)
-                                                @if ($index > 23 )
-                                                    <div class="col-6">
-                                                        {{ $pe->code_seat }}
-                                                    </div>
-                                                @endif
+                                                    @if ($index < $typeCar->total_seat)
+                                                        @if($typeCar->total_seat - $index <= 5)
+                                                            @php
+                                                                $flag++;
+                                                            @endphp
+                                                            <div class="col">
+                                                               <div class="style__seat-css row-final-{{ $flag }}">
+                                                                   A{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
+                                                               </div>
+                                                            </div>
+                                                        @else
+                                                            <div class="col-3">
+                                                               <div class="style__seat-css" style="margin: 5px auto;">
+                                                                   A{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}
+                                                               </div>
+                                                            </div>
+                                                        @endif
+                                                    @endif
                                                 @endforeach
                                             </div>
                                         </div>
-                          @endif
-                            </div>
-
+                                    @elseif ($typeCar->number_floors === 2)
+                                        <div class="col">
+                                            <div class="custom-style">Tầng 1</div>
+                                            <div class="row">
+                                                @for ($i = 0; $i < $typeCar->total_seat / 2; $i++)
+                                                    <div class="col-4">
+                                                        A{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}
+                                                    </div>
+                                                @endfor
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="custom-style">Tầng 2</div>
+                                            <div class="row">
+                                                @for ($i = 0; $i < $typeCar->total_seat / 2; $i++)
+                                                    <div class="col-4">
+                                                        B{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}
+                                                    </div>
+                                                @endfor
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -266,20 +284,20 @@
     </div>
     <!-- End Page-content -->
 
-    <footer class="footer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-6">
-                    <script>document.write(new Date().getFullYear())</script> © Velzon.
-                </div>
-                <div class="col-sm-6">
-                    <div class="text-sm-end d-none d-sm-block">
-                        Design & Develop by Themesbrand
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+{{--    <footer class="footer">--}}
+{{--        <div class="container-fluid">--}}
+{{--            <div class="row">--}}
+{{--                <div class="col-sm-6">--}}
+{{--                    <script>document.write(new Date().getFullYear())</script> © Velzon.--}}
+{{--                </div>--}}
+{{--                <div class="col-sm-6">--}}
+{{--                    <div class="text-sm-end d-none d-sm-block">--}}
+{{--                        Design & Develop by Themesbrand--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </footer>--}}
 </div>
 
 @endsection

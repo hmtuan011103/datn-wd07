@@ -10,6 +10,8 @@ use App\Models\Car;
 use App\Models\Trip;
 use App\Models\TypeCar;
 use http\Env\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CarService
 {
@@ -27,44 +29,54 @@ class CarService
 
     public function store(StoreCarRequest $request)
     {
-        $model = new Car($request->all());
-        if ($request->hasFile('image')) {
-            $model->image = upload_file('car', $request->file('image'));
-        }
+        DB::beginTransaction();
+        try{
+            $model = new Car($request->all());
+            if ($request->hasFile('image')) {
+                $model->image = upload_file('car', $request->file('image'));
+            }
 
-        $model->save();
-        $id_car = $model->id;
-        $request = $request->id_type_car;
-        $data = TypeCar::find($request);
-        $seat = $data->total_seat;
-        for ($i = 1; $i <= $seat; $i++) {
-            $seats = Seat::query();
-            if ($i <= 24) {
-                if ($i < 10){
-                    $seats->create([
-                        'car_id' => $id_car,
-                        'code_seat' => 'A0' . $i,
-                    ]);
-                }else{
-                    $seats->create([
-                        'car_id' => $id_car,
-                        'code_seat' => 'A' . $i,
-                    ]);
+            $model->save();
+            $id_car = $model->id;
+            $request = $request->id_type_car;
+            $data = TypeCar::find($request);
+            $seat = $data->total_seat;
+            $numberFloor = $data->number_floors;
+            for ($i = 1; $i <= $seat; $i++) {
+                $seats = Seat::query();
+                if ($numberFloor === 1) {
+                    if ($i < 10) {
+                        $seats->create([
+                            'car_id' => $id_car,
+                            'code_seat' => 'A0' . $i,
+                        ]);
+                    } else {
+                        $seats->create([
+                            'car_id' => $id_car,
+                            'code_seat' => 'A' . $i,
+                        ]);
+                    }
                 }
+                if($numberFloor === 2){
+                    $seatsPerFloor = $seat / 2;
+                    if ($i <= $seatsPerFloor) {
+                        $seatCode = ($i < 10) ? 'A0' . $i : 'A' . $i;
+                    } else {
+                        $index = $i - $seatsPerFloor;
+                        $seatCode = ($index < 10) ? 'B0' . $index : 'B' . $index;
+                    }
 
-            } else {
-                if ($i < 34){
                     $seats->create([
                         'car_id' => $id_car,
-                        'code_seat' => 'B0' . ($i-24),
-                    ]);
-                }else{
-                    $seats->create([
-                        'car_id' => $id_car,
-                        'code_seat' => 'B' . ($i-24),
+                        'code_seat' => $seatCode,
                     ]);
                 }
             }
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            Log::error('Có lỗi xảy ra', [$exception]);
+            return false;
         }
     }
 

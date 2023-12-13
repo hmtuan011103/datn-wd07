@@ -115,11 +115,14 @@
                     @forelse($data['return'] as $item)
                         <div class="col-xl-3 col-lg-4 col-md-6 col-xs-12 mb-3">
                             <div class="detail-ticket">
-                                <p class="text-center fw-bold">Mã vé: {{ $item->code_ticket }}</p>
+                                <div class="text-center">
+                                    <img src="http://127.0.0.1:8000/client/assets/images/logo_web.png" alt="">
+                                </div>
                                 <div class="logo-qr-return d-flex justify-content-center mb-3" data-code="{{ $item->code_ticket }}">
                                 </div>
                                 <div class=" order-ticket">
                                     <div class="column-ticket text ps-2">
+                                        <p>Mã vé</p>
                                         <p>Tên tuyến</p>
                                         <p>Thời gian</p>
                                         <p>Số ghế</p>
@@ -128,6 +131,7 @@
                                         <p>Giá vé</p>
                                     </div>
                                     <div class="column-ticket data pe-2">
+                                        <p>{{ $item->code_ticket }}</p>
                                         <p>
                                             <label>{{ $item->bill->trip->start_location }} - </label>
                                             <label>{{ $item->bill->trip->end_location  }}</label>
@@ -164,18 +168,18 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-3 col-md-6 col-xs-12 text-center">
-                    <button type="button" class="btn w-100 fw-medium button-important">
-                        <div class=" d-flex justify-content-center">
-                            <div>
-                                <i class="fa-solid fa-download"></i>
-                            </div>
-                            <div class="ps-2">
-                                Tải về
-                            </div>
-                        </div>
-                    </button>
-                </div>
+{{--                <div class="col-lg-3 col-md-6 col-xs-12 text-center">--}}
+{{--                    <button type="button" class="btn w-100 fw-medium button-important">--}}
+{{--                        <div class=" d-flex justify-content-center">--}}
+{{--                            <div>--}}
+{{--                                <i class="fa-solid fa-download"></i>--}}
+{{--                            </div>--}}
+{{--                            <div class="ps-2">--}}
+{{--                                Tải về--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </button>--}}
+{{--                </div>--}}
             </div>
         </div>
 
