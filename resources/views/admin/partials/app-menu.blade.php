@@ -240,7 +240,7 @@
                                         <li class="nav-item">
                                             <a class="nav-link menu-link" href="{{ route('statistics.car') }}"
                                                 role="button">
-                                                <span>Xe</span>
+                                                <span>Chung</span>
                                             </a>
                                         </li>
                                         <li class="nav-item">

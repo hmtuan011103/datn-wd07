@@ -4,7 +4,7 @@
     <div class="page-content">
         <div class="container-fluid">
             <div class="row mx-auto">
-                <div class="col col-md-2 ps-md-0 pe-md-4">
+                <div class="col col-md-3 ps-md-0 pe-md-4">
                     <div class="card card-animate">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
@@ -27,7 +27,7 @@
                         </div><!-- end card body -->
                     </div> <!-- end card-->
                 </div>
-                <div class="col col-md-2 ps-md-0 pe-md-4">
+                <div class="col col-md-3 ps-md-0 pe-md-4">
                     <div class="card card-animate">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
@@ -37,6 +37,52 @@
                                         <span class="counter-value" data-target="{{ $totalCar }}">
                                             {{ $totalCar }}
                                         </span> Chiếc
+                                    </h2>
+                                </div>
+                                <div>
+                                    <div class="avatar-sm flex-shrink-0">
+                                        <span class="avatar-title bg-primary rounded-circle fs-2">
+                                            <i class="mdi mdi-car"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- end card body -->
+                    </div> <!-- end card-->
+                </div>
+                <div class="col col-md-3 ps-md-0 pe-md-4">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="fw-medium text-muted mb-0">Địa điểm hoạt động</p>
+                                    <h2 class="mt-4 ff-secondary fw-semibold">
+                                        <span class="counter-value" data-target="{{ $totalCar }}">
+                                            {{ $totalCar }}
+                                        </span> Địa điểm
+                                    </h2>
+                                </div>
+                                <div>
+                                    <div class="avatar-sm flex-shrink-0">
+                                        <span class="avatar-title bg-primary rounded-circle fs-2">
+                                            <i class="mdi mdi-car"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- end card body -->
+                    </div> <!-- end card-->
+                </div>
+                <div class="col col-md-3 ps-md-0 pe-md-4">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="fw-medium text-muted mb-0">Chuyến đi trong ngày</p>
+                                    <h2 class="mt-4 ff-secondary fw-semibold">
+                                        <span class="counter-value" data-target="{{ $totalCar }}">
+                                            {{ $totalCar }}
+                                        </span> Chuyến
                                     </h2>
                                 </div>
                                 <div>
@@ -71,7 +117,7 @@
                     </div>
                 </div> --}}
 
-                <div class="col p-0 px-lg-4">
+                <div class="col p-0">
                     <div class="card card-height-100">
                         <div class="card-header align-items-center d-flex">
                             <h4 class="card-title mb-0 flex-grow-1">Xếp hạng doanh thu 10 loại xe nổi bật</h4>
