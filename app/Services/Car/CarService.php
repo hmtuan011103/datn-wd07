@@ -59,6 +59,7 @@ class CarService
                 }
                 if($numberFloor === 2){
                     $seatsPerFloor = $seat / 2;
+                    // dd($seatsPerFloor);
                     if ($i <= $seatsPerFloor) {
                         $seatCode = ($i < 10) ? 'A0' . $i : 'A' . $i;
                     } else {

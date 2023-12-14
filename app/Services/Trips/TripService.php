@@ -402,7 +402,7 @@ class TripService
         if (is_array($id)) {
             if ($id[0] > $id[1]) {
                 $route = Trip::query()->with('car.typeCar')->whereIn('id', $id)
-                    ->orderBy('id', 'desc.typeCar')
+                    ->orderBy('id', 'desc')
                     ->get();
             }
             if ($id[0] < $id[1]) {
