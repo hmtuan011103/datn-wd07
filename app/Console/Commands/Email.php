@@ -58,7 +58,8 @@ class Email extends Command
                     foreach ($userIds as $user) {
                           $userSendMail = User::query()->find($user);
                         Mail::send('client.pages.email.date_time_email', ['user' => $userSendMail,
-                            'id_trip' => $recentlyCompletedTrip->id],
+                            'id_trip' => $recentlyCompletedTrip->id,
+                            'tripInfo' => $recentlyCompletedTrip],
                             function ($email) use ($userSendMail, $subject) {
                             $email->subject($subject);
                             $email->to($userSendMail->email);
