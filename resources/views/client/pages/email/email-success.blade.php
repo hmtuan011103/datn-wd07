@@ -100,8 +100,7 @@
                 Cảm ơn bạn một lần nữa và chúc mừng vì đã đạt được mốc quan trọng này!
             </p>
             <p class="p-0">
-                Trân trọng,
-                [CHIẾN THẮNG BUS]
+                Trân trọng, Nhà Xe Chiến Thắng
             </p>
         </div>
         <div class="footer">

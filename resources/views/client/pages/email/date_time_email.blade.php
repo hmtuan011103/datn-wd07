@@ -92,20 +92,36 @@
     <div class="content">
         <div class="booking-details">
             <h2>Xin chào, {{ $name }}!</h2>
-            <p class="p-0">Xin chúc mừng! Bạn vừa nhận được một mã ưu đãi đặc biệt từ chúng tôi.
-                Đừng bỏ lỡ cơ hội để sử dụng mã giảm giá này khi thanh toán và tận hưởng mức giá ưu đãi đặc biệt cho hành trình của mình.
-                Hãy nhanh tay, vì mã giảm giá chỉ có hiệu lực trong thời gian ngắn.
-            </p>
-            <p class="p-0">  Cảm ơn bạn đã lựa chọn Chiến Thắng Bus và chúc bạn có một chuyến đi thú vị!
-            </p>
-            <p class="p-0">     Trân trọng, Nhà Xe Chiến Thắng
-            </p>
+            <div class="py-3">
+                <p class="mb-1">
+                    Chào quý khách hàng thân mến,
+                <p class="mb-1">
+                    Nhà Xe Chiến Thắng xin gửi lời tri ân chân thành đến quý khách hàng đã sử dụng dịch vụ của chúng
+                    tôi trong chuyến đi gần đây.
+                </p>
+                    Chúng tôi trân trọng sự tin tưởng và ủng hộ từ phía quý khách hàng, và hy vọng rằng chúng tôi đã
+                    đáp ứng đúng những mong đợi của quý vị. Đội ngũ lái xe và nhân viên của chúng tôi luôn nỗ lực
+                    hết mình để mang lại trải nghiệm di chuyển an toàn, thuận lợi và thoải mái cho quý khách.
+                <p class="mb-1">
+                    Chúng tôi rất trân trọng ý kiến phản hồi từ phía quý khách để cải thiện chất lượng dịch vụ của
+                    mình. Vì vậy, chúng tôi xin mời quý khách hàng dành chút thời gian để đánh giá chuyến đi gần đây
+                    của mình. Ý kiến của quý khách sẽ giúp chúng tôi ngày càng hoàn thiện và mang lại trải nghiệm
+                    tốt nhất cho tất cả khách hàng của Nhà Xe Chiến Thắng.
+                </p>
+                <p class="mb-1">
+                    Cảm ơn quý khách hàng một lần nữa và mong được phục vụ quý vị trong những chuyến đi sắp tới.
+                </p>
+                <p class="mb-1">
+                    Trân trọng, Nhà Xe Chiến Thắng
+                </p>
+
+            </div>
+            <a href="{{ route('review') }}" class="button">Đánh Giá Chuyến Đi</a>
+        </div>
+        <div class="footer">
+            <p>&copy; 2023 Chiến Thắng Bus. All rights reserved.</p>
         </div>
     </div>
-    <div class="footer">
-        <p>&copy; 2023 Chiến Thắng Bus. All rights reserved.</p>
-    </div>
-</div>
 </body>
 
 </html>
