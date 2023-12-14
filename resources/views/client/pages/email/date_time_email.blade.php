@@ -91,7 +91,7 @@
     </div>
     <div class="content">
         <div class="booking-details">
-            <h2>Xin chào, {{ $name }}!</h2>
+            <h2>Xin chào, {{ $user->name}}!</h2>
             <div class="py-3">
                 <p class="mb-1">
                     Chào quý khách hàng thân mến,
@@ -116,7 +116,7 @@
                 </p>
 
             </div>
-            <a href="{{ route('review') }}" class="button">Đánh Giá Chuyến Đi</a>
+            <a href="{{ route('review', ['id_trip' => $id_trip, 'id_user' => $user->id]) }}" class="button">Đánh Giá Chuyến Đi</a>
         </div>
         <div class="footer">
             <p>&copy; 2023 Chiến Thắng Bus. All rights reserved.</p>
