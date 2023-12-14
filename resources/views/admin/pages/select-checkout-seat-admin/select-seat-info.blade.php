@@ -24,7 +24,7 @@
                                 <input type="text" autocomplete="off" class="form-control w-100 fs-14" name="name" id="name" placeholder="">
                             </div>
                             <div class="mb-3">
-                                <label for="phone" class="form-label fs-14">Số điện thoại</label>
+                                <label for="phone" class="form-label fs-14">Số điện thoại*</label>
                                 <input type="text" autocomplete="off" class="form-control w-100 fs-14" name="phone" id="phone" placeholder="">
                             </div>
                             <div class="mb-3">

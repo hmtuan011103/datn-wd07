@@ -119,7 +119,7 @@
             </div>
         </div>
         <div class="col-lg-4 bg-white rounded">
-            <form class="row" action="{{ route('thanh_toan') }}" method="POST">
+            <form class="row" action="{{ route('checkout_seat-admin') }}" method="POST">
                 @csrf
                 <input type="hidden" hidden value="{{ $nameUser }}" name="name">
                 <input type="hidden" hidden value="{{ $phoneUser }}" name="email">
@@ -161,9 +161,8 @@
                                     <span class="ps-2">THANH TOÁN TRỰC TIẾP</span>
                                 </label>
                             </div>
-                            <div class="pt-3 pb-1 d-flex">
-                                <input type="text" class="form-control discount_code discount_code_value py-3 w-70" name="discount_code" id="discount_code" placeholder="Mã giảm giá">
-                                <button class="w-30 btn-execute-code-discount" type="button">Áp dụng</button>
+                            <div class="pt-3 pb-1 d-none">
+                                <input type="hidden" name="discount_code" id="discount_code">
                             </div>
                             <div class="py-3">
                                 <h6><b>Chi phí</b></h6>
