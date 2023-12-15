@@ -54,20 +54,17 @@ class Email extends Command
                     ->get();
                 $subject = '[CHIENTHANGBUS] Chia Sẻ Trải Nghiệm Của Bạn - Nhà Xe Chiến Thắng Luôn Lắng Nghe';
                 $userIds = $relatedUsers->pluck('user_id');
-                $users = User::whereIn('id', $userIds)
-                    ->where('user_type_id', 1)
-                    ->get();
-
-
-                foreach ($users as $user) {
-                    $userId = $user->name;
-                    $emailReceived = $user->email;
-
-                    // Gửi email sử dụng Mailable
-                    Mail::send('client.pages.email.date_time_email', ['name' => $userId, 'recentlyCompletedTrips' => $recentlyCompletedTrips, 'relatedUsers' => $users], function ($email) use ($emailReceived, $subject) {
-                        $email->subject($subject);
-                        $email->to($emailReceived);
-                    });
+                foreach ($recentlyCompletedTrips as $recentlyCompletedTrip){
+                    foreach ($userIds as $user) {
+                          $userSendMail = User::query()->find($user);
+                        Mail::send('client.pages.email.date_time_email', ['user' => $userSendMail,
+                            'id_trip' => $recentlyCompletedTrip->id,
+                            'tripInfo' => $recentlyCompletedTrip],
+                            function ($email) use ($userSendMail, $subject) {
+                            $email->subject($subject);
+                            $email->to($userSendMail->email);
+                        });
+                    }
                 }
                 Trip::whereIn('id', $recentlyCompletedTrips->pluck('id'))->update(['gmail_sent' => 1]);
             }

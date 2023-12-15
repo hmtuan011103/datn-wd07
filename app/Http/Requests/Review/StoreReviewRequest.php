@@ -22,10 +22,7 @@ class StoreReviewRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'phone' => 'required',
-            'stars' => 'required',
-            'content' => 'required',
+            'content_evaluate' => 'required',
         ];
     }
 }

@@ -91,32 +91,30 @@
     </div>
     <div class="content">
         <div class="booking-details">
-            <h2>Xin chào, {{ $name }}!</h2>
+            <h2>Xin chào, {{ $user->name}}!</h2>
             <div class="py-3">
                 <p class="mb-1">
-                    Chào quý khách hàng thân mến,
-                <p class="mb-1">
-                    Nhà Xe Chiến Thắng xin gửi lời tri ân chân thành đến quý khách hàng đã sử dụng dịch vụ của chúng
-                    tôi trong chuyến đi gần đây.
-                </p>
-                    Chúng tôi trân trọng sự tin tưởng và ủng hộ từ phía quý khách hàng, và hy vọng rằng chúng tôi đã
-                    đáp ứng đúng những mong đợi của quý vị. Đội ngũ lái xe và nhân viên của chúng tôi luôn nỗ lực
-                    hết mình để mang lại trải nghiệm di chuyển an toàn, thuận lợi và thoải mái cho quý khách.
-                <p class="mb-1">
-                    Chúng tôi rất trân trọng ý kiến phản hồi từ phía quý khách để cải thiện chất lượng dịch vụ của
-                    mình. Vì vậy, chúng tôi xin mời quý khách hàng dành chút thời gian để đánh giá chuyến đi gần đây
-                    của mình. Ý kiến của quý khách sẽ giúp chúng tôi ngày càng hoàn thiện và mang lại trải nghiệm
-                    tốt nhất cho tất cả khách hàng của Nhà Xe Chiến Thắng.
+                    @php
+                        use Carbon\Carbon;
+                        $startDate = Carbon::createFromFormat('Y-m-d H:i:s', $tripInfo->start_date)->format('d-m-Y');
+                        $startTime = Carbon::createFromFormat('H:i:s', $tripInfo->start_time)->format('H\hi');
+                    @endphp
+                    Bạn vừa hoàn thành chuyến đi từ <b>{{$tripInfo->start_location}}</b> <b>⇒</b> <b>{{$tripInfo->end_location}}</b> khởi hành lúc
+                    <b>{{$startTime}}</b> ngày <b>{{$startDate}}</b>.
                 </p>
                 <p class="mb-1">
-                    Cảm ơn quý khách hàng một lần nữa và mong được phục vụ quý vị trong những chuyến đi sắp tới.
+                    Chúng tôi mong muốn bạn hãy đánh giá,đóng góp ý kiến của mình. Để chúng tôi có thể cải thiện
+                    dịch vụ được tốt hơn cho những trải nghiệm lần sau.
+                </p>
+                <p class="mb-1">
+                    Cảm ơn quý khách hàng đã ủng hộ xe khách Chiến Thắng.
                 </p>
                 <p class="mb-1">
                     Trân trọng, Nhà Xe Chiến Thắng
                 </p>
 
             </div>
-            <a href="{{ route('review') }}" class="button">Đánh Giá Chuyến Đi</a>
+            <a href="{{ route('review', ['id_trip' => $id_trip, 'id_user' => $user->id]) }}" class="button">Đánh Giá Chuyến Đi</a>
         </div>
         <div class="footer">
             <p>&copy; 2023 Chiến Thắng Bus. All rights reserved.</p>
