@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\App;
 
 class ReviewController extends BaseReviewController
 {
-    //z
     public function create($trip_id,$user_id){
         $abc = env('APP_URL');
         $currentEnv = App::environment();

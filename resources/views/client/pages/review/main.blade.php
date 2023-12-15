@@ -195,12 +195,12 @@
                 </div>
             </div>
 
-            <div class="row mb-3">
+            <div class="row mb-3 d-none">
                 <div class="form-group col-md-12">
                     <input type="email" name="email" class="form-control input-email" placeholder="Email" value="{{$userInfo->email}}" readonly style="background-color: #ccc">
                 </div>
             </div>
-            <div class="row mb-3">
+            <div class="row mb-3 d-none">
                 <div class="form-group col-md-6">
                     <input type="text" name="name" class="form-control" placeholder="Họ và tên" value="{{$userInfo->name}}" readonly style="background-color: #ccc">
                 </div>
@@ -208,12 +208,12 @@
                     <input type="text" id="phone" name="phone" class="form-control"
                         placeholder="Số điện thoại"  value="{{$userInfo->phone_number}}" readonly style="background-color: #ccc">
                 </div>
-                <input type="hidden" name="trip_id" value="{{$tripInfo->id}}">
-                <input type="hidden" name="user_id" value="{{$userInfo->id}}">
             </div>
             <div class="row mb-3">
                 <div class="form-group col-md-12">
-                    <textarea class="form-control" name="content_evaluate" rows="3" placeholder="Nhập ghi chú">{{isset($data['content']) ? $data['content'] : ''}}</textarea>
+                    <input type="hidden" name="trip_id" value="{{$tripInfo->id}}">
+                    <input type="hidden" name="user_id" value="{{$userInfo->id}}">
+                    <textarea class="form-control" name="content_evaluate" rows="5" placeholder="Nhập đánh giá của bạn">{{isset($data['content_evaluate']) ? $data['content_evaluate'] : ''}}</textarea>
                 </div>
             </div>
             <button type="submit" class="btn btn-submit">Gửi</button>
