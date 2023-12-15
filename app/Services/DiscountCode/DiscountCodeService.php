@@ -11,7 +11,9 @@ use Carbon\Carbon;
 class DiscountCodeService
 {
     public function index(){
-        $discount_code_list = DiscountCode::all();
+        $discount_code_list = DiscountCode::query()
+            ->where('name_vip',null)
+            ->get();
         return $discount_code_list;
     }
 

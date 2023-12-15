@@ -73,6 +73,9 @@
         .mb-1{
             margin-bottom: 8px;
         }
+        .mb-2{
+            margin-bottom: 24px;
+        }
         .color-text{
             color: #ff8c00;
         }
@@ -89,17 +92,20 @@
         <div class="booking-details">
             <h2>Xin chào, {{ $userName }}!</h2>
             <h4 class="mb-1">CHÚC MỪNG BẠN</h4>
-            <p class="p-0">
-                Chúng tôi rất vui thông báo rằng bạn đã đạt được đặc quyền {{$Vip}}. Đây là một bước quan trọng trên hành trình của bạn với chúng tôi, và chúng tôi muốn bày tỏ sự biết ơn sâu sắc vì sự cam kết và đóng góp của bạn.
-
-                Với đặc quyền {{$Vip}}, bạn sẽ nhận được ưu đãi đặc biệt là một mã giảm giá {{$valuediscount}}{{$type_discount}}
-
-                Hãy tiếp tục đồng hành cùng chúng tôi, và chúng tôi hy vọng rằng đặc quyền {{$Vip}} sẽ làm cho mọi trải nghiệm của bạn trở nên đặc biệt và không quên được.
+            <p class="p-0 mb-1">
+                Chúng tôi rất vui thông báo rằng bạn đã đạt được đặc quyền <b> {{$nameDiscount}}</b>.
             </p>
-            <p class="p-0">
+            <p class="p-0 mb-1">
+                Đây là một bước quan trọng trên hành trình của bạn với chúng tôi, và chúng tôi muốn bày tỏ sự biết ơn sâu sắc vì sự cam kết và đóng góp của bạn.
+            </p>
+            <p class="p-0 mb-1">
+                Với đặc quyền <b> {{$nameDiscount}}</b>, bạn sẽ nhận được ưu đãi đặc biệt là một mã giảm giá <b>{{$valueDiscount}}%</b>
+
+            </p>
+            <p class="p-0 mb-2">
                 Cảm ơn bạn một lần nữa và chúc mừng vì đã đạt được mốc quan trọng này!
             </p>
-            <p class="p-0">
+            <p class="p-0 mb-1">
                 Trân trọng, Nhà Xe Chiến Thắng
             </p>
         </div>

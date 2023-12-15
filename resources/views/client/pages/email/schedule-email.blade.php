@@ -9,12 +9,13 @@
         /* Reset CSS */
         body,
         h1,
-        h2,
         p {
             margin: 0;
             padding: 0;
         }
-
+        h2{
+            margin-bottom: 30px;
+        }
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
@@ -76,6 +77,9 @@
         .mb-1 {
             margin-bottom: 8px;
         }
+        .mb-2 {
+            margin-bottom: 24px;
+        }
 
         .color-text {
             color: #ff8c00;
@@ -92,13 +96,20 @@
     <div class="content">
         <div class="booking-details">
             <h2>Xin chào, {{ $name }}!</h2>
-            <p class="p-0">Xin chúc mừng! Bạn vừa nhận được một mã ưu đãi đặc biệt từ chúng tôi.
-                Đừng bỏ lỡ cơ hội để sử dụng mã giảm giá này khi thanh toán và tận hưởng mức giá ưu đãi đặc biệt cho hành trình của mình.
+            <p class="p-0 mb-1">Xin chúc mừng! Bạn vừa nhận được một mã ưu đãi đặc biệt từ chúng tôi.
+            </p>
+            <p class="p-0 mb-1">
+                Đừng bỏ lỡ cơ hội để sử dụng mã giảm giá này khi thanh toán và tận hưởng mức giá
+                ưu đãi đặc biệt cho hành trình của mình.
+            </p>
+            <p class="p-0 mb-1">
                 Hãy nhanh tay, vì mã giảm giá chỉ có hiệu lực trong thời gian ngắn.
             </p>
-            <p class="p-0">  Cảm ơn bạn đã lựa chọn Chiến Thắng Bus và chúc bạn có một chuyến đi thú vị!
+            <p class="p-0 mb-2">
+                Cảm ơn bạn đã lựa chọn Chiến Thắng Bus và chúc bạn có một chuyến đi thú vị!
             </p>
-            <p class="p-0">     Trân trọng, Nhà Xe Chiến Thắng
+            <p class="p-0 mb-1">
+                Trân trọng, Nhà Xe Chiến Thắng
             </p>
         </div>
     </div>
