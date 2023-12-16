@@ -14,4 +14,5 @@
 
 @section('script')
     @include('admin.pages.statistic.script')
+
 @endsection

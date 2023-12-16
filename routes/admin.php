@@ -176,6 +176,7 @@ Route::prefix('search-ticket')->group(function () {
 Route::middleware('check_permission:read-statistic')->name('statistics.')->prefix('statistics_general')->group(function () {
     Route::get('/', [\App\Http\Controllers\Statistic\Admin\StatisticController::class, 'index'])->name('car');
     Route::get('/user', [\App\Http\Controllers\Statistic\Admin\StatisticController::class, 'user'])->name('user');
+    // Route::get('/user-data', 'YourController@getUserData')->name('user.data');
     Route::get('/revenue', [\App\Http\Controllers\Statistic\Admin\StatisticController::class, 'revenue'])->name('revenue');
 
 });

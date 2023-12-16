@@ -11,8 +11,7 @@
                                 <div>
                                     <p class="fw-medium text-muted mb-0">Loại xe</p>
                                     <h2 class="mt-4 ff-secondary fw-semibold">
-                                        <span class="counter-value" data-target="28.05">
-                                            {{ $totalTypeCar }}
+                                        <span class="counter-value" data-target="  {{ $totalTypeCar }}">
                                         </span> Loại
                                     </h2>
                                 </div>
@@ -34,8 +33,8 @@
                                 <div>
                                     <p class="fw-medium text-muted mb-0">Tổng số xe</p>
                                     <h2 class="mt-4 ff-secondary fw-semibold">
-                                        <span class="counter-value" data-target="28.05">
-                                            {{ $totalCar }}
+                                        <span class="counter-value" data-target=" {{ $totalCar }}">
+                                           
                                         </span> Chiếc
                                     </h2>
                                 </div>

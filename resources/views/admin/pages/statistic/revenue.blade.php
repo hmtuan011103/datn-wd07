@@ -92,7 +92,7 @@
 
                                 </div>
                             </div><!-- end card -->
-                            <canvas id="revenueChart"></canvas>
+                            <canvas id="revenueChart" height="100" width="400"></canvas>
                             <canvas id="revenueDay"></canvas>
 
 
