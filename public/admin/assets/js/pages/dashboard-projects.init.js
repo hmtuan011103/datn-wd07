@@ -13,7 +13,7 @@ function dataChart(data) {
   var datatrip = Object.values(data[0][0])
   var datauser = Object.values(data[0][1])
   var datarevenue = Object.values(data[0][2]).map(function(value) {
-    return value / 1000;
+    return value / 1000000;
   });
   
   function getChartColorsArray(e) {
@@ -64,18 +64,18 @@ function dataChart(data) {
           markers: { size: [0, 4, 0], strokeWidth: 2, hover: { size: 4 } },
           xaxis: {
             categories: [
-              "Jan",
-              "Feb",
-              "Mar",
-              "Apr",
-              "May",
-              "Jun",
-              "Jul",
-              "Aug",
-              "Sep",
-              "Oct",
-              "Nov",
-              "Dec",
+              "Tháng 1",
+              "Tháng 2",
+              "Tháng 3",
+              "Tháng 4",
+              "Tháng 5",
+              "Tháng 6",
+              "Tháng 7",
+              "Tháng 8",
+              "Tháng 9",
+              "Tháng 10",
+              "Tháng 11",
+              "Tháng 12",
             ],
             axisTicks: { show: !1 },
             axisBorder: { show: !1 },
@@ -106,7 +106,7 @@ function dataChart(data) {
               },
               {
                 formatter: function (e) {
-                  return void 0 !== e ? e.toFixed(2) + "k" : e;
+                  return void 0 !== e ? e.toFixed(3) + "k" : e;
                 },
               },
               {

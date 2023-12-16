@@ -3,8 +3,12 @@
 namespace App\Services\Statistic;
 
 use App\Models\Bill;
+use App\Models\Bills;
 use App\Models\Car;
+use App\Models\Route;
+use App\Models\Trip;
 use App\Models\TypeCar;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
@@ -87,49 +91,49 @@ class StatisticService
 
      public function getFilteredData($request)
      {
-         $startDate = $request->input('startDate');
-         $endDate = $request->input('endDate');
-     
-         $query = Bill::query();
-         $dailyData = []; // Mảng kết hợp lưu trữ doanh thu theo ngày
-     
-         if ($startDate && $endDate) {
-             $query->whereDate('created_at', '>=', $startDate)
-                 ->whereDate('created_at', '<=', $endDate);
-         }
-     
-         $datas = $query->get();
-     
-         // Tính tổng doanh thu cho từng ngày
-         foreach ($datas as $data) {
-             $date = $data->created_at->format('Y-m-d');
-     
-             // Kiểm tra nếu ngày đã tồn tại trong mảng kết hợp
-             if (isset($dailyData[$date])) {
-                 // Nếu ngày đã tồn tại, cộng thêm vào tổng doanh thu
-                 $dailyData[$date]['total_money'] += $data->total_money;
-                 $dailyData[$date]['trips_count']++; // Tăng số lượng chuyến đi cho ngày này
-             } else {
-                 // Nếu ngày chưa tồn tại, khởi tạo giá trị doanh thu và số lượng chuyến đi cho ngày đó
-                 $dailyData[$date] = [
-                     'total_money' => $data->total_money,
-                     'trips_count' => 1 // Bắt đầu với 1 chuyến đi
-                 ];
-             }
-         }
-     
-         // Chuyển dữ liệu từ mảng kết hợp sang mảng labels và data để trả về
-         $labels = array_keys($dailyData);
-         $dataDaily = array_values(array_column($dailyData, 'total_money')); // Dữ liệu doanh thu
-         $tripsCount = array_values(array_column($dailyData, 'trips_count')); // Số lượng chuyến đi
-     
-         return [
-             'labels' => $labels,
-             'data' => $dataDaily,
-             'trips_count' => $tripsCount // Trả về số lượng chuyến đi cho mỗi ngày
-         ];
+          $startDate = $request->input('startDate');
+          $endDate = $request->input('endDate');
+
+          $query = Bill::query();
+          $dailyData = []; // Mảng kết hợp lưu trữ doanh thu theo ngày
+
+          if ($startDate && $endDate) {
+               $query->whereDate('created_at', '>=', $startDate)
+                    ->whereDate('created_at', '<=', $endDate);
+          }
+
+          $datas = $query->get();
+
+          // Tính tổng doanh thu cho từng ngày
+          foreach ($datas as $data) {
+               $date = $data->created_at->format('Y-m-d');
+
+               // Kiểm tra nếu ngày đã tồn tại trong mảng kết hợp
+               if (isset($dailyData[$date])) {
+                    // Nếu ngày đã tồn tại, cộng thêm vào tổng doanh thu
+                    $dailyData[$date]['total_money'] += $data->total_money;
+                    $dailyData[$date]['trips_count']++; // Tăng số lượng chuyến đi cho ngày này
+               } else {
+                    // Nếu ngày chưa tồn tại, khởi tạo giá trị doanh thu và số lượng chuyến đi cho ngày đó
+                    $dailyData[$date] = [
+                         'total_money' => $data->total_money,
+                         'trips_count' => 1 // Bắt đầu với 1 chuyến đi
+                    ];
+               }
+          }
+
+          // Chuyển dữ liệu từ mảng kết hợp sang mảng labels và data để trả về
+          $labels = array_keys($dailyData);
+          $dataDaily = array_values(array_column($dailyData, 'total_money')); // Dữ liệu doanh thu
+          $tripsCount = array_values(array_column($dailyData, 'trips_count')); // Số lượng chuyến đi
+
+          return [
+               'labels' => $labels,
+               'data' => $dataDaily,
+               'trips_count' => $tripsCount // Trả về số lượng chuyến đi cho mỗi ngày
+          ];
      }
-     
+
      // public function getFilteredData($request)
      // {
      //      $startDate = $request->input('startDate');
@@ -190,5 +194,113 @@ class StatisticService
 
 
           return $revenueData;
+     }
+
+     public function getRoute()
+     {
+          $routes = Route::all();
+          return $routes;
+     }
+     public function getTrip()
+     {
+          $trips = Trip::all();
+          return $trips;
+     }
+
+     public function getRevenue()
+     {
+          $bills = Bill::all();
+          $revenues = 0;
+          foreach ($bills as $key => $value) {
+               $revenues += $value->total_money_after_discount;
+          }
+          return $revenues;
+     }
+
+     public function getTopRoute()
+     {
+          $query = Route::select('routes.id', 'routes.name', DB::raw('COUNT(trips.id) as total_trip'), DB::raw('SUM(bills.total_money_after_discount) as total_money'), DB::raw('SUM(bills.total_seats) as total_seats'))
+               ->leftJoin('trips', 'routes.id', '=', 'trips.route_id')
+               ->leftJoin('bills', function ($join) {
+                    $join->on('trips.id', '=', 'bills.trip_id')
+                         ->where('bills.status_pay', '=', 1);
+               })
+               ->groupBy('routes.id', 'routes.name')
+               // ->havingRaw('total_money > 0')
+               ->orderByDesc('total_money')
+               ->limit(10)
+               ->get();
+          return $query;
+     }
+
+     public function data_route()
+     {
+
+          $currentYear = Carbon::now()->year;
+          $dataTrip = [];
+          $dataUser = [];
+          $dataRevenue = [];
+          for ($month = 1; $month <= 12; $month++) {
+               $trip = Trip::whereYear('created_at', $currentYear)
+                    ->whereMonth('created_at', $month)
+                    ->count();
+
+               $dataTrip[$month] = $trip;
+               $user = Route::whereYear('created_at', $currentYear)
+                    ->whereMonth('created_at', $month)
+                    ->count();
+
+               $dataUser[$month] = $user;
+               $bill = Bills::whereYear('created_at', $currentYear)
+                    ->whereMonth('created_at', $month)
+                    ->get();
+               $dataRevenue[$month] = 0;
+               foreach ($bill as $item) {
+                    $dataRevenue[$month] += $item->total_money;
+               }
+          }
+          return [$dataTrip, $dataUser, $dataRevenue];
+     }
+
+     public function get_data_route($request)
+     {
+          $dataTrip = [];
+          $dataUser = [];
+          $dataRevenue = [];
+          for ($month = 1; $month <= 12; $month++) {
+               $trip = Trip::whereYear('start_date', $request->year)
+               ->whereMonth('start_date', $month)
+               ->get();
+               $dataTrip[$month] = count($trip);
+               $bill = 0;
+               if ($dataTrip[$month]  > 0) {
+                    foreach ($trip as $key => $value) {
+                         $bills = Bills::where('trip_id',$value->id)->where('status_pay',1)->get();
+                         if ($bills->isEmpty()) {
+                              
+                         } else {
+                              foreach ($bills as $key => $value) {
+                                   $bill += $value->total_seats;
+                              }
+                         }
+                    }
+               }
+               $dataUser[$month] = $bill;
+               $total_revenue = 0;
+               if ($dataTrip[$month]  > 0) {
+                    foreach ($trip as $key => $value) {
+                         $bills = Bills::where('trip_id',$value->id)->where('status_pay',1)->get();
+                         if ($bills->isEmpty()) {
+                              
+                         } else {
+                              foreach ($bills as $key => $value) {
+                                   $total_revenue += $value->total_money_after_discount;
+                              }
+                         }
+                    }
+               }
+               $dataRevenue[$month] = $total_revenue;
+          }
+          return [$dataTrip, $dataUser, $dataRevenue];
      }
 }

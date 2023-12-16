@@ -8,6 +8,7 @@ use App\Http\Requests\DiscountCode\StoreDiscountCodeRequest;
 use App\Http\Requests\DiscountCode\UpdateDiscountCodeRequest;
 use App\Models\DiscountCode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class DiscountCodeController extends BaseDiscountCodeController
 {

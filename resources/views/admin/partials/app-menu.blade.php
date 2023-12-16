@@ -1,5 +1,5 @@
     @auth
-        <div class="app-menu navbar-menu">
+        <div class="app-menu navbar-menu menu_admin">
             <!-- LOGO -->
             <div class="navbar-brand-box">
                 <!-- Dark Logo-->

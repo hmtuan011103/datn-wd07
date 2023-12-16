@@ -93,3 +93,5 @@ Route::post('/get_available_drivers', [AdminTripController::class, 'get_availabl
 Route::post('/getFilter', [StatisticController::class, 'getRevenue'])->name('getRevenue');
 
 Route::get('/getRevenueData', [StatisticController::class, 'getRevenueData'])->name('getRevenueData');
+
+Route::get('/get_data_route', [StatisticController::class, 'get_data_route'])->name('get_data_route');

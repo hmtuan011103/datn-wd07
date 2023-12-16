@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Statistic\Admin;
 
 use App\Http\Controllers\Statistic\BaseStatisticController;
+use App\Models\Bills;
+use App\Models\Trip;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class StatisticController extends BaseStatisticController
@@ -64,5 +68,24 @@ class StatisticController extends BaseStatisticController
     public function getRevenueData(Request $request) {
         $revenueData = $this->statisticService->getRevenueData($request);
         return response()->json($revenueData);
+    }
+
+    public function route()
+    {
+        $title = 'Thống kê tuyến đường';
+
+        // query
+        $getRoute = $this->statisticService->getRoute();
+        $getTrip = $this->statisticService->getTrip();
+        $getRevenue = $this->statisticService->getRevenue();
+        // format data
+        $getTopRoute = $this->statisticService->getTopRoute();
+
+        return view('admin.pages.statistic.route', compact('title', 'getTopRoute','getRoute','getTrip','getRevenue'));
+    }
+
+    public function get_data_route(Request $request){
+        $get_data_route = $this->statisticService->get_data_route($request);
+        return response()->json([$get_data_route],200);
     }
 }
