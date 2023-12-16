@@ -7,7 +7,7 @@
                     <h2>{{ $title }}</h2>
                 </div>
                 <div class="row mx-auto pb-5">
-                    <div class="col col-md-2 ps-md-0 pe-md-4">
+                    <div class="col col-md-3 ps-md-0 pe-md-4">
                         <div class="card card-animate">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between" style="height: 80px">
@@ -15,8 +15,9 @@
                                         <p class="fw-medium text-muted mb-0">Tổng nhân viên</p>
                                         <h2 class="mt-4 ff-secondary fw-semibold">
                                             <span class="counter-value" data-target="{{ $sumStaff }}">
+                                                 {{ $sumStaff }}
                                             </span>
-                                            <p style="font-size:12px">Người</p>
+                                            <span>Người</span>
                                         </h2>
                                     </div>
                                     <div>
@@ -30,7 +31,7 @@
                             </div><!-- end card body -->
                         </div> <!-- end card-->
                     </div>
-                    <div class="col col-md-2 ps-md-0 pe-md-4">
+                    <div class="col col-md-3 ps-md-0 pe-md-4">
                         <div class="card card-animate">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between" style="height: 80px">
@@ -38,9 +39,9 @@
                                         <p class="fw-medium text-muted mb-0">Tài xế</p>
                                         <h2 class="mt-4 ff-secondary fw-semibold">
                                             <span class="counter-value" data-target="{{ $sumDriver }}">
-
+                                                {{ $sumDriver }}
                                             </span>
-                                            <p style="font-size:12px">Người</p>
+                                            <span>Người</span>
                                         </h2>
                                     </div>
                                     <div>
@@ -54,7 +55,7 @@
                             </div><!-- end card body -->
                         </div> <!-- end card-->
                     </div>
-                    <div class="col col-md-2 ps-md-0 pe-md-4">
+                    <div class="col col-md-3 ps-md-0 pe-md-4">
                         <div class="card card-animate">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between" style="height: 80px">
@@ -62,9 +63,9 @@
                                         <p class="fw-medium text-muted mb-0">Phụ xe</p>
                                         <h2 class="mt-4 ff-secondary fw-semibold">
                                             <span class="counter-value" data-target="{{ $sumAssistant }}">
-
+                                                {{ $sumAssistant }}
                                             </span>
-                                            <p style="font-size:12px">Người</p>
+                                            <span>Người</span>
                                         </h2>
                                     </div>
                                     <div>
@@ -78,7 +79,7 @@
                             </div><!-- end card body -->
                         </div> <!-- end card-->
                     </div>
-                    <div class="col col-md-2 ps-md-0 pe-md-4">
+                    <div class="col col-md-3 ps-md-0 pe-md-4">
                         <div class="card card-animate">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between" style="height: 80px">
@@ -86,9 +87,9 @@
                                         <p class="fw-medium text-muted mb-0">Bán vé</p>
                                         <h2 class="mt-4 ff-secondary fw-semibold">
                                             <span class="counter-value" data-target="{{ $sumTickerSeller }}">
-
+                                                {{ $sumTickerSeller }}
                                             </span>
-                                            <p style="font-size:12px">Người</p>
+                                            <span>Người</span>
                                         </h2>
                                     </div>
                                     <div>
@@ -149,7 +150,7 @@
                     <div class="col p-0 px-lg-4 pt-5">
                         <div class="card card-height-100">
                             <div class="text-center pb-2 pt-4">
-                                <h3>Tài khoản mới trong tháng</h3>
+                                <h3>Tài khoản mới trong năm</h3>
                             </div>
                             <div class="pb-3">
                                 <canvas id="myChart" height="180" width="400"></canvas>
@@ -170,7 +171,7 @@
                                     <table class="table align-middle table-borderless table-centered table-nowrap mb-0">
                                         <thead class="text-muted table-light">
                                             <tr>
-                                                <th scope="col">Stt</th>
+                                                <th scope="col">STT</th>
                                                 <th scope="col" style="width: 62;">Tên tài xế</th>
                                                 <th scope="col">Số điện thoại</th>
                                                 <th scope="col">Số chuyến đã chạy</th>
@@ -202,7 +203,7 @@
                                     <table class="table align-middle table-borderless table-centered table-nowrap mb-0">
                                         <thead class="text-muted table-light">
                                             <tr>
-                                                <th scope="col">Stt</th>
+                                                <th scope="col">STT</th>
                                                 <th scope="col" style="width: 62;">Tên phụ xe</th>
                                                 <th scope="col">Số điện thoại</th>
                                                 <th scope="col">Số chuyến đã chạy</th>

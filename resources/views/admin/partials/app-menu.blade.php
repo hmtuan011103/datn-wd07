@@ -256,6 +256,13 @@
                                                 <span>Tài khoản</span>
                                             </a>
                                         </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link menu-link" href="{{ route('statistics.route') }}"
+                                               role="button">
+                                                <span>Tuyến - Chuyến</span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>

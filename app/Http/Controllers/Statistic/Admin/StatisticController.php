@@ -3,13 +3,7 @@
 namespace App\Http\Controllers\Statistic\Admin;
 
 use App\Http\Controllers\Statistic\BaseStatisticController;
-use App\Models\Bills;
-use App\Models\Trip;
-use App\Models\User;
-use Carbon\Carbon;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class StatisticController extends BaseStatisticController
 {
