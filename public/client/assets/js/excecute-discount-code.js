@@ -22,11 +22,24 @@ $('.btn-execute-code-discount').on('click', async (e) => {
     const discountCode = $('.discount_code_value').val();
     if (discountCode.trim() !== "") {
         try {
-            const result = await $.ajax({
-                url: `${baseApiUrl}/get-discount-ticket/${discountCode}`,
-                type: 'GET',
-                contentType: 'application/json',
-            });
+            let result;
+            if(getCookie('token')) {
+                const requestData = {
+                    client_login: parseInt($('input[name="client_login"]').val())
+                };
+                result = await $.ajax({
+                    url: `${baseApiUrl}/get-discount-ticket-login/${discountCode}`,
+                    type: 'GET',
+                    contentType: 'application/json',
+                    data: requestData,
+                });
+            } else {
+                result = await $.ajax({
+                    url: `${baseApiUrl}/get-discount-ticket/${discountCode}`,
+                    type: 'GET',
+                    contentType: 'application/json',
+                });
+            }
             const { data } = result;
             const totalBeforeFirst = parseInt($('.total_money_first').text().replace(/\./g, ''));
             if (data.length === 0) {

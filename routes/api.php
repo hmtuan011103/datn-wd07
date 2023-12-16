@@ -78,6 +78,8 @@ Route::get('/search_bill_admin', [AdminTicketController::class, 'search_bill_adm
 Route::get('/search_ticket_admin', [AdminTicketController::class, 'search_ticket_admin'])->name('search_ticket_admin');
 
 Route::get('get-discount-ticket/{code}', [DiscountCodeController::class, 'getCodeUser'])->name('get-discount-ticket');
+Route::get('get-discount-ticket-login/{code}', [DiscountCodeController::class, 'getCodeUserLogin'])->name('get-discount-ticket-login');
+
 
 // Api test email when checkout successful
 //Route::get('/test-mail', [AdminTicketController::class, 'testMail']);

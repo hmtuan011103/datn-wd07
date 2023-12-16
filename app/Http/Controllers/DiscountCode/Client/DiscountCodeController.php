@@ -18,4 +18,15 @@ class DiscountCodeController extends BaseDiscountCodeController
             'data' => null
         ], Response::HTTP_OK);
     }
+    public function getCodeUserLogin($code){
+        $discount_code = $this->discountcodeService->getDiscountLogin($code);
+        if($discount_code) {
+            return response()->json([
+                'data' => $discount_code
+            ], Response::HTTP_OK);
+        }
+        return response()->json([
+            'data' => null
+        ], Response::HTTP_OK);
+    }
 }
