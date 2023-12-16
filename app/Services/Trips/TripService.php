@@ -119,54 +119,7 @@ class TripService
 
 
 
-    // public function create(StoreTripRequest $request)
-    // {
-    //     if ($request->isMethod('POST')) {
-
-    //         $repeat = $request->has('repeat');
-
-    //         $startDate = Carbon::parse($request->start_date);
-
-
-    //         $route = Route::find($request->route_id);
-
-    //         Trip::create([
-    //             'start_date' => $startDate,
-    //             'start_time' => $route->start_time,
-    //             'interval_trip' => $route->interval_trip,
-    //             'car_id' => $request->car_id,
-    //             'drive_id' => $request->drive_id,
-    //             'assistantCar_id' => $request->assistantCar_id,
-    //             'trip_price' => $route->trip_price,
-    //             'start_location' => $route->start_location,
-    //             'end_location' => $route->end_location,
-    //             'status' => $route->status,
-    //             'route_id' => $route->id,
-
-    //         ]);
-
-    //         if ($repeat) {
-    //             $numberOfDays = $request->input('number_of_days', 0); // Số ngày lặp lại, có thể lấy từ form
-    //             for ($i = 1; $i <= $numberOfDays; $i++) {
-    //                 $nextDate = $startDate->copy()->addDays($i); // Tăng ngày lên
-
-    //                 Trip::create([
-    //                     'start_date' => $nextDate,
-    //                     'start_time' => $route->start_time,
-    //                     'interval_trip' => $route->interval_trip,
-    //                     'car_id' => $request->car_id,
-    //                     'drive_id' => $request->drive_id,
-    //                     'assistantCar_id' => $request->assistantCar_id,
-    //                     'trip_price' => $route->trip_price,
-    //                     'start_location' => $route->start_location,
-    //                     'end_location' => $route->end_location,
-    //                     'status' => $route->status,
-    //                     'route_id' => $route->id,
-    //                 ]);
-    //             }
-    //         }
-    //     }
-    // }
+    
 
     public function create(StoreTripRequest $request)
     {
@@ -805,30 +758,7 @@ class TripService
         return $route;
     }
 
-    // public function getcarDriveAssistant($request)
-    // {
-    //     $route = Route::first();
-
-    //     $driverIds = json_decode($route->driver_id, true);
-    //     $carIds = json_decode($route->car_id, true);
-    //     $assistantIds = json_decode($route->assistantCar_id, true);
-
-    //     $drivers = User::whereIn('id', $driverIds)->get(['id', 'name']);
-    //     $cars = Car::whereIn('id', $carIds)->get(['id', 'name']); // Thay 'car_name' bằng tên cột chứa tên xe
-    //     $assistants = User::whereIn('id', $assistantIds)->get(['id', 'name']);
-
-    //     $driverData = $drivers->toArray();
-    //     // dd($driverData);
-
-    //     $carData = $cars->toArray();
-    //     $assistantData = $assistants->toArray();
-
-    //     return [
-    //         'drivers' => $driverData,
-    //         'cars' => $carData,
-    //         'assistants' => $assistantData,
-    //     ];
-    // }
+  
 
     public function getcarDriveAssistant($request)
     {

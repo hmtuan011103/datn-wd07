@@ -5,10 +5,7 @@
 <!--Swiper slider css-->
 <link href="{{ asset("admin/assets/libs/swiper/swiper-bundle.min.css") }}" rel="stylesheet" type="text/css" />
 <style>
-    canvas {
-    max-width:100%; /* Đảm bảo bảng không vượt quá chiều rộng của cha nó */
-    height: 100px; /* Để bảng tự điều chỉnh chiều cao tùy theo tỉ lệ khung hình */
-}
+
 .form {
     display: flex;
     justify-content: space-between;
@@ -25,5 +22,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.getDrive{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    
 }
 </style>
