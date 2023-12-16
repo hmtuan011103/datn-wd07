@@ -14,9 +14,42 @@ class LocationService
     }
 
     public function get_desc_edit() {
-        return Location::orderBy('updated_at', 'DESC')->where('parent_id',Null)->get();
+        $locations = Location::all();
+        $data = $this->getListPermission($locations);
+        $flatData = [];
+
+        // Hàm đệ quy để duyệt và sắp xếp dữ liệu
+        $this->flattenPermissionData($data, $flatData);
+
+        return $flatData;
     }
 
+    public function getListPermission($permissions, $parent_id = null)
+    {
+        $permissionArray = [];
+        foreach ($permissions as $key => $permission) {
+            if ($parent_id === $permission->parent_id) {
+                $permissionArray[] = $permission;
+                unset($permissions[$key]);
+                $subPermissions = $this->getListPermission($permissions, $permission->id);
+                $permissionArray = array_merge($permissionArray, $subPermissions);
+            }
+        }
+
+        return $permissionArray;
+    }
+
+    public function flattenPermissionData($permissions, &$flatData, $level = 0)
+    {
+        foreach ($permissions as $permission) {
+            $permission->level = $level;
+            $flatData[] = $permission;
+
+            if (isset($permission->children) && count($permission->children) > 0) {
+                $this->flattenPermissionData($permission->children, $flatData, $level + 1);
+            }
+        }
+    }
     public function get_parent_id() {
         return Location::select('locations.name','locations.id')->where('locations.parent_id',Null)->get();
     }

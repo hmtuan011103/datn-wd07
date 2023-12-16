@@ -27,14 +27,13 @@ class UpdateDiscountCodeRequest extends FormRequest
             'name'=>'required',
             'quantity'=>'required|numeric',
             'start_time'=>'required|after:yesterday|date|date_format:Y-m-d',
-            'value'=>'required|numeric',
-            'value' => 'required_if:id_type_discount_code,1|lt:100',
+            'value'=>'required|numeric|custom_validation',
+            // 'value' => 'required_if:id_type_discount_code,1|lt:100',
             // 'code' => 'required|regex:/^[a-zA-Z0-9]+$/u|unique:discount_codes,code,',
             'code' => [
                 'required',
                 'regex:/^[a-zA-Z0-9]+$/u',
                 'between:6,30',
-                Rule::unique('discount_codes')->ignore($id),
             ],
             'end_time'=>'required|after:start_time|date|date_format:Y-m-d',
         ];
@@ -51,7 +50,7 @@ class UpdateDiscountCodeRequest extends FormRequest
             'value.required'=>'Vui lòng thêm giá trị',
             'value.required_if'=>'Vui lòng thêm giá trị',
             'value.numeric'=>'Vui lòng nhập số',
-            'value.lt' => 'Mã giảm theo % giá trị phải nhỏ hơn 100.',
+            'value.custom_validation' => 'Mã giảm theo % giá trị phải nhỏ hơn 100.',
             'code.required'=>'Vui lòng thêm mã',
             'code.unique'=>'Mã bạn nhập đã tồn tại',
             'code.between' => "Độ dài của mã từ 6-30 kí tự",
@@ -59,5 +58,15 @@ class UpdateDiscountCodeRequest extends FormRequest
             'end_time.required'=>'Vui lòng nhập ngày kết thúc',
             'end_time.after'=>'Vui lòng không chọn ngày nhỏ hơn ngày bắt đầu',
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->addExtension('custom_validation', function ($attribute, $value, $parameters, $validator) {
+            if ($this->input('id_type_discount_code') == 1 && $value >= 100) {
+                return false;
+            }
+            return true;
+        });
     }
 }

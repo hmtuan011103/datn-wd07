@@ -17,8 +17,7 @@
 <script src={{ asset('admin/assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}></script>
 <script src={{ asset('admin/assets/libs/node-waves/waves.min.js') }}></script>
 <script src={{ asset('admin/assets/libs/feather-icons/feather.min.js') }}></script>
-<script src={{ asset('admin/assets/js/app.js') }}></script>
-
+{{-- <script src="{{ asset('admin/assets/libs/prismjs/prism.js') }}"></script> --}}
 
 <!-- Sweet Alerts js -->
 <script src="{{ asset('admin/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
@@ -107,7 +106,6 @@
 
             myChart.update();
         } else {
-            console.log("Tuấn "+revenueData);
             myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {

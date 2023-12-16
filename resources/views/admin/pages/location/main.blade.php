@@ -58,6 +58,7 @@
                                                 <th class="sort" data-sort="email">Tên địa điểm</th>
                                                 <th class="sort" data-sort="phone">Ảnh</th>
                                                 <th class="sort" data-sort="date">Mô tả</th>
+                                                <th class="sort" data-sort="date">Địa điểm cha</th>
                                                 <th class="sort" data-sort="action">Chức năng</th>
                                             </tr>
                                         </thead>
@@ -79,6 +80,13 @@
                                                         <img src="{{ $item->image ? asset('storage/' . $item->image) : 'https://cdn4.iconfinder.com/data/icons/solid-part-6/128/image_icon-512.png' }}" alt="" width="100px">
                                                     </td>
                                                     <td class="phone">{{ $item->description ? '' . $item->description : 'Không có mô tả'  }}</td>
+                                                    <td>
+                                                        <?php foreach($location as $pers) : ?>
+                                                        <?php if($item['parent_id'] == $pers['id']) : ?>
+                                                        <?= $pers['name'] ?>
+                                                        <?php endif ?>
+                                                        <?php endforeach ?>
+                                                    </td>
                                                     <td>
                                                         <div class="d-flex gap-2">
                                                             <div class="edit">

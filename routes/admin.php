@@ -181,7 +181,7 @@ Route::middleware('check_permission:read-statistic')->name('statistics.')->prefi
     Route::get('/user', [\App\Http\Controllers\Statistic\Admin\StatisticController::class, 'user'])->name('user');
     // Route::get('/user-data', 'YourController@getUserData')->name('user.data');
     Route::get('/revenue', [\App\Http\Controllers\Statistic\Admin\StatisticController::class, 'revenue'])->name('revenue');
-
+    Route::get('/route', [\App\Http\Controllers\Statistic\Admin\StatisticController::class, 'route'])->name('route');
 });
 
 Route::prefix('banner')->group(function () {

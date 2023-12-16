@@ -28,7 +28,7 @@ class UpdateRouteRequest extends FormRequest
             'interval_trip' => 'required',
             'car_id' => 'required',
             'driver_id' => 'required',
-            'assistant_id' => 'required',
+            'assistantCar_id' => 'required',
             'trip_price' => 'required|numeric'
         ];
     }

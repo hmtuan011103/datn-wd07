@@ -164,7 +164,7 @@
                                     <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
                                         <h4>Xác nhận xóa ?</h4>
                                         <span id="role-id" hidden></span>
-                                        <p class="text-muted mx-4 mb-0">Bạn có chắc chắn muốn xóa vai trò này ?</p>
+                                        <p class="text-muted mx-4 mb-0">Bạn có chắc chắn muốn xóa quyền này ?</p>
                                     </div>
                                 </div>
                                 <div class="d-flex gap-2 justify-content-center mt-4 mb-2">

@@ -3,7 +3,10 @@
 namespace App\Services\Statistic;
 
 use App\Models\Bill;
+use App\Models\Bills;
 use App\Models\Car;
+use App\Models\Route;
+use App\Models\Trip;
 use App\Models\TypeCar;
 use App\Models\User;
 use Carbon\Carbon;
@@ -115,7 +118,7 @@ class StatisticService
           return response()->json($response, $response['status']);
      }
 
-     
+
 
 
      public function getFilteredData($request)
@@ -261,14 +264,14 @@ class StatisticService
                     foreach ($finishedTripsCount as $trip) {
                          $startTime = Carbon::parse($trip->start_time)->secondsSinceMidnight();
                          $interval = Carbon::parse($trip->interval_trip)->secondsSinceMidnight();
-     
+
                          $startDate = Carbon::parse($trip->start_date); // Chuyển đổi start_date thành Carbon
                          $formatDate = $startDate->timestamp;
                          $endTime = $startTime + $interval + $formatDate;
-     
+
                          $formetCurrentDateTime = $currentDateTime->timestamp;
-     
-     
+
+
                          if ($endTime < $formetCurrentDateTime) {
                               $totalFinishedTrips++;
                          }
@@ -345,4 +348,112 @@ class StatisticService
           $staff = User::where('user_type_id', 2)->count();
           return $staff;
       }
+
+     public function getRoute()
+     {
+          $routes = Route::all();
+          return $routes;
+     }
+     public function getTrip()
+     {
+          $trips = Trip::all();
+          return $trips;
+     }
+
+     public function getRevenue()
+     {
+          $bills = Bill::all();
+          $revenues = 0;
+          foreach ($bills as $key => $value) {
+               $revenues += $value->total_money_after_discount;
+          }
+          return $revenues;
+     }
+
+     public function getTopRoute()
+     {
+          $query = Route::select('routes.id', 'routes.name', DB::raw('COUNT(trips.id) as total_trip'), DB::raw('SUM(bills.total_money_after_discount) as total_money'), DB::raw('SUM(bills.total_seats) as total_seats'))
+               ->leftJoin('trips', 'routes.id', '=', 'trips.route_id')
+               ->leftJoin('bills', function ($join) {
+                    $join->on('trips.id', '=', 'bills.trip_id')
+                         ->where('bills.status_pay', '=', 1);
+               })
+               ->groupBy('routes.id', 'routes.name')
+               // ->havingRaw('total_money > 0')
+               ->orderByDesc('total_money')
+               ->limit(10)
+               ->get();
+          return $query;
+     }
+
+     public function data_route()
+     {
+
+          $currentYear = Carbon::now()->year;
+          $dataTrip = [];
+          $dataUser = [];
+          $dataRevenue = [];
+          for ($month = 1; $month <= 12; $month++) {
+               $trip = Trip::whereYear('created_at', $currentYear)
+                    ->whereMonth('created_at', $month)
+                    ->count();
+
+               $dataTrip[$month] = $trip;
+               $user = Route::whereYear('created_at', $currentYear)
+                    ->whereMonth('created_at', $month)
+                    ->count();
+
+               $dataUser[$month] = $user;
+               $bill = Bills::whereYear('created_at', $currentYear)
+                    ->whereMonth('created_at', $month)
+                    ->get();
+               $dataRevenue[$month] = 0;
+               foreach ($bill as $item) {
+                    $dataRevenue[$month] += $item->total_money;
+               }
+          }
+          return [$dataTrip, $dataUser, $dataRevenue];
+     }
+
+     public function get_data_route($request)
+     {
+          $dataTrip = [];
+          $dataUser = [];
+          $dataRevenue = [];
+          for ($month = 1; $month <= 12; $month++) {
+               $trip = Trip::whereYear('start_date', $request->year)
+               ->whereMonth('start_date', $month)
+               ->get();
+               $dataTrip[$month] = count($trip);
+               $bill = 0;
+               if ($dataTrip[$month]  > 0) {
+                    foreach ($trip as $key => $value) {
+                         $bills = Bills::where('trip_id',$value->id)->where('status_pay',1)->get();
+                         if ($bills->isEmpty()) {
+
+                         } else {
+                              foreach ($bills as $key => $value) {
+                                   $bill += $value->total_seats;
+                              }
+                         }
+                    }
+               }
+               $dataUser[$month] = $bill;
+               $total_revenue = 0;
+               if ($dataTrip[$month]  > 0) {
+                    foreach ($trip as $key => $value) {
+                         $bills = Bills::where('trip_id',$value->id)->where('status_pay',1)->get();
+                         if ($bills->isEmpty()) {
+
+                         } else {
+                              foreach ($bills as $key => $value) {
+                                   $total_revenue += $value->total_money_after_discount;
+                              }
+                         }
+                    }
+               }
+               $dataRevenue[$month] = $total_revenue;
+          }
+          return [$dataTrip, $dataUser, $dataRevenue];
+     }
 }

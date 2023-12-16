@@ -99,3 +99,5 @@ Route::get('/getRevenueData', [StatisticController::class, 'getRevenueData'])->n
 
 Route::get('/user-data', [\App\Http\Controllers\Statistic\Admin\StatisticController::class, 'getUserData'])->name('user.data');
 Route::get('/countUserType', [\App\Http\Controllers\Statistic\Admin\StatisticController::class, 'countUserType'])->name('countUserType');
+
+Route::get('/get_data_route', [StatisticController::class, 'get_data_route'])->name('get_data_route');

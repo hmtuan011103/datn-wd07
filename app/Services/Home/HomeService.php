@@ -76,9 +76,6 @@ class HomeService
             $bill = Bills::whereYear('created_at', $currentYear)
                 ->whereMonth('created_at', $month)
                 ->get();
-            // if ($month == 10) {
-            //     dd($dataTrip);
-            // }
             $dataRevenue[$month] = 0;
             foreach ($bill as $item) {
                 $dataRevenue[$month] += $item->total_money;

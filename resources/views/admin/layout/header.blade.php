@@ -12,3 +12,12 @@
 <!-- custom Css-->
 <link href="{{ asset("admin/assets/css/custom.min.css") }}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    .menu_admin{
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    .menu_admin::-webkit-scrollbar {
+        display: none;
+    }
+</style>
