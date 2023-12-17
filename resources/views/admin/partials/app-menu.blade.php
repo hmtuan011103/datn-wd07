@@ -182,7 +182,7 @@
                         @if (in_array('read-search-bill', Auth::user()->permissions))
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="{{ route('form_search_bill') }}">
-                                    <i class="mdi mdi-sticker-text-outline"></i> <span data-key="t-maps">Tra cứu hóa đơn</span>
+                                    <i class="fa-solid fa-magnifying-glass"></i> <span data-key="t-maps">Tra cứu hóa đơn</span>
                                 </a>
                             </li>
                         @endif
@@ -190,7 +190,7 @@
                         @if (in_array('read-search-ticket', Auth::user()->permissions))
                             <li class="nav-item">
                                 <a class="nav-link menu-link" href="{{ route('form_search_ticket') }}">
-                                    <i class="mdi mdi-sticker-text-outline"></i> <span data-key="t-maps">Tra cứu vé</span>
+                                    <i class="fa-solid fa-magnifying-glass-arrow-right"></i> <span data-key="t-maps">Tra cứu vé</span>
                                 </a>
                             </li>
                         @endif
