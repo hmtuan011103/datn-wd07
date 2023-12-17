@@ -3,7 +3,7 @@
 return [
     'font_dir' => public_path('fonts/'),
     'font_cache' => storage_path('fonts/'),
-    'default_font' => 'Roboto-Black',
+    'default_font' => 'DejaVuSans',
     'font_height_ratio' => 0.85,
     'enable_remote' => true,
     'pdf_backend' => 'CPDF',

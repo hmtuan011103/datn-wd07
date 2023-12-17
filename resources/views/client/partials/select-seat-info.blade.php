@@ -18,6 +18,7 @@
                 <div class="px-4 d-flex">
                     <div class="w-50 pe-4">
                         <p class="fs-18 fw-medium infor-user-title">Thông tin khách hàng</p>
+                        <input type="hidden" name="client_verify" value="">
                         <div class="">
                             <div class="mb-3">
                                 <label for="name" class="form-label fs-14">Họ và tên <span>*</span></label>

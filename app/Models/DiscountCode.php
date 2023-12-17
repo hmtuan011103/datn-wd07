@@ -11,5 +11,7 @@ class DiscountCode extends Model
     use HasFactory,SoftDeletes;
     protected $table = 'discount_codes';
 
-    protected $fillable = ['id_type_discount_code','name','quantity','quantity_used','start_time','value','code','end_time'];
+    protected $fillable = ['id_type_discount_code','name','quantity','quantity_used','start_time','value','code','end_time','name_vip'];
+
+
 }

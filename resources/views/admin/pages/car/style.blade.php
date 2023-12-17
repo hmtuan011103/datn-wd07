@@ -5,26 +5,30 @@
         font-weight: bold;
 
     }
-    .col-6{
-        text-align: center;
+    .style__seat-css {
         border-radius: 5px;
-        justify-content: space-between;
-        width: 40px;
-        height: 40px;
-        background-color: white;
         justify-content: center;
-        margin: 10px;
         align-items: center;
         display: flex;
+        margin: 5px;
+        width: 40px;
+        height: 40px;
+        background: #ffffff;
     }
-    .row1{
-        /*margin-left: 44px;*/
-        display: grid;
-        justify-items: center;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+    .row-final-1{
+        transform: translateX(25px);
     }
-    .col{
-        border: 1px solid white;
+    .row-final-2{
+        transform: translateX(50px);
+    }
+    .row-final-3{
+        transform: translateX(10px);
+    }
+    .row-final-4{
+        transform: translateX(-25px);
+    }
+    .row-final-5{
+        transform: translateX(0);
     }
     .mx-auto{
         background-color: #ccc;

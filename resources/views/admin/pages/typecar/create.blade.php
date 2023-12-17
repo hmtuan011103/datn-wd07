@@ -45,12 +45,19 @@
                                            </div>
                                            <div class="col-md-6 pb-3">
                                                <label for="type_seats" class="form-label">Loại Ghế *</label>
-                                               <select class="form-control" aria-label="Default select example" name="type_seats" >
+                                               <select class="form-control" id="type_seats--choosing" aria-label="Default select example" name="type_seats" >
                                                    <option value="1">Ghế Ngồi</option>
                                                    <option value="2">Giường Nằm</option>
                                                </select>
                                            </div>
-                                           <div class="col-md-6 pb-3">
+                                           <div class="col-md-6 pb-3" id="number_floors--choosing">
+                                               <label for="number_floors" class="form-label">Số tầng *</label>
+                                               <select class="form-control" name="number_floors" >
+                                                   <option value="1">1</option>
+                                                   <option value="2">2</option>
+                                               </select>
+                                           </div>
+                                           <div class="col-md-12 pb-3">
                                                <label for="customername-field" class="form-label">Mô Tả </label>
                                                <textarea style="height: 100px" name="description" id="email-field" class="form-control" placeholder="Nhập Mô Tả"  ></textarea>
                                            </div>

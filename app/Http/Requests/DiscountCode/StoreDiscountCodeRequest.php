@@ -24,13 +24,14 @@ class StoreDiscountCodeRequest extends FormRequest
     public function rules(): array
     {
         $id = $this->route('id');
-        return [
+        // dd($this->input('id_type_discount_code'));
+        $rules =  [
             'id_type_discount_code'=>'required',
             'name'=>'required',
             'quantity'=>'required|numeric',
             'start_time'=>'required|after:yesterday|date|date_format:Y-m-d',
             'value'=>'required|numeric',
-            'value' => 'required_if:id_type_discount_code,1|lt:100',
+            // 'value' => 'required_if:id_type_discount_code,1|lt:100',
             // 'code'=>'required|unique:discount_codes,code', 
             'code' => [
                 'required',
@@ -40,6 +41,10 @@ class StoreDiscountCodeRequest extends FormRequest
             ],
             'end_time'=>'required|after:start_time|date|date_format:Y-m-d',
         ];
+        if ($this->input('id_type_discount_code') == 1) {
+            $rules['value'] .= '|lt:100';
+        }
+        return $rules;
     }
 
     public function messages()

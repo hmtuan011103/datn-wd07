@@ -89,6 +89,6 @@ Route::get('/tra-cuu', function () {
 Route::get('tin-tuc',[NewController::class,'index'])->name('client.news');
 Route::get('tin-tuc/{slug?}',[NewController::class,'detail'])->name('client.news.detail');
 
+Route::get('/danh-gia/{id_trip}/{id_user}', [ReviewController::class, 'create'])->name('review');
 
-Route::get('danh-gia',[ReviewController::class, 'create'])->name('review');
 Route::post('create_review',[ReviewController::class, 'store'])->name('create_review');

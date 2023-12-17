@@ -148,6 +148,8 @@ Route::group(['prefix' => 'order-ticket'], function () {
     Route::get('/search', [OrderTicketController::class, 'searchRouteAdmin'])->name('search_ticket-admin')->middleware('check_permission:order-ticket-admin');
     Route::get('/select-seat', [OrderTicketController::class, 'selectSeatAdmin'])->name('select_seat-admin')->middleware('check_permission:order-ticket-admin');
     Route::post('/detail-select-seat', [OrderTicketController::class, 'detailSelectSeatAdmin'])->name('detail_select_seat-admin')->middleware('check_permission:order-ticket-admin');
+    Route::post('/checkout', [OrderTicketController::class, 'checkout'])->name('checkout_seat-admin')->middleware('check_permission:order-ticket-admin');
+    Route::get('/status-checkout', [OrderTicketController::class, 'checkoutSuccess'])->name('status_checkout_seat-admin')->middleware('check_permission:order-ticket-admin');
 });
 
 // authen
@@ -168,6 +170,7 @@ Route::middleware(['guest'])->group(function () {
 Route::get('/export-lichtrinh', [TripController::class,'export'])->name('export_trip')->middleware('check_permission:read-schedule');
 Route::prefix('search-bill')->group(function () {
     Route::get('/', [TicketController::class, 'form_search_bill'])->name('form_search_bill')->middleware('check_permission:read-search-bill');
+    Route::get('export/{id}', [TicketController::class, 'export'])->name('export_ticket');
 });
 Route::prefix('search-ticket')->group(function () {
     Route::get('/', [TicketController::class, 'form_search_ticket'])->name('form_search_ticket')->middleware('check_permission:read-search-bill');

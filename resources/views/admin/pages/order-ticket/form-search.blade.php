@@ -72,7 +72,7 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-3 ta-center">
-            <button type="submit"
+            <button type="submit" style="background: #4B38B3; color: #ffffff;"
                     class="found-bus-ticket border border-1 py-3 border-primary mt-2 mb-3 rounded-pill w-100 btn-seact-trip fw-medium">Tìm
                 chuyến xe</button>
         </div>

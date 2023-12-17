@@ -43,12 +43,30 @@
             </div>
             <div class="col-md-6 text-user">
                 <div class="detail-user-one">
+                    @php
+                        use \App\Models\DiscountCode;
+                        $valueDiscount = DiscountCode::query()->where('id', $data['discount_code_id'])->first();
+                    @endphp
+                    @if($valueDiscount)
+                        <p class="label-infor">Tổng tiền giá vé : </p>
+                    @endif
                     <p class="label-infor">Tổng tiền đã thanh toán : </p>
                     <p class="label-infor">PTTT : </p>
                     <p class="label-infor">Trạng thái : </p>
                 </div>
                 <div class="detail-user-two">
-                    <p class="label-user">{{ number_format($totalMoney, 0, '.', '.') }}đ</p>
+                        @if($valueDiscount)
+                            <p class="label-user">{{ number_format($data['total_money'], 0, '.', '.') ."đ" }}</p>
+                        @endif
+                        <p class="label-user">
+                        {{ number_format($totalMoney, 0, '.', '.') }}đ
+                        {{ $valueDiscount ? " ( Đã giảm giá " : "" }}
+                        {{
+                            $valueDiscount ? ( $valueDiscount->value > 100 ?
+                            number_format($valueDiscount->value, 0, '.', '.') . "đ )" :
+                            $valueDiscount->value . "% )" ) : ""
+                        }}
+                    </p>
                     <p class="label-user">{{ $type_pay == 1 ? "VNPAY" : ( $type_pay == 2 ? "MOMO" : "Thanh toán trực tiếp") }}</p>
                     <p class="label-user pttt">Đã thanh toán</p>
                 </div>
@@ -59,11 +77,14 @@
                 @foreach($data['turn'] as $item)
                     <div class="col-xl-3 col-lg-4 col-md-6 col-xs-12 mb-3">
                         <div class="detail-ticket">
-                            <p class="text-center fw-bold">Mã vé: {{ $item->code_ticket }}</p>
-                            <div class="logo-qr-turn d-flex justify-content-center mb-3" data-code="{{ $item->code_ticket }}">
+                            <div class="text-center pb-2 ps-1">
+                                <img src="http://127.0.0.1:8000/client/assets/images/logo_web.png" class="w-100" alt="">
                             </div>
+{{--                            <div class="logo-qr-turn d-flex justify-content-center mb-3" data-code="{{ $item->code_ticket }}">--}}
+{{--                            </div>--}}
                             <div class=" order-ticket">
                                 <div class="column-ticket text ps-2">
+                                    <p>Mã vé</p>
                                     <p>Tên tuyến</p>
                                     <p>Thời gian</p>
                                     <p>Số ghế</p>
@@ -72,6 +93,7 @@
                                     <p>Giá vé</p>
                                 </div>
                                 <div class="column-ticket data pe-2">
+                                    <p>{{ $item->code_ticket }}</p>
                                     <p>
                                         <label>{{ $item->bill->trip->start_location }} - </label>
                                         <label>{{ $item->bill->trip->end_location  }}</label>
@@ -97,11 +119,14 @@
                     @forelse($data['return'] as $item)
                         <div class="col-xl-3 col-lg-4 col-md-6 col-xs-12 mb-3">
                             <div class="detail-ticket">
-                                <p class="text-center fw-bold">Mã vé: {{ $item->code_ticket }}</p>
-                                <div class="logo-qr-return d-flex justify-content-center mb-3" data-code="{{ $item->code_ticket }}">
+                                <div class="text-center pb-2 ps-1">
+                                    <img src="http://127.0.0.1:8000/client/assets/images/logo_web.png" class="w-100" alt="">
                                 </div>
+{{--                                <div class="logo-qr-return d-flex justify-content-center mb-3" data-code="{{ $item->code_ticket }}">--}}
+{{--                                </div>--}}
                                 <div class=" order-ticket">
                                     <div class="column-ticket text ps-2">
+                                        <p>Mã vé</p>
                                         <p>Tên tuyến</p>
                                         <p>Thời gian</p>
                                         <p>Số ghế</p>
@@ -110,6 +135,7 @@
                                         <p>Giá vé</p>
                                     </div>
                                     <div class="column-ticket data pe-2">
+                                        <p>{{ $item->code_ticket }}</p>
                                         <p>
                                             <label>{{ $item->bill->trip->start_location }} - </label>
                                             <label>{{ $item->bill->trip->end_location  }}</label>
@@ -146,18 +172,18 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-3 col-md-6 col-xs-12 text-center">
-                    <button type="button" class="btn w-100 fw-medium button-important">
-                        <div class=" d-flex justify-content-center">
-                            <div>
-                                <i class="fa-solid fa-download"></i>
-                            </div>
-                            <div class="ps-2">
-                                Tải về
-                            </div>
-                        </div>
-                    </button>
-                </div>
+{{--                <div class="col-lg-3 col-md-6 col-xs-12 text-center">--}}
+{{--                    <button type="button" class="btn w-100 fw-medium button-important">--}}
+{{--                        <div class=" d-flex justify-content-center">--}}
+{{--                            <div>--}}
+{{--                                <i class="fa-solid fa-download"></i>--}}
+{{--                            </div>--}}
+{{--                            <div class="ps-2">--}}
+{{--                                Tải về--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </button>--}}
+{{--                </div>--}}
             </div>
         </div>
 
@@ -168,7 +194,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('client/assets/js/url-config.js') }}"></script>
-    <script src="{{ asset('client/assets/js/qr-code.js') }}"></script>
+{{--    <script src="{{ asset('client/assets/js/qr-code.js') }}"></script>--}}
     <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script type="text/javascript">
@@ -179,7 +205,6 @@
                 autoplay: true,
                 autoplaySpeed: 2000,
                 arrows: false,
-                slidesToScroll: 1
             });
         });
     </script>

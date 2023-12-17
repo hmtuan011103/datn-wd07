@@ -1,3 +1,21 @@
+<script>
+    const changeSeat = document.querySelector('#type_seats--choosing');
+    const numberFloors = document.querySelector('#number_floors--choosing');
+    console.log(numberFloors);
+    console.log(changeSeat);
+    if (changeSeat.value === "1") {
+        numberFloors.classList.add('d-none');
+    } else {
+        numberFloors.classList.remove('d-none');
+    }
+    changeSeat.addEventListener('change', function() {
+        if (this.value === "1") {
+            numberFloors.classList.add('d-none');
+        } else {
+            numberFloors.classList.remove('d-none');
+        }
+    });
+</script>
 <!-- Page level plugins -->
 <script src="{{ asset('client/assets/js/url-config.js') }}"></script>
 <script src="{{ asset("admin/assets/libs/gridjs/js/prism.js") }}"></script>

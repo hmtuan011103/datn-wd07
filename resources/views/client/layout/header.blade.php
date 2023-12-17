@@ -4,20 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? ""}}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('client/assets/images/favicon.ico') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('client/assets/css/style.css') }}">
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <style>.dropdown-toggle::after {display: none;}</style>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <style>
+        #prevArrowLimited{
+            position: absolute;
+            z-index: 999;
+            left: 40px;
+            font-size: 32px;
+            cursor: pointer;
+            padding: 0 20px;
+            border-radius: 50%;
+            transition: all 0.3s;
+            color: #ffffff;
+        }
+        #prevArrowLimited:hover{
+            color: #ffffff;
+            background-color: rgba(0,0,0,0.3);
+        }
+        #nextArrowLimited{
+            color: #ffffff;
+            position: absolute;
+            z-index: 999;
+            right: 40px;
+            font-size: 32px;
+            cursor: pointer;
+            padding: 0 20px;
+            transition: all 0.3s;
+            border-radius: 50%;
+        }
+        #nextArrowLimited:hover{
+            color: #ffffff;
+            background-color: rgba(0,0,0,0.3);
+        }
+        .dropdown-toggle::after {display: none;}
+        #button{
+            display:block;
+            margin:20px auto;
+            padding:10px 30px;
+            background-color:#eee;
+            border:solid #ccc 1px;
+            cursor: pointer;
+        }
+        #overlay{
+            position: fixed;
+            top: 0;
+            z-index: 9999;
+            width: 100%;
+            height:100%;
+            display: none;
+            background: rgba(0,0,0,0.6);
+        }
+        .cv-spinner {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px #ddd solid;
+            border-top: 4px #2e93e6 solid;
+            border-radius: 50%;
+            animation: sp-anime 0.8s infinite linear;
+        }
+        @keyframes sp-anime {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        .is-hide{
+            display:none;
+        }
+
+    </style>
     @yield('style')
 
 
 </head>
 <body>
 <header class="w-full-container header-page-image">
+    <div id="overlay">
+        <div class="cv-spinner">
+            <span class="spinner"></span>
+        </div>
+    </div>
     <header class="container" >
         <div class="pt-3 d-flex justify-content-between">
             <div></div>
@@ -112,10 +190,7 @@
                             <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="{{url('/tra-cuu')}}">Tra cứu vé</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="#">Tin tức</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="#">Hóa đơn</a>
+                            <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="{{url('/tin-tuc')}}">Tin tức</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link hover-item-menu text-uppercase fs-14 cl-white fw-medium w-100 d-block " href="{{url('/lien-he')}}">Liên hệ</a>

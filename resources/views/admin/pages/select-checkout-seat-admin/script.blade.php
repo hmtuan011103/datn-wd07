@@ -45,6 +45,8 @@
         seatCodeSpan.removeClass('seat-choosing').addClass('seat-active');
         seatCodeImage.attr('src', `${baseImageUrl}/seat_active.svg`);
     });
+
+
     const getErrorWhenCallApi = (statusCode) => {
         switch (statusCode) {
             case 400:
@@ -134,7 +136,7 @@
                 'route': route
             };
         } catch (error) {
-            const statusCode = error.response.status;
+            const statusCode = error.response;
             getErrorWhenCallApi(statusCode);
             return false;
         }
@@ -170,7 +172,6 @@
             const route = res.route;
             const seatSelected = res.seatSelected;
             const locationRouteTrip = res.locationRouteTrip;
-
             let amountSeatTurn = 0;
             let amountSeatReturn = 0;
             let codeSeatTurn = [];
@@ -182,39 +183,44 @@
             let flagTurn = 0;
             let flagReturn = 0;
 
+            console.log(res);
             // Hiển thị ghế và click để chọn ghế
-            const maxSeatsPerLayer = 24;
+            // const maxSeatsPerLayer = seats.length;
             if (route.length === 2) {
+                const numberFloorsTurn = res.route[0].car?.type_car.number_floors;
+                const numberFloorsReturn = res.route[1].car?.type_car.number_floors;
                 const getSeatTurn = seats
                     .filter(item => item.key === 'turn')
                     .map(item => [item.id, item.code]);
 
+                const inforCarDetailTurn = res.route[0];
+                const inforCarDetailReturn = res.route[1];
+
                 const getSeatReturn = seats
                     .filter(item => item.key === 'return')
                     .map(item => [item.id, item.code]);
-                const totalSeatsTurn = getSeatTurn.length;
-                const totalSeatsReturn = getSeatReturn.length;
 
-                if (totalSeatsTurn <= maxSeatsPerLayer) {
-                    showSingleLayer(getSeatTurn, "3");
+                if (numberFloorsTurn === 1) {
+                    showSingleLayer(getSeatTurn, "3", inforCarDetailTurn);
                 } else {
-                    showDoubleLayer(getSeatTurn, "3");
+                    showDoubleLayer(getSeatTurn, "3", inforCarDetailTurn);
                 }
-                if (totalSeatsReturn <= maxSeatsPerLayer) {
-                    showSingleLayer(getSeatReturn, "4");
+                if (numberFloorsReturn === 1) {
+                    showSingleLayer(getSeatReturn, "4", inforCarDetailReturn);
                 } else {
-                    showDoubleLayer(getSeatReturn, "4");
+                    showDoubleLayer(getSeatReturn, "4", inforCarDetailReturn);
                 }
             } else {
-                const totalSeats = seats.length;
-                if (totalSeats <= maxSeatsPerLayer) {
-                    showSingleLayer(seats);
+                const numberFloors = res.route.car?.type_car.number_floors;
+                const inforCarDetail = res.route;
+                if (numberFloors === 1) {
+                    showSingleLayer(seats, '', inforCarDetail);
                 } else {
-                    showDoubleLayer(seats);
+                    showDoubleLayer(seats, '' , inforCarDetail);
                 }
             }
 
-            function showSingleLayer(seats, indexParent) {
+            function showSingleLayer(seats, indexParent, inforCarDetail) {
                 if (route.length === 2) {
                     const seats_return = $("<input>");
                     seats_return.attr("name", "seats_return[]");
@@ -268,23 +274,71 @@
                     $(`#title-header-content-${indexParent}`).prepend(`
                     <div class="choose-seat-title d-flex align-items-center justify-content-between border-top-1 pt-3 mt-4">
                         <p class="fs-18 fw-medium">Chọn ghế</p>
-                        <p class="fs-15 cl-blue-light text-decoration-underline cursor fw-medium">Thông tin xe</p>
+                        <div class="hover__see--detail--car position-relative">
+                           <p class="fs-15 cl-blue-light text-decoration-underline cursor fw-medium">Thông tin xe</p>
+                            <div class="container-tabs position-absolute">
+                                <ul class="tabs" id="tabs-2-${inforCarDetail.id}">
+                                    <li class="tab-link current fs-15 cl-gray fs-15 fw-medium" data-tab="tab-2-1">Xe</li>
+                                </ul>
+                                <div id="tab-2-1" class="tab-content current">
+                                   <ul>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Tên xe: </b>${inforCarDetail.car.name}
+                                        </li>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Biển số xe: </b>${inforCarDetail.car.license_plate}
+                                        </li>
+                                       <li class="fs-15 d-flex align-items-center pb-1">
+                                            <b class="pe-2">Hình ảnh: </b>
+                                        </li>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <img src="${baseUrl}/${inforCarDetail.car.image}" class="w-70" height="250px">
+                                        </li>
+                                          <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Loại ghế: </b>${inforCarDetail.car.type_car.type_seats === 1 ? "Ghế" : "Giường"}
+                                        </li>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Tổng số ghế: </b>${inforCarDetail.car.type_car.total_seat}
+                                        </li>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Số tầng: </b>${inforCarDetail.car.type_car.number_floors}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <p class="fs-14 fw-medium">${nameRoute} ${startDate}</p>
                 `);
+                    $(`tabs-2-${inforCarDetail.id} li`).click(function(){
+                        const tab_id = $(this).attr('data-tab');
+                        $('ul.tabs li').removeClass('current');
+                        $('.tab-content').removeClass('current');
+                        $(this).addClass('current');
+                        $(`#${tab_id}`).addClass('current');
+                    });
                     const nameKeySelectedSeats = indexParent === "3" ? "turn" : "return";
                     const arraySeatSelected = seatSelected
                         .filter(item => item[0] === nameKeySelectedSeats)
                         .map(item => item[1]);
                     seats.forEach((seat, index) => {
-
                         const sttSeat = index + 1;
-                        if (sttSeat % 4 === 1) {
-                            $(`#show-seat-${indexParent}`).append(`
+                        if( seats.length - sttSeat <= 5 ){
+                            if (sttSeat % 5 === 1) {
+                                $(`#show-seat-${indexParent}`).append(`
                             <tr class="d-flex align-items-center justify-content-center">
 
                             </tr>
                         `);
+                            }
+                        } else {
+                            if (sttSeat % 4 === 1) {
+                                $(`#show-seat-${indexParent}`).append(`
+                                <tr class="d-flex align-items-center justify-content-center">
+
+                                </tr>
+                            `);
+                            }
                         }
 
                         const isSeatSelected = arraySeatSelected.includes(seat[1]);
@@ -316,10 +370,12 @@
 
                         const lastRow = $(`#show-seat-${indexParent}`).find("tr:last-child");
                         lastRow.append($seat);
-                        if (sttSeat % 4 === 0) {
-                            const secondTd = lastRow.find("td:eq(1)");
-                            const spacingTd = $('<td class="gap-1 w-32 h-32"></td>');
-                            secondTd.after(spacingTd);
+                        if( seats.length - sttSeat >=5 ) {
+                            if (sttSeat % 4 === 0) {
+                                const secondTd = lastRow.find("td:eq(1)");
+                                const spacingTd = $('<td class="gap-1 w-32 h-32"></td>');
+                                secondTd.after(spacingTd);
+                            }
                         }
 
 
@@ -418,26 +474,100 @@
                     $('#show-seat-for-trip').before(`
                     <div class="choose-seat-title d-flex align-items-center justify-content-between">
                         <p class="fs-18 fw-medium">Chọn ghế</p>
-                        <p class="fs-15 cl-blue-light text-decoration-underline cursor fw-medium">Thông tin xe</p>
+                        <div class="hover__see--detail--car position-relative">
+                           <p class="fs-15 cl-blue-light text-decoration-underline cursor fw-medium">Thông tin xe</p>
+                            <div class="container-tabs position-absolute">
+                                <ul class="tabs">
+                                    <li class="tab-link current fs-15 cl-gray fs-15 fw-medium" data-tab="tab-1">Xe</li>
+                                </ul>
+                                <div id="tab-1" class="tab-content current">
+                                   <ul>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Tên xe: </b>${inforCarDetail.car.name}
+                                        </li>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Biển số xe: </b>${inforCarDetail.car.license_plate}
+                                        </li>
+                                        <li class="fs-15 d-flex align-items-center pb-1">
+                                            <b class="pe-2">Hình ảnh: </b>
+                                        </li>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <img src="${baseUrl}/${inforCarDetail.car.image}" class="w-70" height="250px">
+                                        </li>
+                                          <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Loại ghế: </b>${inforCarDetail.car.type_car.type_seats === 1 ? "Ghế" : "Giường"}
+                                        </li>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Tổng số ghế: </b>${inforCarDetail.car.type_car.total_seat}
+                                        </li>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Số tầng: </b>${inforCarDetail.car.type_car.number_floors}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 `)
                     const showSeatForTrip = $('<table class="col-4"><tbody id="show-seat-0"></tbody></table>');
                     showSeatForTrip.before(`
                     <div class="choose-seat-title d-flex align-items-center justify-content-between">
                         <p class="fs-18 fw-medium">Chọn ghế</p>
-                        <p class="fs-15 cl-blue-light text-decoration-underline cursor fw-medium">Thông tin xe</p>
+                        <div class="hover__see--detail--car position-relative">
+                           <p class="fs-15 cl-blue-light text-decoration-underline cursor fw-medium">Thông tin xe</p>
+                            <div class="container-tabs position-absolute">
+                                <ul class="tabs">
+                                    <li class="tab-link current fs-15 cl-gray fs-15 fw-medium" data-tab="tab-1">Xe</li>
+                                </ul>
+                                <div id="tab-1" class="tab-content current">
+                                   <ul>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Tên xe: </b>${inforCarDetail.car.name}
+                                        </li>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Biển số xe: </b>${inforCarDetail.car.license_plate}
+                                        </li>
+                                       <li class="fs-15 d-flex align-items-center pb-1">
+                                            <b class="pe-2">Hình ảnh: </b>
+                                        </li>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <img src="${baseUrl}/${inforCarDetail.car.image}" class="w-70" height="250px">
+                                        </li>
+                                          <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Loại ghế: </b>${inforCarDetail.car.type_car.type_seats === 1 ? "Ghế" : "Giường"}
+                                        </li>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Tổng số ghế: </b>${inforCarDetail.car.type_car.total_seat}
+                                        </li>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Số tầng: </b>${inforCarDetail.car.type_car.number_floors}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                `)
+                `);
                     $('#show-seat-for-trip').append(showSeatForTrip);
 
                     seats.forEach((seat, index) => {
                         const sttSeat = index + 1;
-                        if (sttSeat % 4 === 1) {
-                            $('#show-seat-0').append(`
-                    <tr class="d-flex align-items-center justify-content-center">
+                        if( seats.length - sttSeat <= 5 ){
+                            if (sttSeat % 5 === 1) {
+                                $('#show-seat-0').append(`
+                                <tr class="d-flex align-items-center justify-content-center">
 
-                    </tr>
-                `);
+                                </tr>
+                            `);
+                            }
+                        } else {
+                            if (sttSeat % 4 === 1) {
+                                $('#show-seat-0').append(`
+                                <tr class="d-flex align-items-center justify-content-center">
+
+                                </tr>
+                            `);
+                            }
                         }
 
                         const isSeatSelected = seatSelected.includes(seat.code);
@@ -469,10 +599,12 @@
 
                         const lastRow = $('#show-seat-0').find("tr:last-child");
                         lastRow.append($seat);
-                        if (sttSeat % 4 === 0) {
-                            const secondTd = lastRow.find("td:eq(1)");
-                            const spacingTd = $('<td class="gap-1 w-32 h-32"></td>');
-                            secondTd.after(spacingTd);
+                        if( seats.length - sttSeat >=5 ){
+                            if (sttSeat % 4 === 0) {
+                                const secondTd = lastRow.find("td:eq(1)");
+                                const spacingTd = $('<td class="gap-1 w-32 h-32"></td>');
+                                secondTd.after(spacingTd);
+                            }
                         }
 
                         $seat.on('click', function () {
@@ -547,7 +679,7 @@
                 }
             }
 
-            function showDoubleLayer(seats, indexParent) {
+            function showDoubleLayer(seats, indexParent, inforCarDetail) {
                 if (route.length === 2) {
                     const seats_return = $("<input>");
                     seats_return.attr("name", "seats_return[]");
@@ -600,24 +732,74 @@
                     $('#show-seat-for-trip').append(`
                     <div class="choose-seat-title d-flex align-items-center justify-content-between ${borderSpacing}">
                         <p class="fs-18 fw-medium">Chọn ghế</p>
-                        <p class="fs-15 cl-blue-light text-decoration-underline cursor fw-medium">
-                            Thông tin xe
-                        </p>
+                        <div class="hover__see--detail--car position-relative">
+                           <p class="fs-15 cl-blue-light text-decoration-underline cursor fw-medium">Thông tin xe</p>
+                            <div class="container-tabs position-absolute">
+                                <ul class="tabs" id="tabs-${inforCarDetail.id}">
+                                    <li class="tab-link current fs-15 cl-gray fs-15 fw-medium" data-tab="tab-1-1">Xe</li>
+                                </ul>
+                                <div id="tab-1-1" class="tab-content current">
+                                   <ul>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Tên xe: </b>${inforCarDetail.car.name}
+                                        </li>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Biển số xe: </b>${inforCarDetail.car.license_plate}
+                                        </li>
+                                       <li class="fs-15 d-flex align-items-center pb-1">
+                                            <b class="pe-2">Hình ảnh: </b>
+                                        </li>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <img src="${baseUrl}/${inforCarDetail.car.image}" class="w-70" height="250px">
+                                        </li>
+                                          <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Loại ghế: </b>${inforCarDetail.car.type_car.type_seats === 1 ? "Ghế" : "Giường"}
+                                        </li>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Tổng số ghế: </b>${inforCarDetail.car.type_car.total_seat}
+                                        </li>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Số tầng: </b>${inforCarDetail.car.type_car.number_floors}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <p class="fs-14 fw-medium">${nameRoute} ${startDate}</p>
-                `)
+                `);
                     const showSeatForTripLayer1 = $(`<table class="col-6"><tbody id="show-seat-1-${indexParent}"></tbody></table>`);
-                    showSeatForTripLayer1.prepend('<p class="layer-name fs-13 fw-medium ta-center">Tầng 1</p>');
+                    showSeatForTripLayer1.prepend('<p class="layer-name fs-13 fw-medium ta-center" style="transform: translateX(-15px);">Tầng 1</p>');
                     $('#show-seat-for-trip').append(showSeatForTripLayer1);
-                    seats.slice(0, maxSeatsPerLayer).forEach((seat, index) => {
-
+                    seats.slice(0, seats.length/2).forEach((seat, index) => {
                         const sttSeat = index + 1;
-                        if (sttSeat % 4 === 1) {
-                            $(`#show-seat-1-${indexParent}`).append(`
-                            <tr class="d-flex align-items-center justify-content-center">
+                        if(seats.length === 36) {
+                            if (sttSeat % 3 === 1) {
+                                $(`#show-seat-1-${indexParent}`).append(`
+                                <tr class="d-flex align-items-center justify-content-center">
 
-                            </tr>
-                        `);
+                                </tr>
+                            `);
+                            }
+                        }
+                        if(seats.length === 40) {
+                            if( seats.length / 2 - sttSeat >=5 ) {
+                                if (sttSeat % 3 === 1) {
+                                    $(`#show-seat-1-${indexParent}`).append(`
+                                    <tr class="d-flex align-items-center justify-content-center">
+
+                                    </tr>
+                                `);
+                                }
+                            } else {
+                                if (sttSeat % 5 === 1) {
+                                    $(`#show-seat-1-${indexParent}`).append(`
+                                    <tr class="d-flex align-items-center justify-content-center">
+
+                                    </tr>
+                                `);
+                                }
+                            }
                         }
 
                         const isSeatSelected = arraySeatSelected.includes(seat[1]);
@@ -634,25 +816,49 @@
                             }
                         }
 
-                        const seatHtml = `
-                        <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
-                            <img src="${baseImageUrl}/${ additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
-                            <span
-                                data-code="${seat[1]}" data-trip="${routeNew.id}"
-                                class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
-                                ${seat[1]}
-                            </span>
-                        </td>
-                    `;
+                        let seatHtml;
+                        if(seats.length === 36) {
+                            seatHtml = `
+                            <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
+                                <img src="${baseImageUrl}/${additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
+                                <span
+                                    data-code="${seat[1]}" data-trip="${routeNew.id}"
+                                    class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
+                                    ${seat[1]}
+                                </span>
+                            </td>
+                            <td class="gap-1 w-32 h-32"></td>
+                        `;
+                        }
+                        if(seats.length === 40) {
+                            seatHtml = `
+                            <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
+                                <img src="${baseImageUrl}/${additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
+                                <span
+                                    data-code="${seat[1]}" data-trip="${routeNew.id}"
+                                    class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
+                                    ${seat[1]}
+                                </span>
+                            </td>
+                        `;
+                        }
 
                         const $seat = $(seatHtml);
 
                         const lastRow = $(`#show-seat-1-${indexParent}`).find("tr:last-child");
                         lastRow.append($seat);
-                        if (sttSeat % 4 === 0) {
-                            const secondTd = lastRow.find("td:eq(1)");
-                            const spacingTd = $('<td class="gap-1 w-32 h-32"></td>');
-                            secondTd.after(spacingTd);
+                        if(seats.length === 40) {
+                            if( seats.length / 2 - sttSeat >= 5 ) {
+                                if (sttSeat % 3 === 0) {
+                                    const firstTd = lastRow.find("td:eq(0)");
+                                    const spacingFirstTd = $('<td class="gap-1 w-32 h-32"></td>');
+                                    firstTd.after(spacingFirstTd);
+
+                                    const secondTd = lastRow.find("td:eq(2)");
+                                    const spacingSecondTd = $('<td class="gap-1 w-32 h-32"></td>');
+                                    secondTd.after(spacingSecondTd);
+                                }
+                            }
                         }
 
                         $seat.on('click', function () {
@@ -734,16 +940,37 @@
 
 
                     const showSeatForTripLayer2 = $(`<table class="col-6 spacing-floor-second"><tbody id="show-seat-2-${indexParent}"></tbody></table>`);
-                    showSeatForTripLayer2.prepend('<p class="layer-name spacing-floor-second-title ta-center fs-13 fw-medium">Tầng 2</p>');
+                    showSeatForTripLayer2.prepend('<p class="layer-name spacing-floor-second-title ta-center fs-13 fw-medium" style="transform: translateX(-15px);">Tầng 2</p>');
                     $('#show-seat-for-trip').append(showSeatForTripLayer2);
-                    seats.slice(maxSeatsPerLayer, maxSeatsPerLayer * 2).forEach((seat, index) => {
+                    seats.slice(seats.length / 2, seats.length).forEach((seat, index) => {
                         const sttSeat = index + 1;
-                        if (sttSeat % 4 === 1) {
-                            $(`#show-seat-2-${indexParent}`).append(`
-                            <tr class="d-flex align-items-center justify-content-center">
+                        if(seats.length === 36) {
+                            if (sttSeat % 3 === 1) {
+                                $(`#show-seat-2-${indexParent}`).append(`
+                                <tr class="d-flex align-items-center justify-content-center">
 
-                            </tr>
-                        `);
+                                </tr>
+                            `);
+                            }
+                        }
+                        if(seats.length === 40) {
+                            if( seats.length / 2 - sttSeat >=5 ) {
+                                if (sttSeat % 3 === 1) {
+                                    $(`#show-seat-2-${indexParent}`).append(`
+                                    <tr class="d-flex align-items-center justify-content-center">
+
+                                    </tr>
+                                `);
+                                }
+                            } else {
+                                if (sttSeat % 5 === 1) {
+                                    $(`#show-seat-2-${indexParent}`).append(`
+                                    <tr class="d-flex align-items-center justify-content-center">
+
+                                    </tr>
+                                `);
+                                }
+                            }
                         }
 
                         const isSeatSelected = arraySeatSelected.includes(seat[1]);
@@ -760,25 +987,49 @@
                             }
                         }
 
-                        const seatHtml = `
-                        <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
-                            <img src="${baseImageUrl}/${ additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
-                            <span
-                                data-code="${seat[1]}" data-trip="${routeNew.id}"
-                                class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
-                                ${seat[1]}
-                            </span>
-                        </td>
-                    `;
+                        let seatHtml;
+                        if(seats.length === 36) {
+                            seatHtml = `
+                            <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
+                                <img src="${baseImageUrl}/${additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
+                                <span
+                                    data-code="${seat[1]}" data-trip="${routeNew.id}"
+                                    class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
+                                    ${seat[1]}
+                                </span>
+                            </td>
+                            <td class="gap-1 w-32 h-32"></td>
+                        `;
+                        }
+                        if(seats.length === 40) {
+                            seatHtml = `
+                            <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
+                                <img src="${baseImageUrl}/${additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
+                                <span
+                                    data-code="${seat[1]}" data-trip="${routeNew.id}"
+                                    class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
+                                    ${seat[1]}
+                                </span>
+                            </td>
+                        `;
+                        }
 
                         const $seat = $(seatHtml);
 
                         const lastRow = $(`#show-seat-2-${indexParent}`).find("tr:last-child");
                         lastRow.append($seat);
-                        if (sttSeat % 4 === 0) {
-                            const secondTd = lastRow.find("td:eq(1)");
-                            const spacingTd = $('<td class="gap-1 w-32 h-32"></td>');
-                            secondTd.after(spacingTd);
+                        if(seats.length === 40) {
+                            if( seats.length / 2 - sttSeat >= 5 ) {
+                                if (sttSeat % 3 === 0) {
+                                    const firstTd = lastRow.find("td:eq(0)");
+                                    const spacingFirstTd = $('<td class="gap-1 w-32 h-32"></td>');
+                                    firstTd.after(spacingFirstTd);
+
+                                    const secondTd = lastRow.find("td:eq(2)");
+                                    const spacingSecondTd = $('<td class="gap-1 w-32 h-32"></td>');
+                                    secondTd.after(spacingSecondTd);
+                                }
+                            }
                         }
 
                         $seat.on('click', function () {
@@ -876,23 +1127,74 @@
                     $('#show-seat-for-trip').before(`
                     <div class="choose-seat-title d-flex align-items-center justify-content-between">
                         <p class="fs-18 fw-medium">Chọn ghế</p>
-                        <p class="fs-15 cl-blue-light text-decoration-underline cursor fw-medium">
-                            Thông tin xe
-                        </p>
+                        <div class="hover__see--detail--car position-relative">
+                           <p class="fs-15 cl-blue-light text-decoration-underline cursor fw-medium">Thông tin xe</p>
+                            <div class="container-tabs position-absolute">
+                                <ul class="tabs">
+                                    <li class="tab-link current fs-15 cl-gray fs-15 fw-medium" data-tab="tab-1">Xe</li>
+                                </ul>
+                                <div id="tab-1" class="tab-content current">
+                                   <ul>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Tên xe: </b>${inforCarDetail.car.name}
+                                        </li>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Biển số xe: </b>${inforCarDetail.car.license_plate}
+                                        </li>
+                                        <li class="fs-15 d-flex align-items-center pb-1">
+                                            <b class="pe-2">Hình ảnh: </b>
+                                        </li>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <img src="${baseUrl}/${inforCarDetail.car.image}" class="w-70" height="250px">
+                                        </li>
+                                          <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Loại ghế: </b>${inforCarDetail.car.type_car.type_seats === 1 ? "Ghế" : "Giường"}
+                                        </li>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Tổng số ghế: </b>${inforCarDetail.car.type_car.total_seat}
+                                        </li>
+                                        <li class="fs-15 d-flex align-items-center pb-2">
+                                            <b class="pe-2">Số tầng: </b>${inforCarDetail.car.type_car.number_floors}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                `)
+                `);
                     const showSeatForTripLayer1 = $('<table class="col-6"><tbody id="show-seat-1"></tbody></table>');
-                    showSeatForTripLayer1.prepend('<p class="layer-name fs-13 fw-medium ta-center">Tầng 1</p>');
+                    showSeatForTripLayer1.prepend('<p class="layer-name fs-13 fw-medium ta-center" style="transform: translateX(-15px);">Tầng 1</p>');
                     $('#show-seat-for-trip').append(showSeatForTripLayer1);
 
-                    seats.slice(0, maxSeatsPerLayer).forEach((seat, index) => {
+                    seats.slice(0, seats.length / 2).forEach((seat, index) => {
                         const sttSeat = index + 1;
-                        if (sttSeat % 4 === 1) {
-                            $('#show-seat-1').append(`
-                        <tr class="d-flex align-items-center justify-content-center">
+                        if(seats.length === 36) {
+                            if (sttSeat % 3 === 1) {
+                                $('#show-seat-1').append(`
+                                <tr class="d-flex align-items-center justify-content-center">
 
-                        </tr>
-                    `);
+                                </tr>
+                            `);
+                            }
+                        }
+                        if(seats.length === 40) {
+                            if( seats.length / 2 - sttSeat >=5 ) {
+                                if (sttSeat % 3 === 1) {
+                                    $('#show-seat-1').append(`
+                                    <tr class="d-flex align-items-center justify-content-center">
+
+                                    </tr>
+                                `);
+                                }
+                            } else {
+                                if (sttSeat % 5 === 1) {
+                                    $('#show-seat-1').append(`
+                                    <tr class="d-flex align-items-center justify-content-center">
+
+                                    </tr>
+                                `);
+                                }
+                            }
                         }
 
                         const isSeatSelected = seatSelected.includes(seat.code);
@@ -909,25 +1211,50 @@
                             }
                         }
 
-                        const seatHtml = `
-                        <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
-                            <img src="${baseImageUrl}/${ additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
-                            <span
-                                data-code="${seat.code}" data-trip="${route.id}"
-                                class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
-                                ${seat.code}
-                            </span>
-                        </td>
-                    `;
+                        let seatHtml;
+                        if(seats.length === 36) {
+                            seatHtml = `
+                            <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
+                                <img src="${baseImageUrl}/${ additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
+                                <span
+                                    data-code="${seat.code}" data-trip="${route.id}"
+                                    class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
+                                    ${seat.code}
+                                </span>
+                            </td>
+                            <td class="gap-1 w-32 h-32"></td>
+                        `;
+                        }
+                        if(seats.length === 40) {
+                            seatHtml = `
+                            <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
+                                <img src="${baseImageUrl}/${ additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
+                                <span
+                                    data-code="${seat.code}" data-trip="${route.id}"
+                                    class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
+                                    ${seat.code}
+                                </span>
+                            </td>
+                        `;
+                        }
+
 
                         const $seat = $(seatHtml);
 
                         const lastRow = $('#show-seat-1').find("tr:last-child");
                         lastRow.append($seat);
-                        if (sttSeat % 4 === 0) {
-                            const secondTd = lastRow.find("td:eq(1)");
-                            const spacingTd = $('<td class="gap-1 w-32 h-32"></td>');
-                            secondTd.after(spacingTd);
+                        if(seats.length === 40) {
+                            if( seats.length / 2 - sttSeat >= 5 ) {
+                                if (sttSeat % 3 === 0) {
+                                    const firstTd = lastRow.find("td:eq(0)");
+                                    const spacingFirstTd = $('<td class="gap-1 w-32 h-32"></td>');
+                                    firstTd.after(spacingFirstTd);
+
+                                    const secondTd = lastRow.find("td:eq(2)");
+                                    const spacingSecondTd = $('<td class="gap-1 w-32 h-32"></td>');
+                                    secondTd.after(spacingSecondTd);
+                                }
+                            }
                         }
 
                         $seat.on('click', function () {
@@ -1000,17 +1327,38 @@
 
 
                     const showSeatForTripLayer2 = $('<table class="col-6 spacing-floor-second"><tbody id="show-seat-2"></tbody></table>');
-                    showSeatForTripLayer2.prepend('<p class="layer-name spacing-floor-second-title ta-center fs-13 fw-medium">Tầng 2</p>');
+                    showSeatForTripLayer2.prepend('<p class="layer-name spacing-floor-second-title ta-center fs-13 fw-medium" style="transform: translateX(-15px);">Tầng 2</p>');
                     $('#show-seat-for-trip').append(showSeatForTripLayer2);
 
-                    seats.slice(maxSeatsPerLayer, maxSeatsPerLayer * 2).forEach((seat, index) => {
+                    seats.slice(seats.length / 2, seats.length).forEach((seat, index) => {
                         const sttSeat = index + 1;
-                        if (sttSeat % 4 === 1) {
-                            $('#show-seat-2').append(`
-                <tr class="d-flex align-items-center justify-content-center">
+                        if(seats.length === 36) {
+                            if (sttSeat % 3 === 1) {
+                                $('#show-seat-2').append(`
+                            <tr class="d-flex align-items-center justify-content-center">
 
-                </tr>
-            `);
+                            </tr>
+                        `);
+                            }
+                        }
+                        if(seats.length === 40) {
+                            if(seats.length / 2 - sttSeat >= 5) {
+                                if (sttSeat % 3 === 1) {
+                                    $('#show-seat-2').append(`
+                                    <tr class="d-flex align-items-center justify-content-center">
+
+                                    </tr>
+                                `);
+                                }
+                            } else {
+                                if (sttSeat % 5 === 1) {
+                                    $('#show-seat-2').append(`
+                                    <tr class="d-flex align-items-center justify-content-center">
+
+                                    </tr>
+                                `);
+                                }
+                            }
                         }
 
                         const isSeatSelected = seatSelected.includes(seat.code);
@@ -1027,26 +1375,53 @@
                             }
                         }
 
-                        const seatHtml = `
-                        <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
-                            <img src="${baseImageUrl}/${ additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
-                            <span
-                                data-code="${seat.code}" data-trip="${route.id}"
-                                class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
-                                ${seat.code}
-                            </span>
-                        </td>
-                    `;
+                        let seatHtml;
+                        if(seats.length === 36) {
+                            seatHtml = `
+                            <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
+                                <img src="${baseImageUrl}/${ additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
+                                <span
+                                    data-code="${seat.code}" data-trip="${route.id}"
+                                    class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
+                                    ${seat.code}
+                                </span>
+                            </td>
+                            <td class="gap-1 w-32 h-32"></td>
+                        `;
+                        }
+                        if(seats.length === 40) {
+                            seatHtml = `
+                            <td class="position-relative ${additionalClass === '' ? (isSeatSelected ? 'cursor-not-allowed' : 'cursor') : 'cursor-not-allowed'}">
+                                <img src="${baseImageUrl}/${ additionalClass === '' ? (isSeatSelected ? 'seat_disabled' : 'seat_active') : additionalClass}.svg" alt="" class="w-100 height-seat-choosing">
+                                <span
+                                    data-code="${seat.code}" data-trip="${route.id}"
+                                    class="position-absolute fs-10 text-uppercase fw-bold code-seat ${additionalClass === '' ? (isSeatSelected ? 'seat-disabled' : 'seat-active') : additionalClass}">
+                                    ${seat.code}
+                                </span>
+                            </td>
+                        `;
+                        }
+
+
 
                         const $seat = $(seatHtml);
 
                         const lastRow = $('#show-seat-2').find("tr:last-child");
                         lastRow.append($seat);
-                        if (sttSeat % 4 === 0) {
-                            const secondTd = lastRow.find("td:eq(1)");
-                            const spacingTd = $('<td class="gap-1 w-32 h-32"></td>');
-                            secondTd.after(spacingTd);
+                        if(seats.length === 40) {
+                            if( seats.length / 2 - sttSeat >= 5 ) {
+                                if (sttSeat % 3 === 0) {
+                                    const firstTd = lastRow.find("td:eq(0)");
+                                    const spacingFirstTd = $('<td class="gap-1 w-32 h-32"></td>');
+                                    firstTd.after(spacingFirstTd);
+
+                                    const secondTd = lastRow.find("td:eq(2)");
+                                    const spacingSecondTd = $('<td class="gap-1 w-32 h-32"></td>');
+                                    secondTd.after(spacingSecondTd);
+                                }
+                            }
                         }
+
 
                         $seat.on('click', function () {
                             const codeSeat = $(this).find('span');
@@ -1175,12 +1550,16 @@
                             email: true
                         },
                         phone: {
+                            required: true,
                             phoneVN: true
                         },
                     },
                     messages: {
                         email: {
                             email: "Email không hợp lệ"
+                        },
+                        phone: {
+                            required: "Số điện thoại không được trống"
                         },
                     },
                     errorPlacement: function (error, element) {

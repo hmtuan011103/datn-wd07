@@ -57,6 +57,9 @@
                                             <input type="number" class="form-control" name="value" />
 
                                         </div>
+                                        @error('value')
+                                            <div class="ps-4 pb-3 fw-bold text-danger">{{ $message }}</div>
+                                        @enderror
                                         <div class="col-md-6">
                                             <label for="customername-field" class="form-label mb-3 mt-3">Mã*</label>
                                             <input type="text" class="form-control" name="code" />

@@ -31,10 +31,11 @@ class TypeCarService
         }
         $data = $car->typeCar;
         $seat = $data->total_seat;
+        $numberFloor = $data->number_floors;
         $id_car = $car->id;
         for ($i = 1; $i <= $seat; $i++) {
             $seats = Seat::query();
-            if ($i <= 24) {
+            if ($numberFloor === 1) {
                 if ($i < 10){
                     $seats->create([
                         'car_id' => $id_car,
@@ -47,15 +48,24 @@ class TypeCarService
                     ]);
                 }
             } else {
-                if ($i < 34){
+                $seatSecondFloor = $seat / 2;
+                if ($seatSecondFloor < 10) {
                     $seats->create([
                         'car_id' => $id_car,
-                        'code_seat' => 'B0' . ($i-24),
+                        'code_seat' => 'A0' . $i,
+                    ]);
+                    $seats->create([
+                        'car_id' => $id_car,
+                        'code_seat' => 'B0' . ($i - 24),
                     ]);
                 } else {
                     $seats->create([
                         'car_id' => $id_car,
-                        'code_seat' => 'B' . ($i-24),
+                        'code_seat' => 'A' . $i,
+                    ]);
+                    $seats->create([
+                        'car_id' => $id_car,
+                        'code_seat' => 'B' . ($i - 24),
                     ]);
                 }
             }

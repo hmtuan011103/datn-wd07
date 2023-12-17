@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Checkout;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendMailCheckOutSuccess;
 use App\Models\Bill;
+use App\Models\DiscountCode;
 use App\Models\Location;
 use App\Models\Seat;
 use App\Models\Ticket;
@@ -12,13 +13,10 @@ use App\Models\Trip;
 use App\Models\User;
 use App\Services\CheckoutService\CheckoutService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CheckoutController extends Controller
 {
@@ -32,11 +30,8 @@ class CheckoutController extends Controller
     }
 
     public function continuesCheckout(Request $request) {
-//        $token = auth()->user();
-//        dd($token);
-//        $user = JWTAuth::parseToken()->authenticate();
-//        dd($user);
         $data = $request->except('_token');
+        $userId = $request->client_verify;
         $title = "Chiến thắng | Thanh toán";
         $nameUser = $request->name;
         $emailUser = $request->email;
@@ -67,7 +62,7 @@ class CheckoutController extends Controller
             $moneyReturn = (int) $request->money_return;
         }
         return view('client.pages.choose-type-payment.index',
-            compact('nameUser','emailUser','phoneUser','tripTurn','tripReturn', 'title',
+            compact('nameUser','emailUser','phoneUser','tripTurn','tripReturn', 'title', 'userId',
                 'placeStart','placeEnd','placeStartSecond','placeEndSecond','seatsTurn','seatsReturn', 'moneyTurn', 'moneyReturn'
             )
         );
@@ -92,20 +87,24 @@ class CheckoutController extends Controller
     private function saveDataAfterCheckoutSuccess($request, $cacheData) {
         DB::beginTransaction();
         try {
-            // Save User
-            $user = User::query()->create([
-                'user_type_id' => 6,
-                'email' => $cacheData['email'],
-                'name' => $cacheData['name'],
-                'phone_number' => $cacheData['phone_number'],
-            ]);
-            if ($request->hasCookie('is_client')) {
-                $userInfor = Auth::user();
-                if ($userInfor && $userInfor->user_type_id === 1) {
-                    $user = User::query()->find($userInfor->id)->get();
-                }
+            $dataUserLogin = $cacheData['clientLogin'];
+
+            if($dataUserLogin) {
+                $user = User::query()->find($dataUserLogin);
+                $userLogin['email'] = $cacheData['email'];
+                $userLogin['name'] = $cacheData['name'];
+                $userLogin['phone_number'] = $cacheData['phone_number'];
+                Cache::put('infor_user', $userLogin, 1500);
+            } else {
+                // Save User
+                $user = User::query()->create([
+                    'user_type_id' => 6,
+                    'email' => $cacheData['email'],
+                    'name' => $cacheData['name'],
+                    'phone_number' => $cacheData['phone_number'],
+                ]);
+                Cache::put('infor_user', $user, 1500);
             }
-            Cache::put('infor_user', $user, 1500);
             // Save to Bill Order
 
             // Bill Turn
@@ -117,15 +116,19 @@ class CheckoutController extends Controller
                 })->pluck('code_seat')->toArray();
             $total_seats_turn = count($seatsTurnArray);
             $bill = Bill::query()->create([
+                'discount_code_id' => $cacheData['discount_code_id'],
                 'seat_id' => json_encode($seatsTurnArray),
                 'trip_id' => $tripTurn,
                 'user_id' => $user->id,
                 'status_pay' => 1,
-                'total_money' => $cacheData['moneyTurn'],
+                'total_money' => $cacheData['moneyTurnNotReduce'],
                 'total_money_after_discount' => $cacheData['moneyTurn'],
                 'type_pay' => $cacheData['type_payment'],
                 'total_seats' => $total_seats_turn,
-                'code_bill' => Str::random(8)
+                'code_bill' => Str::random(8),
+                'user_email' => $cacheData['email'],
+                'user_name' => $cacheData['name'],
+                'user_phone' => $cacheData['phone_number'],
             ]);
             Cache::put('bill_turn', $bill->id, 1500);
             $startLocation = Location::query()->find($cacheData['startTurn_0']);
@@ -139,7 +142,14 @@ class CheckoutController extends Controller
                     'pay_location' => $endLocation->name,
                 ]);
             }
-            SendMailCheckOutSuccess::dispatch($user->name, $bill->code_bill, $bill->trip_id, $startLocation->name, $endLocation->name, implode(', ', $seatsTurnArray), $user->email);
+            if($cacheData['discount_code_id']) {
+                $valueDiscount = DiscountCode::query()
+                    ->where('id', $cacheData['discount_code_id'])->first();
+                $valueDiscount->quantity--;
+                $valueDiscount->quantity_used++;
+                $valueDiscount->save();
+            }
+            SendMailCheckOutSuccess::dispatch($bill->user_name, $bill->code_bill, $bill->trip_id, $startLocation->name, $endLocation->name, implode(', ', $seatsTurnArray), $bill->user_email);
             // Bill Return
             if ($cacheData['seatsReturn'] !== null && $cacheData['tripReturn'] !== null) {
                 $seatsCodeReturn = explode(',', $cacheData['seatsReturn']);
@@ -150,15 +160,19 @@ class CheckoutController extends Controller
                     })->pluck('code_seat')->toArray();
                 $total_seats_return  = count($seatsReturnArray);
                 $billReturn  = Bill::query()->create([
+                    'discount_code_id' => $cacheData['discount_code_id'],
                     'seat_id' => json_encode($seatsReturnArray),
                     'trip_id' => $tripReturn,
                     'user_id' => $user->id,
                     'status_pay' => 1,
-                    'total_money' => $cacheData['moneyReturn'],
+                    'total_money' => $cacheData['moneyReturnNotReduce'],
                     'total_money_after_discount' => $cacheData['moneyReturn'],
                     'type_pay' => $cacheData['type_payment'],
                     'total_seats' => $total_seats_return,
-                    'code_bill' => Str::random(8)
+                    'code_bill' => Str::random(8),
+                     'user_email' => $cacheData['email'],
+                    'user_name' => $cacheData['name'],
+                    'user_phone' => $cacheData['phone_number'],
                 ]);
                 Cache::put('bill_return', $billReturn->id, 1500);
                 $startLocation = Location::query()->find($cacheData['startTurn_1']);
@@ -172,7 +186,7 @@ class CheckoutController extends Controller
                         'pay_location' => $endLocation->name,
                     ]);
                 }
-                SendMailCheckOutSuccess::dispatch($user->name, $billReturn->code_bill, $billReturn->trip_id, $startLocation->name, $endLocation->name, implode(', ', $seatsReturnArray), $user->email);
+                SendMailCheckOutSuccess::dispatch($billReturn->user_name, $billReturn->code_bill, $billReturn->trip_id, $startLocation->name, $endLocation->name, implode(', ', $seatsReturnArray), $billReturn->user_email);
             }
             DB::commit();
             return true;
@@ -189,15 +203,22 @@ class CheckoutController extends Controller
         $idReturn = Cache::get('bill_return');
         $ticketTurn = Ticket::query()->with('bill.trip')
             ->where('bill_id', $idTurn)->get();
+        $discountCode = Bill::query()->where('id',$idTurn)->first();
+        $allTicket['discount_code_id'] = $discountCode->discount_code_id;
+        $totalMoneyTurn = (int) $discountCode->total_money;
         Cache::forget('bill_turn');
         $allTicket['turn'] = $ticketTurn;
 
+        $totalMoneyReturn = 0;
         if($idReturn !== null){
             $ticketReturn = Ticket::query()->with('bill.trip')
                 ->where('bill_id', $idReturn)->get();
+            $discountCode2 = Bill::query()->where('id',$idReturn)->first();
             Cache::forget('bill_return');
             $allTicket['return'] = $ticketReturn;
+            $totalMoneyReturn = (int) $discountCode2->total_money;
         }
+        $allTicket['total_money'] = $totalMoneyTurn + $totalMoneyReturn;
         return $allTicket;
     }
 

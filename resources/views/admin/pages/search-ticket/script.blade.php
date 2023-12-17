@@ -133,9 +133,9 @@
                   <p>Email : </p>
                 </div>
                 <div class="detail-user-two">
-                  <p class="label-user">${data[0].name}</p>
-                  <p class="label-user">${data[0].phone_number}</p>
-                  <p class="label-user">${data[0].email}</p>
+                  <p class="label-user">${data[0].user_name}</p>
+                  <p class="label-user">${data[0].user_phone}</p>
+                  <p class="label-user">${data[0].user_email}</p>
                 </div>
               </div>
               <div class="col-md-6 text-user">
@@ -155,9 +155,14 @@
                         // Thêm các thông tin vé vào container-ticket
                         var ticketContainer = document.createElement("div");
                         ticketContainer.className = "ticket";
+                        var ticket_status = 0;
+                        var id_ticket = [];
                         data.forEach(function(ticket) {
                             var startDate = new Date(ticket.start_date);
-
+                            id_ticket.push(ticket.code_ticket);
+                            if (ticket.ticket_status == 1) {
+                                ticket_status++;
+                            }
                             // Định dạng ngày tháng năm
                             var formattedStartDate = startDate.toLocaleDateString();
                             var startTime = ticket.start_time;
@@ -165,6 +170,8 @@
                             var ticketElement = document.createElement("div");
                             ticketElement.innerHTML = `
               <div class="grid-ticket">
+                ${ticket.ticket_status != 1 ? '<div class="overlay">Đã checkin</div>' : ''}
+
                 <div class="detail-ticket">
 
                   <div class="logo">
@@ -196,8 +203,23 @@
             `;
                             ticketContainer.appendChild(ticketElement);
                         });
-
+                        var export_bill = `http://127.0.0.1:8000/manage/search-bill/export/` + id_ticket.join(",");
+                        var ticketfooter = document.createElement("div");
+                        ticketfooter.className = "ticket-footer";
+                        ticketfooter.innerHTML = `
+                        <div class="row text-center pt-3 pb-3" >
+                          <div class="col-md-5"></div>
+                          <div class="col-md-1">
+                            ${ticket_status != 0 ? `<a href="${export_bill}"><button class="btn btn-secondary" type="submit"  id="searchButton" class="btn-search">In vé</button></a>` : ''}
+                          </div>
+                          <div class="col-md-1">
+                            <button class="btn btn-secondary" class="close" data-bs-dismiss="modal" aria-label="Close">Đóng</button>
+                          </div>
+                          <div class="col-md-5"></div>
+                        </div>
+                        `;
                         containerTicket.appendChild(ticketContainer);
+                        containerTicket.appendChild(ticketfooter);
                         modalBody.appendChild(containerTicket);
                     } else {
                         modalBody.innerHTML = "Không tìm thấy kết quả.";

@@ -75,6 +75,19 @@
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 <script>
+
+    $(document).ready(function() {
+        $('#banner-to-home').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 5000,
+            arrows: true,
+            prevArrow: '<span class="prevArrow" id="prevArrowLimited"><i class="fa-solid fa-chevron-left"></i></span>',
+            nextArrow: '<span class="nextArrow" id="nextArrowLimited"><i class="fa-solid fa-chevron-right"></i></span',
+        });
+    });
+
     if ($('#popular-trip-container') && $('#popular-trip-container').length > 0) {
         $('#popular-trip-container').slick({
             infinite: true,
@@ -244,18 +257,18 @@
                             // Append the HTML templates to the slick container
                             $('#recent-news-container').slick('slickAdd', `
                             <div class="col col-md-4">
-                                <a href="#" class="d-block border border-1 rounded-3">
-                                    <img src="storage/${element.image}" alt="blog-image"
+                                <a href="http://127.0.0.1:8000/tin-tuc/${element.id}" class="d-block border border-1 rounded-3">
+                                    <img src="http://127.0.0.1:8000/${element.image}" alt="blog-image" height="240px"
                                         class="w-100 d-block border border-1 rounded-3">
                                 </a>
-                                <a class="text-uppercase fw-bold pt-2 pb-3 d-block text-decoration-none cl-black show-three-dot-text" href="#">
+                                <a class="text-uppercase fw-bold pt-2 pb-3 d-block text-decoration-none cl-black show-three-dot-text" href="http://127.0.0.1:8000/tin-tuc/${element.id}">
                                     ${element.title}
                                 </a>
                                 <div class="d-flex justify-content-between">
                                     <p class="cl-gray fw-medium fs-14">
                                         ${formatCreatedAtTime}
                                     </p>
-                                    <a href="#" class="d-block text-decoration-none cl-orange fs-14 fw-medium">
+                                    <a href="http://127.0.0.1:8000/tin-tuc/${element.id}" class="d-block text-decoration-none cl-orange fs-14 fw-medium">
                                         Chi tiết
                                     </a>
                                 </div>

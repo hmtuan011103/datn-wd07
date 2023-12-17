@@ -61,6 +61,7 @@ class CheckoutService
             $vnp_endTurn_1 = $request->place_end_turn_1;
         }
         Cache::put('my_bill_cache' . $vnp_TxnRef, [
+            'clientLogin' => $request->client_login,
             'email' => $request->phone,
             'name' => $request->name,
             'phone_number' => $request->email,
@@ -74,7 +75,10 @@ class CheckoutService
             'endTurn_0' => $vnp_endTurn_0,
             'startTurn_1' => $vnp_startTurn_1,
             'endTurn_1' => $vnp_endTurn_1,
-            'type_payment' => 1
+            'type_payment' => 1,
+            'discount_code_id' => $request->discount_code_id ?? null,
+            'moneyTurnNotReduce' => $request->total_turn_not_reduce,
+            'moneyReturnNotReduce' => $request->total_return_not_reduce
             // Các thông tin khác mà bạn muốn lưu
         ], 1500);
         // Config data for my bill
@@ -196,6 +200,7 @@ class CheckoutService
             $momo_endTurn_1 = $request->place_end_turn_1;
         }
         Cache::put('my_bill_cache' . $orderId, [
+            'clientLogin' => $request->client_login,
             'email' => $request->phone,
             'name' => $request->name,
             'phone_number' => $request->email,
@@ -209,7 +214,10 @@ class CheckoutService
             'endTurn_0' => $momo_endTurn_0,
             'startTurn_1' => $momo_startTurn_1,
             'endTurn_1' => $momo_endTurn_1,
-            'type_payment' => 2
+            'type_payment' => 2,
+            'discount_code_id' => $request->discount_code_id ?? null,
+            'moneyTurnNotReduce' => $request->total_turn_not_reduce,
+            'moneyReturnNotReduce' => $request->total_return_not_reduce
             // Các thông tin khác mà bạn muốn lưu
         ], 1500);
         // Config data for my bill

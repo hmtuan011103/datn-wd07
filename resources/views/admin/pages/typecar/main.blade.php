@@ -57,11 +57,11 @@
                                                            value="option">
                                                 </div>
                                             </th>
-                                            <th class="sort" data-sort="customer_name">Tên Loại Xe</th>
+                                            <th class="sort" data-sort="customer_name">Tên</th>
                                             <th class="sort" data-sort="customer_name">Số Lượng Ghế</th>
                                             <th class="sort" data-sort="customer_name">Loại Ghế</th>
-                                            <th class="sort" data-sort="customer_name">Mô Tả</th>
-                                            <th class="sort" data-sort="action">Chức Năng</th>
+                                            <th class="sort" data-sort="customer_name">Số lượng tầng</th>
+                                            <th class="sort">Chức Năng</th>
                                         </tr>
                                         </thead>
                                         <tbody class="list form-check-all">
@@ -82,7 +82,7 @@
                                                         Giường Nằm
                                                 @endif
                                                 </td>
-                                                <td class="email">{{$item->description}}</td>
+                                                <td class="number_floor">{{$item->number_floors}}</td>
                                                 <td>
                                                     <div class="d-flex gap-2">
                                                         <div class="edit">
@@ -161,20 +161,20 @@
     </div>
     <!-- End Page-content -->
 
-    <footer class="footer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-6">
-                    <script>document.write(new Date().getFullYear())</script> © Velzon.
-                </div>
-                <div class="col-sm-6">
-                    <div class="text-sm-end d-none d-sm-block">
-                        Design & Develop by Themesbrand
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+{{--    <footer class="footer">--}}
+{{--        <div class="container-fluid">--}}
+{{--            <div class="row">--}}
+{{--                <div class="col-sm-6">--}}
+{{--                    <script>document.write(new Date().getFullYear())</script> © Velzon.--}}
+{{--                </div>--}}
+{{--                <div class="col-sm-6">--}}
+{{--                    <div class="text-sm-end d-none d-sm-block">--}}
+{{--                        Design & Develop by Themesbrand--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </footer>--}}
 </div>
 
 @endsection

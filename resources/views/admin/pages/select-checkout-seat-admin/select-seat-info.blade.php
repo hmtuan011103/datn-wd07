@@ -24,7 +24,7 @@
                                 <input type="text" autocomplete="off" class="form-control w-100 fs-14" name="name" id="name" placeholder="">
                             </div>
                             <div class="mb-3">
-                                <label for="phone" class="form-label fs-14">Số điện thoại</label>
+                                <label for="phone" class="form-label fs-14">Số điện thoại*</label>
                                 <input type="text" autocomplete="off" class="form-control w-100 fs-14" name="phone" id="phone" placeholder="">
                             </div>
                             <div class="mb-3">
@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div class="p-4 pt-0 d-flex justify-content-between align-items-center">
+            <div class="p-4 pt-0 d-flex justify-content-between align-items-center mt-4">
                 <div id="total-detail-price-trip-checkout">
                     {{-- In ra tổng tiền cần thanh toán --}}
                 </div>

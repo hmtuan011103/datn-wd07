@@ -170,7 +170,7 @@
                 if (responseData.status === true) {
                     setCookie('token', responseData.token, 60);
                     setCookie('status', true, 60);
-                    setCookie('is_client', true, 10);
+                    setCookie('is_client', true, 60);
                     // Lưu successMessage vào sessionStorage
                     const successMessage = "Đăng nhập thành công!";
                     sessionStorage.setItem('successMessage', successMessage);

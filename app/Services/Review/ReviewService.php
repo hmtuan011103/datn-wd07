@@ -13,13 +13,13 @@ class ReviewService
         // dd($request->all());
         if ($request->method() == "POST") {
             $comment = new Comments;
-            $comment->user_id = 0;
-            $comment->trip_id = 0;
+            $comment->user_id = $request->user_id;
+            $comment->trip_id = $request->trip_id;
             $comment->stars = $request->stars;
             $comment->name = $request->name;
             $comment->email = $request->email;
             $comment->phone = $request->phone;
-            $comment->content = $request->content;
+            $comment->content = $request->content_evaluate;
             $comment->save();
             return $comment;
         }

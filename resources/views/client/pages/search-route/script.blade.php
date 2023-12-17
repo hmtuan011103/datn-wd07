@@ -120,6 +120,7 @@
 
     function submitForm(event) {
         event.preventDefault();
+
         var type_ticket = document.querySelector('input[name="type-ticket"]:checked').value;
         var start_location = document.querySelector('select[name="start_location"]').value;
         var end_location = document.querySelector('select[name="end_location"]').value;
@@ -362,7 +363,11 @@
         }
         addDataToCookieArray(jsonData)
         var queryString = Object.keys(jsonData).map(key => key + '=' + encodeURIComponent(jsonData[key])).join('&');
+        $("#overlay").fadeIn(300);
         window.location.href = link + 'tim-kiem?' + queryString;
+        window.onload = function() {
+            $("#overlay").fadeOut(300);
+        };
     }
 
     function getDataFromCookieArray() {
@@ -990,8 +995,12 @@
     var selectedButtons = [];
 
     function redirectToSelectSeat(button) {
+        $("#overlay").fadeIn(300);
         const tripTurn = button.getAttribute('data-turn');
         window.location.href = `/chon-ghe?trip_turn=${tripTurn}`;
+        window.onload = function() {
+            $("#overlay").fadeOut(300);
+        };
     }
 
     function handleClick(button, event) {
@@ -1028,7 +1037,11 @@
                 selectedButtons[1].setAttribute('data-turn', b1);
                 selectedButtons[1].setAttribute('data-return', b2);
                 localStorage.removeItem("buttontrip")
+                $("#overlay").fadeIn(300);
                 window.location.href = `/chon-ghe?trip_turn=${b1}&trip_return=${b2}`;
+                window.onload = function() {
+                    $("#overlay").fadeOut(300);
+                };
             } else {
                 buttonselected = document.querySelector(
                     `.buttontrip[data-id="${localStorage.getItem('buttontrip')}"]`

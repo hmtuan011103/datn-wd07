@@ -107,7 +107,7 @@
 
             myChart.update();
         } else {
-            console.log("Tuấn " + revenueData);
+            console.log("Tuấn "+revenueData);
             myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -189,6 +189,32 @@
                 .catch(error => {
                     console.error('Error:', error);
                 });
+        } else {
+            var currentYear = document.querySelector('#yearSelect').value;
+            fetch('/api/getRevenueData?year=' + currentYear)
+                .then(response => response.json())
+                .then(data => {
+                    var labels = Array.from({
+                        length: 12
+                    }, (_, index) => 'Tháng ' + (index + 1));
+
+                    var revenueData = Array(12).fill(0);
+
+                    var tripsData = Array(12).fill(0);
+
+
+                    data.forEach(item => {
+
+                        revenueData[item.month - 1] = item.total;
+                        tripsData[item.month - 1] = item.total_trips;
+                    });
+
+                    // Gọi hàm để tạo biểu đồ ban đầu khi trang được tải
+                    updateChart(labels, revenueData, tripsData, false);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         }
     }
 
@@ -222,11 +248,9 @@
 
     window.onload = function() {
         var currentYear = document.querySelector('#yearSelect').value;
-        console.log(currentYear);
         fetch('/api/getRevenueData?year=' + currentYear)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 var labels = Array.from({
                     length: 12
                 }, (_, index) => 'Tháng ' + (index + 1));
@@ -241,9 +265,6 @@
                     revenueData[item.month - 1] = item.total;
                     tripsData[item.month - 1] = item.total_trips;
                 });
-                console.log(revenueData);
-                console.log(tripsData);
-
 
                 // Gọi hàm để tạo biểu đồ ban đầu khi trang được tải
                 updateChart(labels, revenueData, tripsData, false);
