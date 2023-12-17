@@ -19,7 +19,7 @@
         "laravel/tinker": "^2.8",
         "maatwebsite/excel": "^3.1",
         "mpdf/mpdf": "^8.2",
-        "nesbot/carbon": "^2.0",
+        "nesbot/carbon": "^2.72",
         "opcodesio/log-viewer": "^3.1",
         "predis/predis": "^2.2",
         "proengsoft/laravel-jsvalidation": "^4.8",

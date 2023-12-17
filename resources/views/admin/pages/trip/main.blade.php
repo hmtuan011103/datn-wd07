@@ -127,11 +127,14 @@
                                                 @foreach ($trips as $trip)
                                                     @php
                                                         $departureDate = Carbon\Carbon::parse($trip->start_date)->format('Y-m-d'); // Chuyển start_date từ dateTime sang dạng date
-
                                                         $departureDateTime = Carbon\Carbon::parse($departureDate . ' ' . $trip->start_time); // Kết hợp ngày và giờ khởi hành
+                                                        $intervalTrip = $trip->interval_trip;
+                                                        $interval = Carbon\CarbonInterval::createFromFormat('H:i:s', $intervalTrip);
+                                                        $expectedEndTime = $departureDateTime->copy()->add($interval);// Tính thời gian dự kiến kết thúc
                                                         $currentTime = now();
                                                         $timeDifference = $currentTime->diffInMinutes($departureDateTime, false);
                                                         $isWithinOneHour = $timeDifference <= 120;
+                                                        $isTripCompleted = $currentTime->gt($expectedEndTime); // Kiểm tra xem thời gian hiện tại có lớn hơn thời gian dự kiến kết thúc hay không
 
                                                     @endphp
                                                     <tr id="row{{ $trip->id }}">
@@ -146,15 +149,13 @@
                                                                 class="fw-medium link-primary">#VZ2101</a></td>
                                                         {{-- <td class="customer_name">{{ $trip->id }}</td> --}}
                                                         {{-- <td class="email">{{ $trip->car_name }}</td>
-                                                    
+
                                                     <td class="email">{{ $trip->user_name }}</td> --}}
                                                         <td class="phone">{{ $trip->start_location }}</td>
                                                         <td class="phone">{{ $trip->end_location }}</td>
                                                         <td class="phone">{{ formatDateTrip($trip->start_date) }}</td>
                                                         <td class="phone">{{ formatTime($trip->start_time) }}</td>
                                                         <td class="phone">{{ fomatPrice($trip->trip_price) }} VND</td>
-
-
                                                         <td>
                                                             <div class="d-flex gap-2">
                                                                 <div class="detail">
@@ -164,6 +165,16 @@
                                                                         data-target="#show" data-toggle="modal"><i
                                                                             class="bx bx bx-show"></i></button>
                                                                 </div>
+                                                                @if ($isTripCompleted)
+                                                                    <div class="detail_comment">
+                                                                        <button
+                                                                            data-url="{{ route('show_comment', ['id' => $trip->id]) }}"
+                                                                            class="btn btn-warning btn-sm btn-show-comment"
+                                                                            data-target="#showComment" data-toggle="modal">
+                                                                            <i class="bx bx-star"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                @endif
                                                                 @if (!$isWithinOneHour || $trip->canDelete == true)
                                                                     <div class="edit">
                                                                         <a
@@ -182,7 +193,6 @@
                                                                                 class="bx bx-trash"></i></button>
                                                                     </div>
                                                                 @endif
-
 
                                                             </div>
                                                         </td>
@@ -291,7 +301,6 @@
     </div>
     <!-- End Page-content -->
     @include('admin.pages.trip.detail')
-
-
+    @include('admin.pages.trip.comment')
     </div>
 @endsection

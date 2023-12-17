@@ -50,7 +50,7 @@
         margin-right: 0.5vw;
     }
     .button {
-        margin-top: 2%;     
+        margin-top: 2%;
     }
     .click-button {
         font-size: 12px

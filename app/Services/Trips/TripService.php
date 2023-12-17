@@ -63,6 +63,7 @@ class TripService
             'trips.status',
             'trips.trip_price',
             'trips.end_location',
+            'trips.interval_trip',
             'trips.created_at',
             'trips.updated_at',
             'cars.name as car_name',
