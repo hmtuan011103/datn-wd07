@@ -17,6 +17,16 @@ class RouteController extends BaseRouteController
     public function index(){
         $routes = Route::all();
         $locations = Location::all();
+        foreach ($routes as $key => $value) {
+            foreach ($locations as $location){
+                if ($value->start_location == $location->id){
+                    $value->start_location = $location->name;
+                }
+                if ($value->end_location == $location->id){
+                    $value->end_location = $location->name;
+                }
+            }
+        }
         $title = 'Quản lí tuyến đường';
         return view('admin.pages.route.main', compact('title','routes','locations'));
     }
@@ -66,9 +76,20 @@ class RouteController extends BaseRouteController
 
     public function details($id){
         $route = Route::find($id);
+        $locations = Location::all();
         $drivers = User::where('user_type_id',4)->get();
         $assistants = User::where('user_type_id',5)->get();
         $cars = Car::all();
+        
+        foreach ($locations as $location){
+            if ($route->start_location == $location->id){
+                $route->start_location = $location->name;
+            }
+            if ($route->end_location == $location->id){
+                $route->end_location = $location->name;
+            }
+        }
+        
         return response()->json([$route,$drivers,$assistants,$cars],200);
     }
 }

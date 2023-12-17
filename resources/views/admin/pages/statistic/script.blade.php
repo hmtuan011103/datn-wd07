@@ -13,7 +13,7 @@
 
 <!-- Dashboard init -->
 
-<script src={{ asset('admin/assets/js/pages/dashboard-projects.init.js') }}></script>
+<script src={{ asset('admin/assets/js/pages/dashboard-projects-route.init.js') }}></script>
 <script src={{ asset('admin/assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}></script>
 <script src={{ asset('admin/assets/libs/node-waves/waves.min.js') }}></script>
 <script src={{ asset('admin/assets/libs/feather-icons/feather.min.js') }}></script>

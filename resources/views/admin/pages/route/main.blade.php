@@ -87,18 +87,20 @@
                                                         <td class="customer_name">{{ $route->id }}</td>
                                                         <td class="email">{{ $route->name }} </td>
                                                         <td class="phone">
-                                                            @foreach ($locations as $location)
+                                                            {{-- @foreach ($locations as $location)
                                                                 @if ($route->start_location == $location->id)
                                                                     {{$location->name}}
                                                                 @endif
-                                                            @endforeach 
+                                                            @endforeach  --}}
+                                                            {{$route->start_location}}
                                                             </td>
                                                         <td class="phone">
-                                                        @foreach ($locations as $location)
+                                                        {{-- @foreach ($locations as $location)
                                                             @if ($route->end_location == $location->id)
                                                                 {{$location->name}}
                                                             @endif
-                                                        @endforeach 
+                                                        @endforeach  --}}
+                                                        {{$route->end_location}}
                                                         </td>
                                                         <td class="date">{{ $route->start_time }}</td>
                                                         <td class="date">{{number_format($route->trip_price, 0, ',', '.')}}đ</td>
