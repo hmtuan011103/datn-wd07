@@ -125,7 +125,7 @@
                                             </thead>
                                             <tbody class="list form-check-all">
                                                 @foreach ($trips as $trip)
-                                                    @php
+                                                    {{-- @php
                                                         $departureDate = Carbon\Carbon::parse($trip->start_date)->format('Y-m-d'); // Chuyển start_date từ dateTime sang dạng date
                                                         $departureDateTime = Carbon\Carbon::parse($departureDate . ' ' . $trip->start_time); // Kết hợp ngày và giờ khởi hành
                                                         $intervalTrip = $trip->interval_trip;
@@ -136,7 +136,7 @@
                                                         $isWithinOneHour = $timeDifference <= 120;
                                                         $isTripCompleted = $currentTime->gt($expectedEndTime); // Kiểm tra xem thời gian hiện tại có lớn hơn thời gian dự kiến kết thúc hay không
 
-                                                    @endphp
+                                                    @endphp --}}
                                                     <tr id="row{{ $trip->id }}">
                                                         <th scope="row">
                                                             <div class="form-check">
@@ -175,7 +175,9 @@
                                                                         </button>
                                                                     </div>
                                                                 @endif
-                                                                @if (!$isWithinOneHour || $trip->canDelete == true)
+                                                              
+                                                                @if ($trip->canDelete == true )
+
                                                                     <div class="edit">
                                                                         <a
                                                                             href="{{ route('edit_trip', ['id' => $trip->id]) }}"><button
