@@ -216,7 +216,7 @@
                     timer: 2e3,
                     showCloseButton: !0,
                 })
-                
+
             }
 
         });
@@ -474,7 +474,7 @@
         //             if (filteredData.length > 0) {
         //                 filteredData.forEach(function(item) {
         //                     var formattedDate = moment(item.start_date).format('YYYY-MM-DD');
-        //                     console.log(formattedDate); 
+        //                     console.log(formattedDate);
         //                     var departureDateTime = moment(formattedDate + ' ' +
         //                         item.start_time); // Kết hợp ngày và giờ khởi hành
         //                     var currentTime = moment(); // Lấy thời gian hiện tại
@@ -604,6 +604,52 @@
             })
         });
     });
+    $(document).on('click', '.btn-show-comment', function () {
+        var url = $(this).attr('data-url');
+        console.log(url);
+
+        // Xóa dữ liệu cũ khi mở modal mới
+        $('.modal-body .col-md-12').empty();
+
+        $.ajax({
+            type: 'get',
+            url: url,
+            success: function (data) {
+                var comments = data.comments;
+                if (comments.length >0){
+                    for (var i = 0; i < comments.length; i++) {
+                        var comment = comments[i];
+
+                        // Tạo chuỗi chứa biểu tượng ngôi sao dựa trên số sao
+                        var starsHTML = '';
+                        for (var j = 0; j < comment.stars; j++) {
+                            starsHTML += '⭐'; // Dùng ký tự Unicode cho ngôi sao
+                        }
+                        var commentHTML = '<p>Email: ' + comment.email + '</p>' +
+                            '<p>Họ Tên: ' + comment.name + '</p>' +
+                            '<p>Số Sao Đánh Giá: ' + starsHTML + '</p>' +
+                            '<p>Nội dung: ' + comment.content + '</p>' +
+                            '<hr>';
+                        $('.modal-body .col-md-12').append(commentHTML);
+                    }
+                }else {
+                    var noCommentHTML = '<p style="text-align: center"><b>Chưa có đánh giá nào từ khách hàng.</b></p>';
+                    $('.modal-body .col-md-12').append(noCommentHTML);
+                }
+
+            },
+            error: function (error) {
+                console.error('Error:', error);
+            }
+        });
+    });
+
+    // Sự kiện được kích hoạt khi modal được ẩn
+    $('#yourModalId').on('hidden.bs.modal', function () {
+        // Xóa dữ liệu khi modal được ẩn
+        $('.modal-body .col-md-12').empty();
+    });
+
 </script>
 
 <script src="{{ asset('client/assets/js/url-config.js') }}"></script>

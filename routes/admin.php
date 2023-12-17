@@ -48,6 +48,7 @@ Route::prefix('trip')->group(function () {
     Route::post('update/{id}', [TripController::class, 'save_edit_trip'])->name('save_edit_trip')->middleware('check_permission:update-trip');
     Route::get('delete/{id}', [TripController::class, 'delete_trip'])->name('delete_trip')->middleware('check_permission:delete-trip');
     Route::get('show/{id}', [TripController::class, 'show'])->name('show')->middleware('check_permission:read-trip');
+    Route::get('show_comment/{id}', [TripController::class, 'show_comment'])->name('show_comment')->middleware('check_permission:read-trip');
     Route::post('import-trip',[TripController::class,'import_trip'])->name('import-trip');
 });
 Route::prefix('permission')->group(function () {

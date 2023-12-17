@@ -13,6 +13,7 @@ use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Comments;
 
 class TripController extends BaseTripController
 {
@@ -30,7 +31,7 @@ class TripController extends BaseTripController
     {
         $routes = $this->tripService->getRoute();
         // $data = $this->tripService->getcarDriveAssistant($request);
-        // dd($data);  
+        // dd($data);
         return view('admin.pages.trip.create', [
             'routes' => $routes, // Bạn cần đưa biến $routes vào trong mảng này
             'userDrive' => [],
@@ -95,6 +96,11 @@ class TripController extends BaseTripController
 
 
         return response()->json(['data' => $trip], 200); // 200 là mã lỗi
+    }
+    public function show_comment($id)
+    {
+        $comments = Comments::where('trip_id', $id)->get();
+        return response()->json(['comments' => $comments]);
     }
 
     public function schedule()
