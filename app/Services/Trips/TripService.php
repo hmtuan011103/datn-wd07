@@ -105,7 +105,15 @@ class TripService
 
         // Thêm điều kiện kiểm tra và ẩn nút xóa nếu trip_id đã có trong bảng bills
         foreach ($trips as $trip) {
-            $trip->canDelete = !in_array($trip->id, $tripIdsInBills);
+            $departureDate = Carbon::parse($trip->start_date)->format('Y-m-d'); // Chuyển start_date từ dateTime sang dạng date
+        
+            $departureDateTime = Carbon::parse($departureDate . ' ' . $trip->start_time); // Kết hợp ngày và giờ khởi hành
+            $currentTime = now();
+            $timeDifference = $currentTime->diffInMinutes($departureDateTime, false);
+            $isWithinOneHour = $timeDifference <= 120;
+        
+            // Kiểm tra xem chuyến đã có người đặt chuyến đó hay chưa
+            $trip->canDelete = !in_array($trip->id, $tripIdsInBills) && !$isWithinOneHour;
         }
 
         return $trips;
@@ -119,7 +127,7 @@ class TripService
 
 
 
-    
+
 
     public function create(StoreTripRequest $request)
     {
@@ -758,7 +766,7 @@ class TripService
         return $route;
     }
 
-  
+
 
     public function getcarDriveAssistant($request)
     {
