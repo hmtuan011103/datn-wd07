@@ -1,27 +1,18 @@
     @auth
         <div class="app-menu navbar-menu menu_admin">
             <!-- LOGO -->
-            <div class="navbar-brand-box">
+            <div class="navbar-brand-box" style="width:200px; margin-top:-14px; margin-left: 10px;">
                 <!-- Dark Logo-->
-                <a href="{{ route('admin.homepage') }}" class="logo logo-dark">
-                    <span class="logo-sm">
-                        <img src={{ asset('admin/assets/images/logo-sm.png') }} alt="" height="22">
-                    </span>
-                    <span class="logo-lg">
-                        <img src={{ asset('admin/assets/images/logo-dark.png') }} alt="" height="17">
-                    </span>
-                </a>
+
                 <!-- Light Logo-->
-                <a href="{{ route('admin.homepage') }}" class="logo logo-light">
-                    <span class="logo-sm">
-                        <img src={{ asset('admin/assets/images/logo-sm.png') }} alt="" height="22">
-                    </span>
+                <a href="{{ route('admin.homepage') }}" class="logo logo-light" style="width:100%">
+
                     <span class="logo-lg">
-                        <img src={{ asset('client/assets/images/logo_web.png') }} alt="" height="17">
+                        <img src={{ asset('client/assets/images/logo_web.png') }} alt="" width="200px" height="40px">
                     </span>
                 </a>
                 <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover"
-                    id="vertical-hover">
+                        id="vertical-hover">
                     <i class="ri-record-circle-line"></i>
                 </button>
             </div>
