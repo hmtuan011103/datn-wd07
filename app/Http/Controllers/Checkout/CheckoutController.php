@@ -225,20 +225,26 @@ class CheckoutController extends Controller
     public function checkoutSuccess(Request $request) {
         $cacheDataVnpay = Cache::get('my_bill_cache'. $request->vnp_TxnRef);
         $cacheDataMomo = Cache::get('my_bill_cache' . $request->orderId);
-        if($request->vnp_ResponseCode === "00" && $cacheDataVnpay !== null && $this->saveDataAfterCheckoutSuccess($request, $cacheDataVnpay))
+        if($request->vnp_ResponseCode === "00" && $cacheDataVnpay !== null)
         {
+            $typePayment = $cacheDataVnpay['type_payment'];
+            $this->saveDataAfterCheckoutSuccess($request, $cacheDataVnpay);
+            Cache::forget('my_bill_cache'. $request->vnp_TxnRef);
             return view('client.partials.checkout-success', [
                 'data' => $this->getTicketForBill(),
                 'inforUser' => Cache::get('infor_user'),
                 'totalMoney' => $request->vnp_Amount / 100,
-                'type_pay' => $cacheDataVnpay['type_payment'],
+                'type_pay' => $typePayment,
             ]);
-        } else if($request->resultCode === "0" && $cacheDataMomo !== null && $this->saveDataAfterCheckoutSuccess($request, $cacheDataMomo)) {
+        } else if($request->resultCode === "0" && $cacheDataMomo !== null) {
+            $typePayment = $cacheDataMomo['type_payment'];
+            $this->saveDataAfterCheckoutSuccess($request, $cacheDataMomo);
+            Cache::forget('my_bill_cache'. $request->orderId);
             return view('client.partials.checkout-success', [
                 'data' => $this->getTicketForBill(),
                 'inforUser' => Cache::get('infor_user'),
                 'totalMoney' => $request->amount,
-                'type_pay' => $cacheDataMomo['type_payment'],
+                'type_pay' => $typePayment,
             ]);
         }
          else {
@@ -246,6 +252,5 @@ class CheckoutController extends Controller
                 'data' => "Thanh toán thất bại",
             ]);
         }
-
     }
 }
