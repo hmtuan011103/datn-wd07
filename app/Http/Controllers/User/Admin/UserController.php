@@ -28,14 +28,13 @@ class UserController extends BaseUserController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Quản lý người dùng';
 
-        $query = $this->userService->getAll();
-
+        $query = $this->userService->getAll($request->type_user);
         $data = $query->getData()->data;
-        $userType = TypeUser::pluck('name')->unique();
+        $userType = TypeUser::all()->unique();
 
         return view('admin.pages.user.index', compact('title', 'data','userType'));
     }

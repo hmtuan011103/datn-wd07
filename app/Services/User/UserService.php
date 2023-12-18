@@ -32,12 +32,18 @@ class UserService
         return $users;
     }
 
-     public function getAll()
+     public function getAll($request)
      {
-          $users = $this->model::with('roles')
-               ->orderBy('updated_at', 'desc')
-               ->orderBy('name', 'desc')
-               ->get();
+
+         $query = $this->model::with('roles')
+             ->orderBy('updated_at', 'desc')
+             ->orderBy('name', 'desc');
+
+         if ($request) {
+             $users = $query->where('user_type_id', $request)->get();
+         } else {
+             $users = $query->get();
+         }
 
           $response['data'] = $users;
           $response['status'] = ResponseAlias::HTTP_OK;
