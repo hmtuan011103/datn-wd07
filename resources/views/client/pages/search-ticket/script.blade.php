@@ -166,6 +166,7 @@
                             var ticketElement = document.createElement("div");
                             ticketElement.innerHTML = `
               <div class="grid-ticket">
+              ${ticket.ticket_status != 1 ? '<div class="overlay-checkin">Đã checkin</div>' : ''}
                 <div class="detail-ticket">
 
                   <div class="logo">

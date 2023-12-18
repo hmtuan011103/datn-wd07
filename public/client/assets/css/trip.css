@@ -250,7 +250,6 @@ body, div, html {
 .schedule-card {
     border: 1px solid #dde2e8;
     border-radius: 16px;
-    max-height: 144px;
     padding: 16px 12px 12px;
     overflow: overlay;
     min-width: 810px;

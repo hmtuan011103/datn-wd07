@@ -33,10 +33,10 @@
                                         </div>
                                         {{-- import data trip  --}}
                                         <div class="col-sm-auto">
-                                            <div>
-                                                <button class="btn btn-primary submit-data-trip" data-bs-toggle="modal"
-                                                    data-bs-target="#modalImportTrip">Nhập dữ liệu</button>
-                                            </div>
+{{--                                            <div>--}}
+{{--                                                <button class="btn btn-primary submit-data-trip" data-bs-toggle="modal"--}}
+{{--                                                    data-bs-target="#modalImportTrip">Nhập dữ liệu</button>--}}
+{{--                                            </div>--}}
                                         </div>
                                         <div class="col-sm">
                                             <div class="d-flex justify-content-sm-end">
