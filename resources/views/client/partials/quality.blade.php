@@ -10,10 +10,10 @@
                     </div>
                     <div class="ps-3">
                         <p class="fw-bold fs-30 mb-1">
-                            Hơn 20 triệu  <span class="fs-16 fw-bold">Lượt khách</span>
+                            Hơn 2 triệu  <span class="fs-16 fw-bold">Lượt khách</span>
                         </p>
                         <p class="fs-16 cl-gray fw-medium">
-                            Chiến Thắng phục vụ hơn 20 triệu lượt khách bình quân 1 năm trên toàn quốc
+                            Chiến Thắng luôn mang đến trải nghiệm tốt với khách hàng khi trải nghiệm dịch vụ
                         </p>
                     </div>
                 </div>
@@ -23,10 +23,10 @@
                     </div>
                     <div class="ps-3">
                         <p class="fw-bold fs-30 mb-1">
-                            Hơn 350 triệu  <span class="fs-16 fw-bold">Phòng vé - Bưu cục</span>
+                            Hơn 20  <span class="fs-16 fw-bold">Phòng vé - Bưu cục</span>
                         </p>
                         <p class="fs-16 cl-gray fw-medium">
-                            Phương Trang có hơn 350 phòng vé, trạm trung chuyển, bến xe,... trên toàn hệ thống
+                            Chiến Thắng có hơn 20 phòng vé, bến xe,... trên toàn hệ thống
                         </p>
                     </div>
                 </div>
@@ -36,10 +36,10 @@
                     </div>
                     <div class="ps-3">
                         <p class="fw-bold fs-30 mb-1">
-                            Hơn 1,000  <span class="fs-16 fw-bold">Chuyến xe</span>
+                            Hơn 100  <span class="fs-16 fw-bold">Chuyến xe</span>
                         </p>
                         <p class="fs-16 cl-gray fw-medium">
-                            Phương Trang phục vụ hơn 1,000 chuyến xe đường dài và liên tỉnh mỗi ngày
+                            Chiến Thắng phục vụ hơn 100 chuyến xe đường dài và liên tỉnh mỗi ngày
                         </p>
                     </div>
                 </div>
