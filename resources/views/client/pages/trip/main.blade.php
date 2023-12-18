@@ -7,7 +7,7 @@
             <button id="searchButton"><i class="fa fa-search"></i></button>
 
         </span>
-        {{-- 
+        {{--
         <div class="search-container">
             <input type="text" id="searchInput" placeholder="Tìm kiếm...">
             <button id="searchButton"><i class="fa fa-search"></i></button>
@@ -29,9 +29,9 @@
 
     <div class="mt-6 flex w-full flex-col gap-4 overflow-auto ">
         <div class="ant-row row-search schedule-card" id="table_header">
-            <div class="ant-col ant-col-6">Tuyến xe</div>
-            <div class="ant-col ant-col-2">Loại xe</div>
-            <div class="ant-col ant-col-4">Thời gian hành trình </div>
+            <div class="ant-col ant-col-4">Tuyến xe</div>
+            <div class="ant-col ant-col-4">Loại xe</div>
+            <div class="ant-col ant-col-2">Khởi hành</div>
             <div class="ant-col ant-col-2">Giá vé</div>
         </div>
         <div id="list_trip">
@@ -39,7 +39,7 @@
         </div>
 
         <div class="searchdata" style="display: none" id="content">
-          
+
         </div>
         <div class="alldata">
             <ul id="pagination" class="pagination">
@@ -47,12 +47,12 @@
             </ul>
         </div>
         {{-- <div class="searchdata">
-           
+
         </div> --}}
 
     </div> <br>
 
-   
+
 
 
 </div>

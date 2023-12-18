@@ -46,23 +46,33 @@
                     }
                 }
 
+                console.log(res);
                 return `
 
                 <div class="alldata">
                     <div class="schedule-card flex w-full flex-col gap-[6px] text-left " >
                         ${res.map(function(item) {
                                         if(item.start_location === trip.start_location) {
+                                            const startDate = item.start_date.split(' ')[0];
+                                            const startTime = item.start_time;
+                                            const dateTime = new Date(startDate + " " + startTime);
+                                            const hours = dateTime.getHours();
+                                            const minutes = dateTime.getMinutes();
+                                            const day = dateTime.getDate();
+                                            const month = dateTime.getMonth() + 1;
+                                            const year = dateTime.getFullYear();
+                                            const formattedDateTime = `${hours}h${(minutes < 10 ? '0' : '') + minutes}p - ${day}/${month}/${year}`;
                                             return `
                                             <div class="ant-row items-center" >
-                                                <div class="ant-col ant-col-6" >
+                                                <div class="ant-col ant-col-4" >
                                                     <div class="flex w-full items-center gap-2">
                                                         <span class="font-medium text-orange"> ${item.start_location}</span>
                                                         <img src="https://futabus.vn/images/icons/ic_double_arrow.svg" alt="arrow">
                                                         <span> ${item.end_location}</span>
                                                     </div>
                                                 </div>
-                                                <div class="ant-col ant-col-2">${item.car_type_name}</div>
-                                                <div class="ant-col ant-col-4">${convertTime(item.interval_trip)}</div>
+                                                <div class="ant-col ant-col-4">${item.car_type_name}</div>
+                                                <div class="ant-col ant-col-2">${formattedDateTime}</div>
                                                 <div class="ant-col ant-col-2">${item.trip_price.toLocaleString("vi-VN")}đ</div>
                                                 <!-- <div class="ant-col ant-col-2"></div> -->
                                                 <div class="ant-col flex justify-end" style="flex: 1 1 auto;">
