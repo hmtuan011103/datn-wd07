@@ -43,9 +43,28 @@
                     `
                 });
                 var total = `<tr>
-                                    <td colspan="5" class="fs-5 fw-bolder">Tổng tiền: </td>
+                                    <td colspan="5" class="fs-5 fw-bolder">Tổng tiền trước giảm giá: </td>
                                     <td id="total">${formatCurrency(response.data[0].total_money)}</td>
-                                </tr>`
+                                </tr>
+                                <tr>
+                                    <td colspan="5" class="fs-5 fw-bolder">Giảm giá: </td>
+                                    <td id="total">
+                                        ${
+                                            response.data[0].discount_code
+                                            ? (
+                                                response.data[0].discount_code.id_type_discount_code === 1
+                                                    ? response.data[0].discount_code.value.toString() + "%"
+                                                    : response.data[0].discount_code.value.toString() + "đ"
+                                            )
+                                            : "Không có"
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" class="fs-5 fw-bolder">Tổng tiền sau giảm giá: </td>
+                                    <td id="total">${formatCurrency(response.data[0].total_money_after_discount)}</td>
+                                </tr>
+                            `
                 $('tbody#details_bill').html(details_bill)
                 $('tbody#details_bill').append(total)
             }

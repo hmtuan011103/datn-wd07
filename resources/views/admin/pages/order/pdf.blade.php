@@ -121,7 +121,8 @@
                 </div>
                 <div>
                     <p><b>Số vé:</b> {{ $data[0]->total_seats }}</p>
-                    <p><b>Hình thức thanh toán:</b> {{ $data[0]->type_pay == 1 ? 'VNPAY' : '' }}</p>
+                    <p><b>Hình thức thanh toán:</b> {{ $data[0]->type_pay === 1 ? 'VNPAY' : ( $data[0]->type_pay === 2 ? "MOMOPAY" : "Tại quầy" ) }}</p>
+
                     <p><b>Trạng thái thanh toán:</b>
                         {{ $data[0]->status_pay == 1 ? 'Đã thanh toán' : 'Chưa thanh toán' }}</p>
                     <p><b>SĐT:</b> {{ $data[0]->user_phone }}</p>
@@ -151,9 +152,9 @@
                             <td>{{$stt}}</td>
                             <td>{{ $data[0]->trip->route->name }}</td>
                             <td>{{ $seat }}</td>
-                            <td>{{ number_format($data[0]->trip->route->trip_price, 0, ',', '.') }}</td>
+                            <td>{{ number_format($data[0]->trip->route->trip_price, 0, ',', '.') }}VNĐ</td>
                             <td>1</td>
-                            <td>{{ number_format($data[0]->trip->route->trip_price, 0, ',', '.') }}</td>
+                            <td>{{ number_format($data[0]->trip->route->trip_price, 0, ',', '.') }}VNĐ</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -162,20 +163,20 @@
                         <td colspan="5" class="invoice-total">
                             Tổng cộng:
                         </td>
-                        <td>{{ number_format($data[0]->total_money, 0, ',', '.') }}</td>
+                        <td>{{ number_format($data[0]->total_money, 0, ',', '.') }}VNĐ</td>
                     </tr>
                     <tr>
                         <td colspan="5" class="invoice-total">
                             Giảm giá:
                         </td>
-                        <td>{{ number_format($data[0]->total_money - $data[0]->total_money_after_discount, 0, ',', '.') }}
+                        <td>{{ number_format($data[0]->total_money - $data[0]->total_money_after_discount, 0, ',', '.')."VNĐ" }}
                         </td>
                     </tr>
                     <tr>
                         <td colspan="5" class="invoice-total">
                             Tiền sau khi giảm giá:
                         </td>
-                        <td>{{ number_format($data[0]->total_money_after_discount, 0, ',', '.') }}</td>
+                        <td>{{ number_format($data[0]->total_money_after_discount, 0, ',', '.') }}VNĐ</td>
                     </tr>
                 </tfoot>
             </table>

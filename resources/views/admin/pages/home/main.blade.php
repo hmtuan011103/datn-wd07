@@ -138,7 +138,7 @@
                                             <div class="p-3 border border-dashed border-start-0">
                                                 <h5 class="mb-1"><span class="counter-value"
                                                         data-target="{{$get_user_year}}">{{$get_user_year}}</span></h5>
-                                                <p class="text-muted mb-0">Người dùng</p>
+                                                <p class="text-muted mb-0">Người dùng </p>
                                             </div>
                                         </div>
                                         <!--end col-->

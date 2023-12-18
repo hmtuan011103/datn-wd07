@@ -29,7 +29,7 @@ class HomeService
         $bill = Bills::whereMonth('created_at', $currentMonth)->get();
         $revenue = 0;
         foreach ($bill as $item) {
-            $revenue += $item->total_money;
+            $revenue += $item->total_money_after_discount;
         }
         return $revenue;
     }
@@ -51,7 +51,7 @@ class HomeService
         $bill = Bills::whereYear('created_at', $currentMonth)->get();
         $revenue = 0;
         foreach ($bill as $item) {
-            $revenue += $item->total_money;
+            $revenue += $item->total_money_after_discount;
         }
         return $revenue;
     }
@@ -78,7 +78,7 @@ class HomeService
                 ->get();
             $dataRevenue[$month] = 0;
             foreach ($bill as $item) {
-                $dataRevenue[$month] += $item->total_money;
+                $dataRevenue[$month] += $item->total_money_after_discount;
             }
         }
         return [$dataTrip, $dataUser, $dataRevenue];

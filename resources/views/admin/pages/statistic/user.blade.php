@@ -105,12 +105,9 @@
                     </div>
                 </div>
 
-
-
                 <div class="row mx-auto">
                     <div class="col-xl-4 col-lg-6 p-0">
                         <canvas id="userChart" width="400" height="400"></canvas>
-
                     </div>
 
                     <div class="col p-0 px-lg-4">

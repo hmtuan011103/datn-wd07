@@ -34,4 +34,8 @@ class Bill extends Model
     public function user() : BelongsTo {
         return $this->belongsTo(User::class);
     }
+
+    public function discountCode() : BelongsTo {
+        return $this->belongsTo(DiscountCode::class);
+    }
 }

@@ -51,7 +51,7 @@ class SubmitController extends Controller
         if ($status === Password::PASSWORD_RESET) {
             toastr()->success(__($status), 'Thành công');
 
-            return redirect()->route('/');
+            return redirect()->route('admin.homepage');
         }
 
         toastr()->error(__($status), 'Thất bại');

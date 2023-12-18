@@ -294,7 +294,7 @@ class CheckoutServiceAdminDirect
             'endTurn_0' => $direct_endTurn_0,
             'startTurn_1' => $direct_startTurn_1,
             'endTurn_1' => $direct_endTurn_1,
-            'type_payment' => 2,
+            'type_payment' => 3,
             'discount_code_id' => $request->discount_code_id ?? null,
             'moneyTurnNotReduce' => $request->money_turn,
             'moneyReturnNotReduce' => $request->money_return

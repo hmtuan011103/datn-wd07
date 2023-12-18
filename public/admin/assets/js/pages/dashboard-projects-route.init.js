@@ -1,45 +1,5 @@
-window.addEventListener('DOMContentLoaded', function () {
-    selectElement.value = 2023;
-    selectElement.dispatchEvent(new Event('change'));
-});
 var selectElement = document.getElementById('year');
-
 selectElement.addEventListener('change', updateChart);
-function updateChart() {
-    var selectedValue = selectElement.value;
-    fetch("http://127.0.0.1:8000/api/get_data_route?year=" + selectedValue)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            dataChart(data)
-            const trip = document.getElementById('total_trip');
-            const ticket = document.getElementById('total_ticket');
-            const revenue = document.getElementById('total_revenue');
-
-            let total_trip = 0;
-            for (const key in data[0][0]) {
-                total_trip += data[0][0][key];
-            }
-            let total_ticket = 0;
-            for (const key in data[0][1]) {
-                total_ticket += data[0][1][key];
-            }
-            let total_revenue = 0;
-            for (const key in data[0][2]) {
-                total_revenue += data[0][2][key];
-            }
-            const formattedNumber = total_revenue.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
-
-            trip.innerText = total_trip;
-            ticket.innerText = total_ticket;
-            revenue.innerText = formattedNumber;
-        })
-        .catch(function (error) {
-            console.log("Đã xảy ra lỗi:", error);
-        });
-}
-
 function dataChart(data) {
     var datatrip = Object.values(data[0][0])
     var datauser = Object.values(data[0][1])
@@ -153,8 +113,38 @@ function dataChart(data) {
                     options
                 ))),
                 {});
-    // chart.updateSeries(data);
-    console.log(chart)
     chart.render()
-    
 }
+function updateChart() {
+    var selectedValue = selectElement.value;
+    fetch("http://127.0.0.1:8000/api/get_data_route?year=" + selectedValue ?? "2023")
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            const trip = document.getElementById('total_trip');
+            const ticket = document.getElementById('total_ticket');
+            const revenue = document.getElementById('total_revenue');
+
+            let total_trip = 0;
+            for (const key in data[0][0]) {
+                total_trip += data[0][0][key];
+            }
+            let total_ticket = 0;
+            for (const key in data[0][1]) {
+                total_ticket += data[0][1][key];
+            }
+            let total_revenue = 0;
+            for (const key in data[0][2]) {
+                total_revenue += data[0][2][key];
+            }
+            const formattedNumber = total_revenue.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+
+            trip.innerText = total_trip;
+            ticket.innerText = total_ticket;
+            revenue.innerText = formattedNumber;
+            dataChart(data);
+        })
+}
+updateChart();
+

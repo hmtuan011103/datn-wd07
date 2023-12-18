@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? ""}}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('client/assets/images/favicon.ico') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('client/assets/css/style.css') }}">
@@ -29,9 +30,9 @@
                     <div class="login_tag mt-4" style="width: 40%;">
                         <img src="http://127.0.0.1:8000/client/assets/images/logo_chienthang.jpg" alt="" style="width: 100%;/* max-width: 100%; */height: auto;padding-left: 25px;">
                     </div>
-                    <div  class= "login-img">
+                    <a  class= "login-img" href="{{ route('trang_chu') }}">
                         <img src="http://127.0.0.1:8000/client/assets/images/tcv.svg" alt="" style="max-width: 100%; height: auto;">
-                    </div>
+                    </a>
                 </div>
                 <div class="col-md-6 col-sm-12 col-xl-5">
                     <div class="text-center mt-4 mb-4" id= "loginName"><h4>Đăng Nhập Tài Khoản</h4></div>
@@ -55,6 +56,11 @@
                                 <p id="error-message" class="error-message" style="display: none;"></p>
                                 <button type="submit" class="ant-btn-primary" onclick="validateForm()">Đăng Nhập</button>
                             </form>
+                            <div class="text-end user-select-none pt-2" style="">
+                                <a href="{{ route('forgot.password.form') }}" style="text-decoration: none !important;">
+                                    <span class="text-muted" style="font-size: 14px; color: #F9821D !important">Quên mật khẩu?</span>
+                                </a>
+                            </div>
                         <form id="register-form" style="display: none">
                             <div class="form1">
                                 <div class="input-group">

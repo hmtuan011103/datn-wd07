@@ -114,7 +114,7 @@ class OrderTicketController
             } else {
                 // Save User
                 $user = User::query()->create([
-                    'user_type_id' => 6,
+                    'user_type_id' => 7,
                     'email' => $cacheData['email'],
                     'name' => $cacheData['name'],
                     'phone_number' => $cacheData['phone_number'],

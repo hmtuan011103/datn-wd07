@@ -79,33 +79,8 @@
                     <div class="card">
                         <div class="card-header border-0 align-items-center d-flex">
                             <h4 class="card-title mb-0 flex-grow-1">Thống kê năm </h4>
-                            {{-- <div>
-                                <button type="button" class="btn btn-soft-secondary btn-sm shadow-none">
-                                    ALL
-                                </button>
-                                <button type="button" class="btn btn-soft-secondary btn-sm shadow-none">
-                                    1M
-                                </button>
-                                <button type="button" class="btn btn-soft-secondary btn-sm shadow-none">
-                                    6M
-                                </button>
-                                <button type="button" class="btn btn-soft-primary btn-sm shadow-none">
-                                    1Y
-                                </button>
-                            </div> --}}
                             <div>
                                 <div class="row">
-                                    {{-- <div class="form-group col-md-6">
-                                        <label class="control-label">Tuyến xe</label>
-                                        <select class="form-control" id="route" >
-                                            <option value="2020" >2020</option>
-                                            <option value="2021" >2021</option>
-                                            <option value="2023" selected>2023</option>
-                                            <option value="2024" >2024</option>
-                                            <option value="2025" >2025</option>
-                                        </select>
-                                        <span aria-hidden="true"></span>
-                                    </div> --}}
                                     <div class="form-group">
                                         <label class="control-label">Năm</label>
                                         <select class="form-control" id="year" >
@@ -147,15 +122,6 @@
                                         <p class="text-muted mb-0">Doanh thu</p>
                                     </div>
                                 </div>
-                                <!--end col-->
-                                {{-- <div class="col-6 col-sm-3">
-                                    <div class="p-3 border border-dashed border-start-0 border-end-0">
-                                        <h5 class="mb-1 text-success"><span class="counter-value"
-                                                data-target="10589">0</span>h</h5>
-                                        <p class="text-muted mb-0">Working Hours</p>
-                                    </div>
-                                </div> --}}
-                                <!--end col-->
                             </div>
                         </div><!-- end card header -->
                         <div class="card-body p-0 pb-2">
@@ -170,59 +136,7 @@
                 </div><!-- end col -->
             </div>
             <div class="row mx-auto">
-                {{-- <div class="col-xl-4 col-lg-6 p-0">
-                    <div class="card">
-                        <div class="row p-3">
-                            <div class="card-height-100">
-                                <div class="card-header align-items-center d-flex">
-                                    <h4 class="card-title mb-0 flex-grow-1">Số lượng xe theo loại xe</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div id="statistic-count-car-each-type-car" class="apex-charts" dir="ltr">
-                                        <input type="text" value="{{ $statisticTypeCar }}"
-                                            id="statistic-count-car-each-type-car-data" hidden>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
-                {{-- <div class="col p-0 px-lg-4">
-                    <div class="card card-height-100">
-                        <div class="card-header align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1">Thống kê tuyến xe</h4>
-                        </div><!-- end card header -->
-                        <div class="card-body">
-                            <div class="table-responsive table-card">
-                                <table class="table align-middle table-borderless table-centered table-nowrap mb-0">
-                                    <thead class="text-muted table-light">
-                                        <tr>
-                                            <th scope="col">STT</th>
-                                            <th scope="col" style="width: 62;">Tuyến đường</th>
-                                            <th scope="col">Số chuyến đã chạy</th>
-                                            <th scope="col">Số chuyến chưa chạy</th>
-                                            <th scope="col">Tổng thời gian đã chạy</th>
-                                            <th scope="col">Số lượt khách</th>
-                                            <th scope="col">Doanh thu (đ)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($getTopRoute as $key => $value)
-                                            <tr>
-                                                <td>{{ ++$key }}</td>
-                                                <td>{{ $value->name }}</td>
-                                                <td>{{ $value->total_trip }}</td>
-                                                <td>{{ $value->total_seats ?? 0 }}</td>
-                                                <td>{{ number_format($value->total_money, 0, ',', '.') ?? 0 }}</td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
-                <div class="col p-0 px-lg-4">
+                <div class="col p-0">
                     <div class="card card-height-100">
                         <div class="card-header align-items-center d-flex">
                             <h4 class="card-title mb-0 flex-grow-1">Xếp hạng 10 tuyến doanh thu cao nhất</h4>
@@ -255,7 +169,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>

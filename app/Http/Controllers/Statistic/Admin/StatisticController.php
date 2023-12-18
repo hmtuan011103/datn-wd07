@@ -10,10 +10,23 @@ class StatisticController extends BaseStatisticController
     public function index()
     {
         $title = 'Thống kê xe';
-
         // query
         $getTypeCar = $this->statisticService->statisticTypeCar();
         $getTopCar = $this->statisticService->statisticTopCar();
+
+        $getRoute = $this->statisticService->getRoute();
+        $getTrip = $this->statisticService->getTrip();
+        $getRevenue = $this->statisticService->getRevenue();
+        // format data
+        $getTopRoute = $this->statisticService->getTopRoute();
+
+        $topUser = $this->statisticService->top10User();
+        $getCountDriver = $this->statisticService->countTripDriver();
+        $getCountAssistant = $this->statisticService->countTripAssistant();
+        $sumStaff = $this->statisticService->sumStaff();
+        $sumDriver =  $this->statisticService->sumDriver();
+        $sumAssistant =  $this->statisticService->sumAssistant();
+        $sumTickerSeller =  $this->statisticService->sumTickerSeller();
 
         // format data
         $getTypeCar = $getTypeCar->getData()->data;
@@ -26,7 +39,7 @@ class StatisticController extends BaseStatisticController
         }
         $statisticTypeCar = json_encode($getTypeCar);
 
-        return view('admin.pages.statistic.main', compact('title', 'statisticTypeCar', 'totalTypeCar', 'totalCar', 'getTopCar'));
+        return view('admin.pages.statistic.main', compact('title', 'statisticTypeCar', 'totalTypeCar', 'totalCar', 'getTopCar', 'getRoute', 'getTrip', 'getRevenue', 'getTopRoute', 'topUser', 'getCountDriver', 'getCountAssistant', 'sumStaff', 'sumDriver', 'sumAssistant', 'sumTickerSeller'));
     }
     public function user()
     {

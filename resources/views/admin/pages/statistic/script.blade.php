@@ -18,7 +18,6 @@
 <script src={{ asset('admin/assets/libs/node-waves/waves.min.js') }}></script>
 <script src={{ asset('admin/assets/libs/feather-icons/feather.min.js') }}></script>
 {{-- <script src="{{ asset('admin/assets/libs/prismjs/prism.js') }}"></script> --}}
-
 <!-- Sweet Alerts js -->
 <script src="{{ asset('admin/assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

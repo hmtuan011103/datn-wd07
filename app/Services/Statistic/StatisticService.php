@@ -217,7 +217,7 @@ class StatisticService
 
           // Xử lí lấy dữ liệu doanh thu từ cơ sở dữ liệu
           // Đây chỉ là ví dụ, bạn cần thay thế bằng cách lấy dữ liệu thực tế từ cơ sở dữ liệu của bạn
-          $revenueData = Bill::selectRaw('MONTH(created_at) as month, COUNT(trip_id) as total_trips, SUM(total_money) as total')
+          $revenueData = Bill::selectRaw('MONTH(created_at) as month, COUNT(trip_id) as total_trips, SUM(total_money_after_discount) as total')
                ->whereYear('created_at', $year)
                ->groupBy('month')
                ->orderBy('month')
