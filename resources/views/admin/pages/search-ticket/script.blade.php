@@ -179,16 +179,20 @@
                   </div>
                   <div class="order-ticket">
                     <div class="column-ticket text">
+                      <p>Mã vé</p>
                       <p>Tên tuyến</p>
                       <p>Thời gian</p>
+                      <p>Biển số xe</p>
                       <p>Số ghế</p>
                       <p>Điểm đón</p>
                       <p>Điểm trả </p>
                       <p>Giá vé</p>
                     </div>
                     <div class="column-ticket data">
+                      <p>${ticket.code_ticket} </p>
                       <p>${ticket.start_location} - ${ticket.end_location} </p>
                       <p>${formattedStartTime} ${formattedStartDate}</p>
+                      <p>${ticket.bill.trip.car.license_plate}</p>
                       <p>${ticket.code_seat}</p>
                       <p>${ticket.pickup_location}</p>
                       <p>${ticket.pay_location}</p>

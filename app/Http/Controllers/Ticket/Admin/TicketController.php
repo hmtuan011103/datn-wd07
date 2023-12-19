@@ -45,7 +45,7 @@ class TicketController extends BaseTicketController
 
     public function export($codes){
         $codeArray = explode(',', $codes);
-        $tickets = Ticket::whereIn('code_ticket',$codeArray)->with('bill.trip.route')->get();
+        $tickets = Ticket::whereIn('code_ticket',$codeArray)->with('bill.trip.route','bill.trip.car')->get();
         foreach ($tickets as $key => $value) {
             $dateTime = $value->bill->trip->start_date;
             $time = $value->bill->trip->start_time;
@@ -67,7 +67,7 @@ class TicketController extends BaseTicketController
             return redirect()->back();
         }
         $number_ticket = count($tickets);
-        $length = $number_ticket*490;
+        $length = $number_ticket*580;
         $dompdf = new Dompdf();
         // return view('admin.pages.search-bill.pdf',compact('tickets'));
         $html = view('admin.pages.search-bill.pdf', compact('tickets','number_ticket'))->render();

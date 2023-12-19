@@ -31,7 +31,7 @@
 
         .ticket-details {
             max-width: 600px;
-            height: 200px;
+            height: 270px;
             margin: 0 auto;
             padding: 10px 20px;
         }
@@ -115,14 +115,18 @@
                 </div>
                 <div class="ticket-details">
                     <div class="title">
+                        <p><b>Mã vé:</b> </p>
                         <p><b>Thời gian:</b> </p>
+                        <p><b>Biển số xe:</b> </p>
                         <p><b>Số ghế:</b> </p>
                         <p><b>Điểm đón:</b> </p>
                         <p><b>Điểm trả:</b> </p>
                         <p><b>Giá vé:</b> </p>
                     </div>
                     <div class="data">
+                        <p class="time"><b>{{$ticket->code_ticket}}</b></p>
                         <p class="time"><b>{{$ticket->time_start}}</b></p>
+                        <p class="seat"><b>{{$ticket->bill->trip->car->license_plate}}</b></p>
                         <p class="seat"><b>{{$ticket->code_seat}}</b></p>
                         <p class="location"><b>{{$ticket->pickup_location}}</b></p>
                         <p class="location"><b>{{$ticket->pay_location}}</b></p>

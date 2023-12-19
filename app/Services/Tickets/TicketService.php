@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
                 ->join('trips', 'bills.trip_id', '=', 'trips.id')
                 ->where('bills.user_phone', $request->phone_number)
                 ->where('bills.code_bill', $request->code_bill)
+                ->with('bill.trip.car')
                 ->select('ticket_order.*', 'users.*', 'trips.*','bills.*','ticket_order.status AS ticket_status')
                 ->get();
             
@@ -31,6 +32,7 @@ use Illuminate\Support\Facades\DB;
                 ->join('trips', 'bills.trip_id', '=', 'trips.id')
                 ->where('bills.user_phone', $request->phone_number)
                 ->where('ticket_order.code_ticket', $request->code_ticket)
+                ->with('bill.trip.car')
                 ->select('ticket_order.*', 'users.*', 'trips.*','bills.*','ticket_order.status AS ticket_status')
                 ->get();
             

@@ -123,7 +123,7 @@
                         ticketInfo.className = "table-ticket";
                         ticketInfo.innerHTML = `
             <div class="title">
-              <p>THÔNG TIN VÉ</p>
+              <p>THÔNG TIN HÓA ĐƠN</p>
             </div>
             <div class="row detail-user">
               <div class="col-md-6 text-user">
@@ -177,6 +177,7 @@
                         <p>Mã vé</p>
                       <p>Tên tuyến</p>
                       <p>Thời gian</p>
+                      <p>Biển số xe</p>
                       <p>Số ghế</p>
                       <p>Điểm đón</p>
                       <p>Điểm trả </p>
@@ -186,6 +187,7 @@
                         <p>${ticket.code_ticket} </p>
                       <p>${ticket.start_location} - ${ticket.end_location} </p>
                       <p>${formattedStartTime} ${formattedStartDate}</p>
+                      <p>${ticket.bill.trip.car.license_plate}</p>
                       <p>${ticket.code_seat}</p>
                       <p>${ticket.pickup_location}</p>
                       <p>${ticket.pay_location}</p>
