@@ -124,7 +124,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group has-feedback">
                                                 <label class="control-label">Trạng thái</label>
-                                                <select class="form-control selectpicker" multiple name="status"
+                                                <select class="form-control selectpicker" name="status"
                                                     data-style="btn-light"  data-size="5">
                                                     <option value="0" >Không hoạt động</option>
                                                     <option value="1" selected>Hoạt động</option>

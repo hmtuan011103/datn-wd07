@@ -47,7 +47,7 @@
                         let cell1 = row.insertCell(0);
                         let startLocation = bill.trip.start_location;
                         let endLocation = bill.trip.end_location;
-                        cell1.textContent = `${startLocation} đến ${endLocation}`;
+                        cell1.textContent = `${startLocation} - ${endLocation}`;
 
                         let cell2 = row.insertCell(1);
                         cell2.textContent = bill.total_seats;
