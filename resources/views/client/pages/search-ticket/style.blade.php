@@ -2,6 +2,9 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <style>
+    .dropdown-toggle::after {
+        display: none !important;
+    }
     .overlay-checkin {
         position: absolute;
         top: 50%;

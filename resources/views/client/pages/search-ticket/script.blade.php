@@ -206,7 +206,7 @@
                         containerTicket.appendChild(ticketContainer);
                         modalBody.appendChild(containerTicket);
                     } else {
-                        modalBody.innerHTML = "Không tìm thấy kết quả.";
+                        modalBody.innerHTML = "<p class='text-center fs-5'>Không tìm thấy kết quả.</p>";
                     }
 
                     // Hiển thị modal
