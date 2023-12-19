@@ -254,19 +254,19 @@
                         <div class="card-header border-0 align-items-center d-flex">
                             <h4 class="card-title mb-0 flex-grow-1">Thống kê năm </h4>
                             <div>
-                                <div class="row">
-{{--                                    <div class="form-group">--}}
-{{--                                        <label class="control-label">Năm</label>--}}
-{{--                                        <select class="form-control" id="year" >--}}
-{{--                                            <option value="2020" >2020</option>--}}
-{{--                                            <option value="2021" >2021</option>--}}
-{{--                                            <option value="2021" >2022</option>--}}
-{{--                                            <option value="2023" selected>2023</option>--}}
-{{--                                            <option value="2024" >2024</option>--}}
-{{--                                            <option value="2025" >2025</option>--}}
-{{--                                        </select>--}}
-{{--                                        <span aria-hidden="true"></span>--}}
-{{--                                    </div>--}}
+                                <div class="row" hidden>
+                                 <div class="form-group">
+                                     <label class="control-label">Năm</label>
+                                       <select class="form-control" id="year" >
+                                            <option value="2020" >2020</option>
+                                            <option value="2021" >2021</option>
+                                          <option value="2021" >2022</option>
+                                           <option value="2023" selected>2023</option>
+                                           <option value="2024" >2024</option>
+                                           <option value="2025" >2025</option>
+                                        </select>
+                                        <span aria-hidden="true"></span>
+                                   </div>
                                 </div>
                             </div>
                         </div><!-- end card header -->
