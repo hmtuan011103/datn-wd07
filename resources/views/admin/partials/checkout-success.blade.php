@@ -163,7 +163,8 @@
             </div>
             <div class="row justify-content-center px-3">
                 <div class="col-lg-3 col-md-6 col-xs-12 text-center">
-                    <a href="{{ route('order_ticket-admin') }}" class="btn w-100 fw-medium button-important text-decoration-none d-flex justify-content-center">
+
+                    <a href="http://127.0.0.1:8000/manage/order-ticket" class="btn w-100 fw-medium button-important text-decoration-none d-flex justify-content-center">
                         <div>
                             <i class="fa-solid fa-house"></i>
                         </div>
@@ -172,18 +173,30 @@
                         </div>
                     </a>
                 </div>
-{{--                <div class="col-lg-3 col-md-6 col-xs-12 text-center">--}}
-{{--                    <button type="button" class="btn w-100 fw-medium button-important">--}}
-{{--                        <div class=" d-flex justify-content-center">--}}
-{{--                            <div>--}}
-{{--                                <i class="fa-solid fa-download"></i>--}}
-{{--                            </div>--}}
-{{--                            <div class="ps-2">--}}
-{{--                                Tải về--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </button>--}}
-{{--                </div>--}}
+                <div class="col-lg-3 col-md-6 col-xs-12 text-center">
+                    @php
+                        $arrayTripTicket = [];
+                        foreach ($data['turn'] as $item) {
+                            $arrayTripTicket[] = $item->code_ticket;
+                        }
+                        if(isset($data['return'])) {
+                            foreach ($data['return'] as $item) {
+                                $arrayTripTicket[] = $item->code_ticket;
+                            }
+                        }
+                        $stringTripTicket = implode(',', $arrayTripTicket);
+                    @endphp
+                    <a href="http://127.0.0.1:8000/manage/search-bill/export/{{$stringTripTicket}}" class="btn w-100 fw-medium button-important text-decoration-none d-flex justify-content-center">
+                        <div class=" d-flex justify-content-center">
+                            <div>
+                                <i class="fa-solid fa-download"></i>
+                            </div>
+                            <div class="ps-2">
+                                In vé
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
 

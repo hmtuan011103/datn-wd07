@@ -114,7 +114,7 @@
                 </p>
 
             </div>
-            <a href="{{ route('review', ['id_trip' => $id_trip, 'id_user' => $user->id]) }}" class="button">Đánh Giá Chuyến Đi</a>
+            <a href="{{ route('review', ['id_trip' => $tripInfo->id, 'id_user' => $user->id]) }}" class="button">Đánh Giá Chuyến Đi</a>
         </div>
         <div class="footer">
             <p>&copy; 2023 Chiến Thắng Bus. All rights reserved.</p>
