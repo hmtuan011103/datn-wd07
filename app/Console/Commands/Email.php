@@ -45,28 +45,26 @@ class Email extends Command
                             });
                     });
             })->where('gmail_sent', 0)->get();
-
             if ($recentlyCompletedTrips->isNotEmpty()) {
                 $relatedUsers = DB::table('bills')
                     ->join('trips', 'bills.trip_id', '=', 'trips.id')
                     ->whereIn('trips.id', $recentlyCompletedTrips->pluck('id'))
-                    ->select('bills.*')
+                    ->select('bills.*') // Chọn tất cả các cột từ bảng bills
                     ->get();
                 $subject = '[CHIENTHANGBUS] Chia Sẻ Trải Nghiệm Của Bạn - Nhà Xe Chiến Thắng Luôn Lắng Nghe';
-                $userIds = $relatedUsers->pluck('user_id');
-                foreach ($recentlyCompletedTrips as $recentlyCompletedTrip){
-                    foreach ($userIds as $user) {
-                          $userSendMail = User::query()->find($user);
-                        Mail::send('client.pages.email.date_time_email', ['user' => $userSendMail,
-                            'id_trip' => $recentlyCompletedTrip->id,
-                            'tripInfo' => $recentlyCompletedTrip],
-                            function ($email) use ($userSendMail, $subject) {
+                Trip::whereIn('id', $recentlyCompletedTrips->pluck('id'))->update(['gmail_sent' => 1]);
+                foreach ($relatedUsers as $relatedUser) {
+                    $userSendMail = User::query()->find($relatedUser->user_id);
+                    $tripInfo = $recentlyCompletedTrips->where('id', $relatedUser->trip_id)->first();
+                    Mail::send('client.pages.email.date_time_email', ['user' => $userSendMail,
+                        'id_trip' => $relatedUser->id,
+                        'tripInfo' => $tripInfo],
+                        function ($email) use ($userSendMail, $subject) {
                             $email->subject($subject);
                             $email->to($userSendMail->email);
                         });
-                    }
                 }
-                Trip::whereIn('id', $recentlyCompletedTrips->pluck('id'))->update(['gmail_sent' => 1]);
+
             }
         } catch (\Exception $e) {
             \Log::error('Error sending notification email: ' . $e->getMessage());
