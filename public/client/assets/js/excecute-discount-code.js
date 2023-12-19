@@ -51,7 +51,12 @@ $('.btn-execute-code-discount').on('click', async (e) => {
                 const informationCode = data[0];
                 if (informationCode.id_type_discount_code === 1) {
                     const moneyAfterReduce = (totalBeforeFirst * informationCode.value) / 100;
-                    const value = totalBeforeFirst - moneyAfterReduce;
+                    let value;
+                    if(totalBeforeFirst - moneyAfterReduce <= 10000) {
+                        value = 10000;
+                    } else {
+                        value = totalBeforeFirst - moneyAfterReduce;
+                    }
                     const moneyTurn = $('input[name="money_turn"]');
                     const moneyReturn = $('input[name="money_return"]');
                     if(moneyReturn.val() === ""){
@@ -62,13 +67,22 @@ $('.btn-execute-code-discount').on('click', async (e) => {
                     $('input[name="discount_code_id"]').val(informationCode.id);
                 }
                 if (informationCode.id_type_discount_code === 2) {
-                    const value = totalBeforeFirst - informationCode.value;
+                    let value;
+                    let showDiscountCode;
+                    if(totalBeforeFirst - informationCode.value <= 10000) {
+                        value = 10000;
+                        showDiscountCode = totalBeforeFirst - 10000;
+                    } else {
+                        value = totalBeforeFirst - informationCode.value;
+                        showDiscountCode = informationCode.value
+                    }
+
                     const moneyTurn = $('input[name="money_turn"]');
                     const moneyReturn = $('input[name="money_return"]');
                     if(moneyReturn.val() === ""){
                         moneyTurn.val(value);
                     }
-                    $('.value_discount_fill').text(`-${(informationCode.value).toLocaleString("vi-VN")}đ`);
+                    $('.value_discount_fill').text(`-${(showDiscountCode).toLocaleString("vi-VN")}đ`);
                     $('.total_money_final').text(value.toLocaleString("vi-VN"));
                     $('input[name="discount_code_id"]').val(informationCode.id);
                 }

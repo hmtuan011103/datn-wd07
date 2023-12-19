@@ -37,7 +37,7 @@
                     <div class="w-50 ps-4">
                         <p class="fs-16 fw-medium infor-user-title ta-center cl-orange">ĐIỀU KHOẢN & LƯU Ý</p>
                         <div class="mb-3 fs-14 fw-medium">
-                            (*) Quý khách vui lòng có mặt tại bến xuất phát của xe trước ít nhất 30 phút giờ xe khởi hành, mang theo thông báo đã thanh toán vé thành công có chứa mã vé được gửi từ hệ thống FUTA BUS LINE. Vui lòng liên hệ Trung tâm tổng đài 1900 6067 để được hỗ trợ.
+                            (*) Quý khách vui lòng có mặt tại quầy đổi vé trước ít nhất 30 phút giờ xe khởi hành, mang theo thông báo đã thanh toán vé thành công có chứa mã vé được gửi từ hệ thống CHIEN THANG BUS LINE. Vui lòng liên hệ Trung tâm tổng đài 1900 6067 để được hỗ trợ.
                         </div>
                         <div class="fs-14 fw-medium">
                             (*) Nếu quý khách có nhu cầu trung chuyển, vui lòng liên hệ Tổng đài trung chuyển 1900 6918 trước khi đặt vé. Chúng tôi không đón/trung chuyển tại những điểm xe trung chuyển không thể tới được.
